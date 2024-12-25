@@ -1,0 +1,30 @@
+重写.el-menu--collapse, .re-el-menu--collapse {
+    width: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2) !important;
+}
+
+.el-aside:not(.re-el-menu--collapse) {
+    width: 200px !important;
+}
+
+.el-header {
+    width: calc(100% - 200px);
+    height: 59px !important;
+    border-bottom: 1px solid #e5e7eb;
+    position: fixed;
+    padding: 0 !important;
+}
+
+// 收缩后header宽度
+.re-el-header-width {
+    width: calc(100% - (var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2)) !important;
+}
+
+.el-main {
+    margin-top: 100px;
+    height: calc(100vh - 100px);
+    background-color: #fafafa;
+}
+
+.el-divider--vertical {
+    border-color: $borderColor !important;
+}

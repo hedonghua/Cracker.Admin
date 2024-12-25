@@ -1,0 +1,34 @@
+$height = 59px;
+
+.navbar-wrapper {
+    height: $height;
+    color: #606266;
+    font-size: 16px !important;
+
+    .btn-toggle-wrapper, li {
+        padding-left: 15px;
+        padding-right: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-toggle {
+        font-size: 1.2em;
+    }
+
+    li {
+        height: $height;
+        line-height: $height;
+
+        img {
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    li:hover, .btn-toggle-wrapper:hover {
+        cursor: pointer;
+        background-color: #f6f6f6;
+    }
+}

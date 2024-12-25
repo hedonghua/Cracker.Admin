@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Cracker.Admin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cracker.Admin.Domain.Shared\Cracker.Admin.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Volo.Abp.ObjectExtending" Version="8.2.1" />
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="8.2.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+{
+  "name": "cracker-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --mode dev",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "axios": "^1.6.7",
+    "dayjs": "^1.11.10",
+    "element-plus": "^2.7.5",
+    "lodash": "^4.17.21",
+    "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "stylus": "^0.62.0",
+    "uuid": "^9.0.1",
+    "vue": "^3.4.19",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@iconify/vue": "^4.1.1",
+    "@types/lodash": "^4.17.5",
+    "@types/node": "^20.11.20",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "autoprefixer": "^10.4.17",
+    "mockjs": "^1.1.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vite-plugin-mock": "^3.0.1",
+    "vue-tsc": "^1.8.27"
+  }
+}
