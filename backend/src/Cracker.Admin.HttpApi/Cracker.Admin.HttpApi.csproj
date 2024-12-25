@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Cracker.Admin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ip2region.xdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ip2region.xdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cracker.Admin.Application.Contracts\Cracker.Admin.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IP2Region.Net" Version="2.0.2" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="8.2.1" />
+	  <PackageReference Include="UAParser" Version="3.1.47" />
+  </ItemGroup>
+
+</Project>

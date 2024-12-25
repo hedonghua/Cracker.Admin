@@ -1,0 +1,24 @@
+.re-tab-wrapper {
+    position: fixed;
+    top: 60px;
+    width: calc(100% - 200px);
+    height: 39px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-left: 15px;
+    padding-right: 15px;
+    z-index: 998;
+
+    .el-tag:hover {
+        cursor: pointer;
+    }
+
+    #dynamicTabContainer {
+        overflow: hidden;
+        position: relative; /* 为平移做准备 */
+    }
+
+    #dynamicTabContent {
+        width: 100%; /* 内容宽度设置为100%，但内容可能会很长 */
+        transition: transform 0.3s ease; /* 平滑过渡效果 */
+    }
+}
