@@ -5,7 +5,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 用户角色关联表
     /// </summary>
-    public class SysUserRole : Entity<Guid>
+    public class SysUserRole : Entity
     {
         /// <summary>
         /// 用户ID
@@ -16,5 +16,10 @@ namespace Cracker.Admin.Entities
         /// 角色ID
         /// </summary>
         public Guid RoleId { get; set; }
+
+        public override object?[] GetKeys()
+        {
+            return [UserId, RoleId];
+        }
     }
 }

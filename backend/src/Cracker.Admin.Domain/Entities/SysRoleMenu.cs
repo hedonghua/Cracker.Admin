@@ -5,7 +5,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 角色菜单表
     /// </summary>
-    public class SysRoleMenu : Entity<Guid>
+    public class SysRoleMenu : Entity
     {
         /// <summary>
         /// 菜单ID
@@ -16,5 +16,10 @@ namespace Cracker.Admin.Entities
         /// 角色ID
         /// </summary>
         public Guid RoleId { get; set; }
+
+        public override object?[] GetKeys()
+        {
+            return [MenuId, RoleId];
+        }
     }
 }

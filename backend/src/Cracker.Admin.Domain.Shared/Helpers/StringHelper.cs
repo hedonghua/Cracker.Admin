@@ -25,5 +25,37 @@ namespace Cracker.Admin.Helpers
             }
             return sb.ToString();
         }
+
+        /// <summary>
+        /// 小写加下划线命名转帕斯卡命名
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToPascalCase(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            // 使用StringBuilder来构建结果字符串
+            StringBuilder pascalCase = new StringBuilder();
+
+            // 分割字符串
+            string[] words = input.Split('_');
+
+            // 遍历每个单词，并将其首字母大写
+            foreach (string word in words)
+            {
+                if (word.Length > 0)
+                {
+                    pascalCase.Append(char.ToUpperInvariant(word[0]));
+                    if (word.Length > 1)
+                    {
+                        pascalCase.Append(word.Substring(1).ToLowerInvariant());
+                    }
+                }
+            }
+
+            return pascalCase.ToString();
+        }
     }
 }

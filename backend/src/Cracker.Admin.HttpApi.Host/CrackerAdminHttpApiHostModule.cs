@@ -1,10 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using Coravel;
+
 using Cracker.Admin.Core;
-using Cracker.Admin.EntitiesFrameworkCore;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Middlewares;
 using Cracker.Admin.MultiTenancy;
 using Cracker.Admin.Services;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -13,11 +18,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web.Http;
 
 using Volo.Abp;
 using Volo.Abp.AspNetCore.MultiTenancy;
@@ -28,8 +28,6 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
-using Volo.Abp.UI.Navigation.Urls;
-using Volo.Abp.VirtualFileSystem;
 
 namespace Cracker.Admin;
 
@@ -64,6 +62,8 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         {
             return sp.GetRequiredService<IHttpContextAccessor>().HttpContext?.Features.Get<ReHeader>() ?? ReHeader.Default();
         });
+
+        context.Services.AddHostedService<DatabaseMigrationHostService>();
     }
 
     private void ConfigureFilters(ServiceConfigurationContext context, IConfiguration configuration)

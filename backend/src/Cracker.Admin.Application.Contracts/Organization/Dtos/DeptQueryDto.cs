@@ -2,7 +2,7 @@ using System;
 
 using Cracker.Admin.Models;
 
-namespace Cracker.Admin.System.Dtos
+namespace Cracker.Admin.Organization.Dtos
 {
     public class DeptQueryDto : PageSearch
     {

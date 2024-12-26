@@ -29,7 +29,7 @@ namespace Cracker.Admin.Controllers.System.LogManagement
         [HttpDelete("delete")]
         [AppResultFilter]
         [Permission("admin_system_businesslog_delete")]
-        public Task<bool> DeleteBusinessLogsAsync([FromBody] int[] ids) => _businessLogService.DeleteBusinessLogsAsync(ids);
+        public Task<bool> DeleteBusinessLogsAsync([FromBody] long[] ids) => _businessLogService.DeleteBusinessLogsAsync(ids);
 
         /// <summary>
         /// 业务日志分页列表

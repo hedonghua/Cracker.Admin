@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Cracker.Admin.System.Dtos
+namespace Cracker.Admin.Organization.Dtos
 {
     public class DeptListDto
     {

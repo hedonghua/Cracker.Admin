@@ -19,7 +19,7 @@ namespace Cracker.Admin.System.LogManagement
             _loginLogRepository = loginLogRepository;
         }
 
-        public async Task<bool> DeleteLoginLogsAsync(int[] ids)
+        public async Task<bool> DeleteLoginLogsAsync(long[] ids)
         {
             await _loginLogRepository.DeleteDirectAsync(x => ids.Contains(x.Id));
             return true;

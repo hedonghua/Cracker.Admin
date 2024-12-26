@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+using Cracker.Admin.Core;
+
 namespace Cracker.Admin.Models
 {
     public class AppResult : IAppResult
@@ -30,7 +32,7 @@ namespace Cracker.Admin.Models
         }
     }
 
-    public class AppResult<T> : AppResult
+    public class AppResult<T> : AppResult, IAppResult<T>
     {
         [JsonPropertyOrder(2)]
         public T? Data { get; set; }

@@ -19,7 +19,7 @@ namespace Cracker.Admin.System.LogManagement
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<bool> DeleteBusinessLogsAsync(int[] ids);
+        Task<bool> DeleteBusinessLogsAsync(long[] ids);
 
         /// <summary>
         /// 新增业务日志

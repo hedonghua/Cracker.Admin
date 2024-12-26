@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EntityFrameworkCore\**" />
+    <EmbeddedResource Remove="EntityFrameworkCore\**" />
+    <None Remove="EntityFrameworkCore\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Cracker.Admin.Domain\Cracker.Admin.Domain.csproj" />
   </ItemGroup>
 
@@ -17,10 +23,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EntityFrameworkCore\" />
   </ItemGroup>
 
 </Project>

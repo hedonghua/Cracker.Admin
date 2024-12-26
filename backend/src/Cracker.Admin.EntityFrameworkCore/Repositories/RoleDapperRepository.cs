@@ -1,14 +1,15 @@
-using Cracker.Admin.EntitiesFrameworkCore;
 using Cracker.Admin.Models;
-using Cracker.Admin.Repositories;
+
 using Dapper;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Volo.Abp.Domain.Repositories.Dapper;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Cracker.Admin.DAO
+namespace Cracker.Admin.Repositories
 {
     public class RoleDapperRepository : DapperRepository<CrackerAdminDbContext>, IRoleDapperRepository
     {

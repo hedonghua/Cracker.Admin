@@ -3,7 +3,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 登录日志
     /// </summary>
-    public class SysLoginLog : AuditedEntity<int>
+    public class SysLoginLog : CreationAuditedEntity<long>
     {
         /// <summary>
         /// 账号

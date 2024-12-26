@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 
+using Cracker.Admin.Core;
+
 namespace Cracker.Admin.Models
 {
-    public class PagedResultStruct<T>
+    public class PagedResultStruct<T> : PageSearch
     {
         /// <summary>
         /// 分页后数据
@@ -21,6 +23,12 @@ namespace Cracker.Admin.Models
         {
             Items = items;
             TotalCount = totalCount;
+        }
+
+        public PagedResultStruct(IPage page)
+        {
+            this.Page = page.Page;
+            this.Size = page.Size;
         }
     }
 }
