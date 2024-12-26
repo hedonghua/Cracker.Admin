@@ -4616,3 +4616,565 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving 
 2024-12-26 21:34:08.294 +08:00 [INF] Executed action Cracker.Admin.Controllers.System.UserController.GetUserListAsync (Cracker.Admin.HttpApi.Host) in 8.5607ms
 2024-12-26 21:34:08.294 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.System.UserController.GetUserListAsync (Cracker.Admin.HttpApi.Host)'
 2024-12-26 21:34:08.294 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/user/list?page=1&size=10 - 200 null application/json; charset=utf-8 88.3314ms
+2024-12-26 22:23:02.158 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-26 22:23:09.491 +08:00 [INF] Loaded ABP modules:
+2024-12-26 22:23:09.492 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2024-12-26 22:23:09.492 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2024-12-26 22:23:09.492 +08:00 [INF]   - Volo.Abp.AspNetCore.MultiTenancy.AbpAspNetCoreMultiTenancyModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Data.AbpDataModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Uow.AbpUnitOfWorkModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Security.AbpSecurityModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Settings.AbpSettingsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Localization.AbpLocalizationModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.Threading.AbpThreadingModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Auditing.AbpAuditingModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Json.AbpJsonModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2024-12-26 22:23:09.492 +08:00 [INF]             - Volo.Abp.Json.AbpJsonAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]             - Volo.Abp.Timing.AbpTimingModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingContractsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Http.AbpHttpModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Http.AbpHttpAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Minify.AbpMinifyModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2024-12-26 22:23:09.492 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2024-12-26 22:23:09.492 +08:00 [INF]   - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.Dapper.AbpDapperModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2024-12-26 22:23:09.492 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2024-12-26 22:23:09.492 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2024-12-26 22:23:09.492 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2024-12-26 22:23:09.492 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2024-12-26 22:23:09.492 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2024-12-26 22:23:10.244 +08:00 [INF] User profile is available. Using 'C:\Users\crack\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-26 22:23:11.633 +08:00 [INF] Initialized all ABP modules.
+2024-12-26 22:23:12.199 +08:00 [INF] Now listening on: http://localhost:44383
+2024-12-26 22:23:12.264 +08:00 [ERR] Failed executing DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 256), @p2='?' (Size = 40), @p3='?' (DbType = DateTime), @p4='?' (DbType = Guid), @p5='?' (DbType = Guid), @p6='?' (DbType = DateTime), @p7='?' (Size = 4000), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTime), @p10='?' (DbType = Guid), @p11='?' (Size = 64), @p12='?' (Size = 512), @p13='?' (Size = 256), @p14='?' (DbType = Int32), @p15='?' (Size = 32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `SysUser` (`Id`, `Avatar`, `ConcurrencyStamp`, `CreationTime`, `CreatorId`, `DeleterId`, `DeletionTime`, `ExtraProperties`, `IsEnabled`, `LastModificationTime`, `LastModifierId`, `NickName`, `Password`, `PasswordSalt`, `Sex`, `UserName`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15);
+SELECT `IsDeleted`
+FROM `SysUser`
+WHERE ROW_COUNT() = 1 AND `Id` = @p0;
+2024-12-26 22:23:12.270 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-26 22:23:12.271 +08:00 [INF] Hosting environment: Development
+2024-12-26 22:23:12.271 +08:00 [INF] Content root path: D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.HttpApi.Host
+2024-12-26 22:23:12.312 +08:00 [ERR] An exception occurred in the database while saving changes for context type 'Cracker.Admin.CrackerAdminDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Column 'NickName' cannot be null
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Column 'NickName' cannot be null
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Volo.Abp.EntityFrameworkCore.AbpDbContext`1.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.SaveChangesAsync(CancellationToken cancellationToken)
+2024-12-26 22:23:12.354 +08:00 [ERR] BackgroundService failed
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Column 'NickName' cannot be null
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Volo.Abp.EntityFrameworkCore.AbpDbContext`1.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.SaveChangesAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.CompleteAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync(IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Cracker.Admin.Services.DatabaseMigrationHostService.ExecuteAsync(CancellationToken stoppingToken) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Domain\Services\DatabaseMigrationHostService.cs:line 21
+   at Microsoft.Extensions.Hosting.Internal.Host.TryExecuteBackgroundServiceAsync(BackgroundService backgroundService)
+2024-12-26 22:23:12.355 +08:00 [FTL] The HostOptions.BackgroundServiceExceptionBehavior is configured to StopHost. A BackgroundService has thrown an unhandled exception, and the IHost instance is stopping. To avoid this behavior, configure this to Ignore; however the BackgroundService will not be restarted.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> MySqlConnector.MySqlException (0x80004005): Column 'NickName' cannot be null
+   at MySqlConnector.Core.ServerSession.ReceiveReplyAsync(IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/ServerSession.cs:line 894
+   at MySqlConnector.Core.ResultSet.ReadResultSetHeaderAsync(IOBehavior ioBehavior) in /_/src/MySqlConnector/Core/ResultSet.cs:line 37
+   at MySqlConnector.MySqlDataReader.ActivateResultSet(CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 130
+   at MySqlConnector.MySqlDataReader.InitAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, IDictionary`2 cachedProcedures, IMySqlCommand command, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlDataReader.cs:line 483
+   at MySqlConnector.Core.CommandExecutor.ExecuteReaderAsync(CommandListPosition commandListPosition, ICommandPayloadCreator payloadCreator, CommandBehavior behavior, Activity activity, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/Core/CommandExecutor.cs:line 56
+   at MySqlConnector.MySqlCommand.ExecuteReaderAsync(CommandBehavior behavior, IOBehavior ioBehavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 357
+   at MySqlConnector.MySqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken) in /_/src/MySqlConnector/MySqlCommand.cs:line 350
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Pomelo.EntityFrameworkCore.MySql.Storage.Internal.MySqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Volo.Abp.EntityFrameworkCore.AbpDbContext`1.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.SaveChangesAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWork.CompleteAsync(CancellationToken cancellationToken)
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync(IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Cracker.Admin.Services.DatabaseMigrationHostService.ExecuteAsync(CancellationToken stoppingToken) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Domain\Services\DatabaseMigrationHostService.cs:line 21
+   at Microsoft.Extensions.Hosting.Internal.Host.TryExecuteBackgroundServiceAsync(BackgroundService backgroundService)
+2024-12-26 22:23:12.356 +08:00 [INF] Application is shutting down...
+2024-12-26 22:23:12.523 +08:00 [INF] Coravel's Scheduling service is now stopped.
+2024-12-26 22:25:11.753 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-26 22:25:46.684 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-26 22:25:49.263 +08:00 [INF] Loaded ABP modules:
+2024-12-26 22:25:49.264 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2024-12-26 22:25:49.264 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2024-12-26 22:25:49.264 +08:00 [INF]   - Volo.Abp.AspNetCore.MultiTenancy.AbpAspNetCoreMultiTenancyModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Data.AbpDataModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Uow.AbpUnitOfWorkModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Security.AbpSecurityModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Settings.AbpSettingsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Localization.AbpLocalizationModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.Threading.AbpThreadingModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Auditing.AbpAuditingModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Json.AbpJsonModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2024-12-26 22:25:49.264 +08:00 [INF]             - Volo.Abp.Json.AbpJsonAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]             - Volo.Abp.Timing.AbpTimingModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingContractsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Http.AbpHttpModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Http.AbpHttpAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Minify.AbpMinifyModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2024-12-26 22:25:49.264 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2024-12-26 22:25:49.264 +08:00 [INF]   - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.Dapper.AbpDapperModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2024-12-26 22:25:49.264 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2024-12-26 22:25:49.264 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2024-12-26 22:25:49.264 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2024-12-26 22:25:49.264 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2024-12-26 22:25:49.264 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2024-12-26 22:25:49.536 +08:00 [INF] User profile is available. Using 'C:\Users\crack\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-26 22:25:50.823 +08:00 [INF] Initialized all ABP modules.
+2024-12-26 22:25:51.421 +08:00 [INF] Now listening on: http://localhost:44383
+2024-12-26 22:25:51.502 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-26 22:25:51.502 +08:00 [INF] Hosting environment: Development
+2024-12-26 22:25:51.502 +08:00 [INF] Content root path: D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.HttpApi.Host
+2024-12-26 22:25:52.040 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/ - null null
+2024-12-26 22:25:52.849 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:25:52.858 +08:00 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Cracker.Admin.Controllers.HomeController (Cracker.Admin.HttpApi.Host).
+2024-12-26 22:25:52.879 +08:00 [INF] Executing RedirectResult, redirecting to /swagger.
+2024-12-26 22:25:52.881 +08:00 [INF] Executed action Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host) in 20.5296ms
+2024-12-26 22:25:52.881 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:25:52.896 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/ - 302 0 null 860.041ms
+2024-12-26 22:25:52.897 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/index.html - null null
+2024-12-26 22:25:53.003 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/index.html - 200 null text/html;charset=utf-8 105.4359ms
+2024-12-26 22:25:53.044 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-26 22:25:53.046 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - 200 13804 application/javascript; charset=utf-8 2.3519ms
+2024-12-26 22:25:53.047 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_vs/browserLink - null null
+2024-12-26 22:25:53.073 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_vs/browserLink - 200 null text/javascript; charset=UTF-8 25.5735ms
+2024-12-26 22:25:53.102 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - null null
+2024-12-26 22:25:53.244 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 141.6348ms
+2024-12-26 22:26:06.698 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/abp/Swashbuckle/SetCsrfCookie - application/json null
+2024-12-26 22:26:06.755 +08:00 [INF] Executing endpoint 'Volo.Abp.Swashbuckle.AbpSwashbuckleController.SetCsrfCookie (Volo.Abp.Swashbuckle)'
+2024-12-26 22:26:06.756 +08:00 [INF] Route matched with {area = "Abp", action = "SetCsrfCookie", controller = "AbpSwashbuckle"}. Executing controller action with signature Void SetCsrfCookie() on controller Volo.Abp.Swashbuckle.AbpSwashbuckleController (Volo.Abp.Swashbuckle).
+2024-12-26 22:26:06.792 +08:00 [WRN] The cookie 'XSRF-TOKEN' has set 'SameSite=None' and must also set 'Secure'.
+2024-12-26 22:26:06.793 +08:00 [INF] Executed action Volo.Abp.Swashbuckle.AbpSwashbuckleController.SetCsrfCookie (Volo.Abp.Swashbuckle) in 36.2836ms
+2024-12-26 22:26:06.793 +08:00 [INF] Executed endpoint 'Volo.Abp.Swashbuckle.AbpSwashbuckleController.SetCsrfCookie (Volo.Abp.Swashbuckle)'
+2024-12-26 22:26:06.793 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/abp/Swashbuckle/SetCsrfCookie - 204 null null 95.0423ms
+2024-12-26 22:26:06.822 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 50
+2024-12-26 22:26:06.825 +08:00 [INF] CORS policy execution failed.
+2024-12-26 22:26:06.825 +08:00 [INF] Request origin http://localhost:44383 does not have permission to access the resource.
+2024-12-26 22:26:06.891 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:26:06.901 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-26 22:26:07.130 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-26 22:26:07.193 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult'.
+2024-12-26 22:26:07.199 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 297.7457ms
+2024-12-26 22:26:07.199 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:26:07.231 +08:00 [INF] AUDIT LOG: [500: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 310
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (212 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (250 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+- Exceptions:
+  - 账号或密码不存在
+    Cracker.Admin.MyExceptions.TipException: 账号或密码不存在
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 149
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 154
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.GlobalFeatures.GlobalFeatureInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Validation.ValidationInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Auditing.AuditingInterceptor.ProceedByLoggingAsync(IAbpMethodInvocation invocation, AbpAuditingOptions options, IAuditingHelper auditingHelper, IAuditLogScope auditLogScope)
+   at Volo.Abp.Auditing.AuditingInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at lambda_method1368(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+2024-12-26 22:26:07.234 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 412.2908ms
+2024-12-26 22:26:40.092 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-26 22:26:42.108 +08:00 [INF] Loaded ABP modules:
+2024-12-26 22:26:42.109 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2024-12-26 22:26:42.109 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2024-12-26 22:26:42.109 +08:00 [INF]   - Volo.Abp.AspNetCore.MultiTenancy.AbpAspNetCoreMultiTenancyModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Data.AbpDataModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Uow.AbpUnitOfWorkModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Security.AbpSecurityModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Settings.AbpSettingsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Localization.AbpLocalizationModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.Threading.AbpThreadingModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Auditing.AbpAuditingModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Json.AbpJsonModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2024-12-26 22:26:42.109 +08:00 [INF]             - Volo.Abp.Json.AbpJsonAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]             - Volo.Abp.Timing.AbpTimingModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingContractsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Http.AbpHttpModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Http.AbpHttpAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Minify.AbpMinifyModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2024-12-26 22:26:42.109 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2024-12-26 22:26:42.109 +08:00 [INF]   - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.Dapper.AbpDapperModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2024-12-26 22:26:42.109 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2024-12-26 22:26:42.109 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2024-12-26 22:26:42.109 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2024-12-26 22:26:42.109 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2024-12-26 22:26:42.109 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2024-12-26 22:26:42.385 +08:00 [INF] User profile is available. Using 'C:\Users\crack\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-26 22:26:43.630 +08:00 [INF] Initialized all ABP modules.
+2024-12-26 22:26:44.196 +08:00 [INF] Now listening on: http://localhost:44383
+2024-12-26 22:26:44.270 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-26 22:26:44.270 +08:00 [INF] Hosting environment: Development
+2024-12-26 22:26:44.270 +08:00 [INF] Content root path: D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.HttpApi.Host
+2024-12-26 22:26:44.457 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/ - null null
+2024-12-26 22:26:57.782 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-26 22:26:59.826 +08:00 [INF] Loaded ABP modules:
+2024-12-26 22:26:59.827 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2024-12-26 22:26:59.827 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2024-12-26 22:26:59.827 +08:00 [INF]   - Volo.Abp.AspNetCore.MultiTenancy.AbpAspNetCoreMultiTenancyModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Data.AbpDataModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Uow.AbpUnitOfWorkModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Security.AbpSecurityModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Settings.AbpSettingsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Localization.AbpLocalizationModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.Threading.AbpThreadingModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Auditing.AbpAuditingModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Json.AbpJsonModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2024-12-26 22:26:59.827 +08:00 [INF]             - Volo.Abp.Json.AbpJsonAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]             - Volo.Abp.Timing.AbpTimingModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingContractsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Http.AbpHttpModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Http.AbpHttpAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Minify.AbpMinifyModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2024-12-26 22:26:59.827 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2024-12-26 22:26:59.827 +08:00 [INF]   - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.Dapper.AbpDapperModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2024-12-26 22:26:59.827 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2024-12-26 22:26:59.827 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2024-12-26 22:26:59.827 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2024-12-26 22:26:59.827 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2024-12-26 22:26:59.827 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2024-12-26 22:27:00.103 +08:00 [INF] User profile is available. Using 'C:\Users\crack\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-26 22:27:01.387 +08:00 [INF] Initialized all ABP modules.
+2024-12-26 22:27:01.944 +08:00 [INF] Now listening on: http://localhost:44383
+2024-12-26 22:27:02.017 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-26 22:27:02.017 +08:00 [INF] Hosting environment: Development
+2024-12-26 22:27:02.017 +08:00 [INF] Content root path: D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.HttpApi.Host
+2024-12-26 22:27:02.240 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/ - null null
+2024-12-26 22:27:02.536 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:27:02.547 +08:00 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Cracker.Admin.Controllers.HomeController (Cracker.Admin.HttpApi.Host).
+2024-12-26 22:27:02.569 +08:00 [INF] Executing RedirectResult, redirecting to /swagger.
+2024-12-26 22:27:02.572 +08:00 [INF] Executed action Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host) in 23.1882ms
+2024-12-26 22:27:02.572 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:27:02.588 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/ - 302 0 null 352.3178ms
+2024-12-26 22:27:02.589 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/index.html - null null
+2024-12-26 22:27:02.698 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/index.html - 200 null text/html;charset=utf-8 108.7132ms
+2024-12-26 22:27:02.739 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-26 22:27:02.742 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - 200 13804 application/javascript; charset=utf-8 2.3164ms
+2024-12-26 22:27:02.742 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_vs/browserLink - null null
+2024-12-26 22:27:02.769 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_vs/browserLink - 200 null text/javascript; charset=UTF-8 26.7113ms
+2024-12-26 22:27:02.800 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - null null
+2024-12-26 22:27:02.876 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 75.5139ms
+2024-12-26 22:27:15.507 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/abp/Swashbuckle/SetCsrfCookie - application/json null
+2024-12-26 22:27:15.582 +08:00 [INF] Executing endpoint 'Volo.Abp.Swashbuckle.AbpSwashbuckleController.SetCsrfCookie (Volo.Abp.Swashbuckle)'
+2024-12-26 22:27:15.584 +08:00 [INF] Route matched with {area = "Abp", action = "SetCsrfCookie", controller = "AbpSwashbuckle"}. Executing controller action with signature Void SetCsrfCookie() on controller Volo.Abp.Swashbuckle.AbpSwashbuckleController (Volo.Abp.Swashbuckle).
+2024-12-26 22:27:15.598 +08:00 [WRN] The cookie 'XSRF-TOKEN' has set 'SameSite=None' and must also set 'Secure'.
+2024-12-26 22:27:15.599 +08:00 [INF] Executed action Volo.Abp.Swashbuckle.AbpSwashbuckleController.SetCsrfCookie (Volo.Abp.Swashbuckle) in 14.5133ms
+2024-12-26 22:27:15.599 +08:00 [INF] Executed endpoint 'Volo.Abp.Swashbuckle.AbpSwashbuckleController.SetCsrfCookie (Volo.Abp.Swashbuckle)'
+2024-12-26 22:27:15.599 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/abp/Swashbuckle/SetCsrfCookie - 204 null null 92.3325ms
+2024-12-26 22:27:15.628 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 49
+2024-12-26 22:27:15.632 +08:00 [INF] CORS policy execution failed.
+2024-12-26 22:27:15.632 +08:00 [INF] Request origin http://localhost:44383 does not have permission to access the resource.
+2024-12-26 22:27:15.705 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:27:15.716 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-26 22:27:16.173 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-26 22:27:16.227 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult'.
+2024-12-26 22:27:16.233 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 516.381ms
+2024-12-26 22:27:16.233 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:27:16.266 +08:00 [INF] AUDIT LOG: [500: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 530
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (431 ms.)
+    {"dto":{"username":"admin","password":"123456"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (467 ms.)
+    {"dto":{"username":"admin","password":"123456"}}
+- Exceptions:
+  - 密码错误
+    Cracker.Admin.MyExceptions.TipException: 密码错误
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 149
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 154
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.GlobalFeatures.GlobalFeatureInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Validation.ValidationInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Auditing.AuditingInterceptor.ProceedByLoggingAsync(IAbpMethodInvocation invocation, AbpAuditingOptions options, IAuditingHelper auditingHelper, IAuditLogScope auditLogScope)
+   at Volo.Abp.Auditing.AuditingInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at lambda_method1167(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+2024-12-26 22:27:16.269 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 641.7202ms
+2024-12-26 22:27:24.461 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 50
+2024-12-26 22:27:24.464 +08:00 [INF] CORS policy execution failed.
+2024-12-26 22:27:24.465 +08:00 [INF] Request origin http://localhost:44383 does not have permission to access the resource.
+2024-12-26 22:27:24.533 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:27:24.534 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-26 22:27:24.827 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-26 22:27:24.829 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-26 22:27:24.830 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-12-26 22:27:24.833 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 299.549ms
+2024-12-26 22:27:24.833 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-26 22:27:24.834 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-26 22:27:24.834 +08:00 [INF] AUDIT LOG: [200: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 301
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (288 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (291 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+
+2024-12-26 22:27:24.845 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 383.8998ms

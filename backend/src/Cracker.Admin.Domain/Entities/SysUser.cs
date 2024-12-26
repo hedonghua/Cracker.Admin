@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cracker.Admin.Entities
 {
@@ -55,5 +58,11 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [Required]
         public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// 用户角色
+        /// </summary>
+        [ForeignKey("UserId")]
+        public virtual ICollection<SysUserRole>? UserRoles { get; set; }
     }
 }

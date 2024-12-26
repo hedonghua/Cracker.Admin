@@ -13,14 +13,5 @@ public class CrackerAdminDomainSharedModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        var conf = context.Services.GetConfiguration();
-
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<CrackerAdminDomainSharedModule>();
-        });
-
-        var csRedis = new CSRedis.CSRedisClient(conf["Redis:Connection"]);
-        RedisHelper.Initialization(csRedis);
     }
 }

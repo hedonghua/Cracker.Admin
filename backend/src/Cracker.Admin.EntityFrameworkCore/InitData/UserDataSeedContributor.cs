@@ -6,19 +6,16 @@ using Cracker.Admin.Helpers;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Security.Encryption;
 
 namespace Cracker.Admin.InitData
 {
     public class UserDataSeedContributor : IDataSeedContributor, ITransientDependency
     {
         private readonly IRepository<SysUser> userRepository;
-        private readonly IStringEncryptionService stringEncryptionService;
 
-        public UserDataSeedContributor(IRepository<SysUser> userRepository, IStringEncryptionService stringEncryptionService)
+        public UserDataSeedContributor(IRepository<SysUser> userRepository)
         {
             this.userRepository = userRepository;
-            this.stringEncryptionService = stringEncryptionService;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -29,7 +26,9 @@ namespace Cracker.Admin.InitData
                 var user = new SysUser
                 {
                     UserName = "admin",
-                    PasswordSalt = EncryptionHelper.GetPasswordSalt()
+                    NickName = "admin",
+                    PasswordSalt = EncryptionHelper.GetPasswordSalt(),
+                    IsEnabled = true,
                 };
                 user.Password = EncryptionHelper.GenEncodingPassword("123qwe*", user.PasswordSalt);
                 await userRepository.InsertAsync(user);

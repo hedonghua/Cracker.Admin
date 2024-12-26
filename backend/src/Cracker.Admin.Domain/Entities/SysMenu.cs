@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
 using Cracker.Admin.Enums;
 
 namespace Cracker.Admin.Entities
@@ -58,5 +61,11 @@ namespace Cracker.Admin.Entities
         /// 是否隐藏
         /// </summary>
         public bool Hidden { get; set; }
+
+        /// <summary>
+        /// 角色菜单
+        /// </summary>
+        [ForeignKey("MenuId")]
+        public virtual ICollection<SysRoleMenu>? RoleMenus { get; set; }
     }
 }
