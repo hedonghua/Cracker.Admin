@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
 using Cracker.Admin.Helpers;
-using Cracker.Admin.Models;
 using Cracker.Admin.System.LogManagement;
 using Cracker.Admin.System.LogManagement.Dtos;
+using Cracker.Admin.Core;
 
 namespace Cracker.Admin.Filters
 {

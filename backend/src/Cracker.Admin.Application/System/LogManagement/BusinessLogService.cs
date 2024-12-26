@@ -44,7 +44,7 @@ namespace Cracker.Admin.System.LogManagement
             return await context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteBusinessLogsAsync(int[] ids)
+        public async Task<bool> DeleteBusinessLogsAsync(long[] ids)
         {
             await _repository.DeleteDirectAsync(x => ids.Contains(x.Id));
             return true;

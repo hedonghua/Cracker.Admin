@@ -1,4 +1,4 @@
-using Cracker.Admin.Entities.Enums;
+using Cracker.Admin.Enums;
 
 namespace Cracker.Admin.Entities
 {

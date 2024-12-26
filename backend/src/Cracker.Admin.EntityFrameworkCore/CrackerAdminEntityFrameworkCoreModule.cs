@@ -1,6 +1,5 @@
 using System.Data;
 
-using Cracker.Admin.DAO;
 using Cracker.Admin.Repositories;
 
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.Modularity;
 
-namespace Cracker.Admin.EntitiesFrameworkCore;
+namespace Cracker.Admin;
 
 [DependsOn(
     typeof(AbpDapperModule),
@@ -39,5 +38,6 @@ public class CrackerAdminEntityFrameworkCoreModule : AbpModule
 
         context.Services.AddTransient<IUserDapperRepository, UserDapperRepository>();
         context.Services.AddTransient<IRoleDapperRepository, RoleDapperRepository>();
+        context.Services.AddTransient<IDatabaseDapperRepository, DatabaseDapperRepository>();
     }
 }

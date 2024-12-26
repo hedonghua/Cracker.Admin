@@ -1,4 +1,4 @@
-namespace Cracker.Admin.Entities.Enums
+namespace Cracker.Admin.Enums
 {
     public enum FunctionType
     {

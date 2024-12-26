@@ -1,14 +1,11 @@
-using System;
-using System.Linq;
-using System.Reflection;
+using Cracker.Admin.Entities;
 
 using Microsoft.EntityFrameworkCore;
 
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Cracker.Admin.Entities;
 
-namespace Cracker.Admin.EntitiesFrameworkCore;
+namespace Cracker.Admin;
 
 [ConnectionStringName("Default")]
 public class CrackerAdminDbContext :
@@ -37,10 +34,14 @@ public class CrackerAdminDbContext :
 
     #endregion 组织架构
 
-#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+    #region 代码生成
+
+    public DbSet<GenTable> GenTable { get; }
+    public DbSet<GenTableColumn> GenTableColumn { get; }
+
+    #endregion 代码生成
 
     public CrackerAdminDbContext(DbContextOptions<CrackerAdminDbContext> options)
-#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
         : base(options)
     {
     }
@@ -49,13 +50,22 @@ public class CrackerAdminDbContext :
     {
         base.OnModelCreating(builder);
 
-        var entityConfigurationType = typeof(IEntityTypeConfiguration<>);
-        var typesToRegister = Assembly.GetExecutingAssembly().DefinedTypes.Where(q => q.GetInterface(entityConfigurationType.FullName!) != null);
-        foreach (var type in typesToRegister)
-        {
-            dynamic? configurationInstance = Activator.CreateInstance(type);
-            if (configurationInstance == null) continue;
-            builder.ApplyConfiguration(configurationInstance);
-        }
+        builder.Entity<SysUser>().HasKey(x => x.Id);
+        builder.Entity<SysRole>().HasKey(x => x.Id);
+        builder.Entity<SysMenu>().HasKey(x => x.Id);
+        builder.Entity<SysUserRole>().HasKey(x => new { x.UserId, x.RoleId });
+        builder.Entity<SysRoleMenu>().HasKey(x => new { x.RoleId, x.MenuId });
+        builder.Entity<SysDict>().HasKey(x => x.Id);
+        builder.Entity<SysBusinessLog>().HasKey(x => x.Id);
+        builder.Entity<SysLoginLog>().HasKey(x => x.Id);
+
+        builder.Entity<OrgDept>().HasKey(x => x.Id);
+        builder.Entity<OrgDeptEmployee>().HasKey(x => x.Id);
+        builder.Entity<OrgPosition>().HasKey(x => x.Id);
+        builder.Entity<OrgPositionGroup>().HasKey(x => x.Id);
+        builder.Entity<OrgEmployee>().HasKey(x => x.Id);
+
+        builder.Entity<GenTable>().HasKey(x => x.Id);
+        builder.Entity<GenTableColumn>().HasKey(x => x.Id);
     }
 }

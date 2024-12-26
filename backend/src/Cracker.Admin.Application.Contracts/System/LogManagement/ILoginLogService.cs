@@ -22,6 +22,6 @@ namespace Cracker.Admin.System.LogManagement
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        Task<bool> DeleteLoginLogsAsync(int[] ids);
+        Task<bool> DeleteLoginLogsAsync(long[] ids);
     }
 }

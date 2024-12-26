@@ -13,8 +13,8 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Users;
-using Cracker.Admin.Entities.Enums;
 using Cracker.Admin.Entities;
+using Cracker.Admin.Enums;
 
 namespace Cracker.Admin.Account
 {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cracker.Admin.Models
+namespace Cracker.Admin.Core
 {
     public interface IAppResult
     {
@@ -10,5 +10,10 @@ namespace Cracker.Admin.Models
         string? Message { get; set; }
 
         bool IsOk();
+    }
+
+    public interface IAppResult<T>: IAppResult
+    {
+        T? Data { get; set; }
     }
 }
