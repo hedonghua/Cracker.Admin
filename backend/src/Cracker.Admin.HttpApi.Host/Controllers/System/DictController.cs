@@ -9,7 +9,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.System
 {
-    [Route("adm/dict")]
+    [Route("api/dict")]
     public class DictController : AdminController
     {
         private readonly IDictService _dictService;

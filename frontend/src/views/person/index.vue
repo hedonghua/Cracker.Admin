@@ -56,6 +56,7 @@ import { useAuthorization } from "@/hooks/useAuthorization";
 
 const formRef = ref<FormInstance>();
 const uploadApiUrl = import.meta.env.VITE_UPLOAD_API;
+const ossDomain = import.meta.env.VITE_OSS_DOMAIN;
 const userStore = useUserStore();
 const fileList = ref<Array<any>>([]);
 const loading1 = ref<boolean>(false);
@@ -86,14 +87,7 @@ const rules = {
 const uploadSuccess = (res: any) => {
     form.avatar = res.data;
 }
-// const resetForm = () => {
-//     formRef.value?.resetFields();
-// }
-// const clearPwdForm = () => {
-//     passwordForm.oldPwd = '';
-//     passwordForm.newPwd = '';
-//     passwordForm.surePwd = '';
-// }
+
 const submitUpdateUserInfo = () => {
     formRef.value?.validate((valid) => {
         if (valid) {
@@ -151,7 +145,7 @@ onMounted(() => {
         form.avatar = "/assets/img/boy.png";
     }
     if (form.avatar) {
-        fileList.value.push({ url: form.avatar });
+        fileList.value.push({ url: ossDomain + form.avatar });
     }
     form.sex = userStore.info?.sex ?? 1;
     form.nickName = userStore.info?.nickName ?? '';

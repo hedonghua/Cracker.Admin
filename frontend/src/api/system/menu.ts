@@ -27,14 +27,14 @@ export interface MenuListItem {
 
 // 侧边菜单
 export function getSidebarMenus(params?: any) {
-  return request.get<any, ApplicationResult<MenuItem[]>>("/adm/account/menus", {
+  return request.get<any, ApplicationResult<MenuItem[]>>("/api/account/menus", {
     params: params,
   });
 }
 
 // 菜单列表
 export function getMenuList(params: any) {
-  return request.get<any, ApplicationResult<MenuListItem[]>>("/adm/menu/list", {
+  return request.get<any, ApplicationResult<MenuListItem[]>>("/api/menu/list", {
     params: params,
   });
 }
@@ -45,7 +45,7 @@ export function getMenuList(params: any) {
  * @returns
  */
 export function addMenu(data: any) {
-  return request.post<any, ApplicationResult<any>>("/adm/menu/add", data);
+  return request.post<any, ApplicationResult<any>>("/api/menu/add", data);
 }
 
 /**
@@ -54,7 +54,7 @@ export function addMenu(data: any) {
  * @returns
  */
 export function updateMenu(data: any) {
-  return request.put<any, ApplicationResult<any>>("/adm/menu/update", data);
+  return request.put<any, ApplicationResult<any>>("/api/menu/update", data);
 }
 
 /**
@@ -63,7 +63,7 @@ export function updateMenu(data: any) {
  * @returns
  */
 export function deleteMenu(ids: string[]) {
-  return request.delete<any, ApplicationResult<any>>("/adm/menu/delete", {
+  return request.delete<any, ApplicationResult<any>>("/api/menu/delete", {
     data: ids,
   });
 }
@@ -71,6 +71,6 @@ export function deleteMenu(ids: string[]) {
 // 菜单选项
 export function getMenuOptions() {
   return request.get<any, ApplicationResult<AppOptionNode[]>>(
-    "/adm/menu/menu-options"
+    "/api/menu/menu-options"
   );
 }

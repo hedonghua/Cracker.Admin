@@ -8,19 +8,20 @@ import Utils from "@/utils";
 /**
  * 无需token名单
  */
-const anyAccessList = ["/adm/account/refresh-token", "/adm/account/login"];
+const anyAccessList = ["/api/account/refresh-token", "/api/account/login"];
 
 // 创建axios实例
 const service: AxiosInstance = axios.create({
   timeout: 2000,
-  baseURL: import.meta.env?.VITE_API_BASE_URL,
 });
 
 // 添加请求拦截器
 service.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
-    let httpUrl: string = Utils.getPureUrl(JSON.parse(JSON.stringify(config.url)));
+    let httpUrl: string = Utils.getPureUrl(
+      JSON.parse(JSON.stringify(config.url))
+    );
     if (anyAccessList.includes(httpUrl)) {
       return config;
     }

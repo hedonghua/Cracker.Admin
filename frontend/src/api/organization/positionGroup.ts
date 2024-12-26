@@ -27,7 +27,7 @@ export interface PositionGroupItem {
  */
 export function addPositionGroup(data: any) {
   return request.post<any, ApplicationResult<any>>(
-    "/adm/position-group/add",
+    "/api/position-group/add",
     data
   );
 }
@@ -39,7 +39,7 @@ export function addPositionGroup(data: any) {
  */
 export function getPositionGroupList(params: any) {
   return request.get<any, ApplicationResult<Array<PositionGroupItem>>>(
-    "/adm/position-group/list",
+    "/api/position-group/list",
     { params: params }
   );
 }
@@ -51,7 +51,7 @@ export function getPositionGroupList(params: any) {
  */
 export function updatePositionGroup(data: any) {
   return request.put<any, ApplicationResult<any>>(
-    "/adm/position-group/update",
+    "/api/position-group/update",
     data
   );
 }
@@ -63,7 +63,7 @@ export function updatePositionGroup(data: any) {
  */
 export function deletePositionGroup(id: string) {
   return request.delete<any, ApplicationResult<any>>(
-    "/adm/position-group/delete/" + id
+    "/api/position-group/delete/" + id
   );
 }
 
@@ -74,6 +74,6 @@ export function deletePositionGroup(id: string) {
  */
 export function getPositionGroupOptions() {
   return request.get<any, ApplicationResult<any>>(
-    "/adm/position-group/options"
+    "/api/position-group/options"
   );
 }

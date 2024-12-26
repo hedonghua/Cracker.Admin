@@ -12,7 +12,7 @@ using Cracker.Admin.Models;
 
 namespace Cracker.Admin.Controllers.Account
 {
-    [Route("/adm/account")]
+    [Route("api/account")]
     public class AccountController : AdminController
     {
         private readonly IAccountService _accountService;

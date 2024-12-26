@@ -37,16 +37,10 @@ export default defineConfig(({ command, mode }) => {
     },
     server: {
       proxy: {
-        "/dev_api": {
+        "/api": {
           target: "http://localhost:44383",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/dev_api/, ""),
-        },
-        "/prod_api": {
-          target: "http://jsonplaceholder.typicode.com",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/prod_api/, ""),
-        },
+          changeOrigin: true
+        }
       },
     },
     base: './',

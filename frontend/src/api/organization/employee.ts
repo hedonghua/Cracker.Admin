@@ -8,7 +8,7 @@ import { ApplicationResult } from "#/data";
  */
 export function addEmployee(data: any) {
   return request.post<any, ApplicationResult<any>>(
-    "/adm/employee/add",
+    "/api/employee/add",
     data
   );
 }
@@ -20,7 +20,7 @@ export function addEmployee(data: any) {
  */
 export function getEmployeeList(params: any) {
   return request.get<any, ApplicationResult<Array<any>>>(
-    "/adm/employee/list",
+    "/api/employee/list",
     { params: params }
   );
 }
@@ -32,7 +32,7 @@ export function getEmployeeList(params: any) {
  */
 export function updateEmployee(data: any) {
   return request.put<any, ApplicationResult<any>>(
-    "/adm/employee/update",
+    "/api/employee/update",
     data
   );
 }
@@ -44,6 +44,6 @@ export function updateEmployee(data: any) {
  */
 export function deleteEmployee(id: string) {
   return request.delete<any, ApplicationResult<any>>(
-    "/adm/employee/delete/" + id
+    "/api/employee/delete/" + id
   );
 }

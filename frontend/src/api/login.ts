@@ -28,7 +28,7 @@ export interface UserInfoData {
 // 用户登录
 export function userLogin(params: LoginForm) {
   return request.post<any, ApplicationResult<LoginData>>(
-    "/adm/account/login",
+    "/api/account/login",
     params
   );
 }
@@ -36,21 +36,21 @@ export function userLogin(params: LoginForm) {
 // 刷新token
 export function refreshToken(refreshToken: LoginForm) {
   return request.post<any, ApplicationResult<TokenData>>(
-    "/adm/account/refresh-token?refreshToken=" + refreshToken
+    "/api/account/refresh-token?refreshToken=" + refreshToken
   );
 }
 
 // 用户信息
 export function getUserInfo() {
   return request.get<any, ApplicationResult<UserInfoData>>(
-    "/adm/account/userinfo"
+    "/api/account/userinfo"
   );
 }
 
 // 更新用户基本信息
 export function updateUserInfo(data: any) {
   return request.put<any, ApplicationResult<any>>(
-    "/adm/account/update-info",
+    "/api/account/update-info",
     data
   );
 }
@@ -58,12 +58,12 @@ export function updateUserInfo(data: any) {
 // 更新用户密码
 export function updateUserPwd(data: any) {
   return request.put<any, ApplicationResult<any>>(
-    "/adm/account/update-pwd",
+    "/api/account/update-pwd",
     data
   );
 }
 
 // 注销
 export function signout() {
-  return request.post<any, ApplicationResult<boolean>>("/adm/account/signout");
+  return request.post<any, ApplicationResult<boolean>>("/api/account/signout");
 }

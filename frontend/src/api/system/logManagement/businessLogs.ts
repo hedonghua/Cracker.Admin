@@ -25,7 +25,7 @@ export interface BusinessLogDto {
  */
 export function getBusinessLogList(params: any) {
   return request.get<any, ApplicationResult<PagedResult<BusinessLogDto>>>(
-    "adm/business-log/list",
+    "/api/business-log/list",
     { params: params }
   );
 }

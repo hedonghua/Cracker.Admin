@@ -17,6 +17,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web.Http;
+
 using Volo.Abp;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
@@ -53,10 +55,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         AppManager.BeforeSet(configuration, hostingEnvironment.WebRootPath);
 
         ConfigureAuthentication(context);
-        ConfigureBundles();
-        ConfigureUrls(configuration);
-        ConfigureConventionalControllers();
-        ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
         ConfigureFilters(context, configuration);
@@ -102,49 +100,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
         {
             options.IsDynamicClaimsEnabled = true;
-        });
-    }
-
-    private void ConfigureBundles()
-    {
-    }
-
-    private void ConfigureUrls(IConfiguration configuration)
-    {
-        Configure<AppUrlOptions>(options =>
-        {
-        });
-    }
-
-    private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
-    {
-        var hostingEnvironment = context.Services.GetHostingEnvironment();
-
-        if (hostingEnvironment.IsDevelopment())
-        {
-            Configure<AbpVirtualFileSystemOptions>(options =>
-            {
-                options.FileSets.ReplaceEmbeddedByPhysical<CrackerAdminDomainSharedModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}Cracker.Admin.Domain.Shared"));
-                options.FileSets.ReplaceEmbeddedByPhysical<CrackerAdminDomainModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}Cracker.Admin.Domain"));
-                options.FileSets.ReplaceEmbeddedByPhysical<CrackerAdminApplicationContractsModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}Cracker.Admin.Application.Contracts"));
-                options.FileSets.ReplaceEmbeddedByPhysical<CrackerAdminApplicationModule>(
-                    Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}Cracker.Admin.Application"));
-            });
-        }
-    }
-
-    private void ConfigureConventionalControllers()
-    {
-        Configure<AbpAspNetCoreMvcOptions>(options =>
-        {
-            //options.ConventionalControllers.Create(typeof(AdminApplicationModule).Assembly);
         });
     }
 
@@ -237,7 +192,13 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
-        app.UseConfiguredEndpoints();
+        app.UseConfiguredEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                 name: "default",
+                 pattern: "{controller}/{action}/{param:regex(.*+)}"
+             );
+        });
 
         AppManager.AfterSet(app.ApplicationServices, env.IsDevelopment());
 

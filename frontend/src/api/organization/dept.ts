@@ -9,7 +9,7 @@ import { ApplicationResult } from "#/data";
  */
 export function addDept(data: any) {
   return request.post<any, ApplicationResult<any>>(
-    "/adm/dept/add",
+    "/api/dept/add",
     data
   );
 }
@@ -21,7 +21,7 @@ export function addDept(data: any) {
  */
 export function getDeptList(params: any) {
   return request.get<any, ApplicationResult<Array<any>>>(
-    "/adm/dept/list",
+    "/api/dept/list",
     { params: params }
   );
 }
@@ -33,7 +33,7 @@ export function getDeptList(params: any) {
  */
 export function updateDept(data: any) {
   return request.put<any, ApplicationResult<any>>(
-    "/adm/dept/update",
+    "/api/dept/update",
     data
   );
 }
@@ -45,7 +45,7 @@ export function updateDept(data: any) {
  */
 export function deleteDept(id: string) {
   return request.delete<any, ApplicationResult<any>>(
-    "/adm/dept/delete/" + id
+    "/api/dept/delete/" + id
   );
 }
 
@@ -56,6 +56,6 @@ export function deleteDept(id: string) {
  */
 export function getDeptOptions() {
   return request.get<any, ApplicationResult<any>>(
-    "/adm/dept/options"
+    "/api/dept/options"
   );
 }

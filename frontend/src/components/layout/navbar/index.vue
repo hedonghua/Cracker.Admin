@@ -13,7 +13,7 @@
         <el-dropdown @command="handleCommand" class="w-full h-full px-2.5 border-none" trigger="click">
           <div class="flex">
             <div class="flex items-center">
-              <img v-if="userStore.info?.avatar" :src="userStore.info?.avatar" alt="头像" />
+              <img v-if="userStore.info?.avatar" :src="ossDomain + userStore.info?.avatar" alt="头像" />
               <img v-else :src="UserBoyAvatar" alt="头像" />
             </div>
             <div class="flex items-center ml-2">{{ userStore.user?.username }}</div>
@@ -46,7 +46,8 @@
     <el-dialog v-model="dialogVisible" title="菜单搜索" width="450" :append-to-body='true'>
       <el-input v-model="filterText" placeholder="请输入菜单名进行过滤" clearable />
       <ul class="mt-2 max-h-60 overflow-auto">
-        <li class="cursor-pointer py-1 px-2 hover:bg-slate-100" v-for="v, i in computedMenus" :key="i" @click="toPage(v)">
+        <li class="cursor-pointer py-1 px-2 hover:bg-slate-100" v-for="v, i in computedMenus" :key="i"
+          @click="toPage(v)">
           {{ v.meta?.title }}
         </li>
       </ul>
@@ -64,6 +65,7 @@ import { useAuthorization } from "@/hooks/useAuthorization";
 import UserBoyAvatar from "@/assets/img/boy.png"
 import { getSidebarMenus } from "@/api/system/menu";
 
+const ossDomain = import.meta.env.VITE_OSS_DOMAIN;
 const userStore = useUserStore();
 const tabManager = useTabManager();
 const collapse = ref<boolean>(false);

@@ -12,7 +12,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.System
 {
-    [Route("/adm/user")]
+    [Route("/api/user")]
     public class UserController : AdminController
     {
         private readonly IUserService _userService;

@@ -11,7 +11,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.System
 {
-    [Route("/adm/role")]
+    [Route("/api/role")]
     public class RoleController : AdminController
     {
         private readonly IRoleService _roleService;
