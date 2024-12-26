@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Cracker.Admin.Entities
 {
     /// <summary>
@@ -17,5 +20,17 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [StringLength(512)]
         public string? Remark { get; set; }
+
+        /// <summary>
+        /// 用户角色
+        /// </summary>
+        [ForeignKey("RoleId")]
+        public virtual ICollection<SysUserRole>? UserRoles { get; set; }
+
+        /// <summary>
+        /// 角色菜单
+        /// </summary>
+        [ForeignKey("RoleId")]
+        public virtual ICollection<SysRoleMenu>? RoleMenus { get; set; }
     }
 }

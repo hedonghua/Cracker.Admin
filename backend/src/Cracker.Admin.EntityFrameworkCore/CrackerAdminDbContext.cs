@@ -11,8 +11,6 @@ namespace Cracker.Admin;
 public class CrackerAdminDbContext :
     AbpDbContext<CrackerAdminDbContext>
 {
-    #region 系统
-
     public DbSet<SysUser> SysUser { get; }
     public DbSet<SysRole> SysRole { get; }
     public DbSet<SysMenu> SysMenu { get; }
@@ -22,9 +20,6 @@ public class CrackerAdminDbContext :
     public DbSet<SysBusinessLog> SysBusinessLog { get; }
     public DbSet<SysLoginLog> SysLoginLog { get; }
 
-    #endregion 系统
-
-    #region 组织架构
 
     public DbSet<OrgDept> OrgDept { get; }
     public DbSet<OrgDeptEmployee> OrgDeptEmployee { get; }
@@ -32,14 +27,9 @@ public class CrackerAdminDbContext :
     public DbSet<OrgPositionGroup> OrgPositionGroup { get; }
     public DbSet<OrgEmployee> OrgEmployee { get; }
 
-    #endregion 组织架构
-
-    #region 代码生成
 
     public DbSet<GenTable> GenTable { get; }
     public DbSet<GenTableColumn> GenTableColumn { get; }
-
-    #endregion 代码生成
 
     public CrackerAdminDbContext(DbContextOptions<CrackerAdminDbContext> options)
         : base(options)

@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +11,10 @@ public class CrackerAdminDbContextFactory : IDesignTimeDbContextFactory<CrackerA
     public CrackerAdminDbContext CreateDbContext(string[] args)
     {
         var configuration = BuildConfiguration();
+        var connectionString = configuration.GetConnectionString("Default");
 
         var builder = new DbContextOptionsBuilder<CrackerAdminDbContext>()
-            .UseMySql(configuration.GetConnectionString("Default"), ServerVersion.Create(Version.Parse("8.1.0"), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql));
+            .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
         return new CrackerAdminDbContext(builder.Options);
     }
