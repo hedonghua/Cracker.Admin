@@ -28,10 +28,11 @@ namespace Cracker.Admin.Account
         private readonly IRepository<SysMenu> _menuRepository;
         private readonly IConfiguration _configuration;
         private readonly IReHeader _reHeader;
+        private readonly IRepository<SysLoginLog> loginLogRepository;
 
         public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader)
+            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader,IRepository<SysLoginLog> loginLogRepository)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -41,6 +42,7 @@ namespace Cracker.Admin.Account
             _menuRepository = menuRepository;
             _configuration = configuration;
             _reHeader = reHeader;
+            this.loginLogRepository = loginLogRepository;
         }
 
         /// <summary>
@@ -122,6 +124,15 @@ namespace Cracker.Admin.Account
 
         public async Task<LoginResultDto> LoginAsync(LoginDto dto)
         {
+            var loginLog = new SysLoginLog
+            {
+                IsSuccess = true,
+                Ip = _reHeader.Ip,
+                Os = _reHeader.Os,
+                Address = _reHeader.Address,
+                Browser = _reHeader.Browser,
+                OperationMsg = "登录成功"
+            };
             try
             {
                 var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new TipException("账号或密码不存在");
@@ -132,7 +143,13 @@ namespace Cracker.Admin.Account
             }
             catch (Exception ex)
             {
+                loginLog.IsSuccess = false;
+                loginLog.OperationMsg = ex.Message;
                 throw new TipException(ex.Message);
+            }
+            finally
+            {
+                await loginLogRepository.InsertAsync(loginLog, true);
             }
         }
 

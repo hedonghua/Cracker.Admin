@@ -1,13 +1,12 @@
+using Cracker.Admin.Entities;
+using Cracker.Admin.Helpers;
+using Cracker.Admin.Models;
+using Cracker.Admin.Repositories;
+using Cracker.Admin.System.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cracker.Admin.Database.DAO;
-using Cracker.Admin.Entities;
-using Cracker.Admin.Helpers;
-using Cracker.Admin.Models;
-using Cracker.Admin.System.Dtos;
-
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -21,11 +20,11 @@ namespace Cracker.Admin.System
     {
         private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysRoleMenu> _roleMenuRepository;
-        private readonly IRoleDAO _roleDAO;
+        private readonly IRoleDapperRepository _roleDAO;
         private readonly IRepository<SysUserRole> _userRoleRepository;
 
         public RoleService(IRepository<SysRole> roleRepository, IRepository<SysRoleMenu> roleMenuRepository
-            , IRoleDAO roleDAO,IRepository<SysUserRole> userRoleRepository)
+            , IRoleDapperRepository roleDAO, IRepository<SysUserRole> userRoleRepository)
         {
             _roleRepository = roleRepository;
             _roleMenuRepository = roleMenuRepository;
@@ -75,7 +74,7 @@ namespace Cracker.Admin.System
 
         public async Task<bool> DeleteRoleAsync(Guid id)
         {
-            var hasUsers = await _userRoleRepository.AnyAsync(x=>x.RoleId == id);
+            var hasUsers = await _userRoleRepository.AnyAsync(x => x.RoleId == id);
             if (hasUsers) throw new BusinessException("-1", "角色已分配给用户，不能删除");
             await _roleRepository.DeleteAsync(x => x.Id == id);
             return true;

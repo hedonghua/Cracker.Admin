@@ -1,5 +1,3 @@
-using Cracker.Admin.Core;
-using Cracker.Admin.Database.DAO;
 using Cracker.Admin.Entities;
 using Cracker.Admin.System.LogManagement.Dtos;
 using System;
@@ -15,14 +13,10 @@ namespace Cracker.Admin.System.LogManagement
     public class LoginLogService : ApplicationService, ILoginLogService
     {
         private readonly IRepository<SysLoginLog> _loginLogRepository;
-        private readonly IReHeader _reHeader;
-        private readonly ILoginLogDAO _loginLogDAO;
 
-        public LoginLogService(IRepository<SysLoginLog> loginLogRepository, IReHeader reHeader, ILoginLogDAO loginLogDAO)
+        public LoginLogService(IRepository<SysLoginLog> loginLogRepository)
         {
             _loginLogRepository = loginLogRepository;
-            _reHeader = reHeader;
-            _loginLogDAO = loginLogDAO;
         }
 
         public async Task<bool> DeleteLoginLogsAsync(int[] ids)
@@ -43,16 +37,5 @@ namespace Cracker.Admin.System.LogManagement
             var rows = query.OrderByDescending(x => x.CreationTime).Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList();
             return new PagedResultDto<LoginLogListDto>(count, ObjectMapper.Map<List<SysLoginLog>, List<LoginLogListDto>>(rows));
         }
-
-        //public async Task<bool> Handle(AddLoginLogCommand request, CancellationToken cancellationToken)
-        //{
-        //    var entity = request.Adapt<SysLoginLog>();
-        //    entity.Os = _reHeader.Os;
-        //    entity.Address = _reHeader.Address;
-        //    entity.Ip = _reHeader.Ip;
-        //    entity.Browser = _reHeader.Browser;
-        //    await _loginLogDAO.WriteAsync(entity);
-        //    return true;
-        //}
     }
 }

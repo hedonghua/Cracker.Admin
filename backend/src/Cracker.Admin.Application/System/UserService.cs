@@ -1,20 +1,17 @@
+using Cracker.Admin.Entities;
+using Cracker.Admin.Helpers;
+using Cracker.Admin.Repositories;
+using Cracker.Admin.System.Dtos;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Configuration;
-
-using Cracker.Admin.Database.DAO;
-using Cracker.Admin.Helpers;
-using Cracker.Admin.System.Dtos;
-
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Uow;
 using Volo.Abp.Validation;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.System
 {
@@ -23,10 +20,10 @@ namespace Cracker.Admin.System
         private readonly IRepository<SysUser> _userRepository;
         private readonly IRepository<SysUserRole> _userRoleRepository;
         private readonly IConfiguration _configuration;
-        private readonly IUserDAO _userDAO;
+        private readonly IUserDapperRepository _userDAO;
 
         public UserService(IRepository<SysUser> userRepository, IRepository<SysUserRole> userRoleRepository
-            , IConfiguration configuration, IUserDAO userDAO)
+            , IConfiguration configuration, IUserDapperRepository userDAO)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
@@ -52,8 +49,7 @@ namespace Cracker.Admin.System
             };
             if (string.IsNullOrWhiteSpace(dto.Avatar))
             {
-                user.Avatar = user.Sex == 1 ? "images/boy.png" : "images/girl.png";
-                user.Avatar = UriHelper.Concat(false, _configuration["App:Domain"], user.Avatar);
+                user.Avatar = user.Sex == 1 ? "avatar/boy.png" : "avatar/girl.png";
             }
             user.Password = EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
             await _userRepository.InsertAsync(user, true);

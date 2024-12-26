@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -14,10 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Ddd.Domain" Version="8.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Database\DAO\Models\" />
+    <PackageReference Include="Volo.Abp.Dapper" Version="8.2.1" />
   </ItemGroup>
 
 </Project>

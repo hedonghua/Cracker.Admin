@@ -1,19 +1,17 @@
+using Cracker.Admin.EntitiesFrameworkCore;
+using Cracker.Admin.Repositories;
+using Dapper;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Dapper;
-using Cracker.Admin.Database.DAO;
-using Cracker.Admin.EntitiesFrameworkCore;
-
 using Volo.Abp.Domain.Repositories.Dapper;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace Cracker.Admin.DAO
 {
-    public class UserDAO : DapperRepository<CrackerAdminDbContext>, IUserDAO
+    public class UserDapperRepository : DapperRepository<CrackerAdminDbContext>, IUserDapperRepository
     {
-        public UserDAO(IDbContextProvider<CrackerAdminDbContext> dbContextProvider) : base(dbContextProvider)
+        public UserDapperRepository(IDbContextProvider<CrackerAdminDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
 
