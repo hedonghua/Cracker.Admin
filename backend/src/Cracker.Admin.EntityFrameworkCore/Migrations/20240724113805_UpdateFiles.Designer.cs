@@ -11,7 +11,7 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Cracker.Admin.Migrations
 {
-    [DbContext(typeof(AdminDbContext))]
+    [DbContext(typeof(CrackerAdminDbContext))]
     [Migration("20240724113805_UpdateFiles")]
     partial class UpdateFiles
     {

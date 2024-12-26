@@ -8,9 +8,9 @@ namespace Cracker.Admin.DAO
 {
     public class LoginLogDAO : ILoginLogDAO
     {
-        private readonly AdminDbContext _context;
+        private readonly CrackerAdminDbContext _context;
 
-        public LoginLogDAO(AdminDbContext context)
+        public LoginLogDAO(CrackerAdminDbContext context)
         {
             _context = context;
         }

@@ -11,9 +11,9 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Cracker.Admin.DAO
 {
-    public class UserDAO : DapperRepository<AdminDbContext>, IUserDAO
+    public class UserDAO : DapperRepository<CrackerAdminDbContext>, IUserDAO
     {
-        public UserDAO(IDbContextProvider<AdminDbContext> dbContextProvider) : base(dbContextProvider)
+        public UserDAO(IDbContextProvider<CrackerAdminDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
 

@@ -12,9 +12,9 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Cracker.Admin.DAO
 {
-    public class RoleDAO : DapperRepository<AdminDbContext>, IRoleDAO
+    public class RoleDAO : DapperRepository<CrackerAdminDbContext>, IRoleDAO
     {
-        public RoleDAO(IDbContextProvider<AdminDbContext> dbContextProvider) : base(dbContextProvider)
+        public RoleDAO(IDbContextProvider<CrackerAdminDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
 

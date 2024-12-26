@@ -10,7 +10,7 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace Cracker.Admin.Migrations
 {
-    [DbContext(typeof(AdminDbContext))]
+    [DbContext(typeof(CrackerAdminDbContext))]
     partial class AdminDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
