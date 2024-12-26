@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
 using Cracker.Admin.Database.DAO;
-using Cracker.Admin.Entity;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.System.Dtos;
 
@@ -15,6 +14,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Uow;
 using Volo.Abp.Validation;
+using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.System
 {

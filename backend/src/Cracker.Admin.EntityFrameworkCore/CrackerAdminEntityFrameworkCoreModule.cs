@@ -7,7 +7,7 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.Modularity;
 
-namespace Cracker.Admin.EntityFrameworkCore;
+namespace Cracker.Admin.EntitiesFrameworkCore;
 
 [DependsOn(
     typeof(AbpDapperModule),

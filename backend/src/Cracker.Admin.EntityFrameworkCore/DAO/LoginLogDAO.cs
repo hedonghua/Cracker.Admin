@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Cracker.Admin.Database.DAO;
-using Cracker.Admin.Entity;
-using Cracker.Admin.EntityFrameworkCore;
+using Cracker.Admin.Entities;
+using Cracker.Admin.EntitiesFrameworkCore;
 
 namespace Cracker.Admin.DAO
 {

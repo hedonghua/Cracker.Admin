@@ -4,12 +4,11 @@ using System.Reflection;
 
 using Microsoft.EntityFrameworkCore;
 
-using Cracker.Admin.Entity;
-
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
+using Cracker.Admin.Entities;
 
-namespace Cracker.Admin.EntityFrameworkCore;
+namespace Cracker.Admin.EntitiesFrameworkCore;
 
 [ConnectionStringName("Default")]
 public class CrackerAdminDbContext :
@@ -22,7 +21,6 @@ public class CrackerAdminDbContext :
     public DbSet<SysMenu> SysMenu { get; }
     public DbSet<SysUserRole> SysUserRole { get; }
     public DbSet<SysRoleMenu> SysRoleMenu { get; }
-    public DbSet<SysFile> SysFile { get; }
     public DbSet<SysDict> SysDict { get; }
     public DbSet<SysBusinessLog> SysBusinessLog { get; }
     public DbSet<SysLoginLog> SysLoginLog { get; }

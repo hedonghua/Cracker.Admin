@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cracker.Admin.Database.DAO;
-using Cracker.Admin.Entity;
+using Cracker.Admin.Entities;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.System.Dtos;

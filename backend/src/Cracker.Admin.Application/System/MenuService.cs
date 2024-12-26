@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Cracker.Admin.Entity;
-using Cracker.Admin.Entity.Enums;
+using Cracker.Admin.Entities;
+using Cracker.Admin.Entities.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.MyExceptions;

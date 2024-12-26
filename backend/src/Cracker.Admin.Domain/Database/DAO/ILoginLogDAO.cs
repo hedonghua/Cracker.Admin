@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
-using Cracker.Admin.Entity;
-
+using Cracker.Admin.Entities;
 using Volo.Abp.DependencyInjection;
 
 namespace Cracker.Admin.Database.DAO

@@ -1,6 +1,5 @@
 using AutoMapper;
-
-using Cracker.Admin.Entity;
+using Cracker.Admin.Entities;
 using Cracker.Admin.Organization.Dtos;
 using Cracker.Admin.System.Dtos;
 using Cracker.Admin.System.LogManagement.Dtos;

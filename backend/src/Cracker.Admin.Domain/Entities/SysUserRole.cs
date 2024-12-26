@@ -1,6 +1,6 @@
 using Volo.Abp.Domain.Entities;
 
-namespace Cracker.Admin.Entity
+namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 用户角色关联表

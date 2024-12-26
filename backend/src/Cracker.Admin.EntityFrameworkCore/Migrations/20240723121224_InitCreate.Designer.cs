@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Cracker.Admin.EntityFrameworkCore;
+using Cracker.Admin.EntitiesFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
 #nullable disable
@@ -24,7 +24,7 @@ namespace Cracker.Admin.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Cracker.Admin.Entity.OrgDept", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.OrgDept", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -141,7 +141,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("org_dept", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.OrgDeptEmployee", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.OrgDeptEmployee", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -215,7 +215,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("org_dept_employee", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.OrgEmployee", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.OrgEmployee", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -361,7 +361,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("org_employee", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.OrgPosition", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.OrgPosition", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -450,7 +450,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("org_position", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.OrgPositionGroup", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.OrgPositionGroup", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -502,7 +502,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("org_position_group", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysBusinessLog", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysBusinessLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -606,7 +606,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_business_log", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysDict", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysDict", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -690,7 +690,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_dict", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysFile", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysFile", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -779,7 +779,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_file", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysLoginLog", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysLoginLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -850,7 +850,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_login_log", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysMenu", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysMenu", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -955,7 +955,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_menu", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysRole", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -1022,7 +1022,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_role", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysRoleMenu", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysRoleMenu", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -1044,7 +1044,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_role_menu", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysUser", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")
@@ -1142,7 +1142,7 @@ namespace Cracker.Admin.Migrations
                     b.ToTable("sys_user", (string)null);
                 });
 
-            modelBuilder.Entity("Cracker.Admin.Entity.SysUserRole", b =>
+            modelBuilder.Entity("Cracker.Admin.Entities.SysUserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)")

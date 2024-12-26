@@ -1,2 +1,2 @@
 using System.Runtime.CompilerServices;
-[assembly:InternalsVisibleToAttribute("Cracker.Admin.EntityFrameworkCore.Tests")]
+[assembly:InternalsVisibleToAttribute("Cracker.Admin.EntitiesFrameworkCore.Tests")]

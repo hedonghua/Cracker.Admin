@@ -1,13 +1,9 @@
-using MediatR;
 using Microsoft.Extensions.Configuration;
 using Cracker.Admin.Account.Dtos;
 using Cracker.Admin.Core;
-using Cracker.Admin.Entity;
-using Cracker.Admin.Entity.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.MyExceptions;
-using Cracker.Admin.System.LogManagement.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +13,8 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Users;
+using Cracker.Admin.Entities.Enums;
+using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Account
 {
@@ -29,12 +27,11 @@ namespace Cracker.Admin.Account
         private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysMenu> _menuRepository;
         private readonly IConfiguration _configuration;
-        private readonly IMediator _mediator;
         private readonly IReHeader _reHeader;
 
         public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, IConfiguration configuration, IMediator mediator, IReHeader reHeader)
+            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -43,7 +40,6 @@ namespace Cracker.Admin.Account
             _roleRepository = roleRepository;
             _menuRepository = menuRepository;
             _configuration = configuration;
-            _mediator = mediator;
             _reHeader = reHeader;
         }
 
@@ -126,7 +122,6 @@ namespace Cracker.Admin.Account
 
         public async Task<LoginResultDto> LoginAsync(LoginDto dto)
         {
-            var cmd = new AddLoginLogCommand() { UserName = dto.UserName, IsSuccess = true };
             try
             {
                 var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new TipException("账号或密码不存在");
@@ -137,13 +132,7 @@ namespace Cracker.Admin.Account
             }
             catch (Exception ex)
             {
-                cmd.IsSuccess = false;
-                cmd.OperationMsg = ex.Message;
                 throw new TipException(ex.Message);
-            }
-            finally
-            {
-                await _mediator.Send(cmd);
             }
         }
 

@@ -1,5 +1,5 @@
 using Cracker.Admin.Core;
-using Cracker.Admin.Entity;
+using Cracker.Admin.Entities;
 using Cracker.Admin.System.Dtos;
 using System;
 using System.Collections.Generic;

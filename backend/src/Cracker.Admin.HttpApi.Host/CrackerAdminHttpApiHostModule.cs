@@ -1,42 +1,33 @@
 using Coravel;
+using Cracker.Admin.Core;
+using Cracker.Admin.EntitiesFrameworkCore;
+using Cracker.Admin.Filters;
+using Cracker.Admin.Middlewares;
+using Cracker.Admin.MultiTenancy;
+using Cracker.Admin.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
-using MQTTnet;
-using MQTTnet.AspNetCore;
-using MQTTnet.Server;
-
-using Cracker.Admin.EntityFrameworkCore;
-using Cracker.Admin.Filters;
-using Cracker.Admin.Jobs;
-using Cracker.Admin.Middlewares;
-using Cracker.Admin.MultiTenancy;
-using Cracker.Admin.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-
 using Volo.Abp;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
-using Volo.Abp.BlobStoring;
 using Volo.Abp.Modularity;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
-using Cracker.Admin.Core;
-using Microsoft.AspNetCore.Http;
 
 namespace Cracker.Admin;
 
@@ -251,46 +242,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         AppManager.AfterSet(app.ApplicationServices, env.IsDevelopment());
 
         GlobalKeySettingsService.Instance.InitializationAsync().Wait();
-
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapMqtt("/mqtt");
-        });
-
-        app.UseMqttServer(server =>
-        {
-            server.StartedAsync += args =>
-            {
-                _ = Task.Run(async () =>
-                {
-                    var mqttApplicationMessage = new MqttApplicationMessageBuilder()
-                        .WithPayload($"Test application message from MQTTnet server.")
-                        .WithTopic("message")
-                        .Build();
-
-                    while (true)
-                    {
-                        try
-                        {
-                            await server.InjectApplicationMessage(new InjectedMqttApplicationMessage(mqttApplicationMessage)
-                            {
-                                SenderClientId = "server"
-                            });
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                        }
-                        finally
-                        {
-                            await Task.Delay(TimeSpan.FromSeconds(5));
-                        }
-                    }
-                });
-
-                return Task.CompletedTask;
-            };
-        });
 
         app.ApplicationServices.UseScheduler(sch =>
         {

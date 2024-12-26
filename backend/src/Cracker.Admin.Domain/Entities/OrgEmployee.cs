@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Cracker.Admin.Entity
+namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 员工表

@@ -1,5 +1,4 @@
-
-namespace Cracker.Admin.Entity
+namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 登录日志
@@ -51,7 +50,7 @@ namespace Cracker.Admin.Entity
 
         public void SetCreationTime()
         {
-            this.CreationTime = DateTime.Now;
+            CreationTime = DateTime.Now;
         }
     }
 }

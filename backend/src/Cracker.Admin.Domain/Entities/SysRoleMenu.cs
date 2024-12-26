@@ -1,6 +1,6 @@
 using Volo.Abp.Domain.Entities;
 
-namespace Cracker.Admin.Entity
+namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 角色菜单表
