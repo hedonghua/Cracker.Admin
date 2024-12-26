@@ -1,9 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Cracker.Admin.Core;
-using Cracker.Admin.Entity;
 using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
+using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Services
 {

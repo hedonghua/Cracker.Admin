@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Cracker.Admin.Entities;
 
-using Cracker.Admin.Entity;
-
-namespace Cracker.Admin.EntityConfiguration
+namespace Cracker.Admin.EntitiesConfiguration
 {
     public class OrgPositionGroupConfiguration : IEntityTypeConfiguration<OrgPositionGroup>
     {

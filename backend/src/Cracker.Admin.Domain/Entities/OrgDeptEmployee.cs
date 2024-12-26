@@ -1,4 +1,4 @@
-namespace Cracker.Admin.Entity
+namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 员工关联部门
@@ -23,6 +23,6 @@ namespace Cracker.Admin.Entity
         /// <summary>
         /// 是否主职位
         /// </summary>
-        public bool IsMain {  get; set; }
+        public bool IsMain { get; set; }
     }
 }

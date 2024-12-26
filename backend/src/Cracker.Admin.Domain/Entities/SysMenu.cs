@@ -1,6 +1,6 @@
-using Cracker.Admin.Entity.Enums;
+using Cracker.Admin.Entities.Enums;
 
-namespace Cracker.Admin.Entity
+namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 菜单表

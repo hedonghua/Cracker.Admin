@@ -1,26 +1,18 @@
+using Cracker.Admin.Core;
+using Cracker.Admin.Database.DAO;
+using Cracker.Admin.Entities;
+using Cracker.Admin.System.LogManagement.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-
-using Mapster;
-
-using MediatR;
-
-using Cracker.Admin.Core;
-using Cracker.Admin.Database.DAO;
-using Cracker.Admin.Entity;
-using Cracker.Admin.System.LogManagement.Commands;
-using Cracker.Admin.System.LogManagement.Dtos;
-
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace Cracker.Admin.System.LogManagement
 {
-    public class LoginLogService : ApplicationService, ILoginLogService, IRequestHandler<AddLoginLogCommand, bool>
+    public class LoginLogService : ApplicationService, ILoginLogService
     {
         private readonly IRepository<SysLoginLog> _loginLogRepository;
         private readonly IReHeader _reHeader;
@@ -52,15 +44,15 @@ namespace Cracker.Admin.System.LogManagement
             return new PagedResultDto<LoginLogListDto>(count, ObjectMapper.Map<List<SysLoginLog>, List<LoginLogListDto>>(rows));
         }
 
-        public async Task<bool> Handle(AddLoginLogCommand request, CancellationToken cancellationToken)
-        {
-            var entity = request.Adapt<SysLoginLog>();
-            entity.Os = _reHeader.Os;
-            entity.Address = _reHeader.Address;
-            entity.Ip = _reHeader.Ip;
-            entity.Browser = _reHeader.Browser;
-            await _loginLogDAO.WriteAsync(entity);
-            return true;
-        }
+        //public async Task<bool> Handle(AddLoginLogCommand request, CancellationToken cancellationToken)
+        //{
+        //    var entity = request.Adapt<SysLoginLog>();
+        //    entity.Os = _reHeader.Os;
+        //    entity.Address = _reHeader.Address;
+        //    entity.Ip = _reHeader.Ip;
+        //    entity.Browser = _reHeader.Browser;
+        //    await _loginLogDAO.WriteAsync(entity);
+        //    return true;
+        //}
     }
 }

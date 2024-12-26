@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Mapster;
 
 using Cracker.Admin.Core;
-using Cracker.Admin.Entity;
 using Cracker.Admin.System.LogManagement.Dtos;
 
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Users;
+using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.System.LogManagement
 {

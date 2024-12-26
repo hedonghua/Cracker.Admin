@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Dapper;
 using Cracker.Admin.Database.DAO;
-using Cracker.Admin.EntityFrameworkCore;
+using Cracker.Admin.EntitiesFrameworkCore;
 using Cracker.Admin.Models;
 
 using Volo.Abp.Domain.Repositories.Dapper;

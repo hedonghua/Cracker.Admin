@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 using Dapper;
 
 using Mapster;
-
-using Cracker.Admin.Entity;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization.Dtos;
 using Cracker.Admin.Organization.Models;
@@ -19,6 +17,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Validation;
+using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Organization
 {
