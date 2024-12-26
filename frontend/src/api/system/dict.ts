@@ -18,7 +18,7 @@ export interface DictItem {
  */
 export function getDictList(params: any) {
   return request.get<any, ApplicationResult<PagedResult<DictItem>>>(
-    "/adm/dict/list",
+    "/api/dict/list",
     { params: params }
   );
 }
@@ -29,7 +29,7 @@ export function getDictList(params: any) {
  * @returns
  */
 export function addDict(data: any) {
-  return request.post<any, ApplicationResult<any>>("/adm/dict/add", data);
+  return request.post<any, ApplicationResult<any>>("/api/dict/add", data);
 }
 
 /**
@@ -38,7 +38,7 @@ export function addDict(data: any) {
  * @returns
  */
 export function updateDict(data: any) {
-  return request.put<any, ApplicationResult<any>>("/adm/dict/update", data);
+  return request.put<any, ApplicationResult<any>>("/api/dict/update", data);
 }
 
 /**
@@ -47,7 +47,7 @@ export function updateDict(data: any) {
  * @returns
  */
 export function deleteDict(ids: string[]) {
-  return request.delete<any, ApplicationResult<any>>("/adm/dict/delete", {
+  return request.delete<any, ApplicationResult<any>>("/api/dict/delete", {
     data: ids,
   });
 }
@@ -57,5 +57,5 @@ export function deleteDict(ids: string[]) {
  * @returns
  */
 export function refreshDict() {
-  return request.post<any, ApplicationResult<any>>("/adm/dict/refresh");
+  return request.post<any, ApplicationResult<any>>("/api/dict/refresh");
 }

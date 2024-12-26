@@ -1,5 +1,8 @@
 using System.Data;
 
+using Cracker.Admin.DAO;
+using Cracker.Admin.Repositories;
+
 using Microsoft.EntityFrameworkCore;
 
 using Volo.Abp.Dapper;
@@ -20,8 +23,6 @@ public class CrackerAdminEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<CrackerAdminDbContext>(options =>
         {
-            /* Remove "includeAllEntities: true" to create
-             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
         });
 
@@ -33,9 +34,10 @@ public class CrackerAdminEntityFrameworkCoreModule : AbpModule
 
         Configure<AbpDbContextOptions>(options =>
         {
-            /* The main point to change your DBMS.
-             * See also AdminMigrationsDbContextFactory for EF Core tooling. */
             options.UseMySQL();
         });
+
+        context.Services.AddTransient<IUserDapperRepository, UserDapperRepository>();
+        context.Services.AddTransient<IRoleDapperRepository, RoleDapperRepository>();
     }
 }

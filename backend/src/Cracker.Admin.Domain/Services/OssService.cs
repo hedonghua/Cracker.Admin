@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
+
+using Microsoft.Extensions.Configuration;
+
 using Volo.Abp.Domain.Services;
 
 namespace Cracker.Admin.Services
@@ -17,7 +19,11 @@ namespace Cracker.Admin.Services
         public async Task<string> UploadAsync(byte[] bytes, string fileName)
         {
             var rootPath = GetOssRootPath();
-            var dir = Path.GetDirectoryName(fileName) ?? "default";
+            var dir = Path.GetDirectoryName(fileName);
+            if (string.IsNullOrWhiteSpace(dir))
+            {
+                dir = "default";
+            }
             var name = Path.GetFileName(fileName);
             var path = Path.Combine(rootPath, dir);
             var extension = Path.GetExtension(name);

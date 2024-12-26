@@ -14,7 +14,7 @@ export interface UserItem {
  * @returns
  */
 export function addUser(data: any) {
-  return request.post<any, ApplicationResult<any>>("/adm/user/add", data);
+  return request.post<any, ApplicationResult<any>>("/api/user/add", data);
 }
 
 /**
@@ -24,7 +24,7 @@ export function addUser(data: any) {
  */
 export function getUserList(params: any) {
   return request.get<any, ApplicationResult<PagedResult<UserItem>>>(
-    "/adm/user/list",
+    "/api/user/list",
     { params: params }
   );
 }
@@ -35,7 +35,7 @@ export function getUserList(params: any) {
  * @returns
  */
 export function deleteUser(id: string) {
-  return request.delete<any, ApplicationResult<any>>("/adm/user/delete/" + id);
+  return request.delete<any, ApplicationResult<any>>("/api/user/delete/" + id);
 }
 
 /**
@@ -45,7 +45,7 @@ export function deleteUser(id: string) {
  */
 export function assignRole(data: any) {
   return request.post<any, ApplicationResult<any>>(
-    "/adm/user/assign-role",
+    "/api/user/assign-role",
     data
   );
 }
@@ -57,7 +57,7 @@ export function assignRole(data: any) {
  */
 export function switchEnabledStatus(id: string) {
   return request.put<any, ApplicationResult<any>>(
-    "/adm/user/change-enabled/" + id
+    "/api/user/change-enabled/" + id
   );
 }
 
@@ -68,6 +68,6 @@ export function switchEnabledStatus(id: string) {
  */
 export function getUserRoleIds(id: string) {
   return request.get<any, ApplicationResult<never[]>>(
-    "/adm/user/roles/" + id
+    "/api/user/roles/" + id
   );
 }

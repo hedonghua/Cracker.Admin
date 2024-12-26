@@ -12,7 +12,7 @@ using Cracker.Admin.System.Dtos;
 
 namespace Cracker.Admin.Controllers.System
 {
-    [Route("adm/menu")]
+    [Route("api/menu")]
     public class MenuController : AdminController
     {
         private readonly IMenuService _menuService;

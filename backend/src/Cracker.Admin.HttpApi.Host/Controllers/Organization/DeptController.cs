@@ -12,7 +12,7 @@ using Cracker.Admin.Organization.Dtos;
 
 namespace Cracker.Admin.Controllers.Organization
 {
-    [Route("adm/dept")]
+    [Route("api/dept")]
     public class DeptController : AdminController
     {
         private readonly IDeptService _deptService;

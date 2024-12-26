@@ -1,15 +1,19 @@
-using Cracker.Admin.Filters;
-using Cracker.Admin.Helpers;
-using Cracker.Admin.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+
+using Cracker.Admin.Filters;
+using Cracker.Admin.Helpers;
+using Cracker.Admin.Services;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Cracker.Admin.Controllers.Oss
 {
+    [Route("api/[controller]/[action]")]
     public class OssController : AbpControllerBase
     {
         private readonly OssService _ossService;
@@ -29,11 +33,17 @@ namespace Cracker.Admin.Controllers.Oss
             await stream.ReadAsync(bytes);
             stream.Dispose();
             stream.Close();
-            return await _ossService.UploadAsync(bytes, file.FileName);
+
+            var fileName = file.FileName;
+            if (HttpContext.Request.Headers.TryGetValue("dir", out var dir) && !string.IsNullOrWhiteSpace(dir))
+            {
+                fileName = dir + "/" + fileName;
+            }
+            return await _ossService.UploadAsync(bytes, fileName);
         }
 
-        [HttpGet("{fileName}")]
-        public async Task<IActionResult> PreviewAsync(string fileName)
+        [HttpGet("{*fileName}")]
+        public async Task<IActionResult> ImageAsync([FromRoute] string fileName)
         {
             try
             {

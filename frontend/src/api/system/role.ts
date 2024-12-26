@@ -13,7 +13,7 @@ export interface RoleItem {
  * @returns
  */
 export function addRole(data: any) {
-  return request.post<any, ApplicationResult<any>>("/adm/role/add", data);
+  return request.post<any, ApplicationResult<any>>("/api/role/add", data);
 }
 
 /**
@@ -23,7 +23,7 @@ export function addRole(data: any) {
  */
 export function getRoleList(params: any) {
   return request.get<any, ApplicationResult<PagedResult<RoleItem>>>(
-    "/adm/role/list",
+    "/api/role/list",
     { params: params }
   );
 }
@@ -34,7 +34,7 @@ export function getRoleList(params: any) {
  * @returns
  */
 export function updateRole(data: any) {
-  return request.put<any, ApplicationResult<any>>("/adm/role/update", data);
+  return request.put<any, ApplicationResult<any>>("/api/role/update", data);
 }
 
 /**
@@ -43,7 +43,7 @@ export function updateRole(data: any) {
  * @returns
  */
 export function deleteRole(id: string) {
-  return request.delete<any, ApplicationResult<any>>("/adm/role/delete/" + id);
+  return request.delete<any, ApplicationResult<any>>("/api/role/delete/" + id);
 }
 
 /**
@@ -53,7 +53,7 @@ export function deleteRole(id: string) {
  */
 export function assignMenu(data: any) {
   return request.post<any, ApplicationResult<any>>(
-    "/adm/role/assign-menu",
+    "/api/role/assign-menu",
     data
   );
 }
@@ -64,7 +64,7 @@ export function assignMenu(data: any) {
  */
 export function getRoleOptions() {
   return request.get<any, ApplicationResult<Array<AppOption>>>(
-    "/adm/role/options"
+    "/api/role/options"
   );
 }
 
@@ -75,6 +75,6 @@ export function getRoleOptions() {
  */
 export function getRoleMenuIds(id: string) {
   return request.get<any, ApplicationResult<never[]>>(
-    "/adm/role/menus/" + id
+    "/api/role/menus/" + id
   );
 }

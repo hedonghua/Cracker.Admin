@@ -20,7 +20,7 @@ export interface LoginLogDto {
  */
 export function getLoginLogList(params: any) {
   return request.get<any, ApplicationResult<PagedResult<LoginLogDto>>>(
-    "adm/login-log/list",
+    "/api/login-log/list",
     { params: params }
   );
 }

@@ -11,7 +11,7 @@ using Cracker.Admin.Organization.Dtos;
 
 namespace Cracker.Admin.Controllers.Organization
 {
-    [Route("adm/employee")]
+    [Route("api/employee")]
     [AppResultFilter]
     public class EmployeeController : AdminController
     {

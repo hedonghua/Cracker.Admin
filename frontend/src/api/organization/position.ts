@@ -35,7 +35,7 @@ export interface PositionItem {
  * @returns
  */
 export function addPosition(data: any) {
-  return request.post<any, ApplicationResult<any>>("/adm/position/add", data);
+  return request.post<any, ApplicationResult<any>>("/api/position/add", data);
 }
 
 /**
@@ -45,7 +45,7 @@ export function addPosition(data: any) {
  */
 export function getPositionList(params: any) {
   return request.get<any, ApplicationResult<PagedResult<PositionItem>>>(
-    "/adm/position/list",
+    "/api/position/list",
     { params: params }
   );
 }
@@ -56,7 +56,7 @@ export function getPositionList(params: any) {
  * @returns
  */
 export function updatePosition(data: any) {
-  return request.put<any, ApplicationResult<any>>("/adm/position/update", data);
+  return request.put<any, ApplicationResult<any>>("/api/position/update", data);
 }
 
 /**
@@ -66,7 +66,7 @@ export function updatePosition(data: any) {
  */
 export function deletePosition(id: string) {
   return request.delete<any, ApplicationResult<any>>(
-    "/adm/position/delete/" + id
+    "/api/position/delete/" + id
   );
 }
 
@@ -74,5 +74,5 @@ export function deletePosition(id: string) {
  * 职位分组+职位选项
  */
 export function getPositionOptions() {
-  return request.get<any, ApplicationResult<any>>("/adm/position/options");
+  return request.get<any, ApplicationResult<any>>("/api/position/options");
 }

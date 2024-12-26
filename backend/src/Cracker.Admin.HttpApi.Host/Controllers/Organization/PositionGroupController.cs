@@ -12,7 +12,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.Organization
 {
-    [Route("adm/position-group")]
+    [Route("api/position-group")]
     public class PositionGroupController : AdminController
     {
         private readonly IPositionGroupService _positionGroupService;

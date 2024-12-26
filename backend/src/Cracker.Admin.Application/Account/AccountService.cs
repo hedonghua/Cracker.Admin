@@ -131,7 +131,8 @@ namespace Cracker.Admin.Account
                 Os = _reHeader.Os,
                 Address = _reHeader.Address,
                 Browser = _reHeader.Browser,
-                OperationMsg = "登录成功"
+                OperationMsg = "登录成功",
+                UserName = dto.UserName
             };
             try
             {

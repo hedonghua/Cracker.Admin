@@ -11,7 +11,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.System.LogManagement
 {
-    [Route("adm/login-log")]
+    [Route("api/login-log")]
     public class LoginLogController : AdminController
     {
         private readonly ILoginLogService _loginLogService;
