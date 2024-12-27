@@ -3,7 +3,7 @@ using System.Linq.Dynamic.Core;
 
 using Cracker.Admin.Core;
 
-namespace Cracker.Admin.Extension
+namespace Cracker.Admin.Extensions
 {
     public static class QueryableExtension
     {

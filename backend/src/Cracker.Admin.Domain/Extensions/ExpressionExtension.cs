@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Cracker.Admin.Helpers;
 
-namespace Cracker.Admin.Extension
+namespace Cracker.Admin.Extensions
 {
     public static class ExpressionExtension
     {
