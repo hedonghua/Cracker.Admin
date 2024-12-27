@@ -48,22 +48,22 @@ namespace Cracker.Admin.Infrastructure.Cache
 
         public Task HSetAsync<T>(string key, string field, T value)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task HDelAsync(string key, string field)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task<T?> HGetAsync<T>(string key, string field)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<T?>(default);
         }
 
         public Task IncrByAsync(string key, int value)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }
