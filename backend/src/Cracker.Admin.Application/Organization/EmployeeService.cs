@@ -1,16 +1,13 @@
-using System;
-using System.Data;
-using System.Threading.Tasks;
-
-using Mapster;
+using Cracker.Admin.Entities;
 using Cracker.Admin.Extensions;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization.Dtos;
-
+using System;
+using System.Data;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Organization
 {
@@ -20,7 +17,7 @@ namespace Cracker.Admin.Organization
         private readonly IDbConnection _connection;
         private readonly IRepository<OrgDeptEmployee> _deptEmployeeRepository;
 
-        public EmployeeService(IRepository<OrgEmployee> employeeRepository, IDbConnection connection,IRepository<OrgDeptEmployee> deptEmployeeRepository)
+        public EmployeeService(IRepository<OrgEmployee> employeeRepository, IDbConnection connection, IRepository<OrgDeptEmployee> deptEmployeeRepository)
         {
             _employeeRepository = employeeRepository;
             _connection = connection;
@@ -41,16 +38,16 @@ namespace Cracker.Admin.Organization
 
         public async Task<bool> AddEmployeeAsync(EmployeeDto dto)
         {
-            var entity = dto.Adapt<OrgEmployee>();
+            var entity = ObjectMapper.Map<EmployeeDto, OrgEmployee>(dto);
             entity.Code = await this.GenerateCode();
             var rs = await _employeeRepository.InsertAsync(entity);
             //暂无多部门，直接写主部门
             await _deptEmployeeRepository.InsertAsync(new OrgDeptEmployee
             {
-               DeptId = dto.DeptId,
-               EmployeeId = rs.Id,
-               IsMain = true,
-               PositionId = dto.PositionId
+                DeptId = dto.DeptId,
+                EmployeeId = rs.Id,
+                IsMain = true,
+                PositionId = dto.PositionId
             });
             return true;
         }
@@ -107,8 +104,8 @@ namespace Cracker.Admin.Organization
             ReflectionHelper.AssignTo(dto, entity, "Id");
             await _employeeRepository.UpdateAsync(entity);
             //暂无多部门，直接写主部门
-            var data = await _deptEmployeeRepository.SingleOrDefaultAsync(x=>x.EmployeeId == dto.Id && x.IsMain);
-            if(data != null)
+            var data = await _deptEmployeeRepository.SingleOrDefaultAsync(x => x.EmployeeId == dto.Id && x.IsMain);
+            if (data != null)
             {
                 data.DeptId = dto.DeptId;
                 data.PositionId = dto.PositionId;

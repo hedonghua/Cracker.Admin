@@ -1,23 +1,19 @@
+using Cracker.Admin.Entities;
+using Cracker.Admin.Models;
+using Cracker.Admin.Organization.Dtos;
+using Cracker.Admin.Organization.Models;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-
-using Dapper;
-
-using Mapster;
-using Cracker.Admin.Models;
-using Cracker.Admin.Organization.Dtos;
-using Cracker.Admin.Organization.Models;
-
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Validation;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Organization
 {
@@ -55,7 +51,7 @@ namespace Cracker.Admin.Organization
 
         public async Task<bool> AddPositionAsync(PositionDto dto)
         {
-            var entity = dto.Adapt<OrgPosition>();
+            var entity = ObjectMapper.Map<PositionDto, OrgPosition>(dto);
             entity.Code = DateTime.Now.Ticks.ToString();
             await _positionRepository.InsertAsync(entity);
             return true;

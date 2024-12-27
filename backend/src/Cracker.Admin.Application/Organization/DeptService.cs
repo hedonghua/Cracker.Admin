@@ -1,16 +1,13 @@
+using Cracker.Admin.Entities;
+using Cracker.Admin.Models;
+using Cracker.Admin.Organization.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Mapster;
-using Cracker.Admin.Models;
-using Cracker.Admin.Organization.Dtos;
-
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Organization
 {
@@ -27,7 +24,7 @@ namespace Cracker.Admin.Organization
 
         public async Task<bool> AddDeptAsync(DeptDto dto)
         {
-            var entity = dto.Adapt<OrgDept>();
+            var entity = ObjectMapper.Map<DeptDto, OrgDept>(dto);
             entity.ParentId = dto.ParentId;
             entity.Code = DateTime.Now.Ticks.ToString();
             if (entity.ParentId.HasValue)

@@ -11,9 +11,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="Volo.Abp.Ddd.Domain.Shared" Version="8.2.1" />
-	  <PackageReference Include="Coravel" Version="5.0.4" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
-	  <PackageReference Include="Volo.Abp.EntityFrameworkCore.MySQL" Version="8.2.1" />
   </ItemGroup>
 
 </Project>

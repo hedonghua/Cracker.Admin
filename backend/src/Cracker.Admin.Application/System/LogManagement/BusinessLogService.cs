@@ -1,18 +1,14 @@
+using Cracker.Admin.Core;
+using Cracker.Admin.Entities;
+using Cracker.Admin.System.LogManagement.Dtos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-
-using Mapster;
-
-using Cracker.Admin.Core;
-using Cracker.Admin.System.LogManagement.Dtos;
-
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Users;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.System.LogManagement
 {
@@ -31,7 +27,7 @@ namespace Cracker.Admin.System.LogManagement
 
         public async Task<bool> AddBusinessLogAsync(BusinessLogDto dto)
         {
-            var entity = dto.Adapt<SysBusinessLog>();
+            var entity = ObjectMapper.Map<BusinessLogDto, SysBusinessLog>(dto);
             entity.Ip = _reHeader.Ip;
             entity.Address = _reHeader.Address;
             entity.Url = _reHeader.Url;

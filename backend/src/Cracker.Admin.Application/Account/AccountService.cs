@@ -5,7 +5,6 @@ using Cracker.Admin.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.Services;
-using Mapster;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -133,7 +132,7 @@ namespace Cracker.Admin.Account
                 var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
                 if (!isRight) throw new BusinessException(message: "密码错误");
 
-                var rs = (await GenerateTokenAsync(user.Id, user.UserName)).Adapt<LoginResultDto>();
+                var rs = ObjectMapper.Map<TokenResultDto, LoginResultDto>(await GenerateTokenAsync(user.Id, user.UserName));
                 var permission = await identityDomainService.GetUserPermissionAsync(user.Id);
                 rs.UserName = dto.UserName;
                 rs.Auths = permission.Auths;

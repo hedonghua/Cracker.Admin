@@ -1,17 +1,14 @@
+using Cracker.Admin.Entities;
+using Cracker.Admin.Models;
+using Cracker.Admin.Organization.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Mapster;
-using Cracker.Admin.Models;
-using Cracker.Admin.Organization.Dtos;
-
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Validation;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Organization
 {
@@ -28,7 +25,7 @@ namespace Cracker.Admin.Organization
 
         public async Task<bool> AddPositionGroupAsync(PositionGroupDto dto)
         {
-            var entity = dto.Adapt<OrgPositionGroup>();
+            var entity = ObjectMapper.Map<PositionGroupDto, OrgPositionGroup>(dto);
             entity.ParentId = dto.ParentId;
             if (entity.ParentId.HasValue)
             {
