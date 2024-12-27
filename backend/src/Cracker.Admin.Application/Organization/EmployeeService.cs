@@ -1,10 +1,11 @@
 using Cracker.Admin.Entities;
-using Cracker.Admin.Extensions;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization.Dtos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -14,14 +15,17 @@ namespace Cracker.Admin.Organization
     public class EmployeeService : ApplicationService, IEmployeeService
     {
         private readonly IRepository<OrgEmployee> _employeeRepository;
-        private readonly IDbConnection _connection;
         private readonly IRepository<OrgDeptEmployee> _deptEmployeeRepository;
+        private readonly IRepository<OrgDept> orgDeptRepository;
+        private readonly IRepository<OrgPosition> orgPositionRepository;
 
-        public EmployeeService(IRepository<OrgEmployee> employeeRepository, IDbConnection connection, IRepository<OrgDeptEmployee> deptEmployeeRepository)
+        public EmployeeService(IRepository<OrgEmployee> employeeRepository, IRepository<OrgDeptEmployee> deptEmployeeRepository,
+            IRepository<OrgDept> orgDeptRepository, IRepository<OrgPosition> orgPositionRepository)
         {
             _employeeRepository = employeeRepository;
-            _connection = connection;
             _deptEmployeeRepository = deptEmployeeRepository;
+            this.orgDeptRepository = orgDeptRepository;
+            this.orgPositionRepository = orgPositionRepository;
         }
 
         /// <summary>
@@ -60,41 +64,46 @@ namespace Cracker.Admin.Organization
 
         public async Task<PagedResultStruct<EmployeeListDto>> GetEmployeeListAsync(EmployeeQueryDto dto)
         {
-            var sql = @"SELECT
-	                    e.id,
-	                    e.`code`,
-	                    e.`name`,
-	                    e.sex,
-	                    e.phone,
-	                    e.idno,
-	                    e.front_idno_url as FrontIdNoUrl,
-	                    e.back_idno_url as BackIdNoUrl,
-	                    e.birthday,
-	                    e.address,
-	                    e.email,
-	                    e.in_time as InTime,
-	                    e.out_time as OutTime,
-	                    e.is_out as IsOut,
-	                    e.user_id as UserId,
-	                    e.dept_id as DeptId,
-	                    e.position_id as PositionId,
-	                    d.`name` AS DeptName,
-	                    p.`name` AS PositionName
-                    FROM
-	                    org_employee AS e
-	                    LEFT JOIN org_dept d ON e.dept_id = d.id
-	                    LEFT JOIN org_position p ON e.position_id = p.id where e.is_deleted=0 ";
+            var query = from e in await _employeeRepository.GetQueryableAsync()
+                        join d in await orgDeptRepository.GetQueryableAsync() on e.DeptId equals d.Id into dd
+                        from d2 in dd.DefaultIfEmpty()
+                        join p in await orgPositionRepository.GetQueryableAsync() on e.PositionId equals p.Id into pp
+                        from p2 in pp.DefaultIfEmpty()
+                        orderby e.CreationTime descending
+                        select new EmployeeListDto
+                        {
+                            Id = e.Id,
+                            Code = e.Code,
+                            Name = e.Name,
+                            Sex = e.Sex,
+                            Phone = e.Phone,
+                            IdNo = e.IdNo,
+                            FrontIdNoUrl = e.FrontIdNoUrl,
+                            BackIdNoUrl = e.BackIdNoUrl,
+                            BirthDay = e.BirthDay,
+                            Address = e.Address,
+                            Email = e.Email,
+                            InTime = e.InTime,
+                            OutTime = e.OutTime,
+                            IsOut = e.IsOut,
+                            UserId = e.UserId,
+                            DeptId = e.DeptId,
+                            PositionId = e.PositionId,
+                            DeptName = d2.Name,
+                            PositionName = p2.Name,
+                        };
             if (!string.IsNullOrEmpty(dto.Keyword))
             {
-                sql += " and (e.code like @Keyword or e.name like @Keyword or e.phone like @Keyword) ";
-                dto.Keyword = string.Concat("%", dto.Keyword, "%");
+                query = query.Where(x => x.Code.Contains(dto.Keyword) || x.Name.Contains(dto.Keyword) || x.Phone.Contains(dto.Keyword));
             }
             if (dto.DeptId.HasValue)
             {
-                sql += " and e.dept_id = @DeptId ";
+                query = query.Where(x => x.Id == dto.DeptId);
             }
-            sql += " order by e.creation_time desc ";
-            return await _connection.GetPagedAsync<EmployeeListDto>(sql, dto.Page, dto.Size, dto);
+            var total = await query.CountAsync();
+            var list = await query.ToListAsync();
+
+            return new PagedResultStruct<EmployeeListDto>(dto) { Items = list, TotalCount = total };
         }
 
         public async Task<bool> UpdateEmployeeAsync(EmployeeDto dto)

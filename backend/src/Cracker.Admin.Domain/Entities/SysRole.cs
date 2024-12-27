@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 角色表
     /// </summary>
+    [Comment("角色表")]
     public class SysRole : FullAuditedAggregateRoot<Guid>
     {
         /// <summary>
@@ -13,12 +15,14 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [NotNull]
         [StringLength(64)]
+        [Comment("角色名")]
         public string? RoleName { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
         [StringLength(512)]
+        [Comment("备注")]
         public string? Remark { get; set; }
 
         /// <summary>
