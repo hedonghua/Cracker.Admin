@@ -40,9 +40,9 @@ namespace Cracker.Admin.Infrastructure.Cache
             }
         }
 
-        public async Task DelAsync(string key)
+        public Task DelAsync(string key)
         {
-            await _database.KeyDeleteAsync(key);
+            return _database.KeyDeleteAsync(key);
         }
 
         public async Task<bool> ExistsAsync(string key)
@@ -52,22 +52,23 @@ namespace Cracker.Admin.Infrastructure.Cache
 
         public Task HSetAsync<T>(string key, string field, T value)
         {
-            throw new NotImplementedException();
+            return _database.HashSetAsync(key, field, JsonSerializer.Serialize(value));
         }
 
         public Task HDelAsync(string key, string field)
         {
-            throw new NotImplementedException();
+            return _database.HashDeleteAsync(key, field);
         }
 
-        public Task<T?> HGetAsync<T>(string key, string field)
+        public async Task<T?> HGetAsync<T>(string key, string field)
         {
-            throw new NotImplementedException();
+            var value = await  _database.HashGetAsync(key, field);
+            return JsonSerializer.Deserialize<T>(value);
         }
 
         public Task IncrByAsync(string key, int value)
         {
-            throw new NotImplementedException();
+            return _database.StringIncrementAsync(key, value);
         }
     }
 }
