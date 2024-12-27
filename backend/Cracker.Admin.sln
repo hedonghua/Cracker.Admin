@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{59387220-2D99-4276-8776-AA08BAFDB1F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cracker.Admin.Infrastructure", "src\Cracker.Admin.Infrastructure\Cracker.Admin.Infrastructure.csproj", "{FBC37334-499E-459C-8251-337D18F7E2E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC37334-499E-459C-8251-337D18F7E2E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC37334-499E-459C-8251-337D18F7E2E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC37334-499E-459C-8251-337D18F7E2E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC37334-499E-459C-8251-337D18F7E2E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{42F719ED-8413-4895-B5B4-5AB56079BC66} = {FBA5DAD6-A22A-4990-9731-0DE30688DD6E}
 		{520659C8-C734-4298-A3DA-B539DB9DFC0B} = {2B2534C8-B8DC-45DF-8E69-3BE3D4FBB43B}
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D} = {59387220-2D99-4276-8776-AA08BAFDB1F1}
+		{FBC37334-499E-459C-8251-337D18F7E2E3} = {7A021DAA-9B46-4028-B0C1-6AA442E92067}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

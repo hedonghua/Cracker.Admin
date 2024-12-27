@@ -6,6 +6,7 @@ using Coravel;
 
 using Cracker.Admin.Core;
 using Cracker.Admin.Filters;
+using Cracker.Admin.Infrastructure;
 using Cracker.Admin.Middlewares;
 using Cracker.Admin.MultiTenancy;
 using Cracker.Admin.Services;
@@ -35,7 +36,7 @@ namespace Cracker.Admin;
     typeof(AbpAutofacModule),
     typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(CrackerAdminApplicationModule),
-    typeof(CrackerAdminEntityFrameworkCoreModule),
+    typeof(CrackerAdminInfrastructureModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
 )]
@@ -65,9 +66,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
         context.Services.AddHostedService<StaticFileHostService>();
-
-        var csRedis = new CSRedis.CSRedisClient(configuration["Redis:Connection"]);
-        RedisHelper.Initialization(csRedis);
     }
 
     private void ConfigureFilters(ServiceConfigurationContext context, IConfiguration configuration)

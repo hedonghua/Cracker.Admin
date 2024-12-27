@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<Import Project="..\..\common.props" />
 
@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Cracker.Admin.Application\Cracker.Admin.Application.csproj" />
-		<ProjectReference Include="..\Cracker.Admin.EntityFrameworkCore\Cracker.Admin.EntityFrameworkCore.csproj" />
+		<ProjectReference Include="..\Cracker.Admin.Infrastructure\Cracker.Admin.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

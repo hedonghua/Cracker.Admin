@@ -29,10 +29,12 @@ namespace Cracker.Admin.Account
         private readonly IConfiguration _configuration;
         private readonly IReHeader _reHeader;
         private readonly IRepository<SysLoginLog> loginLogRepository;
+        private readonly ICacheProvider cacheProvider;
 
         public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository)
+            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository
+            , ICacheProvider cacheProvider)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -43,6 +45,7 @@ namespace Cracker.Admin.Account
             _configuration = configuration;
             _reHeader = reHeader;
             this.loginLogRepository = loginLogRepository;
+            this.cacheProvider = cacheProvider;
         }
 
         /// <summary>
@@ -72,17 +75,17 @@ namespace Cracker.Admin.Account
                 RefreshToken = refreshToken,
                 Auths = userInfo.Auths
             };
-            await RedisHelper.SetAsync(refreshToken, userInfo.UserName, TimeSpan.FromHours(expiredHour + 2));
+            await cacheProvider.SetAsync(refreshToken, userInfo.UserName, TimeSpan.FromHours(expiredHour + 2));
             return rs;
         }
 
         public async Task<TokenResultDto> GetAccessTokenAsync(string refreshToken)
         {
-            if (!RedisHelper.Exists(refreshToken)) throw new BusinessException(message:"刷新token已过期");
-            var username = RedisHelper.Get<string>(refreshToken);
+            if (!await cacheProvider.ExistsAsync(refreshToken)) throw new BusinessException(message: "刷新token已过期");
+            var username = await cacheProvider.GetAsync<string>(refreshToken);
             var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower()) ?? throw new BusinessException(message: "用户不存在");
             var rs = await GetTokenAsync(user.Id);
-            RedisHelper.Del(refreshToken);
+            await cacheProvider.DelAsync(refreshToken);
             return rs;
         }
 
@@ -95,7 +98,7 @@ namespace Cracker.Admin.Account
         private async Task<UserInfoDto> GetUserInfoAsync(Guid uid, int expiredHour = 6)
         {
             var key = UserCacheHelper.GetUserInfoKey(uid);
-            if (RedisHelper.Exists(key)) return RedisHelper.Get<UserInfoDto>(key);
+            if (await cacheProvider.ExistsAsync(key)) return await cacheProvider.GetAsync<UserInfoDto>(key);
             var user = (await _userRepository.FindAsync(x => x.Id == uid))!;
             var roleIds = (await _userRoleRepository.GetQueryableAsync()).Where(x => x.UserId == uid).Select(x => x.RoleId).ToList();
             var roles = await _roleRepository.GetListAsync(x => roleIds.Contains(x.Id));
@@ -118,7 +121,7 @@ namespace Cracker.Admin.Account
                 RoleIds = [.. roleIds],
                 MenuIds = [.. menuIds]
             };
-            await RedisHelper.SetAsync(key, rs, TimeSpan.FromHours(expiredHour));
+            await cacheProvider.SetAsync(key, rs, TimeSpan.FromHours(expiredHour));
             return rs;
         }
 
@@ -223,7 +226,7 @@ namespace Cracker.Admin.Account
             user.NickName = dto.NickName;
             user.Sex = dto.Sex;
             await _userRepository.UpdateAsync(user);
-            RedisHelper.Del(UserCacheHelper.GetUserInfoKey(user.Id));
+            await cacheProvider.DelAsync(UserCacheHelper.GetUserInfoKey(user.Id));
             return true;
         }
 
@@ -247,10 +250,10 @@ namespace Cracker.Admin.Account
         {
             var key = UserCacheHelper.GetUserInfoKey(_currentUser.Id.GetValueOrDefault());
             //移除用户信息
-            await RedisHelper.DelAsync(key);
+            await cacheProvider.DelAsync(key);
             //移除刷新token
             var refreshToken = _reHeader.HttpContext.User.FindFirst(ClaimTypes.UserData)!.Value;
-            await RedisHelper.DelAsync(refreshToken);
+            await cacheProvider.DelAsync(refreshToken);
             return true;
         }
     }
