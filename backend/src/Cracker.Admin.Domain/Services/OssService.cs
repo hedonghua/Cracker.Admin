@@ -30,7 +30,7 @@ namespace Cracker.Admin.Services
             var extension = Path.GetExtension(name);
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            var newFileName = fileName;
+            var newFileName = name;
             if (rename)
             {
                 newFileName = Guid.NewGuid().ToString("N") + extension;
@@ -68,7 +68,15 @@ namespace Cracker.Admin.Services
         {
             var path = configuration["Oss:Bucket"];
             if (Directory.Exists(path)) return path;
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "oss");
+            try
+            {
+                Directory.CreateDirectory(path!);
+                return path!;
+            }
+            catch (Exception)
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "oss");
+            }
         }
     }
 }
