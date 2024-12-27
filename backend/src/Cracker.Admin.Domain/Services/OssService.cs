@@ -1,12 +1,13 @@
-﻿using System.IO;
+﻿using Microsoft.Extensions.Configuration;
+using System.IO;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Configuration;
-
 using Volo.Abp.Domain.Services;
 
 namespace Cracker.Admin.Services
 {
+    /// <summary>
+    /// 模拟对象存储（存放在宿主服务器）
+    /// </summary>
     public class OssService : DomainService
     {
         private readonly IConfiguration configuration;
@@ -16,7 +17,7 @@ namespace Cracker.Admin.Services
             this.configuration = configuration;
         }
 
-        public async Task<string> UploadAsync(byte[] bytes, string fileName)
+        public async Task<string> UploadAsync(byte[] bytes, string fileName, bool rename = true, bool cover = false)
         {
             var rootPath = GetOssRootPath();
             var dir = Path.GetDirectoryName(fileName);
@@ -29,13 +30,20 @@ namespace Cracker.Admin.Services
             var extension = Path.GetExtension(name);
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            var newFileName = Guid.NewGuid().ToString("N") + extension;
-            var fullPath = Path.Combine(path, newFileName);
-            using (var fs = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
+            var newFileName = fileName;
+            if (rename)
             {
-                fs.Seek(0, SeekOrigin.Begin);
-                await fs.WriteAsync(bytes);
-                fs.Close();
+                newFileName = Guid.NewGuid().ToString("N") + extension;
+            }
+            var fullPath = Path.Combine(path, newFileName);
+            if (!File.Exists(fullPath) || cover)
+            {
+                using (var fs = new FileStream(fullPath, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Seek(0, SeekOrigin.Begin);
+                    await fs.WriteAsync(bytes);
+                    fs.Close();
+                }
             }
             return dir + "/" + newFileName;
         }
