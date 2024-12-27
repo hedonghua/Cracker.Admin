@@ -11,4 +11,14 @@ public static class AdminResponseCode
     /// 失败
     /// </summary>
     public const int Fail = -1;
+
+    /// <summary>
+    /// 未登录
+    /// </summary>
+    public const int NoAuth = 401;
+
+    /// <summary>
+    /// 权限不足
+    /// </summary>
+    public const int Forbidden = 403;
 }

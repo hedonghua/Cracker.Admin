@@ -2,6 +2,7 @@ using Cracker.Admin.Core;
 using Cracker.Admin.Entities;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Repositories;
+using Cracker.Admin.Services;
 using Cracker.Admin.System.Dtos;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -23,15 +24,17 @@ namespace Cracker.Admin.System
         private readonly IConfiguration _configuration;
         private readonly IUserDapperRepository _userDapperRepository;
         private readonly ICacheProvider cacheProvider;
+        private readonly IdentityDomainService identityDomainService;
 
         public UserService(IRepository<SysUser> userRepository, IRepository<SysUserRole> userRoleRepository
-            , IConfiguration configuration, IUserDapperRepository userDapperRepository,ICacheProvider cacheProvider)
+            , IConfiguration configuration, IUserDapperRepository userDapperRepository,ICacheProvider cacheProvider, IdentityDomainService identityDomainService)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _configuration = configuration;
             _userDapperRepository = userDapperRepository;
             this.cacheProvider = cacheProvider;
+            this.identityDomainService = identityDomainService;
         }
 
         public async Task<bool> AddUserAsync(UserDto dto)
@@ -79,7 +82,7 @@ namespace Cracker.Admin.System
                     await _userRoleRepository.InsertManyAsync(items, true);
                 }
             }
-            await cacheProvider.DelAsync(UserCacheHelper.GetUserInfoKey(dto.UserId));
+            await identityDomainService.DelUserPermissionCacheByUserIdAsync(dto.UserId);
             return true;
         }
 
