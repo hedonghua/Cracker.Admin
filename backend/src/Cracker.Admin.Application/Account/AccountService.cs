@@ -4,6 +4,8 @@ using Cracker.Admin.Entities;
 using Cracker.Admin.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
+using Cracker.Admin.Services;
+using Mapster;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -30,11 +32,13 @@ namespace Cracker.Admin.Account
         private readonly IReHeader _reHeader;
         private readonly IRepository<SysLoginLog> loginLogRepository;
         private readonly ICacheProvider cacheProvider;
+        private readonly IdentityDomainService identityDomainService;
+        private const int expired = 4;
 
         public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
             IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository
-            , ICacheProvider cacheProvider)
+            , ICacheProvider cacheProvider, IdentityDomainService identityDomainService)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -46,83 +50,69 @@ namespace Cracker.Admin.Account
             _reHeader = reHeader;
             this.loginLogRepository = loginLogRepository;
             this.cacheProvider = cacheProvider;
+            this.identityDomainService = identityDomainService;
         }
 
         /// <summary>
-        /// 获取token
+        /// 生成token
         /// </summary>
         /// <param name="uid"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private async Task<TokenResultDto> GetTokenAsync(Guid uid)
+        private async Task<TokenResultDto> GenerateTokenAsync(Guid userId, string userName)
         {
-            int expiredHour = 4;
             var time = DateTime.Now;
-            var userInfo = await GetUserInfoAsync(uid, expiredHour) ?? throw new BusinessException(message: "用户不存在");
 
             var refreshToken = Guid.NewGuid().ToString("N").ToLower();
             var claims = new List<Claim> {
-                new(ClaimTypes.NameIdentifier, userInfo.UserId.ToString()),
-                new(ClaimTypes.Name, userInfo.UserName!),
-                new(ClaimTypes.Role, string.Join(',',userInfo?.Roles ?? [])),
-                new(ClaimTypes.UserData,refreshToken)
+                new(ClaimTypes.NameIdentifier, userId.ToString()),
+                new(ClaimTypes.Name, userName)
             };
+            var tokenExpired = time.AddHours(expired);
             var rs = new LoginResultDto
             {
-                UserName = userInfo!.UserName,
-                ExpiredTime = time.AddHours(expiredHour).ToString("yyyy-MM-dd HH:mm:ss"),
-                AccessToken = TokenHelper.GenerateToken(claims, time.AddHours(expiredHour)),
-                RefreshToken = refreshToken,
-                Auths = userInfo.Auths
+                UserName = userName,
+                ExpiredTime = tokenExpired.ToString("yyyy-MM-dd HH:mm:ss"),
+                AccessToken = TokenHelper.GenerateToken(claims, tokenExpired),
+                RefreshToken = refreshToken
             };
-            await cacheProvider.SetAsync(refreshToken, userInfo.UserName, TimeSpan.FromHours(expiredHour + 2));
+            await cacheProvider.SetAsync("AccessToken:" + userId, rs.AccessToken, TimeSpan.FromHours(expired));
+            await cacheProvider.SetAsync("RefreshToken:" + userId, refreshToken, TimeSpan.FromHours(expired + 1));
+
             return rs;
         }
 
         public async Task<TokenResultDto> GetAccessTokenAsync(string refreshToken)
         {
-            if (!await cacheProvider.ExistsAsync(refreshToken)) throw new BusinessException(message: "刷新token已过期");
-            var username = await cacheProvider.GetAsync<string>(refreshToken);
-            var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower()) ?? throw new BusinessException(message: "用户不存在");
-            var rs = await GetTokenAsync(user.Id);
-            await cacheProvider.DelAsync(refreshToken);
-            return rs;
+            if (!_currentUser.Id.HasValue) throw new AbpAuthorizationException();
+
+            var key = "RefreshToken:" + _currentUser.Id.Value;
+            if (!await cacheProvider.ExistsAsync(key)) throw new BusinessException(message: "刷新token已过期");
+
+            var existRefreshToken = await cacheProvider.GetAsync<string>(key);
+            if (!refreshToken.Equals(existRefreshToken)) throw new BusinessException(message: "刷新token不正确");
+
+            return await GenerateTokenAsync(_currentUser.Id.Value, _currentUser.UserName!);
         }
 
         public async Task<UserInfoDto> GetUserInfoAsync()
         {
             if (!_currentUser.Id.HasValue) throw new AbpAuthorizationException();
-            return await GetUserInfoAsync(_currentUser.Id.Value);
-        }
 
-        private async Task<UserInfoDto> GetUserInfoAsync(Guid uid, int expiredHour = 6)
-        {
-            var key = UserCacheHelper.GetUserInfoKey(uid);
-            if (await cacheProvider.ExistsAsync(key)) return await cacheProvider.GetAsync<UserInfoDto>(key);
-            var user = (await _userRepository.FindAsync(x => x.Id == uid))!;
-            var roleIds = (await _userRoleRepository.GetQueryableAsync()).Where(x => x.UserId == uid).Select(x => x.RoleId).ToList();
-            var roles = await _roleRepository.GetListAsync(x => roleIds.Contains(x.Id));
-            var isSuperAdmin = roles.Any(r => r.RoleName == AdminConsts.SuperAdminRole);
-            var menuIds = (await _roleMenuRepository.GetQueryableAsync()).Where(x => roleIds.Contains(x.RoleId)).Select(x => x.MenuId).ToList();
-            var menus = await _menuRepository.GetListAsync(x => menuIds.Contains(x.Id) || isSuperAdmin);
-            if (isSuperAdmin)
-            {
-                menuIds = menus.Select(x => x.Id).ToList();
-            }
-            var rs = new UserInfoDto
+            var permission = await identityDomainService.GetUserPermissionAsync(_currentUser.Id.Value);
+            var user = await _userRepository.GetAsync(x => x.Id == _currentUser.Id.Value);
+            return new UserInfoDto
             {
                 UserId = user.Id,
                 UserName = user.UserName,
                 NickName = user.NickName,
                 Avatar = user.Avatar,
                 Sex = user.Sex,
-                Roles = roles.Select(c => c.RoleName).ToArray(),
-                Auths = menus.Where(c => !string.IsNullOrEmpty(c.Permission)).Select(c => c.Permission!).ToArray(),
-                RoleIds = [.. roleIds],
-                MenuIds = [.. menuIds]
+                Roles = permission.Roles,
+                Auths = permission.Auths,
+                RoleIds = [.. permission.RoleIds],
+                MenuIds = [.. permission.MenuIds]
             };
-            await cacheProvider.SetAsync(key, rs, TimeSpan.FromHours(expiredHour));
-            return rs;
         }
 
         public async Task<LoginResultDto> LoginAsync(LoginDto dto)
@@ -139,10 +129,15 @@ namespace Cracker.Admin.Account
             };
             try
             {
-                var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new BusinessException(message: "账号或密码不存在");
+                var user = await _userRepository.GetAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new BusinessException(message: "账号或密码不存在");
                 var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
                 if (!isRight) throw new BusinessException(message: "密码错误");
-                var rs = (LoginResultDto)await GetTokenAsync(user.Id);
+
+                var rs = (await GenerateTokenAsync(user.Id, user.UserName)).Adapt<LoginResultDto>();
+                var permission = await identityDomainService.GetUserPermissionAsync(user.Id);
+                rs.UserName = dto.UserName;
+                rs.Auths = permission.Auths;
+
                 return rs;
             }
             catch (Exception ex)
@@ -159,11 +154,11 @@ namespace Cracker.Admin.Account
 
         public async Task<List<FrontRoute>> GetFrontRoutes(int listStruct = 0)
         {
-            var userInfo = await GetUserInfoAsync() ?? throw new BusinessException(message: "用户不存在");
-            if (userInfo.MenuIds == null) return [];
+            var permission = await identityDomainService.GetUserPermissionAsync(_currentUser.Id!.Value);
+            if (permission.MenuIds == null || permission.MenuIds.Length <= 0) return [];
 
             var all = (await _menuRepository.GetQueryableAsync())
-                .Where(x => userInfo.MenuIds.Contains(x.Id) && x.FunctionType == FunctionType.Menu).ToList();
+                .Where(x => permission.MenuIds.Contains(x.Id) && x.FunctionType == FunctionType.Menu).ToList();
             if (listStruct == 1) return all.Where(x => x.ParentId != Guid.Empty && x.ParentId.HasValue).OrderBy(x => x.ParentId).ThenBy(x => x.Sort).Select(x => new FrontRoute
             {
                 Id = x.Id,
@@ -220,19 +215,17 @@ namespace Cracker.Admin.Account
 
         public async Task<bool> UpdateUserInfoAsync(PersonalInfoDto dto)
         {
-            var user = await _userRepository.SingleOrDefaultAsync(x => x.Id == _currentUser.Id)
-                ?? throw new BusinessException(message: "用户不存在");
+            var user = await _userRepository.GetAsync(x => x.Id == _currentUser.Id);
             user.Avatar = dto.Avatar;
             user.NickName = dto.NickName;
             user.Sex = dto.Sex;
             await _userRepository.UpdateAsync(user);
-            await cacheProvider.DelAsync(UserCacheHelper.GetUserInfoKey(user.Id));
             return true;
         }
 
         public async Task<bool> UpdateUserPwdAsync(UserPwdDto dto)
         {
-            var user = await _userRepository.SingleOrDefaultAsync(x => x.Id == _currentUser.Id)
+            var user = await _userRepository.GetAsync(x => x.Id == _currentUser.Id)
                 ?? throw new BusinessException(message: "用户不存在");
             var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.OldPwd, user.PasswordSalt);
             if (!isRight) throw new BusinessException(message: "旧密码错误");
@@ -248,12 +241,11 @@ namespace Cracker.Admin.Account
 
         public async Task<bool> SignOutAsync()
         {
-            var key = UserCacheHelper.GetUserInfoKey(_currentUser.Id.GetValueOrDefault());
-            //移除用户信息
-            await cacheProvider.DelAsync(key);
+            var uid = _currentUser.Id!.Value;
+            //移除访问token
+            await cacheProvider.DelAsync("AccessToken:" + uid);
             //移除刷新token
-            var refreshToken = _reHeader.HttpContext.User.FindFirst(ClaimTypes.UserData)!.Value;
-            await cacheProvider.DelAsync(refreshToken);
+            await cacheProvider.DelAsync("RefreshToken:" + uid);
             return true;
         }
     }

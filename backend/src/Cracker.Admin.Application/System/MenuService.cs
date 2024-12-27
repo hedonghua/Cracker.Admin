@@ -1,7 +1,7 @@
 using Cracker.Admin.Entities;
 using Cracker.Admin.Enums;
-using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
+using Cracker.Admin.Services;
 using Cracker.Admin.System.Dtos;
 using System;
 using System.Collections.Generic;
@@ -17,10 +17,12 @@ namespace Cracker.Admin.System
     public class MenuService : ApplicationService, IMenuService
     {
         private readonly IRepository<SysMenu> _menuRepository;
+        private readonly IdentityDomainService identityDomainService;
 
-        public MenuService(IRepository<SysMenu> menuRepository)
+        public MenuService(IRepository<SysMenu> menuRepository, IdentityDomainService identityDomainService)
         {
             _menuRepository = menuRepository;
+            this.identityDomainService = identityDomainService;
         }
 
         public async Task<bool> AddMenuAsync(MenuDto dto)
@@ -36,7 +38,7 @@ namespace Cracker.Admin.System
             }
             var entity = ObjectMapper.Map<MenuDto, SysMenu>(dto);
             await _menuRepository.InsertAsync(entity, true);
-            RedisExtensionHelper.RemoveByPattern(UserCacheHelper.UserInfoKeyPattern);
+            await identityDomainService.DelAdminUserPermissionCacheAsync();
             return true;
         }
 
@@ -124,6 +126,9 @@ namespace Cracker.Admin.System
             {
                 throw new BusinessException(message: $"已存在【{dto.Path}】菜单路由");
             }
+
+            bool updatePermission = dto.Permission != entity.Permission;
+
             entity.Title = dto.Title;
             entity.Name = dto.Name;
             entity.Icon = dto.Icon;
@@ -134,6 +139,12 @@ namespace Cracker.Admin.System
             entity.Sort = dto.Sort;
             entity.Hidden = dto.Hidden;
             await _menuRepository.UpdateAsync(entity, true);
+
+            if (updatePermission)
+            {
+                await identityDomainService.DelUserPermissionCacheByMenuIdAsync(entity.Id);
+            }
+
             return true;
         }
     }

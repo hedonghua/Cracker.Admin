@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using Coravel;
 
 using Cracker.Admin.Core;
@@ -10,7 +10,8 @@ using Cracker.Admin.Infrastructure;
 using Cracker.Admin.Middlewares;
 using Cracker.Admin.MultiTenancy;
 using Cracker.Admin.Services;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using Volo.Abp;
@@ -53,7 +55,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         AppManager.BeforeSet(configuration, hostingEnvironment.WebRootPath);
 
-        ConfigureAuthentication(context);
+        ConfigureAuthentication(context, configuration);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
         ConfigureFilters(context, configuration);
@@ -97,12 +99,24 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         });
     }
 
-    private void ConfigureAuthentication(ServiceConfigurationContext context)
+    private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
-        {
-            options.IsDynamicClaimsEnabled = true;
-        });
+        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromSeconds(Convert.ToInt32(configuration.GetSection("JWT")["ClockSkew"])),
+                    ValidateIssuerSigningKey = true,
+                    ValidAudience = configuration.GetSection("JWT")["ValidAudience"],
+                    ValidIssuer = configuration.GetSection("JWT")["ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JWT")["IssuerSigningKey"]!))
+                };
+            });
+        context.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, IdentityMiddlewareResultHandler>();
     }
 
     private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
@@ -186,7 +200,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         app.UseDynamicClaims();
         app.UseAuthorization();
 
-        app.UseMiddleware<PermissionMiddleware>();
         app.UseMiddleware<ReHeaderMiddleware>();
 
         app.UseSwagger();

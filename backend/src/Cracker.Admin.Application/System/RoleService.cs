@@ -2,6 +2,7 @@ using Cracker.Admin.Entities;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.Repositories;
+using Cracker.Admin.Services;
 using Cracker.Admin.System.Dtos;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,16 @@ namespace Cracker.Admin.System
         private readonly IRepository<SysRoleMenu> _roleMenuRepository;
         private readonly IRoleDapperRepository _roleDAO;
         private readonly IRepository<SysUserRole> _userRoleRepository;
+        private readonly IdentityDomainService identityDomainService;
 
         public RoleService(IRepository<SysRole> roleRepository, IRepository<SysRoleMenu> roleMenuRepository
-            , IRoleDapperRepository roleDAO, IRepository<SysUserRole> userRoleRepository)
+            , IRoleDapperRepository roleDAO, IRepository<SysUserRole> userRoleRepository, IdentityDomainService identityDomainService)
         {
             _roleRepository = roleRepository;
             _roleMenuRepository = roleMenuRepository;
             _roleDAO = roleDAO;
             _userRoleRepository = userRoleRepository;
+            this.identityDomainService = identityDomainService;
         }
 
         public async Task<bool> AddRoleAsync(RoleDto dto)
@@ -68,7 +71,7 @@ namespace Cracker.Admin.System
                     await _roleMenuRepository.InsertManyAsync(items, true);
                 }
             }
-            RedisExtensionHelper.RemoveByPattern(UserCacheHelper.UserInfoKeyPattern);
+            await identityDomainService.DelUserPermissionCacheByRoleIdAsync(dto.RoleId);
             return true;
         }
 

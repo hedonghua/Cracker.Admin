@@ -6,7 +6,7 @@ namespace Cracker.Admin.Attributes
         /// <summary>
         /// 权限编码
         /// </summary>
-        public string? Code => code;
+        public string Code => code;
 
         private readonly string code;
 

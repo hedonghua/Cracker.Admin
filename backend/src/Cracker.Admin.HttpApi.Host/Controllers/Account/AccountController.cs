@@ -37,7 +37,6 @@ namespace Cracker.Admin.Controllers.Account
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [AppResultFilter]
         [HttpPost("refresh-token")]
         public Task<TokenResultDto> GetAccessTokenAsync(string refreshToken) => _accountService.GetAccessTokenAsync(refreshToken);
