@@ -6,7 +6,7 @@ using Dapper;
 
 using Cracker.Admin.Models;
 
-namespace Cracker.Admin.Extension
+namespace Cracker.Admin.Extensions
 {
     public static class DbConnectionExtension
     {

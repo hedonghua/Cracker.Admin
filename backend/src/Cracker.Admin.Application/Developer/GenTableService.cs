@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Cracker.Admin.Developer.Dtos;
 using Cracker.Admin.Entities;
-using Cracker.Admin.Extension;
+using Cracker.Admin.Extensions;
 using Cracker.Admin.Models;
 using Cracker.Admin.Repositories;
 

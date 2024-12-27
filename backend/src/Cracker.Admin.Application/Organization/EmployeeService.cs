@@ -3,7 +3,7 @@ using System.Data;
 using System.Threading.Tasks;
 
 using Mapster;
-using Cracker.Admin.Extension;
+using Cracker.Admin.Extensions;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization.Dtos;
