@@ -42,7 +42,7 @@ namespace Cracker.Admin.System
             var isExist = await _userRepository.AnyAsync(x => x.UserName.ToLower() == dto.UserName.ToLower());
             if (isExist)
             {
-                throw new AbpValidationException("用户名已存在");
+                throw new AbpValidationException("账号已存在");
             }
             var user = new SysUser
             {
