@@ -1,3 +1,4 @@
+using Cracker.Admin.Core;
 using Cracker.Admin.Entities;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Repositories;
@@ -20,15 +21,17 @@ namespace Cracker.Admin.System
         private readonly IRepository<SysUser> _userRepository;
         private readonly IRepository<SysUserRole> _userRoleRepository;
         private readonly IConfiguration _configuration;
-        private readonly IUserDapperRepository _userDAO;
+        private readonly IUserDapperRepository _userDapperRepository;
+        private readonly ICacheProvider cacheProvider;
 
         public UserService(IRepository<SysUser> userRepository, IRepository<SysUserRole> userRoleRepository
-            , IConfiguration configuration, IUserDapperRepository userDAO)
+            , IConfiguration configuration, IUserDapperRepository userDapperRepository,ICacheProvider cacheProvider)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _configuration = configuration;
-            _userDAO = userDAO;
+            _userDapperRepository = userDapperRepository;
+            this.cacheProvider = cacheProvider;
         }
 
         public async Task<bool> AddUserAsync(UserDto dto)
@@ -49,7 +52,7 @@ namespace Cracker.Admin.System
             };
             if (string.IsNullOrWhiteSpace(dto.Avatar))
             {
-                user.Avatar = user.Sex == 1 ? "avatar/boy.png" : "avatar/girl.png";
+                user.Avatar = user.Sex == 1 ? AdminConsts.AvatarMale : AdminConsts.AvatarFemale;
             }
             user.Password = EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
             await _userRepository.InsertAsync(user, true);
@@ -76,7 +79,7 @@ namespace Cracker.Admin.System
                     await _userRoleRepository.InsertManyAsync(items, true);
                 }
             }
-            await RedisHelper.DelAsync(UserCacheHelper.GetUserInfoKey(dto.UserId));
+            await cacheProvider.DelAsync(UserCacheHelper.GetUserInfoKey(dto.UserId));
             return true;
         }
 
@@ -88,7 +91,7 @@ namespace Cracker.Admin.System
 
         public async Task<PagedResultDto<UserListDto>> GetUserListAsync(UserQueryDto dto)
         {
-            var adminIds = await _userDAO.GetSuperAdminUserIdsAsync();
+            var adminIds = await _userDapperRepository.GetSuperAdminUserIdsAsync();
             var query = (await _userRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrEmpty(dto.UserName), x => x.UserName.Contains(dto.UserName!))
                 .Where(x => !adminIds.Contains(x.Id));

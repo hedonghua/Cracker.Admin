@@ -1,20 +1,22 @@
-using Microsoft.Extensions.DependencyInjection;
 using Cracker.Admin.Core;
+using Cracker.Admin.Entities;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
-using Cracker.Admin.Entities;
 
 namespace Cracker.Admin.Services
 {
     public class GlobalKeySettingsService : IKeySettings
     {
         private readonly IRepository<SysDict> _dictRepository;
+        private readonly ICacheProvider cacheProvider;
         private static int _num = 0;
 
-        public GlobalKeySettingsService(IRepository<SysDict> dictRepository)
+        public GlobalKeySettingsService(IRepository<SysDict> dictRepository, ICacheProvider cacheProvider)
         {
             _dictRepository = dictRepository;
+            this.cacheProvider = cacheProvider;
         }
 
         public static IKeySettings Instance => _lazyValue.Value;
@@ -30,25 +32,26 @@ namespace Cracker.Admin.Services
             var all = await _dictRepository.GetListAsync(x => x.IsEnabled);
             foreach (var item in all)
             {
-                await RedisHelper.HSetAsync(AdminConsts.DictCacheHashKey, item.Key, item.Value);
+                await cacheProvider.HSetAsync(AdminConsts.DictCacheHashKey, item.Key, item.Value);
             }
             Interlocked.Increment(ref _num);
         }
 
         public async Task<string> GetAsync(string key)
         {
-            return await RedisHelper.HGetAsync(AdminConsts.DictCacheHashKey, key);
+            return await cacheProvider.HGetAsync<string>(AdminConsts.DictCacheHashKey, key);
         }
 
         public async Task<bool> RemoveAsync(string key)
         {
-            return await RedisHelper.HDelAsync(AdminConsts.DictCacheHashKey, [key]) > 0;
+            await cacheProvider.HDelAsync(AdminConsts.DictCacheHashKey, key);
+            return true;
         }
 
         public async Task<bool> SetAsync(string key, string value, bool isDbSync = false)
         {
-            var isSuccess = await RedisHelper.HSetAsync(AdminConsts.DictCacheHashKey, key, value);
-            if (isSuccess && isDbSync)
+            await cacheProvider.HSetAsync(AdminConsts.DictCacheHashKey, key, value);
+            if (isDbSync)
             {
                 var entity = await _dictRepository.SingleOrDefaultAsync(x => x.Key.ToLower() == key.ToLower());
                 if (entity != null)

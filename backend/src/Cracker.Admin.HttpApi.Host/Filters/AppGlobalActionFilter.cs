@@ -7,6 +7,7 @@ using Cracker.Admin.Models;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Cracker.Admin.Core;
 
 namespace Cracker.Admin.Filters
 {
@@ -14,11 +15,13 @@ namespace Cracker.Admin.Filters
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<AppGlobalActionFilter> _logger;
+        private readonly ICacheProvider cacheProvider;
 
-        public AppGlobalActionFilter(IConfiguration configuration, ILogger<AppGlobalActionFilter> logger)
+        public AppGlobalActionFilter(IConfiguration configuration, ILogger<AppGlobalActionFilter> logger,ICacheProvider cacheProvider)
         {
             _configuration = configuration;
             _logger = logger;
+            this.cacheProvider = cacheProvider;
         }
 
         [GeneratedRegex("[\"\'\\\\/]+")]
@@ -70,19 +73,20 @@ namespace Cracker.Admin.Filters
                     }
                 }
                 var key = GetKeyPath(requestPath);
-                if (RedisHelper.Exists(key))
+                if (await cacheProvider.ExistsAsync(key))
                 {
-                    int realCount = RedisHelper.Get<int>(key);
+                    int realCount = await cacheProvider.GetAsync<int>(key);
                     _logger.LogInformation("实际请求数：{realCount}", realCount);
                     if (realCount >= count)
                     {
                         return new AppResult(-1, "操作过快，请等一下");
                     }
-                    await RedisHelper.IncrByAsync(key, 1);
+                    realCount += 1;
+                    await cacheProvider.IncrByAsync(key, 1);
                 }
                 else
                 {
-                    await RedisHelper.SetAsync(key, 1, TimeSpan.FromSeconds(timeSeconds));
+                    await cacheProvider.SetAsync(key, 1, TimeSpan.FromSeconds(timeSeconds));
                 }
             }
             return new AppResult();
