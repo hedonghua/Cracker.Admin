@@ -12,6 +12,9 @@ namespace Cracker.Admin.Models
         [JsonPropertyOrder(1)]
         public string? Message { get; set; }
 
+        [JsonPropertyOrder(2)]
+        public string? Status { get; set; }
+
         public AppResult()
         { }
 
@@ -34,7 +37,7 @@ namespace Cracker.Admin.Models
 
     public class AppResult<T> : AppResult, IAppResult<T>
     {
-        [JsonPropertyOrder(2)]
+        [JsonPropertyOrder(3)]
         public T? Data { get; set; }
 
         public AppResult()

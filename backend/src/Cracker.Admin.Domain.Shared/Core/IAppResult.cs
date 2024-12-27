@@ -4,6 +4,7 @@ namespace Cracker.Admin.Core
     {
         int Code { get; set; }
         string? Message { get; set; }
+        string? Status { get; set; }
 
         bool IsOk();
     }

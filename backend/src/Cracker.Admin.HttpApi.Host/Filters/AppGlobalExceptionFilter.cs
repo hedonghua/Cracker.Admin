@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Cracker.Admin.Core;
 using Cracker.Admin.Models;
-using Cracker.Admin.MyExceptions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
 using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Validation;
 
 namespace Cracker.Admin.Filters
@@ -22,13 +22,31 @@ namespace Cracker.Admin.Filters
         {
             if (context.ExceptionHandled) return;
 
-            string errMsg = context.Exception.Message;
-            context.Result = new ObjectResult(new AppResult(-1, errMsg));
+            var errMsg = context.Exception.Message;
+            var result = new AppResult(AdminResponseCode.Fail, errMsg);
+
+            if (context.Exception is BusinessException businessException)
+            {
+                if (int.TryParse(businessException.Code, out var code))
+                {
+                    result.Code = code;
+                }
+                else
+                {
+                    result.Status = businessException.Code;
+                }
+            }
+            else if (context.Exception is EntityNotFoundException)
+            {
+                result.Message = "数据不存在";
+            }
+
+            context.Result = new ObjectResult(result);
             context.ExceptionHandled = true;
 
             AppBusinessLogFilter.WriteLog(context.HttpContext, context.Result);
 
-            if (context.Exception is TipException || context.Exception is AbpValidationException
+            if (context.Exception is AbpValidationException
                 || context.Exception is BusinessException) return;
 
             _fileLogger.Write(errMsg, exception: context.Exception);

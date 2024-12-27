@@ -75,7 +75,7 @@ namespace Cracker.Admin.System
         public async Task<bool> DeleteRoleAsync(Guid id)
         {
             var hasUsers = await _userRoleRepository.AnyAsync(x => x.RoleId == id);
-            if (hasUsers) throw new BusinessException("-1", "角色已分配给用户，不能删除");
+            if (hasUsers) throw new BusinessException(message: "角色已分配给用户，不能删除");
             await _roleRepository.DeleteAsync(x => x.Id == id);
             return true;
         }
