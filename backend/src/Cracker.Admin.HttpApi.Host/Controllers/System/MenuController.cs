@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Models;
 using Cracker.Admin.System;
@@ -29,7 +29,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpPost("add")]
         [AppResultFilter]
-        [Permission("admin_system_menu_add")]
+        [HasPermission("admin_system_menu_add")]
         public Task<bool> AddMenuAsync([FromBody] MenuDto dto) => _menuService.AddMenuAsync(dto);
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_menu_delete")]
+        [HasPermission("admin_system_menu_delete")]
         public Task<List<MenuListDto>> GetMenuListAsync([FromQuery] MenuQueryDto dto) => _menuService.GetMenuListAsync(dto);
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpPut("update")]
         [AppResultFilter]
-        [Permission("admin_system_menu_update")]
+        [HasPermission("admin_system_menu_update")]
         public Task<bool> UpdateMenuAsync([FromBody] MenuDto dto) => _menuService.UpdateMenuAsync(dto);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpDelete("delete")]
         [AppResultFilter]
-        [Permission("admin_system_menu_delete")]
+        [HasPermission("admin_system_menu_delete")]
         public Task<bool> DeleteMenusAsync([FromBody] Guid[] ids) => _menuService.DeleteMenusAsync(ids);
 
         /// <summary>

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.System;
 using Cracker.Admin.System.Dtos;
@@ -30,7 +30,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpPost("add")]
         [AppResultFilter]
         [AppBusinessLogFilter("新增用户")]
-        [Permission("admin_system_user_add")]
+        [HasPermission("admin_system_user_add")]
         public Task<bool> AddUserAsync([FromBody] UserDto dto) => _userService.AddUserAsync(dto);
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_user_list")]
+        [HasPermission("admin_system_user_list")]
         public Task<PagedResultDto<UserListDto>> GetUserListAsync([FromQuery] UserQueryDto dto)
             => _userService.GetUserListAsync(dto);
 
@@ -52,7 +52,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpDelete("delete/{id:Guid}")]
         [AppResultFilter]
         [AppBusinessLogFilter("删除用户")]
-        [Permission("admin_system_user_delete")]
+        [HasPermission("admin_system_user_delete")]
         public Task<bool> DeleteUserAsync(Guid id) => _userService.DeleteUserAsync(id);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpPost("assign-role")]
         [AppResultFilter]
         [AppBusinessLogFilter("分配角色")]
-        [Permission("admin_system_user_assignrole")]
+        [HasPermission("admin_system_user_assignrole")]
         public Task<bool> AssignRoleAsync([FromBody] AssignRoleDto dto) => _userService.AssignRoleAsync(dto);
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpPut("change-enabled/{id:Guid}")]
         [AppResultFilter]
         [AppBusinessLogFilter("切换用户状态")]
-        [Permission("admin_system_user_changeenabled")]
+        [HasPermission("admin_system_user_changeenabled")]
         public Task<bool> SwitchUserEnabledStatusAsync(Guid id) => _userService.SwitchUserEnabledStatusAsync(id);
 
         /// <summary>

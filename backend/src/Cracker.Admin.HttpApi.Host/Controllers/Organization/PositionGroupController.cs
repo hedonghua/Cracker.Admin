@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization;
@@ -29,7 +29,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpPost("add")]
         [AppResultFilter]
-        [Permission("admin_system_positiongroup_add")]
+        [HasPermission("admin_system_positiongroup_add")]
         public Task<bool> AddPositionGroupAsync([FromBody] PositionGroupDto dto) => _positionGroupService.AddPositionGroupAsync(dto);
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_positiongroup_list")]
+        [HasPermission("admin_system_positiongroup_list")]
         public Task<List<PositionGroupListDto>> GetPositionGroupListAsync([FromQuery] PositionGroupQueryDto dto) => _positionGroupService.GetPositionGroupListAsync(dto);
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpPut("update")]
         [AppResultFilter]
-        [Permission("admin_system_positiongroup_update")]
+        [HasPermission("admin_system_positiongroup_update")]
         public Task<bool> UpdatePositionGroupAsync([FromBody] PositionGroupDto dto) => _positionGroupService.UpdatePositionGroupAsync(dto);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpDelete("delete/{id:guid}")]
         [AppResultFilter]
-        [Permission("admin_system_positiongroup_delete")]
+        [HasPermission("admin_system_positiongroup_delete")]
         public Task<bool> DeletePositionGroupAsync(Guid id) => _positionGroupService.DeletePositionGroupAsync(id);
 
         /// <summary>

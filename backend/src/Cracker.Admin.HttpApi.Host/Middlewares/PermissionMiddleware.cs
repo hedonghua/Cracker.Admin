@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
 using Cracker.Admin.Account;
-using Cracker.Admin.CustomAttrs;
 using Cracker.Admin.Models;
+using Cracker.Admin.Attributes;
 
 namespace Cracker.Admin.Middlewares
 {
@@ -22,7 +22,7 @@ namespace Cracker.Admin.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var permission = context.GetEndpoint()?.Metadata?.GetMetadata<PermissionAttribute>();
+            var permission = context.GetEndpoint()?.Metadata?.GetMetadata<HasPermissionAttribute>();
             if (permission != null)
             {
                 var user = await _accountService.GetUserInfoAsync();
@@ -31,7 +31,7 @@ namespace Cracker.Admin.Middlewares
                 {
                     goto NextStep;
                 }
-                else if (user.Auths == null || !user.Auths.Contains(permission.Str))
+                else if (user.Auths == null || !user.Auths.Contains(permission.Code))
                 {
                     await context.Response.WriteAsJsonAsync(new AppResult(-1, "权限不足，无法访问或操作"));
                     return;

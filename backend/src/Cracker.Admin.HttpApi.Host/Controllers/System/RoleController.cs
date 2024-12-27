@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Models;
 using Cracker.Admin.System;
@@ -28,7 +28,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpPost("add")]
         [AppResultFilter]
-        [Permission("admin_system_role_add")]
+        [HasPermission("admin_system_role_add")]
         public Task<bool> AddRoleAsync([FromBody] RoleDto dto) => _roleService.AddRoleAsync(dto);
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_role_list")]
+        [HasPermission("admin_system_role_list")]
         public Task<PagedResultDto<RoleListDto>> GetRoleListAsync([FromQuery] RoleQueryDto dto)
         {
             return _roleService.GetRoleListAsync(dto);
@@ -51,7 +51,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpPut("update")]
         [AppResultFilter]
-        [Permission("admin_system_role_update")]
+        [HasPermission("admin_system_role_update")]
         public Task<bool> UpdateRoleAsync([FromBody] RoleDto dto) => _roleService.UpdateRoleAsync(dto);
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpDelete("delete/{id:Guid}")]
         [AppResultFilter]
-        [Permission("admin_system_role_delete")]
+        [HasPermission("admin_system_role_delete")]
         public Task<bool> DeleteRoleAsync(Guid id) => _roleService.DeleteRoleAsync(id);
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpPost("assign-menu")]
         [AppResultFilter]
-        [Permission("admin_system_role_assignmenu")]
+        [HasPermission("admin_system_role_assignmenu")]
         public Task<bool> AssignMenuAsync([FromBody] AssignMenuDto dto) => _roleService.AssignMenuAsync(dto);
 
         /// <summary>

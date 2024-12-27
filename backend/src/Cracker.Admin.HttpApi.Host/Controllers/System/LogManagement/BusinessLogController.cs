@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.System.LogManagement;
 using Cracker.Admin.System.LogManagement.Dtos;
@@ -28,7 +28,7 @@ namespace Cracker.Admin.Controllers.System.LogManagement
         /// <returns></returns>
         [HttpDelete("delete")]
         [AppResultFilter]
-        [Permission("admin_system_businesslog_delete")]
+        [HasPermission("admin_system_businesslog_delete")]
         public Task<bool> DeleteBusinessLogsAsync([FromBody] long[] ids) => _businessLogService.DeleteBusinessLogsAsync(ids);
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Cracker.Admin.Controllers.System.LogManagement
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_businesslog_list")]
+        [HasPermission("admin_system_businesslog_list")]
         public Task<PagedResultDto<BusinessLogListDto>> GetBusinessLogListAsync([FromQuery] BusinessLogQueryDto dto) => _businessLogService.GetBusinessLogListAsync(dto);
     }
 }
