@@ -1,7 +1,9 @@
+using Castle.Core.Logging;
 using Cracker.Admin.Core;
 using Cracker.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
@@ -11,11 +13,11 @@ namespace Cracker.Admin.Filters
 {
     public class AppGlobalExceptionFilter : IAsyncExceptionFilter
     {
-        private readonly IFileLogger _fileLogger;
+        private readonly ILogger<AppGlobalExceptionFilter> _logger;
 
-        public AppGlobalExceptionFilter(IFileLogger fileLogger)
+        public AppGlobalExceptionFilter(ILogger<AppGlobalExceptionFilter> logger)
         {
-            _fileLogger = fileLogger;
+            _logger = logger;
         }
 
         public async Task OnExceptionAsync(ExceptionContext context)
@@ -49,7 +51,7 @@ namespace Cracker.Admin.Filters
             if (context.Exception is AbpValidationException
                 || context.Exception is BusinessException) return;
 
-            _fileLogger.Write(errMsg, exception: context.Exception);
+            _logger.LogError(context.Exception, "全局捕获异常");
         }
     }
 }
