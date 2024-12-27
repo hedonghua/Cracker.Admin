@@ -64,7 +64,7 @@ namespace Cracker.Admin.Organization
         public async Task<bool> DeletePositionAsync(Guid id)
         {
             var hasEmployees = await _employeeRepository.AnyAsync(x => x.PositionId == id);
-            if (hasEmployees) throw new BusinessException("-1", "职位正在使用，不能删除");
+            if (hasEmployees) throw new BusinessException(message: "职位正在使用，不能删除");
             await _positionRepository.DeleteAsync(x => x.Id == id);
             return true;
         }

@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Cracker.Admin.Entities;
 using Cracker.Admin.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
-using Cracker.Admin.MyExceptions;
 using Cracker.Admin.System.Dtos;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Validation;
@@ -29,12 +27,12 @@ namespace Cracker.Admin.System
         {
             if (dto.FunctionType == (int)FunctionType.Menu && string.IsNullOrWhiteSpace(dto.Path))
             {
-                throw new TipException("菜单的路由不能为空");
+                throw new BusinessException(message: "菜单的路由不能为空");
             }
             var isExist = await _menuRepository.AnyAsync(x => x.Path != null && dto.Path != null && x.Path.ToLower() == dto.Path.ToLower());
             if (isExist)
             {
-                throw new TipException($"已存在【{dto.Path}】菜单路由");
+                throw new BusinessException(message: $"已存在【{dto.Path}】菜单路由");
             }
             var entity = ObjectMapper.Map<MenuDto, SysMenu>(dto);
             await _menuRepository.InsertAsync(entity, true);
@@ -124,7 +122,7 @@ namespace Cracker.Admin.System
             var entity = await _menuRepository.FindAsync(x => x.Id == dto.Id) ?? throw new AbpValidationException("数据不存在");
             if (isExist && entity.Path != null && dto.Path!.ToLower() != entity.Path.ToLower())
             {
-                throw new TipException($"已存在【{dto.Path}】菜单路由");
+                throw new BusinessException(message: $"已存在【{dto.Path}】菜单路由");
             }
             entity.Title = dto.Title;
             entity.Name = dto.Name;

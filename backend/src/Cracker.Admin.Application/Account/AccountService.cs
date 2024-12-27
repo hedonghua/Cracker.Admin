@@ -1,20 +1,20 @@
-using Microsoft.Extensions.Configuration;
 using Cracker.Admin.Account.Dtos;
 using Cracker.Admin.Core;
+using Cracker.Admin.Entities;
+using Cracker.Admin.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
-using Cracker.Admin.MyExceptions;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Users;
-using Cracker.Admin.Entities;
-using Cracker.Admin.Enums;
 
 namespace Cracker.Admin.Account
 {
@@ -32,7 +32,7 @@ namespace Cracker.Admin.Account
 
         public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader,IRepository<SysLoginLog> loginLogRepository)
+            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -55,7 +55,7 @@ namespace Cracker.Admin.Account
         {
             int expiredHour = 4;
             var time = DateTime.Now;
-            var userInfo = await GetUserInfoAsync(uid, expiredHour) ?? throw new TipException("用户不存在");
+            var userInfo = await GetUserInfoAsync(uid, expiredHour) ?? throw new BusinessException(message: "用户不存在");
 
             var refreshToken = Guid.NewGuid().ToString("N").ToLower();
             var claims = new List<Claim> {
@@ -78,9 +78,9 @@ namespace Cracker.Admin.Account
 
         public async Task<TokenResultDto> GetAccessTokenAsync(string refreshToken)
         {
-            if (!RedisHelper.Exists(refreshToken)) throw new TipException("刷新token已过期");
+            if (!RedisHelper.Exists(refreshToken)) throw new BusinessException(message:"刷新token已过期");
             var username = RedisHelper.Get<string>(refreshToken);
-            var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower()) ?? throw new TipException("用户不存在");
+            var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower()) ?? throw new BusinessException(message: "用户不存在");
             var rs = await GetTokenAsync(user.Id);
             RedisHelper.Del(refreshToken);
             return rs;
@@ -136,9 +136,9 @@ namespace Cracker.Admin.Account
             };
             try
             {
-                var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new TipException("账号或密码不存在");
+                var user = await _userRepository.SingleOrDefaultAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new BusinessException(message: "账号或密码不存在");
                 var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
-                if (!isRight) throw new TipException("密码错误");
+                if (!isRight) throw new BusinessException(message: "密码错误");
                 var rs = (LoginResultDto)await GetTokenAsync(user.Id);
                 return rs;
             }
@@ -146,7 +146,7 @@ namespace Cracker.Admin.Account
             {
                 loginLog.IsSuccess = false;
                 loginLog.OperationMsg = ex.Message;
-                throw new TipException(ex.Message);
+                throw new BusinessException(message: ex.Message);
             }
             finally
             {
@@ -156,7 +156,7 @@ namespace Cracker.Admin.Account
 
         public async Task<List<FrontRoute>> GetFrontRoutes(int listStruct = 0)
         {
-            var userInfo = await GetUserInfoAsync() ?? throw new TipException("用户不存在");
+            var userInfo = await GetUserInfoAsync() ?? throw new BusinessException(message: "用户不存在");
             if (userInfo.MenuIds == null) return [];
 
             var all = (await _menuRepository.GetQueryableAsync())
@@ -218,7 +218,7 @@ namespace Cracker.Admin.Account
         public async Task<bool> UpdateUserInfoAsync(PersonalInfoDto dto)
         {
             var user = await _userRepository.SingleOrDefaultAsync(x => x.Id == _currentUser.Id)
-                ?? throw new TipException("用户不存在");
+                ?? throw new BusinessException(message: "用户不存在");
             user.Avatar = dto.Avatar;
             user.NickName = dto.NickName;
             user.Sex = dto.Sex;
@@ -230,12 +230,12 @@ namespace Cracker.Admin.Account
         public async Task<bool> UpdateUserPwdAsync(UserPwdDto dto)
         {
             var user = await _userRepository.SingleOrDefaultAsync(x => x.Id == _currentUser.Id)
-                ?? throw new TipException("用户不存在");
+                ?? throw new BusinessException(message: "用户不存在");
             var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.OldPwd, user.PasswordSalt);
-            if (!isRight) throw new TipException("旧密码错误");
+            if (!isRight) throw new BusinessException(message: "旧密码错误");
             if (dto.NewPwd != dto.SurePwd)
             {
-                throw new TipException("两次密码不一致");
+                throw new BusinessException(message: "两次密码不一致");
             }
             user.PasswordSalt = EncryptionHelper.GetPasswordSalt();
             user.Password = EncryptionHelper.GenEncodingPassword(dto.NewPwd, user.PasswordSalt);

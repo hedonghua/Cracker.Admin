@@ -51,7 +51,7 @@ namespace Cracker.Admin.Organization
             var hasPositions = await _positionRepository.AnyAsync(x => x.GroupId == id);
             if (hasPositions)
             {
-                throw new BusinessException("-1", "分组下有职位，不能删除");
+                throw new BusinessException(message: "分组下有职位，不能删除");
             }
             await _positionGroupRepository.DeleteAsync(x => x.Id == id);
             return true;

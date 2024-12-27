@@ -52,7 +52,7 @@ namespace Cracker.Admin.Organization
         public async Task<bool> DeleteDeptAsync(Guid id)
         {
             var hasEmployees = await _employeeRepository.AnyAsync(x => x.DeptId == id);
-            if (hasEmployees) throw new BusinessException("-1", "部门下存在员工，不能删除");
+            if (hasEmployees) throw new BusinessException(message: "部门下存在员工，不能删除");
             await _deptRepository.DeleteAsync(x => id == x.Id);
             return true;
         }
