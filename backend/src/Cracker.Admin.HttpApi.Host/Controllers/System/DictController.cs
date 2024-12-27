@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.System;
 using Cracker.Admin.System.Dtos;
@@ -27,7 +27,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpPost("add")]
         [AppResultFilter]
         [AppBusinessLogFilter("新增字典")]
-        [Permission("admin_system_dict_add")]
+        [HasPermission("admin_system_dict_add")]
         public Task<bool> AddDictAsync(DictDto dto) => _dictService.AddDictAsync(dto);
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Cracker.Admin.Controllers.System
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_dict_list")]
+        [HasPermission("admin_system_dict_list")]
         public Task<PagedResultDto<DictListDto>> GetDictListAsync([FromQuery] DictQueryDto dto) => _dictService.GetDictListAsync(dto);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpPut("update")]
         [AppResultFilter]
         [AppBusinessLogFilter("修改字典")]
-        [Permission("admin_system_dict_update")]
+        [HasPermission("admin_system_dict_update")]
         public Task<bool> UpdateDictAsync(DictDto dto) => _dictService.UpdateDictAsync(dto);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpDelete("delete")]
         [AppResultFilter]
         [AppBusinessLogFilter("删除字典")]
-        [Permission("admin_system_dict_delete")]
+        [HasPermission("admin_system_dict_delete")]
         public Task<bool> DeleteDictAsync([FromBody] Guid[] ids) => _dictService.DeleteDictAsync(ids);
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpPost("refresh")]
         [AppResultFilter]
         [AppBusinessLogFilter("刷新字典缓存")]
-        [Permission("admin_system_dict_refresh")]
+        [HasPermission("admin_system_dict_refresh")]
         public Task<bool> RefreshCacheAsync() => _dictService.RefreshCacheAsync();
     }
 }

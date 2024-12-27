@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Cracker.Admin.CustomAttrs;
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization;
@@ -31,7 +31,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpPost("add")]
         [AppResultFilter]
-        [Permission("admin_system_position_add")]
+        [HasPermission("admin_system_position_add")]
         public Task<bool> AddPositionAsync([FromBody] PositionDto dto) => _positionService.AddPositionAsync(dto);
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpGet("list")]
         [AppResultFilter]
-        [Permission("admin_system_position_list")]
+        [HasPermission("admin_system_position_list")]
         public Task<PagedResultDto<PositionListDto>> GetPositionListAsync([FromQuery] PositionQueryDto dto) => _positionService.GetPositionListAsync(dto);
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpPut("update")]
         [AppResultFilter]
-        [Permission("admin_system_position_update")]
+        [HasPermission("admin_system_position_update")]
         public Task<bool> UpdatePositionAsync([FromBody] PositionDto dto) => _positionService.UpdatePositionAsync(dto);
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpDelete("delete/{id:guid}")]
         [AppResultFilter]
-        [Permission("admin_system_position_delete")]
+        [HasPermission("admin_system_position_delete")]
         public Task<bool> DeletePositionAsync(Guid id) => _positionService.DeletePositionAsync(id);
 
         /// <summary>

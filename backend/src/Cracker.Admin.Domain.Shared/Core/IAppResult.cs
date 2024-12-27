@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Cracker.Admin.Core
 {
     public interface IAppResult
@@ -12,7 +8,7 @@ namespace Cracker.Admin.Core
         bool IsOk();
     }
 
-    public interface IAppResult<T>: IAppResult
+    public interface IAppResult<T> : IAppResult
     {
         T? Data { get; set; }
     }
