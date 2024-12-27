@@ -1,5 +1,4 @@
 using Cracker.Admin.Core;
-using Cracker.Admin.Helpers;
 using Cracker.Admin.MultiTenancy;
 using Cracker.Admin.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,8 +22,7 @@ public class CrackerAdminDomainModule : AbpModule
         var conf = context.Services.GetConfiguration();
 
         context.Services.AddTransient<IKeySettings, GlobalKeySettingsService>();
-        context.Services.AddSingleton(imp => FileLoggerService.Instance);
-        context.Services.AddConnections();
+        //context.Services.AddConnections();
 
         Configure<AbpMultiTenancyOptions>(options =>
         {
