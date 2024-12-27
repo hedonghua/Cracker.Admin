@@ -2,7 +2,6 @@ using Cracker.Admin.Entities;
 using Cracker.Admin.Models;
 using Cracker.Admin.Organization.Dtos;
 using Cracker.Admin.Organization.Models;
-using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,33 +19,43 @@ namespace Cracker.Admin.Organization
     public class PositionService : ApplicationService, IPositionService
     {
         private readonly IRepository<OrgPosition> _positionRepository;
-        private readonly IDbConnection _connection;
         private readonly IRepository<OrgPositionGroup> _positionGroupRepository;
         private readonly IRepository<OrgDeptEmployee> _employeeRepository;
 
-        public PositionService(IRepository<OrgPosition> positionRepository, IDbConnection connection, IRepository<OrgPositionGroup> positionGroupRepository
+        public PositionService(IRepository<OrgPosition> positionRepository, IRepository<OrgPositionGroup> positionGroupRepository
             , IRepository<OrgDeptEmployee> employeeRepository)
         {
             _positionRepository = positionRepository;
-            _connection = connection;
             _positionGroupRepository = positionGroupRepository;
             _employeeRepository = employeeRepository;
         }
 
         private async Task<List<PosistionLayerNames>> GetPosistionGroupNameAsync(List<Guid> ids)
         {
-            if (ids.Count == 0) return [];
-            var sql = @"SELECT
-	                        p.id as Id,
-	                        GROUP_CONCAT( g2.group_name SEPARATOR '/' ) AS LayerName
-                        FROM
-	                        org_position p
-	                        INNER JOIN org_position_group g1 ON p.group_id = g1.id
-	                        INNER JOIN org_position_group g2 ON FIND_IN_SET( g2.id, CONCAT( g1.parent_ids, ',', g1.id ) )
-                        where p.id in @ids
-                        GROUP BY
-	                        p.id";
-            return (await _connection.QueryAsync<PosistionLayerNames>(sql, new { ids })).ToList();
+            var positions = (await _positionRepository.GetQueryableAsync()).Where(x => ids.Contains(x.Id)).Select(x => new { x.Id, x.GroupId }).ToList();
+            var groups = await _positionGroupRepository.GetListAsync();
+            var list = new List<PosistionLayerNames>();
+
+            foreach (var item in positions)
+            {
+                var single = new PosistionLayerNames
+                {
+                    Id = item.Id
+                };
+                var allGroups = groups.Where(x => x.Id == item.GroupId).Select(x => x.ParentIds + "," + x.Id);
+                foreach (var groupIds in allGroups)
+                {
+                    foreach (var groupId in groupIds.Split(","))
+                    {
+                        single.LayerName += groups.Find(x => x.Id.ToString() == groupId)?.GroupName + "/";
+                    }
+                }
+                single.LayerName = single.LayerName?.Trim('/');
+
+                list.Add(single);
+            }
+
+            return list;
         }
 
         public async Task<bool> AddPositionAsync(PositionDto dto)

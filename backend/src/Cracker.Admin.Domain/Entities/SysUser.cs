@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [NotNull]
         [StringLength(32)]
+        [Comment("用户名")]
         public string? UserName { get; set; }
 
         /// <summary>
@@ -22,6 +24,7 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [NotNull]
         [StringLength(512)]
+        [Comment("密码")]
         public string? Password { get; set; }
 
         /// <summary>
@@ -29,12 +32,14 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [NotNull]
         [StringLength(256)]
+        [Comment("密码盐")]
         public string? PasswordSalt { get; set; }
 
         /// <summary>
         /// 头像
         /// </summary>
         [StringLength(256)]
+        [Comment("头像")]
         public string? Avatar { get; set; }
 
         /// <summary>
@@ -42,6 +47,7 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [NotNull]
         [Required]
+        [Comment("昵称")]
         [StringLength(64)]
         public string? NickName { get; set; }
 
@@ -50,6 +56,7 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [NotNull]
         [Required]
+        [Comment("性别")]
         [DefaultValue(0)]
         public int Sex { get; set; }
 
@@ -57,6 +64,7 @@ namespace Cracker.Admin.Entities
         /// 是否启用
         /// </summary>
         [Required]
+        [Comment("是否启用")]
         public bool IsEnabled { get; set; }
 
         /// <summary>

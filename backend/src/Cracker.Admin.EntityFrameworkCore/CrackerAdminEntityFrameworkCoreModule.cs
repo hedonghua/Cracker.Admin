@@ -1,5 +1,3 @@
-using System.Data;
-
 using Cracker.Admin.Repositories;
 
 using Microsoft.EntityFrameworkCore;
@@ -23,12 +21,6 @@ public class CrackerAdminEntityFrameworkCoreModule : AbpModule
         context.Services.AddAbpDbContext<CrackerAdminDbContext>(options =>
         {
             options.AddDefaultRepositories(includeAllEntities: true);
-        });
-
-        context.Services.AddTransient<IDbConnection>(sp =>
-        {
-            var context = sp.GetRequiredService<CrackerAdminDbContext>();
-            return context.Database.GetDbConnection();
         });
 
         Configure<AbpDbContextOptions>(options =>
