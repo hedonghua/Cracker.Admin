@@ -23,12 +23,12 @@ namespace Cracker.Admin.Models
 
         public AppResult(bool flag)
         {
-            Code = flag ? AdminDomainErrorCodes.SUCCESS : AdminDomainErrorCodes.FAIL;
+            Code = flag ? AdminResponseCode.Success : AdminResponseCode.Fail;
         }
 
         public bool IsOk()
         {
-            return Code == AdminDomainErrorCodes.SUCCESS;
+            return Code == AdminResponseCode.Success;
         }
     }
 
@@ -39,12 +39,12 @@ namespace Cracker.Admin.Models
 
         public AppResult()
         {
-            Code = AdminDomainErrorCodes.SUCCESS;
+            Code = AdminResponseCode.Success;
         }
 
         public AppResult(T? data)
         {
-            Code = AdminDomainErrorCodes.SUCCESS;
+            Code = AdminResponseCode.Success;
             Data = data;
         }
     }

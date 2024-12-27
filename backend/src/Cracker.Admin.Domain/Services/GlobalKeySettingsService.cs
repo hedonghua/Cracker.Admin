@@ -30,24 +30,24 @@ namespace Cracker.Admin.Services
             var all = await _dictRepository.GetListAsync(x => x.IsEnabled);
             foreach (var item in all)
             {
-                await RedisHelper.HSetAsync(AdminConsts.DICT_CACHE_HASH_KEY, item.Key, item.Value);
+                await RedisHelper.HSetAsync(AdminConsts.DictCacheHashKey, item.Key, item.Value);
             }
             Interlocked.Increment(ref _num);
         }
 
         public async Task<string> GetAsync(string key)
         {
-            return await RedisHelper.HGetAsync(AdminConsts.DICT_CACHE_HASH_KEY, key);
+            return await RedisHelper.HGetAsync(AdminConsts.DictCacheHashKey, key);
         }
 
         public async Task<bool> RemoveAsync(string key)
         {
-            return await RedisHelper.HDelAsync(AdminConsts.DICT_CACHE_HASH_KEY, [key]) > 0;
+            return await RedisHelper.HDelAsync(AdminConsts.DictCacheHashKey, [key]) > 0;
         }
 
         public async Task<bool> SetAsync(string key, string value, bool isDbSync = false)
         {
-            var isSuccess = await RedisHelper.HSetAsync(AdminConsts.DICT_CACHE_HASH_KEY, key, value);
+            var isSuccess = await RedisHelper.HSetAsync(AdminConsts.DictCacheHashKey, key, value);
             if (isSuccess && isDbSync)
             {
                 var entity = await _dictRepository.SingleOrDefaultAsync(x => x.Key.ToLower() == key.ToLower());

@@ -20,7 +20,7 @@ namespace Cracker.Admin.Repositories
         public async Task<List<AppOption>> GetRoleOptionsAsync()
         {
             var conn = await GetDbConnectionAsync();
-            return conn.Query<AppOption>("select convert(id,char) as Value,role_name as label from sys_role where is_deleted=0 and role_name != @name", new { name = AdminConsts.SUPERADMIN }).ToList();
+            return conn.Query<AppOption>("select convert(id,char) as Value,role_name as label from sys_role where is_deleted=0 and role_name != @name", new { name = AdminConsts.SuperAdminRole }).ToList();
         }
     }
 }

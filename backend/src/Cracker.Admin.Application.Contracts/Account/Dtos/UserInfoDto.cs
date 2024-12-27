@@ -55,7 +55,7 @@ namespace Cracker.Admin.Account.Dtos
         public bool IsSuperAdmin()
         {
             if (Roles == null) return false;
-            return Roles.Contains(AdminConsts.SUPERADMIN);
+            return Roles.Contains(AdminConsts.SuperAdminRole);
         }
     }
 }

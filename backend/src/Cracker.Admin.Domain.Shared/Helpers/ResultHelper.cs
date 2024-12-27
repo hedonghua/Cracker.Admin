@@ -7,17 +7,17 @@ namespace Cracker.Admin.Helpers
     {
         public static IAppResult Ok(string? message = default)
         {
-            return new AppResult() { Code = AdminDomainErrorCodes.SUCCESS, Message = message };
+            return new AppResult() { Code = AdminResponseCode.Success, Message = message };
         }
 
         public static IAppResult<T> Ok<T>(T? data)
         {
-            return new AppResult<T>() { Code = AdminDomainErrorCodes.SUCCESS, Data = data };
+            return new AppResult<T>() { Code = AdminResponseCode.Success, Data = data };
         }
 
         public static IAppResult Fail(string? message = default)
         {
-            return new AppResult() { Code = AdminDomainErrorCodes.FAIL, Message = message };
+            return new AppResult() { Code = AdminResponseCode.Fail, Message = message };
         }
     }
 }

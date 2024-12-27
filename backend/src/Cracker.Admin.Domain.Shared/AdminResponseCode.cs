@@ -1,14 +1,14 @@
 namespace Cracker.Admin;
 
-public static class AdminDomainErrorCodes
+public static class AdminResponseCode
 {
     /// <summary>
     /// 成功
     /// </summary>
-    public const int SUCCESS = 0;
+    public const int Success = 0;
 
     /// <summary>
     /// 失败
     /// </summary>
-    public const int FAIL = -1;
+    public const int Fail = -1;
 }

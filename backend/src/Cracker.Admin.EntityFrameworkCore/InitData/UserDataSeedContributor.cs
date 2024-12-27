@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-
-using Cracker.Admin.Entities;
+﻿using Cracker.Admin.Entities;
 using Cracker.Admin.Helpers;
-
+using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -20,18 +18,19 @@ namespace Cracker.Admin.InitData
 
         public async Task SeedAsync(DataSeedContext context)
         {
-            var exist = await userRepository.AnyAsync(x => x.UserName.ToLower() == "admin");
+            var exist = await userRepository.AnyAsync(x => x.UserName.ToLower() == AdminConsts.DefaultAdmin);
             if (!exist)
             {
                 var user = new SysUser
                 {
-                    UserName = "admin",
-                    NickName = "admin",
+                    UserName = AdminConsts.DefaultAdmin,
+                    NickName = AdminConsts.DefaultAdmin,
                     PasswordSalt = EncryptionHelper.GetPasswordSalt(),
                     IsEnabled = true,
+                    Avatar = AdminConsts.AvatarFemale
                 };
-                user.Password = EncryptionHelper.GenEncodingPassword("123qwe*", user.PasswordSalt);
-                await userRepository.InsertAsync(user);
+                user.Password = EncryptionHelper.GenEncodingPassword(AdminConsts.DefaultAdminPassword, user.PasswordSalt);
+                await userRepository.InsertAsync(user, true);
             }
         }
     }

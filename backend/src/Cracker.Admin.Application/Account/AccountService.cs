@@ -99,7 +99,7 @@ namespace Cracker.Admin.Account
             var user = (await _userRepository.FindAsync(x => x.Id == uid))!;
             var roleIds = (await _userRoleRepository.GetQueryableAsync()).Where(x => x.UserId == uid).Select(x => x.RoleId).ToList();
             var roles = await _roleRepository.GetListAsync(x => roleIds.Contains(x.Id));
-            var isSuperAdmin = roles.Any(r => r.RoleName == AdminConsts.SUPERADMIN);
+            var isSuperAdmin = roles.Any(r => r.RoleName == AdminConsts.SuperAdminRole);
             var menuIds = (await _roleMenuRepository.GetQueryableAsync()).Where(x => roleIds.Contains(x.RoleId)).Select(x => x.MenuId).ToList();
             var menus = await _menuRepository.GetListAsync(x => menuIds.Contains(x.Id) || isSuperAdmin);
             if (isSuperAdmin)

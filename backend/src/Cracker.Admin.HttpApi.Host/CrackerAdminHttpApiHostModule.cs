@@ -64,6 +64,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         });
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
+        context.Services.AddHostedService<StaticFileHostService>();
 
         var csRedis = new CSRedis.CSRedisClient(configuration["Redis:Connection"]);
         RedisHelper.Initialization(csRedis);

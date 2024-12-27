@@ -84,7 +84,7 @@ namespace Cracker.Admin.System
         {
             var query = (await _roleRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrEmpty(dto.RoleName), x => x.RoleName.Contains(dto.RoleName!))
-                .Where(x => x.RoleName != AdminConsts.SUPERADMIN);
+                .Where(x => x.RoleName != AdminConsts.SuperAdminRole);
             var count = query.Count();
             var rows = query.Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList();
             return new PagedResultDto<RoleListDto>(count, ObjectMapper.Map<List<SysRole>, List<RoleListDto>>(rows));
