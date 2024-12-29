@@ -1,10 +1,11 @@
-using Castle.Core.Logging;
-using Cracker.Admin.Core;
+using System.Threading.Tasks;
+
 using Cracker.Admin.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
+
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Validation;
@@ -39,6 +40,11 @@ namespace Cracker.Admin.Filters
                 }
             }
             else if (context.Exception is EntityNotFoundException)
+            {
+                result.Message = "数据不存在";
+            }
+
+            if (errMsg.Contains("There is no such an entity given id"))
             {
                 result.Message = "数据不存在";
             }

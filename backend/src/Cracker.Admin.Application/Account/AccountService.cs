@@ -128,7 +128,7 @@ namespace Cracker.Admin.Account
             };
             try
             {
-                var user = await _userRepository.GetAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new BusinessException(message: "账号或密码不存在");
+                var user = await _userRepository.FirstOrDefaultAsync(x => x.UserName.ToLower() == dto.UserName.ToLower() && x.IsEnabled) ?? throw new BusinessException(message: "账号或密码不存在");
                 var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
                 if (!isRight) throw new BusinessException(message: "密码错误");
 
