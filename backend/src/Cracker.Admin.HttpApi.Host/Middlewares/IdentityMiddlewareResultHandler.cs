@@ -28,8 +28,8 @@ namespace Cracker.Admin.Middlewares
                 var subjectId = context.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
                 var requestToken = context.Request.Headers["Authorization"].ToString().Replace(JwtBearerDefaults.AuthenticationScheme, "").Trim();
-                var expired = await identityDomainService.CheckTokenAsync(subjectId!, requestToken);
-                if (expired)
+                var isValid = await identityDomainService.CheckTokenAsync(subjectId!, requestToken);
+                if (!isValid)
                 {
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     await context.Response.WriteAsJsonAsync(new AppResult(AdminResponseCode.NoAuth, "身份信息已过期，请重新登录"));
@@ -41,7 +41,7 @@ namespace Cracker.Admin.Middlewares
                 if (auth != null)
                 {
                     var isPass = await identityDomainService.CheckPermissionAsync(subjectId!, auth.Code);
-                    if (isPass)
+                    if (!isPass)
                     {
                         await context.Response.WriteAsJsonAsync(new AppResult(AdminResponseCode.Forbidden, "权限不足，请联系管理员"));
                         return;
