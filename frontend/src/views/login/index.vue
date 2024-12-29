@@ -54,8 +54,8 @@ const APP_TITLE = import.meta.env.VITE_APP_TITLE;
 const userStore = useUserStore();
 const formRef = ref<FormInstance>();
 const form = reactive<LoginForm>({
-  username: "",
-  password: "",
+  username: "admin",
+  password: "123qwe*",
 });
 const rules: FormRules<LoginForm> = {
   username: [{ required: true, trigger: "blur", message: "账号不能为空" }],

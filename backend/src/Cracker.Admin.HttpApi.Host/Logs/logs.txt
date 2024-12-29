@@ -5178,3 +5178,422 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving 
     {"dto":{"username":"admin","password":"123qwe*"}}
 
 2024-12-26 22:27:24.845 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 383.8998ms
+2024-12-29 15:05:49.008 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-29 15:05:51.067 +08:00 [INF] Loaded ABP modules:
+2024-12-29 15:05:51.068 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2024-12-29 15:05:51.068 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2024-12-29 15:05:51.068 +08:00 [INF]   - Volo.Abp.AspNetCore.MultiTenancy.AbpAspNetCoreMultiTenancyModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Data.AbpDataModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Uow.AbpUnitOfWorkModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Security.AbpSecurityModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Settings.AbpSettingsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Localization.AbpLocalizationModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.Threading.AbpThreadingModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Auditing.AbpAuditingModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Json.AbpJsonModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2024-12-29 15:05:51.068 +08:00 [INF]             - Volo.Abp.Json.AbpJsonAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]             - Volo.Abp.Timing.AbpTimingModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingContractsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Http.AbpHttpModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Http.AbpHttpAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Minify.AbpMinifyModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2024-12-29 15:05:51.068 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2024-12-29 15:05:51.068 +08:00 [INF]   - Cracker.Admin.Infrastructure.CrackerAdminInfrastructureModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.Dapper.AbpDapperModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2024-12-29 15:05:51.068 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2024-12-29 15:05:51.068 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2024-12-29 15:05:51.068 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2024-12-29 15:05:51.068 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2024-12-29 15:05:51.068 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2024-12-29 15:05:51.323 +08:00 [INF] User profile is available. Using 'C:\Users\crack\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-29 15:05:52.716 +08:00 [INF] Initialized all ABP modules.
+2024-12-29 15:05:53.066 +08:00 [INF] Now listening on: http://localhost:44383
+2024-12-29 15:05:53.140 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-29 15:05:53.141 +08:00 [INF] Hosting environment: Development
+2024-12-29 15:05:53.141 +08:00 [INF] Content root path: D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.HttpApi.Host
+2024-12-29 15:05:54.352 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/ - null null
+2024-12-29 15:05:54.797 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:05:54.808 +08:00 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Cracker.Admin.Controllers.HomeController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:05:54.833 +08:00 [INF] Executing RedirectResult, redirecting to /swagger.
+2024-12-29 15:05:54.836 +08:00 [INF] Executed action Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host) in 25.274ms
+2024-12-29 15:05:54.836 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:05:54.850 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/ - 302 0 null 501.8088ms
+2024-12-29 15:05:54.852 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/index.html - null null
+2024-12-29 15:05:54.965 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/index.html - 200 null text/html;charset=utf-8 112.8945ms
+2024-12-29 15:05:55.017 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-29 15:05:55.019 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - 200 13804 application/javascript; charset=utf-8 2.7151ms
+2024-12-29 15:05:55.022 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_vs/browserLink - null null
+2024-12-29 15:05:55.051 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_vs/browserLink - 200 null text/javascript; charset=UTF-8 28.602ms
+2024-12-29 15:05:55.084 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - null null
+2024-12-29 15:05:55.165 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 81.0796ms
+2024-12-29 15:06:06.214 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 46
+2024-12-29 15:06:06.218 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:06:06.292 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:06:06.302 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:06:06.776 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:06:06.827 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult'.
+2024-12-29 15:06:06.833 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 531.4628ms
+2024-12-29 15:06:06.834 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:06:06.863 +08:00 [INF] AUDIT LOG: [403: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 544
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (216 ms.)
+    {"dto":{"username":"superadmin","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (239 ms.)
+    {"dto":{"username":"superadmin","password":"123qwe*"}}
+- Exceptions:
+  - There is no such an entity given id. Entity type: Cracker.Admin.Entities.SysUser
+    Volo.Abp.BusinessException: There is no such an entity given id. Entity type: Cracker.Admin.Entities.SysUser
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 146
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 151
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.GlobalFeatures.GlobalFeatureInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Validation.ValidationInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Auditing.AuditingInterceptor.ProceedByLoggingAsync(IAbpMethodInvocation invocation, AbpAuditingOptions options, IAuditingHelper auditingHelper, IAuditLogScope auditLogScope)
+   at Volo.Abp.Auditing.AuditingInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at lambda_method1496(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+2024-12-29 15:06:06.867 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 653.5112ms
+2024-12-29 15:08:27.593 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 41
+2024-12-29 15:08:27.598 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:08:27.667 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:08:27.667 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:08:27.913 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:08:27.914 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:08:27.915 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-12-29 15:08:27.919 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 252.1774ms
+2024-12-29 15:08:27.919 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:08:27.920 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:08:27.920 +08:00 [INF] AUDIT LOG: [200: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 254
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (241 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (243 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+
+2024-12-29 15:08:27.924 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 333.0241ms
+2024-12-29 15:08:28.176 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/menus - null null
+2024-12-29 15:08:28.227 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/menus - 401 null application/json; charset=utf-8 51.2405ms
+2024-12-29 15:08:28.312 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/oss/image/default/708b3cee3e514153a099ef380d784eab.jpg - null null
+2024-12-29 15:08:28.321 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/userinfo - null null
+2024-12-29 15:08:28.323 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/userinfo - 401 null application/json; charset=utf-8 2.3754ms
+2024-12-29 15:08:28.420 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:08:28.424 +08:00 [INF] Route matched with {action = "Image", controller = "Oss", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ImageAsync(System.String) on controller Cracker.Admin.Controllers.Oss.OssController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:08:28.459 +08:00 [INF] Executing FileContentResult, sending file with download name '708b3cee3e514153a099ef380d784eab.jpg' ...
+2024-12-29 15:08:28.473 +08:00 [INF] Executed action Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host) in 49.0688ms
+2024-12-29 15:08:28.473 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:08:28.473 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/oss/image/default/708b3cee3e514153a099ef380d784eab.jpg - 200 398766 image/jpeg 161.6197ms
+2024-12-29 15:08:33.635 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/signout - null 0
+2024-12-29 15:08:33.636 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:08:33.638 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/signout - 401 null application/json; charset=utf-8 2.7172ms
+2024-12-29 15:08:35.322 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/menus - null null
+2024-12-29 15:08:35.323 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/menus - 401 null application/json; charset=utf-8 1.3864ms
+2024-12-29 15:08:39.264 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 42
+2024-12-29 15:08:39.265 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:08:39.317 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:08:39.317 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:08:39.391 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:08:39.416 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult'.
+2024-12-29 15:08:39.417 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 99.5018ms
+2024-12-29 15:08:39.417 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:08:39.418 +08:00 [INF] AUDIT LOG: [403: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 100
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (92 ms.)
+    {"dto":{"username":"admin1","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (96 ms.)
+    {"dto":{"username":"admin1","password":"123qwe*"}}
+- Exceptions:
+  - There is no such an entity given id. Entity type: Cracker.Admin.Entities.SysUser
+    Volo.Abp.BusinessException: There is no such an entity given id. Entity type: Cracker.Admin.Entities.SysUser
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 146
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 151
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.GlobalFeatures.GlobalFeatureInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Validation.ValidationInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Auditing.AuditingInterceptor.ProceedByLoggingAsync(IAbpMethodInvocation invocation, AbpAuditingOptions options, IAuditingHelper auditingHelper, IAuditLogScope auditLogScope)
+   at Volo.Abp.Auditing.AuditingInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at lambda_method1496(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+2024-12-29 15:08:39.418 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 154.4838ms
+2024-12-29 15:10:10.048 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 42
+2024-12-29 15:10:10.050 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:10:10.116 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:10:10.116 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:10:10.194 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:10:10.221 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult'.
+2024-12-29 15:10:10.221 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 105.1726ms
+2024-12-29 15:10:10.221 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:10:10.223 +08:00 [INF] AUDIT LOG: [403: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 106
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (98 ms.)
+    {"dto":{"username":"admin1","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (102 ms.)
+    {"dto":{"username":"admin1","password":"123qwe*"}}
+- Exceptions:
+  - There is no such an entity given id. Entity type: Cracker.Admin.Entities.SysUser
+    Volo.Abp.BusinessException: There is no such an entity given id. Entity type: Cracker.Admin.Entities.SysUser
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 146
+   at Cracker.Admin.Account.AccountService.LoginAsync(LoginDto dto) in D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.Application\Account\AccountService.cs:line 151
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.GlobalFeatures.GlobalFeatureInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Validation.ValidationInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Auditing.AuditingInterceptor.ProceedByLoggingAsync(IAbpMethodInvocation invocation, AbpAuditingOptions options, IAuditingHelper auditingHelper, IAuditLogScope auditLogScope)
+   at Volo.Abp.Auditing.AuditingInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at Castle.DynamicProxy.AsyncInterceptorBase.ProceedAsynchronous[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo)
+   at Volo.Abp.Castle.DynamicProxy.CastleAbpMethodInvocationAdapterWithReturnValue`1.ProceedAsync()
+   at Volo.Abp.Uow.UnitOfWorkInterceptor.InterceptAsync(IAbpMethodInvocation invocation)
+   at Volo.Abp.Castle.DynamicProxy.CastleAsyncAbpInterceptorAdapter`1.InterceptAsync[TResult](IInvocation invocation, IInvocationProceedInfo proceedInfo, Func`3 proceed)
+   at lambda_method1496(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|26_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+
+2024-12-29 15:10:10.223 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 175.6127ms
+2024-12-29 15:10:27.407 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 42
+2024-12-29 15:10:27.407 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:10:27.446 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:10:27.446 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:10:27.532 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:34:11.934 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2024-12-29 15:34:14.562 +08:00 [INF] Loaded ABP modules:
+2024-12-29 15:34:14.563 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2024-12-29 15:34:14.563 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2024-12-29 15:34:14.563 +08:00 [INF]   - Volo.Abp.AspNetCore.MultiTenancy.AbpAspNetCoreMultiTenancyModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Data.AbpDataModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Uow.AbpUnitOfWorkModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Security.AbpSecurityModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Settings.AbpSettingsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Localization.AbpLocalizationModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.Threading.AbpThreadingModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Auditing.AbpAuditingModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Json.AbpJsonModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2024-12-29 15:34:14.563 +08:00 [INF]             - Volo.Abp.Json.AbpJsonAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]             - Volo.Abp.Timing.AbpTimingModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingContractsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Http.AbpHttpModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Http.AbpHttpAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Minify.AbpMinifyModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2024-12-29 15:34:14.563 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2024-12-29 15:34:14.563 +08:00 [INF]   - Cracker.Admin.Infrastructure.CrackerAdminInfrastructureModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.Dapper.AbpDapperModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2024-12-29 15:34:14.563 +08:00 [INF]   - Volo.Abp.AspNetCore.Serilog.AbpAspNetCoreSerilogModule
+2024-12-29 15:34:14.563 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2024-12-29 15:34:14.563 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2024-12-29 15:34:14.563 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2024-12-29 15:34:14.563 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2024-12-29 15:34:14.884 +08:00 [INF] User profile is available. Using 'C:\Users\crack\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-12-29 15:34:16.716 +08:00 [INF] Initialized all ABP modules.
+2024-12-29 15:34:17.184 +08:00 [INF] Now listening on: http://localhost:44383
+2024-12-29 15:34:17.258 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-12-29 15:34:17.259 +08:00 [INF] Hosting environment: Development
+2024-12-29 15:34:17.259 +08:00 [INF] Content root path: D:\developer\open-source\re-admin-net\backend\src\Cracker.Admin.HttpApi.Host
+2024-12-29 15:34:17.790 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/ - null null
+2024-12-29 15:34:17.790 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/menus - null null
+2024-12-29 15:34:18.397 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:18.410 +08:00 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Cracker.Admin.Controllers.HomeController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:34:18.446 +08:00 [INF] Executing RedirectResult, redirecting to /swagger.
+2024-12-29 15:34:18.452 +08:00 [INF] Executed action Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host) in 37.7281ms
+2024-12-29 15:34:18.453 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:18.475 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/ - 302 0 null 691.9443ms
+2024-12-29 15:34:18.477 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/index.html - null null
+2024-12-29 15:34:18.488 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.GetFrontRoutes (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:18.501 +08:00 [INF] Route matched with {action = "GetFrontRoutes", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Cracker.Admin.Models.FrontRoute]] GetFrontRoutes(Int32) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:34:18.691 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/index.html - 200 null text/html;charset=utf-8 214.1479ms
+2024-12-29 15:34:18.744 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - null null
+2024-12-29 15:34:18.746 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_framework/aspnetcore-browser-refresh.js - 200 13804 application/javascript; charset=utf-8 2.6225ms
+2024-12-29 15:34:18.748 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/_vs/browserLink - null null
+2024-12-29 15:34:18.780 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/_vs/browserLink - 200 null text/javascript; charset=UTF-8 32.7359ms
+2024-12-29 15:34:18.828 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - null null
+2024-12-29 15:34:18.962 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 133.1389ms
+2024-12-29 15:34:18.978 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:34:18.994 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-12-29 15:34:19.013 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.GetFrontRoutes (Cracker.Admin.HttpApi.Host) in 511.3142ms
+2024-12-29 15:34:19.014 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.GetFrontRoutes (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:19.019 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/menus - 200 null application/json; charset=utf-8 1236.3081ms
+2024-12-29 15:34:21.918 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/menus - null null
+2024-12-29 15:34:22.015 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.GetFrontRoutes (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:22.016 +08:00 [INF] Route matched with {action = "GetFrontRoutes", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.List`1[Cracker.Admin.Models.FrontRoute]] GetFrontRoutes(Int32) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:34:22.029 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-12-29 15:34:22.029 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.GetFrontRoutes (Cracker.Admin.HttpApi.Host) in 13.4379ms
+2024-12-29 15:34:22.030 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.GetFrontRoutes (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:22.030 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/menus - 200 null application/json; charset=utf-8 112.3239ms
+2024-12-29 15:34:23.577 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:44383/api/account/login - application/json 41
+2024-12-29 15:34:23.581 +08:00 [INF] CORS policy execution successful.
+2024-12-29 15:34:23.642 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:23.646 +08:00 [INF] Route matched with {action = "Login", controller = "Account", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Cracker.Admin.Account.Dtos.LoginResultDto] LoginAsync(Cracker.Admin.Account.Dtos.LoginDto) on controller Cracker.Admin.Controllers.Account.AccountController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:34:23.977 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:34:23.979 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:34:23.979 +08:00 [INF] Executing ObjectResult, writing value of type 'Cracker.Admin.Models.AppResult`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2024-12-29 15:34:23.982 +08:00 [INF] Executed action Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host) in 334.9675ms
+2024-12-29 15:34:23.982 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Account.AccountController.LoginAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:23.982 +08:00 [DBG] Added 0 entity changes to the current audit log
+2024-12-29 15:34:23.988 +08:00 [INF] AUDIT LOG: [200: POST   ] /api/account/login
+- UserName - UserId                 :  - 
+- ClientIpAddress        : ::1
+- ExecutionDuration      : 341
+- Actions:
+  - Cracker.Admin.Account.AccountService.LoginAsync (291 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+  - Cracker.Admin.Controllers.Account.AccountController.LoginAsync (296 ms.)
+    {"dto":{"username":"admin","password":"123qwe*"}}
+
+2024-12-29 15:34:24.013 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:44383/api/account/login - 200 null application/json; charset=utf-8 436.1089ms
+2024-12-29 15:34:24.290 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/menus - null null
+2024-12-29 15:34:24.295 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/menus - 401 null application/json; charset=utf-8 5.0543ms
+2024-12-29 15:34:24.409 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/oss/image/default/708b3cee3e514153a099ef380d784eab.jpg - null null
+2024-12-29 15:34:24.467 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/userinfo - null null
+2024-12-29 15:34:24.469 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/userinfo - 401 null application/json; charset=utf-8 2.4316ms
+2024-12-29 15:34:24.534 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:24.538 +08:00 [INF] Route matched with {action = "Image", controller = "Oss", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ImageAsync(System.String) on controller Cracker.Admin.Controllers.Oss.OssController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:34:24.564 +08:00 [INF] Executing FileContentResult, sending file with download name '708b3cee3e514153a099ef380d784eab.jpg' ...
+2024-12-29 15:34:24.582 +08:00 [INF] Executed action Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host) in 44.4231ms
+2024-12-29 15:34:24.582 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:24.583 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/oss/image/default/708b3cee3e514153a099ef380d784eab.jpg - 200 398766 image/jpeg 174.4055ms
+2024-12-29 15:34:38.937 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/menus - null null
+2024-12-29 15:34:38.938 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/menus - 401 null application/json; charset=utf-8 1.6117ms
+2024-12-29 15:34:39.062 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/oss/image/default/708b3cee3e514153a099ef380d784eab.jpg - null null
+2024-12-29 15:34:39.072 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:44383/api/account/userinfo - null null
+2024-12-29 15:34:39.073 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/account/userinfo - 401 null application/json; charset=utf-8 1.9555ms
+2024-12-29 15:34:39.128 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:39.129 +08:00 [INF] Route matched with {action = "Image", controller = "Oss", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] ImageAsync(System.String) on controller Cracker.Admin.Controllers.Oss.OssController (Cracker.Admin.HttpApi.Host).
+2024-12-29 15:34:39.138 +08:00 [INF] Executing FileContentResult, sending file with download name '708b3cee3e514153a099ef380d784eab.jpg' ...
+2024-12-29 15:34:39.147 +08:00 [INF] Executed action Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host) in 17.7424ms
+2024-12-29 15:34:39.147 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.Oss.OssController.ImageAsync (Cracker.Admin.HttpApi.Host)'
+2024-12-29 15:34:39.147 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:44383/api/oss/image/default/708b3cee3e514153a099ef380d784eab.jpg - 200 398766 image/jpeg 85.5893ms
