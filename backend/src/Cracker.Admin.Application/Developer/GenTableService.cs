@@ -20,12 +20,15 @@ namespace Cracker.Admin.Developer
         private readonly IDatabaseDapperRepository databaseDapperRepository;
         private readonly IRepository<GenTable> genTableRepository;
         private readonly CodeGenerator codeGenerator;
+        private readonly IRepository<GenTableColumn> genTableColumnRepository;
 
-        public GenTableService(IDatabaseDapperRepository databaseDapperRepository, IRepository<GenTable> genTableRepository, CodeGenerator codeGenerator)
+        public GenTableService(IDatabaseDapperRepository databaseDapperRepository, IRepository<GenTable> genTableRepository, CodeGenerator codeGenerator
+            ,IRepository<GenTableColumn> genTableColumnRepository)
         {
             this.databaseDapperRepository = databaseDapperRepository;
             this.genTableRepository = genTableRepository;
             this.codeGenerator = codeGenerator;
+            this.genTableColumnRepository = genTableColumnRepository;
         }
 
         public async Task AddGenTableAsync(GenTableDto dto)
@@ -47,6 +50,7 @@ namespace Cracker.Admin.Developer
         public async Task DeleteGenTableAsync(List<Guid> genTableIds)
         {
             await genTableRepository.DeleteDirectAsync(x => genTableIds.Contains(x.Id));
+            await genTableColumnRepository.DeleteDirectAsync(x => genTableIds.Contains(x.GenTableId));
         }
 
         public async Task<PagedResultStruct<DatabaseTableResultDto>> GetDatabaseTableListAsync(DatabaseableSearchDto dto)
@@ -63,13 +67,16 @@ namespace Cracker.Admin.Developer
 
         public async Task<PagedResultStruct<GenTableResultDto>> GetGenTableListAsync(GenTableSearchDto dto)
         {
-            var query = (await genTableRepository.GetQueryableAsync()).Select(x => new GenTableResultDto
+            var query = (await genTableRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrEmpty(dto.TableName), x => x.TableName.Contains(dto.TableName!))
+                .Select(x => new GenTableResultDto
             {
                 GenTableId = x.Id,
                 TableName = x.TableName,
                 Comment = x.Comment,
                 BusinessName = x.BusinessName,
                 EntityName = x.EntityName,
+                ModuleName = x.ModuleName
             });
             return new PagedResultStruct<GenTableResultDto>(dto)
             {

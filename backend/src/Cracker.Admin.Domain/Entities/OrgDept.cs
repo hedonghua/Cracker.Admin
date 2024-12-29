@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace Cracker.Admin.Entities
 {
     /// <summary>
-    /// 员工表
+    /// 部门表
     /// </summary>
-    [Comment("员工表")]
+    [Comment("部门表")]
     public class OrgDept : FullAuditedAggregateRoot<Guid>
     {
         /// <summary>

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Cracker.Admin.Models
+﻿namespace Cracker.Admin.Models
 {
     public class DatabaseTableColumn
     {
@@ -29,7 +27,7 @@ namespace Cracker.Admin.Models
         /// <summary>
         /// 最大长度
         /// </summary>
-        public int? MaxLength { get; set; }
+        public long? MaxLength { get; set; }
 
         /// <summary>
         /// 是否可空 YES/NO

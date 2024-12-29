@@ -12,7 +12,7 @@ const anyAccessList = ["/api/account/refresh-token", "/api/account/login"];
 
 // 创建axios实例
 const service: AxiosInstance = axios.create({
-  timeout: 2000,
+  timeout: 5000,
 });
 
 // 添加请求拦截器

@@ -1,6 +1,8 @@
 using AutoMapper;
 using Cracker.Admin.Account.Dtos;
+using Cracker.Admin.Developer.Dtos;
 using Cracker.Admin.Entities;
+using Cracker.Admin.Models;
 using Cracker.Admin.Organization.Dtos;
 using Cracker.Admin.System.Dtos;
 using Cracker.Admin.System.LogManagement.Dtos;
@@ -29,5 +31,8 @@ public class CrackerAdminApplicationAutoMapperProfile : Profile
         CreateMap<PositionGroupDto, OrgPositionGroup>();
         CreateMap<PositionDto, OrgPosition>();
         CreateMap<BusinessLogDto, SysBusinessLog>();
+        CreateMap<DatabaseTable, DatabaseTableResultDto>();
+        CreateMap<GenTableDto, GenTable>();
+        CreateMap<GenTableColumn, GenTableColumnResultDto>();
     }
 }

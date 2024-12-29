@@ -18,8 +18,6 @@ namespace Cracker.Admin.Developer.Dtos
         /// <summary>
         /// 表描述
         /// </summary>
-        [NotNull]
-        [Required]
         [StringLength(256)]
         public string? Comment { get; set; }
 

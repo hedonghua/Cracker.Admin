@@ -25,5 +25,10 @@ namespace Cracker.Admin.Developer.Dtos
         /// 实体名
         /// </summary>
         public string? EntityName { get; set; }
+
+        /// <summary>
+        /// 模块名
+        /// </summary>
+        public string? ModuleName { get; set; }
     }
 }

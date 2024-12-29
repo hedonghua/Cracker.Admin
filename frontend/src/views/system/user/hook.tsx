@@ -129,6 +129,7 @@ export function useTable() {
     roleIds: [],
   });
   const roleOptions = ref<Array<AppOption>>([]);
+  const ossDomain = import.meta.env.VITE_OSS_DOMAIN;
 
   /*========================== 自定义函数 ========================== */
   const remove = (row: any) => {
@@ -237,7 +238,7 @@ export function useTable() {
     });
   };
   const getAvatar = (url: string) => {
-    return url;
+    return ossDomain + url;
   };
   return {
     request,
