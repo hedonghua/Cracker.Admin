@@ -28,8 +28,6 @@ public class CrackerAdminEntityFrameworkCoreModule : AbpModule
             options.UseMySQL();
         });
 
-        context.Services.AddTransient<IUserDapperRepository, UserDapperRepository>();
-        context.Services.AddTransient<IRoleDapperRepository, RoleDapperRepository>();
         context.Services.AddTransient<IDatabaseDapperRepository, DatabaseDapperRepository>();
     }
 }

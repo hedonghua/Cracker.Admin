@@ -1,13 +1,13 @@
-using Cracker.Admin.Entities;
-using Cracker.Admin.Helpers;
-using Cracker.Admin.Models;
-using Cracker.Admin.Repositories;
-using Cracker.Admin.Services;
-using Cracker.Admin.System.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Cracker.Admin.Entities;
+using Cracker.Admin.Models;
+using Cracker.Admin.Services;
+using Cracker.Admin.System.Dtos;
+
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -21,16 +21,14 @@ namespace Cracker.Admin.System
     {
         private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysRoleMenu> _roleMenuRepository;
-        private readonly IRoleDapperRepository _roleDAO;
         private readonly IRepository<SysUserRole> _userRoleRepository;
         private readonly IdentityDomainService identityDomainService;
 
         public RoleService(IRepository<SysRole> roleRepository, IRepository<SysRoleMenu> roleMenuRepository
-            , IRoleDapperRepository roleDAO, IRepository<SysUserRole> userRoleRepository, IdentityDomainService identityDomainService)
+            , IRepository<SysUserRole> userRoleRepository, IdentityDomainService identityDomainService)
         {
             _roleRepository = roleRepository;
             _roleMenuRepository = roleMenuRepository;
-            _roleDAO = roleDAO;
             _userRoleRepository = userRoleRepository;
             this.identityDomainService = identityDomainService;
         }
@@ -93,9 +91,13 @@ namespace Cracker.Admin.System
             return new PagedResultDto<RoleListDto>(count, ObjectMapper.Map<List<SysRole>, List<RoleListDto>>(rows));
         }
 
-        public Task<List<AppOption>> GetRoleOptionsAsync()
+        public async Task<List<AppOption>> GetRoleOptionsAsync()
         {
-            return _roleDAO.GetRoleOptionsAsync();
+            return (await _roleRepository.GetQueryableAsync()).Select(x => new AppOption
+            {
+                Label = x.RoleName,
+                Value = x.Id.ToString()
+            }).ToList();
         }
 
         public async Task<bool> UpdateRoleAsync(RoleDto dto)
