@@ -72,6 +72,13 @@ const routes: RouteRecordRaw[] = [
           hidden: true,
         },
       },
+      {
+        path: "/develop/genTableColumn/:id",
+        component: ()=>import("@/views/develop/genTableColumn/index.vue"),
+        meta: {
+          title: "生成列配置"
+        },
+      },
     ],
   },
 ];

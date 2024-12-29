@@ -1,7 +1,7 @@
 <template>
   <div class="re-table-wrapper">
     <!-- 查询 --->
-    <div class="re-card re-filter-card" v-if="isShowFilter">
+    <div class="re-card re-filter-card" v-if="getIsShowFilter()">
       <el-form :model="filterForm" :inline="true" ref="searchFormRef">
         <el-form-item :label="v.label" v-for="(v, i) in filters" :key="i" :prop="v.key">
           <el-input v-if="v.type === 'text' || !v.type" :placeholder="v.placeholder" :clearable="v.clearable"
@@ -20,7 +20,7 @@
       </el-form>
     </div>
     <!-- 列表 -->
-    <div :class="(isShowFilter ? 'mt-4' : '') + ' re-card'">
+    <div :class="(getIsShowFilter() ? 'mt-4' : '') + ' re-card'">
       <div class="re-table-toolbar mb-4">
         <slot name="toolbar"></slot>
       </div>
@@ -121,7 +121,6 @@ const emits = defineEmits<{
   (e: 'selection-change', selection: any[]): void,
   (e: 'request-callback', res: any): void
 }>();
-const isShowFilter = ref<boolean>((props.enabledFilter && props.filters && props.filters.length > 0) ?? false)
 const filterForm = reactive({
   page: 1,
   size: 10
@@ -218,6 +217,9 @@ const removeParam = (key: string) => {
   }
   requestData();
 }
+const getIsShowFilter = () => {
+  return (props.enabledFilter && props.filters && props.filters.length > 0) ?? false
+}
 
 defineExpose({
   refresh,
@@ -228,7 +230,7 @@ defineExpose({
 })
 
 onBeforeMount(() => {
-  if (isShowFilter) {
+  if (getIsShowFilter()) {
     for (let i = 0; i < props.filters!.length; i++) {
       const item = props.filters![i];
       filterForm[item.key] = item?.defaultValue;

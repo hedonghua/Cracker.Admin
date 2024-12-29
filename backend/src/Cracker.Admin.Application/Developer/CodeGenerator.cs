@@ -88,7 +88,7 @@ namespace Cracker.Admin.Developer
             return await File.ReadAllTextAsync(filePath);
         }
 
-        private string GetCsharpType(string columnType, bool isNullable, int maxLen)
+        private string GetCsharpType(string columnType, bool isNullable, long maxLen)
         {
             var type = FindType();
             return isNullable ? type + "?" : type;

@@ -95,7 +95,7 @@ namespace Cracker.Admin.Entities
         /// 最大长度
         /// </summary>
         [Comment("最大长度")]
-        public int? MaxLength { get; set; }
+        public long? MaxLength { get; set; }
 
         /// <summary>
         /// 是否可空
