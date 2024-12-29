@@ -22,17 +22,15 @@ namespace Cracker.Admin.System
         private readonly IRepository<SysUser> _userRepository;
         private readonly IRepository<SysUserRole> _userRoleRepository;
         private readonly IConfiguration _configuration;
-        private readonly IUserDapperRepository _userDapperRepository;
         private readonly ICacheProvider cacheProvider;
         private readonly IdentityDomainService identityDomainService;
 
         public UserService(IRepository<SysUser> userRepository, IRepository<SysUserRole> userRoleRepository
-            , IConfiguration configuration, IUserDapperRepository userDapperRepository,ICacheProvider cacheProvider, IdentityDomainService identityDomainService)
+            , IConfiguration configuration,ICacheProvider cacheProvider, IdentityDomainService identityDomainService)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _configuration = configuration;
-            _userDapperRepository = userDapperRepository;
             this.cacheProvider = cacheProvider;
             this.identityDomainService = identityDomainService;
         }
@@ -94,10 +92,8 @@ namespace Cracker.Admin.System
 
         public async Task<PagedResultDto<UserListDto>> GetUserListAsync(UserQueryDto dto)
         {
-            var adminIds = await _userDapperRepository.GetSuperAdminUserIdsAsync();
             var query = (await _userRepository.GetQueryableAsync())
-                .WhereIf(!string.IsNullOrEmpty(dto.UserName), x => x.UserName.Contains(dto.UserName!))
-                .Where(x => !adminIds.Contains(x.Id));
+                .WhereIf(!string.IsNullOrEmpty(dto.UserName), x => x.UserName.Contains(dto.UserName!));
             var count = query.Count();
             var rows = query.Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList();
             return new PagedResultDto<UserListDto>(count, ObjectMapper.Map<List<SysUser>, List<UserListDto>>(rows));
