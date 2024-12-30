@@ -50,6 +50,18 @@ export function useTable() {
               size="small"
               link
               type="primary"
+              onclick={() => openPreview(row)}
+            >
+              预览
+            </el-button>
+          ) : (
+            <></>
+          )}
+          {userAuth.hasPermission("admin_system_positiongroup_update") ? (
+            <el-button
+              size="small"
+              link
+              type="primary"
               onclick={() => openDetails(row)}
             >
               详情
@@ -150,6 +162,8 @@ export function useTable() {
   ];
   const selectDatabataTableRows = ref<Array<any>>([]);
   const tabManager = useTabManager();
+  const genTableId = ref<string>("");
+  const previewDialogVisible = ref<boolean>(false);
 
   /*========================== 自定义函数 ========================== */
   const remove = (row: any) => {
@@ -272,6 +286,10 @@ export function useTable() {
   const openDetails = (row: any) => {
     tabManager.append("/develop/genTableColumn/" + row.genTableId);
   };
+  const openPreview = (row: any) => {
+    genTableId.value = row.genTableId;
+    previewDialogVisible.value = true;
+  };
 
   /*========================== Vue钩子 ========================== */
   onMounted(() => {
@@ -302,5 +320,7 @@ export function useTable() {
     selectConfirmEvent,
     selectDatabataTableRows,
     deleteBatch,
+    genTableId,
+    previewDialogVisible,
   };
 }

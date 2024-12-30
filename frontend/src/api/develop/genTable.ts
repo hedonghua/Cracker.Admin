@@ -81,3 +81,15 @@ export function getDatabaseTableList(params: any) {
     { params: params }
   );
 }
+
+/**
+ * 预览代码
+ * @param params
+ * @returns
+ */
+export function previewCode(params: any) {
+  return request.get<any, ApplicationResult<any>>(
+    "/api/GenTable/PreviewCode",
+    { params: params }
+  );
+}

@@ -74,9 +74,10 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "/develop/genTableColumn/:id",
-        component: ()=>import("@/views/develop/genTableColumn/index.vue"),
+        component: () => import("@/views/develop/genTableColumn/index.vue"),
         meta: {
-          title: "生成列配置"
+          title: "生成列配置",
+          hidden: true,
         },
       },
     ],
@@ -88,7 +89,7 @@ const genRoutes = (array: MenuItem[]): RouteRecordRaw[] => {
   const dynamicRoutes: RouteRecordRaw[] = [];
   for (let index = 0; index < array.length; index++) {
     const item = array[index];
-    if(!item.path) continue;
+    if (!item.path) continue;
     const routeIndex = modulesRoutesKeys.findIndex((mr) =>
       mr.includes(item.path + "/index.vue")
     );
@@ -157,7 +158,7 @@ router.beforeEach((to, _) => {
     //   tabManager.setActiveWhite();
     //   return { path: "/errors/403" };
     // }
-  } else if(to.matched.length === 0){
+  } else if (to.matched.length === 0) {
     return { path: "/errors/403" };
   }
   return true;

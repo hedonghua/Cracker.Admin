@@ -44,11 +44,11 @@
           </template>
         </el-table-column>
       </el-table>
-      <!--分页-->
-      <div class="w-full flex flex-row-reverse mt-4" v-if="total > 0">
+      <!-- 分页 -->
+      <div class="w-full flex flex-row-reverse mt-4">
         <el-pagination v-model:page-size="filterForm.size" :total="total" :page-sizes="[10, 20, 30, 40, 50]"
           :pager-count="5" @size-change="handleSizeChange" @current-change="handleCurrentChange" small background
-          layout="sizes, prev, pager, next" />
+          layout="total, sizes, prev, pager, next" />
       </div>
     </div>
   </div>
@@ -220,6 +220,9 @@ const removeParam = (key: string) => {
 const getIsShowFilter = () => {
   return (props.enabledFilter && props.filters && props.filters.length > 0) ?? false
 }
+const getTableData = () => {
+  return tableData.value;
+}
 
 defineExpose({
   refresh,
@@ -227,6 +230,7 @@ defineExpose({
   selectedRowKeys,
   addParam,
   removeParam,
+  getTableData
 })
 
 onBeforeMount(() => {
