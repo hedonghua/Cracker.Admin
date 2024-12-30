@@ -19,15 +19,18 @@ namespace Cracker.Admin.Developer
     public class GenTableColumnService : ApplicationService, IGenTableColumnService
     {
         private readonly IRepository<GenTableColumn> genTableColumnRepository;
+        private readonly IRepository<GenTable> genTableRepository;
 
-        public GenTableColumnService(IRepository<GenTableColumn> genTableRepository)
+        public GenTableColumnService(IRepository<GenTableColumn> genTableColumnRepository, IRepository<GenTable> genTableRepository)
         {
-            this.genTableColumnRepository = genTableRepository;
+            this.genTableColumnRepository = genTableColumnRepository;
+            this.genTableRepository = genTableRepository;
         }
 
         public async Task<PagedResultStruct<GenTableColumnResultDto>> GetGenTableColumnListAsync(GenTableColumnSearchDto dto)
         {
             var query = (await genTableColumnRepository.GetQueryableAsync())
+                .Where(x=>x.GenTableId==dto.GenTableId)
                 .WhereIf(!string.IsNullOrEmpty(dto.ColumnName), x => x.ColumnName.Contains(dto.ColumnName!));
             var total = query.Count();
             var list = query.StartPage(dto).ToList();
@@ -40,7 +43,7 @@ namespace Cracker.Admin.Developer
 
         public async Task SaveGenTableColumnAsync(GenTableColumnDto dto)
         {
-            var exist = await genTableColumnRepository.AnyAsync(x => x.Id == dto.GenTableId);
+            var exist = await genTableRepository.AnyAsync(x => x.Id == dto.GenTableId);
             if (!exist) throw new AbpValidationException("生成表配置不存在");
 
             if(dto.Items == null || dto.Items.Count <= 0) throw new AbpValidationException("生成列配置不能为空");

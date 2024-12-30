@@ -49,12 +49,15 @@
                 </div>
             </template>
         </el-dialog>
+        <!-- 预览弹窗 -->
+        <PreviewDialog :gen-table-id="genTableId" v-model:visible="previewDialogVisible" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { useTable } from "./hook.tsx"
 import { onMounted, ref } from "vue";
+import PreviewDialog from "./previewDialog.vue";
 
 const ids = ref<Array<string>>([]);
 const selectionChange = (rows: any[]) => {
@@ -91,7 +94,9 @@ const {
     selectDatabataTableRows,
     selectCloseDialog,
     selectConfirmEvent,
-    deleteBatch
+    deleteBatch,
+    genTableId,
+    previewDialogVisible,
 } = useTable();
 
 onMounted(() => {
