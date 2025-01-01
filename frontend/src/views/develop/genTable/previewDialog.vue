@@ -1,10 +1,19 @@
 <template>
     <div>
         <el-dialog v-model="dialogVisible" :close-on-click-modal="false" @close="handleClose"
-            :close-on-press-escape="false" title="预览" width="80%" append-to-body>
+            :close-on-press-escape="false" title="预览" width="75%" append-to-body>
             <el-tabs v-model="activeName">
-                <el-tab-pane label="实体类" name="entityClass">
-                    <div v-html="codes.entityClass"></div>
+                <el-tab-pane :label="codes?.entityClass?.label + '.cs'" name="EntityClass">
+                    <textarea readonly v-html="codes?.entityClass?.value"
+                        class="w-full textarea-code border-none focus:outline-none"></textarea>
+                </el-tab-pane>
+                <el-tab-pane :label="codes?.iService?.label + '.cs'" name="IService">
+                    <textarea readonly v-html="codes?.iService?.value"
+                        class="w-full textarea-code border-none focus:outline-none"></textarea>
+                </el-tab-pane>
+                <el-tab-pane :label="codes?.service?.label + '.cs'" name="Service">
+                    <textarea readonly v-html="codes?.service?.value"
+                        class="w-full textarea-code border-none focus:outline-none"></textarea>
                 </el-tab-pane>
             </el-tabs>
         </el-dialog>
@@ -12,8 +21,15 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 import { previewCode } from '@/api/develop/genTable';
+import { AppOption } from '#/data';
+
+type previewCodeResult = {
+    entityClass: AppOption;
+    iService: AppOption;
+    service: AppOption;
+}
 
 const props = defineProps({
     genTableId: {
@@ -27,12 +43,16 @@ const props = defineProps({
 })
 const dialogVisible = ref<boolean>(false);
 const emit = defineEmits(['update:visible']);
-const activeName = ref('entityClass');
-const codes = ref<any>();
+const activeName = ref('EntityClass');
+const codes = ref<previewCodeResult>();
 
 const getPreviewCode = () => {
     previewCode({ genTableId: props.genTableId }).then(res => {
-        codes.value = res.data;
+        codes.value = {
+            entityClass: res.data.entityClass,
+            iService: res.data.iService,
+            service: res.data.service,
+        }
     })
 }
 const handleClose = () => {
@@ -42,8 +62,20 @@ const handleClose = () => {
 
 watch(() => props.visible, (val) => {
     dialogVisible.value = val;
-    if (val) {
+    if (val && !codes.value) {
+        getPreviewCode();
+    }
+})
+onMounted(() => {
+    if (props.visible) {
         getPreviewCode();
     }
 })
 </script>
+
+<style scoped>
+.textarea-code {
+    min-height: 480px;
+    resize: none;
+}
+</style>

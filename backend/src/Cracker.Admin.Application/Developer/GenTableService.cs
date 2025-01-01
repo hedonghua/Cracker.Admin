@@ -23,7 +23,7 @@ namespace Cracker.Admin.Developer
         private readonly IRepository<GenTableColumn> genTableColumnRepository;
 
         public GenTableService(IDatabaseDapperRepository databaseDapperRepository, IRepository<GenTable> genTableRepository, CodeGenerator codeGenerator
-            ,IRepository<GenTableColumn> genTableColumnRepository)
+            , IRepository<GenTableColumn> genTableColumnRepository)
         {
             this.databaseDapperRepository = databaseDapperRepository;
             this.genTableRepository = genTableRepository;
@@ -70,14 +70,14 @@ namespace Cracker.Admin.Developer
             var query = (await genTableRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrEmpty(dto.TableName), x => x.TableName.Contains(dto.TableName!))
                 .Select(x => new GenTableResultDto
-            {
-                GenTableId = x.Id,
-                TableName = x.TableName,
-                Comment = x.Comment,
-                BusinessName = x.BusinessName,
-                EntityName = x.EntityName,
-                ModuleName = x.ModuleName
-            });
+                {
+                    GenTableId = x.Id,
+                    TableName = x.TableName,
+                    Comment = x.Comment,
+                    BusinessName = x.BusinessName,
+                    EntityName = x.EntityName,
+                    ModuleName = x.ModuleName
+                });
             return new PagedResultStruct<GenTableResultDto>(dto)
             {
                 TotalCount = query.Count(),
@@ -88,11 +88,19 @@ namespace Cracker.Admin.Developer
         public async Task<PreviewCodeResultDto> PreviewCodeAsync(Guid genTableId)
         {
             var genTable = await genTableRepository.GetAsync(x => x.Id == genTableId);
+            var columns = await genTableColumnRepository.GetListAsync(x => x.GenTableId == genTable.Id);
 
-            var result = new PreviewCodeResultDto()
-            {
-                EntityClass = await codeGenerator.BuildEntity(genTable)
-            };
+            var result = new PreviewCodeResultDto();
+
+            var (entityClassName, entityClass) = await codeGenerator.BuildEntity(genTable, columns);
+            result.EntityClass = new AppOption() { Label = entityClassName, Value = entityClass };
+
+            var (iServiceName,iService)= await codeGenerator.BuildIService(genTable, columns);
+            result.IService = new AppOption() { Label = iServiceName, Value = iService };
+
+            var (serviceName, service) = await codeGenerator.BuildService(genTable, columns);
+            result.Service = new AppOption() { Label = serviceName, Value = service };
+
             return result;
         }
 
