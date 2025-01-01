@@ -11,7 +11,7 @@
  Target Server Version : 80039
  File Encoding         : 65001
 
- Date: 29/12/2024 22:13:19
+ Date: 01/01/2025 21:09:50
 */
 
 SET NAMES utf8mb4;
@@ -93,16 +93,16 @@ CREATE TABLE `gentablecolumn`  (
 -- ----------------------------
 -- Records of gentablecolumn
 -- ----------------------------
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114c-0777-3ecb-c2af317d8107', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Id', 'Id', 'id', 'char', 'Guid', 'string', 'text', '', 36, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.448393', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114c-49e5-d9c7-43c675172de6', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Code', 'Code', 'code', 'varchar', 'string', 'string', 'text', '部门编号', 32, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.449087', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114c-6a44-fdc7-ee7d45854703', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Name', 'Name', 'name', 'varchar', 'string', 'string', 'text', '部门名称', 64, 0, 1, 1, 1, 2, 1, '2024-12-29 20:03:58.450806', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-1cb0-5e07-4f708dd0c0e3', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Status', 'Status', 'status', 'int', 'int', 'number', 'text', '状态：1正常2停用', NULL, 0, 1, 1, 1, 2, 1, '2024-12-29 20:03:58.451278', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-204a-264a-5960dbf4f5bd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'CuratorId', 'Curatorid', 'curatorid', 'char', 'Guid?', 'string?', 'text', '负责人', 36, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451343', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-2b0a-546b-ce3a477fd1ea', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'DeletionTime', 'Deletiontime', 'deletiontime', 'datetime', 'DateTime?', 'Date?', 'datetime', '', NULL, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452271', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-37c7-50a6-b17f34b25004', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'LastModifierId', 'Lastmodifierid', 'lastmodifierid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452098', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-433f-e2ff-a963bf505bfd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'IsDeleted', 'Isdeleted', 'isdeleted', 'tinyint', 'sbyte', 'number', 'text', '', NULL, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452155', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-4ec8-012b-b1d50eb48b35', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Layer', 'Layer', 'layer', 'int', 'int', 'number', 'text', '层级', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451723', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-51a3-eec5-ddf99f8d0d31', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ExtraProperties', 'Extraproperties', 'extraproperties', 'longtext', 'string', 'string', 'text', '', 4294967295, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.451798', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114c-0777-3ecb-c2af317d8107', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Id', 'Id', 'id', 'char', 'long', 'string', 'text', '', 36, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.448393', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.925673', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114c-49e5-d9c7-43c675172de6', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Code', 'Code', 'code', 'varchar', 'string', 'string', 'text', '部门编号', 32, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.449087', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.925829', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114c-6a44-fdc7-ee7d45854703', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Name', 'Name', 'name', 'varchar', 'string', 'string', 'text', '部门名称', 64, 0, 1, 1, 1, 2, 1, '2024-12-29 20:03:58.450806', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926105', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-1cb0-5e07-4f708dd0c0e3', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Status', 'Status', 'status', 'int', 'int', 'number', 'text', '状态：1正常2停用', NULL, 0, 1, 1, 1, 2, 1, '2024-12-29 20:03:58.451278', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926142', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-204a-264a-5960dbf4f5bd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'CuratorId', 'Curatorid', 'curatorid', 'char', 'Guid?', 'string?', 'text', '负责人', 36, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451343', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926162', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-2b0a-546b-ce3a477fd1ea', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'DeletionTime', 'Deletiontime', 'deletiontime', 'datetime', 'DateTime?', 'Date?', 'datetime', '', NULL, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452271', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926183', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-37c7-50a6-b17f34b25004', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'LastModifierId', 'Lastmodifierid', 'lastmodifierid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452098', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926197', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-433f-e2ff-a963bf505bfd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'IsDeleted', 'Isdeleted', 'isdeleted', 'tinyint', 'sbyte', 'number', 'text', '', NULL, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452155', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926210', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-4ec8-012b-b1d50eb48b35', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Layer', 'Layer', 'layer', 'int', 'int', 'number', 'text', '层级', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451723', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926223', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-51a3-eec5-ddf99f8d0d31', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ExtraProperties', 'Extraproperties', 'extraproperties', 'longtext', 'string', 'string', 'text', '', 4294967295, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.451798', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926239', '3a172369-2963-bc18-82bc-b3d0da8c574f');
 INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-5314-ca0c-422808c45072', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Description', 'Description', 'description', 'varchar', 'string?', 'string?', 'text', '描述', 512, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451204', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
 INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-5e56-1406-ee3b11b18f00', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Sort', 'Sort', 'sort', 'int', 'int', 'number', 'text', '排序', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451130', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
 INSERT INTO `gentablecolumn` VALUES ('3a17247a-114d-b12f-4b78-c8e66feded38', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ParentIds', 'Parentids', 'parentids', 'varchar', 'string?', 'string?', 'text', '层级父ID', 1024, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451652', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
@@ -173,6 +173,7 @@ CREATE TABLE `orgdept`  (
 -- ----------------------------
 -- Records of orgdept
 -- ----------------------------
+INSERT INTO `orgdept` VALUES ('3a17341b-5cc1-6b10-fdd4-3d1ffcd20c8b', '638713616672542112', 'xx科技有限公司', 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 0, '{}', '9cce08f15fcd4e45885b4f9ceb106d25', '2025-01-01 20:54:27.314598', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for orgdeptemployee
@@ -199,6 +200,7 @@ CREATE TABLE `orgdeptemployee`  (
 -- ----------------------------
 -- Records of orgdeptemployee
 -- ----------------------------
+INSERT INTO `orgdeptemployee` VALUES ('3a173423-82ed-f600-3251-2ea9173b0f08', '3a173423-82ce-dd67-ad54-1fefb79aa4de', '3a17341b-5cc1-6b10-fdd4-3d1ffcd20c8b', '3a173422-6ddc-ccf6-dd08-be092d50d8cc', 1, '{}', 'ae9446beb22844abad58736e3e5065a0', '2025-01-01 21:03:21.341062', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for orgemployee
@@ -237,6 +239,7 @@ CREATE TABLE `orgemployee`  (
 -- ----------------------------
 -- Records of orgemployee
 -- ----------------------------
+INSERT INTO `orgemployee` VALUES ('3a173423-82ce-dd67-ad54-1fefb79aa4de', '70175', 'cracker', 1, '18911111111', '320106194710063556', NULL, NULL, '1947-10-06 00:00:00.000000', NULL, NULL, '2023-01-10 00:00:00.000000', NULL, 0, NULL, '3a17341b-5cc1-6b10-fdd4-3d1ffcd20c8b', '3a173422-6ddc-ccf6-dd08-be092d50d8cc', '{}', '0c7ae5e35f074fa79c0306db5628c44d', '2025-01-01 21:03:21.324060', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for orgposition
@@ -265,6 +268,7 @@ CREATE TABLE `orgposition`  (
 -- ----------------------------
 -- Records of orgposition
 -- ----------------------------
+INSERT INTO `orgposition` VALUES ('3a173422-6ddc-ccf6-dd08-be092d50d8cc', '638713621303956440', '技术总监', 1, 1, NULL, '3a173422-424c-7026-3c9b-09434fdc0369', '{}', 'e8252f10b39b465bb42a94efa387e6b6', '2025-01-01 21:02:10.435845', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for orgpositiongroup
@@ -286,6 +290,7 @@ CREATE TABLE `orgpositiongroup`  (
 -- ----------------------------
 -- Records of orgpositiongroup
 -- ----------------------------
+INSERT INTO `orgpositiongroup` VALUES ('3a173422-424c-7026-3c9b-09434fdc0369', '部门负责人', NULL, NULL, NULL, '2025-01-01 21:01:59.272501', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sysbusinesslog
@@ -308,11 +313,16 @@ CREATE TABLE `sysbusinesslog`  (
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '业务日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '业务日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sysbusinesslog
 -- ----------------------------
+INSERT INTO `sysbusinesslog` VALUES (1, 'admin', 'Cracker.Admin.Controllers.System.UserController.AssignRoleAsync (Cracker.Admin.HttpApi.Host)', 'POST', '/api/user/assign-role', 'Windows', 'Chrome', '分配角色', '::1', '未知', 1, NULL, 0, '2024-12-30 22:10:29.376861', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `sysbusinesslog` VALUES (2, 'admin', 'Cracker.Admin.Controllers.System.UserController.DeleteUserAsync (Cracker.Admin.HttpApi.Host)', 'DELETE', '/api/user/delete/3a172369-2963-bc18-82bc-b3d0da8c574f', 'Windows', 'Chrome', '删除用户', '::1', '未知', 1, NULL, 0, '2024-12-30 22:48:29.916268', '3a172369-2963-bc18-82bc-b3d0da8c574f');
+INSERT INTO `sysbusinesslog` VALUES (3, 'admin', 'Cracker.Admin.Controllers.System.DictController.AddDictAsync (Cracker.Admin.HttpApi.Host)', 'POST', '/api/dict/add', 'Windows', 'Chrome', '新增字典', '::1', '未知', 1, NULL, 0, '2025-01-01 21:05:02.298949', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
+INSERT INTO `sysbusinesslog` VALUES (4, 'admin', 'Cracker.Admin.Controllers.System.DictController.AddDictAsync (Cracker.Admin.HttpApi.Host)', 'POST', '/api/dict/add', 'Windows', 'Chrome', '新增字典', '::1', '未知', 1, NULL, 0, '2025-01-01 21:05:19.271899', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
+INSERT INTO `sysbusinesslog` VALUES (5, 'admin', 'Cracker.Admin.Controllers.System.DictController.RefreshCacheAsync (Cracker.Admin.HttpApi.Host)', 'POST', '/api/dict/refresh', 'Windows', 'Chrome', '刷新字典缓存', '::1', '未知', 1, NULL, 0, '2025-01-01 21:05:27.321026', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
 
 -- ----------------------------
 -- Table structure for sysdict
@@ -340,6 +350,8 @@ CREATE TABLE `sysdict`  (
 -- ----------------------------
 -- Records of sysdict
 -- ----------------------------
+INSERT INTO `sysdict` VALUES ('3a173425-0d29-cacd-fa7a-d4e49a06aaec', 'sex', 'sex', '性别', '', NULL, 0, 0, '2025-01-01 21:05:02.270187', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `sysdict` VALUES ('3a173425-4f9d-926f-8010-299b9935c669', 'sex_boy', '1', '男', 'sex', NULL, 1, 0, '2025-01-01 21:05:19.262302', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sysloginlog
@@ -357,7 +369,7 @@ CREATE TABLE `sysloginlog`  (
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sysloginlog
@@ -514,7 +526,8 @@ CREATE TABLE `sysuser`  (
 -- ----------------------------
 -- Records of sysuser
 -- ----------------------------
-INSERT INTO `sysuser` VALUES ('3a172369-2963-bc18-82bc-b3d0da8c574f', 'admin', '71e024f12c38ff5198e3ee4f60e2f1f9', 'iqbglILuEZHo/sSWGijq/w==', 'avatar/female.png', 'admin', 0, 1, '{}', 'a020bc0d79bc4527895b78d0eb82681e', '2024-12-29 15:05:53.280210', NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `sysuser` VALUES ('3a172369-2963-bc18-82bc-b3d0da8c574f', 'admin', '71e024f12c38ff5198e3ee4f60e2f1f9', 'iqbglILuEZHo/sSWGijq/w==', 'avatar/female.png', 'admin', 0, 1, '{}', '66da00fc0f74480f918d104b2bd4d049', '2024-12-29 15:05:53.280210', NULL, '2024-12-30 22:48:29.757325', '3a172369-2963-bc18-82bc-b3d0da8c574f', 1, '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:48:29.755398');
+INSERT INTO `sysuser` VALUES ('3a172a37-55d5-ee9b-dc92-e07386eadc7c', 'admin', '1ca143469f2fc8cd6f9a14fcd06afe4b', '37+r+a1tqkgurohuVkxTJg==', 'avatar/female.png', 'admin', 0, 1, '{}', 'eed0a3bad4c243e28a9af9ce3f305ae4', '2024-12-30 22:48:48.457636', NULL, NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sysuserrole
@@ -533,5 +546,6 @@ CREATE TABLE `sysuserrole`  (
 -- Records of sysuserrole
 -- ----------------------------
 INSERT INTO `sysuserrole` VALUES ('3a172369-2963-bc18-82bc-b3d0da8c574f', '3a172369-28a4-e37e-b78a-8c3eaec17359');
+INSERT INTO `sysuserrole` VALUES ('3a172a37-55d5-ee9b-dc92-e07386eadc7c', '3a172369-28a4-e37e-b78a-8c3eaec17359');
 
 SET FOREIGN_KEY_CHECKS = 1;
