@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -9,8 +11,6 @@ using Cracker.Admin.Entities;
 using Cracker.Admin.Enums;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Repositories;
-
-using Scriban;
 
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -75,11 +75,133 @@ namespace Cracker.Admin.Developer
         /// </summary>
         /// <param name="genTable"></param>
         /// <returns></returns>
-        public async Task<string> BuildEntity(GenTable genTable)
+        public async Task<(string, string)> BuildEntity(GenTable genTable, List<GenTableColumn> columns)
         {
-            var columns = await genTableColumnRepository.GetListAsync(x => x.GenTableId == genTable.Id);
-            var template = Template.Parse(await ReadTemplateFileAsync("Entity"));
-            return template.Render(new { Columns = columns });
+            var template = await ReadTemplateFileAsync("Entity");
+
+            var stringBuilder = new StringBuilder();
+            var index = 1;
+            foreach (var column in columns)
+            {
+                var hasComment = !string.IsNullOrEmpty(column.Comment);
+                if (hasComment)
+                {
+                    stringBuilder.AppendLine("\t/// <summary>");
+                    stringBuilder.AppendLine($"\t/// {column.Comment}");
+                    stringBuilder.AppendLine("\t/// </summary>");
+                }
+                if (!column.IsNullable)
+                {
+                    stringBuilder.AppendLine("\t[NotNull]");
+                    stringBuilder.AppendLine("\t[Required]");
+                }
+                if (column.CsharpType == "string")
+                {
+                    stringBuilder.AppendLine($"\t[StringLength({column.MaxLength})]");
+                }
+                if (hasComment)
+                {
+                    stringBuilder.AppendLine($"\t[Comment(\"{column.Comment}\")]");
+                }
+                if (column.CsharpPropName != column.ColumnName)
+                {
+                    stringBuilder.AppendLine($"\t[Column(\"{column.ColumnName}\")]");
+                }
+                if (index < columns.Count)
+                {
+                    stringBuilder.AppendLine($"\tpublic {column.CsharpType} {column.CsharpPropName} {{ get; set; }}\r\n");
+                }
+                else
+                {
+                    stringBuilder.Append($"\tpublic {column.CsharpType} {column.CsharpPropName} {{ get; set; }}");
+                }
+                index++;
+            }
+
+            var source = this.RenderTemplate(template, new
+            {
+                tableName = genTable.TableName,
+                comment = genTable.Comment,
+                entityName = genTable.EntityName,
+                moduleName = genTable.ModuleName,
+                properties = stringBuilder.ToString(),
+                baseClass = ""
+            });
+
+            return (genTable.EntityName, source);
+        }
+
+        public async Task<(string, string)> BuildIService(GenTable genTable, List<GenTableColumn> columns)
+        {
+            var template = await ReadTemplateFileAsync("IService");
+
+            var source = this.RenderTemplate(template, new
+            {
+                moduleName = genTable.ModuleName,
+                businessName = genTable.BusinessName,
+            });
+
+            return ($"I{genTable.BusinessName}Service", source);
+        }
+
+        public async Task<(string, string)> BuildService(GenTable genTable, List<GenTableColumn> columns)
+        {
+            var template = await ReadTemplateFileAsync("Service");
+
+            //新增字段
+            var addFields = columns.Where(x => x.IsInsert).ToList();
+            var addFieldsStringbuilder = new StringBuilder();
+            foreach (var item in addFields)
+            {
+                addFieldsStringbuilder.AppendLine($"entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
+            }
+            //修改字段
+            var updateFields = columns.Where(x => x.IsUpdate).ToList();
+            var updateFieldsStringbuilder = new StringBuilder();
+            foreach (var item in updateFields)
+            {
+                updateFieldsStringbuilder.AppendLine($"entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
+            }
+            //查询列
+            var queryColumns = columns.Where(x => x.IsShow).ToList();
+            var queryColumnsStringbuilder = new StringBuilder();
+            int i = 1;
+            foreach (var item in queryColumns)
+            {
+                var comma = i < queryColumns.Count ? "," : "";
+                queryColumnsStringbuilder.AppendLine($"{item.CsharpPropName} = x.{item.CsharpPropName}{comma}");
+                i++;
+            }
+            //查询条件
+            var queryConditions = columns.Where(x => x.IsSearch).ToList();
+            var queryConditionsStringBuilder = new StringBuilder();
+            foreach (var item in queryConditions)
+            {
+                if(item.CsharpType == "string")
+                {
+                    if(item.SearchType == SearchType.Contains)
+                    {
+                        queryColumnsStringbuilder.AppendLine($".WhereIf(!string.IsNullOrEmpty(dto.{item.CsharpPropName}), x => x.{item.CsharpPropName}.Contains(dto.{item.CsharpPropName}))");
+                    }
+                    else if(item.SearchType == SearchType.Equals)
+                    {
+                        queryColumnsStringbuilder.AppendLine($".WhereIf(!string.IsNullOrEmpty(dto.{item.CsharpPropName}), x => x.{item.CsharpPropName} == dto.{item.CsharpPropName})");
+                    }
+                }
+            }
+
+            var source = this.RenderTemplate(template, new
+            {
+                moduleName = genTable.ModuleName,
+                businessName = genTable.BusinessName,
+                entityName = genTable.EntityName,
+                addFields = addFieldsStringbuilder.ToString(),
+                updateFields = updateFieldsStringbuilder.ToString(),
+                queryMapper = queryColumnsStringbuilder.ToString(),
+                queryConditions = queryConditionsStringBuilder.ToString()
+            });
+
+            return ($"{genTable.BusinessName}Service", source);
         }
 
         private async Task<string> ReadTemplateFileAsync(string name)
@@ -216,6 +338,30 @@ namespace Cracker.Admin.Developer
         {
             if (IsAuditProp(columnName)) return false;
             return Regex.IsMatch(columnName, @"Status|Name|Title|Reason");
+        }
+
+        /// <summary>
+        /// 渲染模板
+        /// </summary>
+        /// <param name="obj">obj下属性都当string解析</param>
+        /// <returns></returns>
+        private string RenderTemplate(string template, dynamic obj)
+        {
+            // 将dynamic对象转换为object，以便使用反射
+            object objAsObject = obj;
+
+            // 获取对象的类型
+            Type type = objAsObject.GetType();
+
+            // 获取并输出所有属性
+            foreach (PropertyInfo property in type.GetProperties())
+            {
+                string propName = property.Name;
+                string pattern = @"\{\{\s*" + Regex.Escape(propName) + @"\s*\}\}";
+                template = Regex.Replace(template, pattern, (string)property.GetValue(objAsObject)!);
+            }
+
+            return template;
         }
     }
 }
