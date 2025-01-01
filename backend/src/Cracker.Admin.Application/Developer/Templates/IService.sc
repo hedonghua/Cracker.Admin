@@ -11,5 +11,5 @@ public interface I{{businessName}}Service
 
     Task Update{{businessName}}Async({{businessName}}Dto dto);
 
-    Task Delete{{businessName}}Async(Guid {{businessName}}Id);
+    Task Delete{{businessName}}Async(Guid {{businessNameOfFirstLower}}Id);
 }

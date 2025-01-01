@@ -101,6 +101,18 @@ namespace Cracker.Admin.Developer
             var (serviceName, service) = await codeGenerator.BuildService(genTable, columns);
             result.Service = new AppOption() { Label = serviceName, Value = service };
 
+            var (entityDto, entityDtoClass) = await codeGenerator.BuildEntityDto(genTable, columns, 1);
+            result.EntityDto = new AppOption() { Label = entityDto, Value = entityDtoClass };
+
+            var (entitySearchDto, entitySearchClass) = await codeGenerator.BuildEntityDto(genTable, columns, 2);
+            result.EntitySearchDto = new AppOption() { Label = entitySearchDto, Value = entitySearchClass };
+
+            var (entityResultDto, entityResultClass) = await codeGenerator.BuildEntityDto(genTable, columns, 3);
+            result.EntityResultDto = new AppOption() { Label = entityResultDto, Value = entityResultClass };
+
+            var (controllerName, controllerClass) = await codeGenerator.BuildController(genTable, columns);
+            result.Controller = new AppOption() { Label = controllerName, Value = controllerClass };
+
             return result;
         }
 

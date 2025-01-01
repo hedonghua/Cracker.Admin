@@ -139,6 +139,7 @@ namespace Cracker.Admin.Developer
             {
                 moduleName = genTable.ModuleName,
                 businessName = genTable.BusinessName,
+                businessNameOfFirstLower = char.ToLower(genTable.BusinessName[0]) + genTable.BusinessName[1..],
             });
 
             return ($"I{genTable.BusinessName}Service", source);
@@ -151,41 +152,60 @@ namespace Cracker.Admin.Developer
             //新增字段
             var addFields = columns.Where(x => x.IsInsert).ToList();
             var addFieldsStringbuilder = new StringBuilder();
+            int j = 0;
             foreach (var item in addFields)
             {
-                addFieldsStringbuilder.AppendLine($"entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
+                j++;
+                if (j == 1)
+                {
+                    addFieldsStringbuilder.AppendLine($"entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
+                    continue;
+                }
+                addFieldsStringbuilder.AppendLine($"        entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
             }
             //修改字段
             var updateFields = columns.Where(x => x.IsUpdate).ToList();
             var updateFieldsStringbuilder = new StringBuilder();
+            int e = 0;
             foreach (var item in updateFields)
             {
-                updateFieldsStringbuilder.AppendLine($"entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
+                e++;
+                if (e == 1)
+                {
+                    updateFieldsStringbuilder.AppendLine($"entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
+                    continue;
+                }
+                updateFieldsStringbuilder.AppendLine($"        entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
             }
             //查询列
             var queryColumns = columns.Where(x => x.IsShow).ToList();
             var queryColumnsStringbuilder = new StringBuilder();
-            int i = 1;
+            int i = 0;
             foreach (var item in queryColumns)
             {
-                var comma = i < queryColumns.Count ? "," : "";
-                queryColumnsStringbuilder.AppendLine($"{item.CsharpPropName} = x.{item.CsharpPropName}{comma}");
                 i++;
+                var comma = i < queryColumns.Count ? "," : "";
+                if (i == 1)
+                {
+                    queryColumnsStringbuilder.AppendLine($"{item.CsharpPropName} = x.{item.CsharpPropName}{comma}");
+                    continue;
+                }
+                queryColumnsStringbuilder.AppendLine($"                {item.CsharpPropName} = x.{item.CsharpPropName}{comma}");
             }
             //查询条件
             var queryConditions = columns.Where(x => x.IsSearch).ToList();
             var queryConditionsStringBuilder = new StringBuilder();
             foreach (var item in queryConditions)
             {
-                if(item.CsharpType == "string")
+                if (item.CsharpType == "string")
                 {
-                    if(item.SearchType == SearchType.Contains)
+                    if (item.SearchType == SearchType.Contains)
                     {
-                        queryColumnsStringbuilder.AppendLine($".WhereIf(!string.IsNullOrEmpty(dto.{item.CsharpPropName}), x => x.{item.CsharpPropName}.Contains(dto.{item.CsharpPropName}))");
+                        queryConditionsStringBuilder.AppendLine($".WhereIf(!string.IsNullOrEmpty(dto.{item.CsharpPropName}), x => x.{item.CsharpPropName}.Contains(dto.{item.CsharpPropName}))");
                     }
-                    else if(item.SearchType == SearchType.Equals)
+                    else if (item.SearchType == SearchType.Equals)
                     {
-                        queryColumnsStringbuilder.AppendLine($".WhereIf(!string.IsNullOrEmpty(dto.{item.CsharpPropName}), x => x.{item.CsharpPropName} == dto.{item.CsharpPropName})");
+                        queryConditionsStringBuilder.AppendLine($".WhereIf(!string.IsNullOrEmpty(dto.{item.CsharpPropName}), x => x.{item.CsharpPropName} == dto.{item.CsharpPropName})");
                     }
                 }
             }
@@ -194,20 +214,92 @@ namespace Cracker.Admin.Developer
             {
                 moduleName = genTable.ModuleName,
                 businessName = genTable.BusinessName,
+                businessNameOfFirstLower = char.ToLower(genTable.BusinessName[0]) + genTable.BusinessName[1..],
                 entityName = genTable.EntityName,
                 addFields = addFieldsStringbuilder.ToString(),
                 updateFields = updateFieldsStringbuilder.ToString(),
-                queryMapper = queryColumnsStringbuilder.ToString(),
-                queryConditions = queryConditionsStringBuilder.ToString()
+                queryConditions = queryConditionsStringBuilder.ToString().TrimEnd('\r', '\n'),
+                queryMapper = queryColumnsStringbuilder.ToString().TrimEnd('\r', '\n'),
             });
 
             return ($"{genTable.BusinessName}Service", source);
         }
 
+        public async Task<(string, string)> BuildEntityDto(GenTable genTable, List<GenTableColumn> columns, int type)
+        {
+            //type:1 dto,2 searchDto,3 resultDto
+            var dtoName = $"{genTable.BusinessName}";
+            var baseClass = string.Empty;
+            if (type == 1)
+            {
+                dtoName += "Dto";
+            }
+            else if (type == 2)
+            {
+                dtoName += "SearchDto";
+                baseClass = ": PageSearch";
+            }
+            else
+            {
+                dtoName += "ResultDto";
+            }
+
+            var stringBuilder = new StringBuilder();
+            foreach (var column in columns)
+            {
+                if (type == 1 && !(column.IsInsert || column.IsUpdate)) continue;
+                if (type == 2 && !column.IsSearch) continue;
+                if (type == 3 && !column.IsShow) continue;
+
+                var hasComment = !string.IsNullOrEmpty(column.Comment);
+                if (hasComment)
+                {
+                    stringBuilder.AppendLine("\t/// <summary>");
+                    stringBuilder.AppendLine($"\t/// {column.Comment}");
+                    stringBuilder.AppendLine("\t/// </summary>");
+                }
+                if (!column.IsNullable)
+                {
+                    stringBuilder.AppendLine("\t[NotNull]");
+                    stringBuilder.AppendLine("\t[Required]");
+                }
+                if (column.CsharpType == "string")
+                {
+                    stringBuilder.AppendLine($"\t[StringLength({column.MaxLength})]");
+                }
+                stringBuilder.AppendLine($"\tpublic {column.CsharpType} {column.CsharpPropName} {{ get; set; }}\r\n");
+            }
+
+            var template = await ReadTemplateFileAsync("EntityDto");
+            var source = this.RenderTemplate(template, new
+            {
+                dtoName = dtoName,
+                baseClass = baseClass,
+                moduleName = genTable.ModuleName,
+                properties = stringBuilder.ToString().TrimEnd('\r', '\n'),
+            });
+
+            return ($"{dtoName}", source);
+        }
+
+        public async Task<(string, string)> BuildController(GenTable genTable, List<GenTableColumn> columns)
+        {
+            var template = await ReadTemplateFileAsync("Controller");
+
+            var source = this.RenderTemplate(template, new
+            {
+                moduleName = genTable.ModuleName,
+                businessName = genTable.BusinessName,
+                businessNameOfFirstLower = char.ToLower(genTable.BusinessName[0]) + genTable.BusinessName[1..],
+            });
+
+            return ($"{genTable.BusinessName}Controller", source);
+        }
+
         private async Task<string> ReadTemplateFileAsync(string name)
         {
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Developer", "Templates", name + ".sc");
-            return await File.ReadAllTextAsync(filePath);
+            return await File.ReadAllTextAsync(filePath,Encoding.UTF8);
         }
 
         private string GetCsharpType(string columnType, bool isNullable, long maxLen)

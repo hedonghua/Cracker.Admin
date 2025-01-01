@@ -47,7 +47,7 @@
       <!-- 分页 -->
       <div class="w-full flex flex-row-reverse mt-4">
         <el-pagination v-model:page-size="filterForm.size" :total="total" :page-sizes="[10, 20, 30, 40, 50]"
-          :pager-count="5" @size-change="handleSizeChange" @current-change="handleCurrentChange" small background
+          :pager-count="5" @size-change="handleSizeChange" @current-change="handleCurrentChange" size="small" background
           layout="total, sizes, prev, pager, next" />
       </div>
     </div>
