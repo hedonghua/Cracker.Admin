@@ -12,34 +12,32 @@ namespace Cracker.Admin.Application.{{moduleName}};
 
 public class {{businessName}}Service : ApplicationService, I{{businessName}}Service
 {
-    private readonly IRepository<{{entityName}}> {{businessName}}Repository;
+    private readonly IRepository<{{entityName}}> {{businessNameOfFirstLower}}Repository;
 
-    public {{businessName}}Service(IRepository<{{entityName}}> {{businessName}}Repository)
+    public {{businessName}}Service(IRepository<{{entityName}}> {{businessNameOfFirstLower}}Repository)
     {
-        this.{{businessName}}Repository = {{businessName}}Repository;
+        this.{{businessNameOfFirstLower}}Repository = {{businessNameOfFirstLower}}Repository;
     }
 
     public async Task Add{{businessName}}Async({{businessName}}Dto dto)
     {
         var entity = new {{entityName}}();
         {{addFields}}
-
-        await {{businessName}}Repository.InsertAsync(entity);
+        await {{businessNameOfFirstLower}}Repository.InsertAsync(entity);
     }
 
-    public async Task Delete{{businessName}}Async(Guid {{businessName}}Id)
+    public async Task Delete{{businessName}}Async(Guid {{businessNameOfFirstLower}}Id)
     {
-        await {{businessName}}Repository.DeleteAsync(x => x.Id == {{businessName}}Id);
+        await {{businessNameOfFirstLower}}Repository.DeleteAsync(x => x.Id == {{businessName}}Id);
     }
 
     public async Task<PagedResultStruct<{{businessName}}ResultDto>> Get{{businessName}}ListAsync({{businessName}}SearchDto dto)
     {
-        var query = (await {{businessName}}Repository.GetQueryableAsync())
-            {{queryConditions}}
+        var query = (await {{businessNameOfFirstLower}}Repository.GetQueryableAsync()){{queryConditions}}
             .Select(x => new {{businessName}}ResultDto
-        {
-            {{queryMapper}}
-        });
+            {
+                {{queryMapper}}
+            });
         return new PagedResultStruct<{{businessName}}ResultDto>(dto)
         {
             Total = query.Count(),
@@ -49,10 +47,8 @@ public class {{businessName}}Service : ApplicationService, I{{businessName}}Serv
 
     public async Task Update{{businessName}}Async({{businessName}}Dto dto)
     {
-        var entity = await {{businessName}}Repository.GetAsync(x => x.Id == dto.{{businessName}}Id);
-
+        var entity = await {{businessNameOfFirstLower}}Repository.GetAsync(x => x.Id == dto.{{businessName}}Id);
         {{updateFields}}
-
-        await {{businessName}}Repository.UpdateAsync({{businessName}});
+        await {{businessNameOfFirstLower}}Repository.UpdateAsync({{businessName}});
     }
 }

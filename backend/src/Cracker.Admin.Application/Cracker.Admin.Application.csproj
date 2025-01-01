@@ -9,9 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Developer\Templates\Controller.sc" />
     <None Remove="Developer\Templates\Entity.sc" />
     <None Remove="Developer\Templates\IService.sc" />
     <None Remove="Developer\Templates\Service.sc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Developer\Templates\Controller.sc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Developer\Templates\EntityDto.sc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

@@ -76,7 +76,7 @@ const routes: RouteRecordRaw[] = [
         path: "/develop/genTableColumn/:id",
         component: () => import("@/views/develop/genTableColumn/index.vue"),
         meta: {
-          title: "生成列配置",
+          title: "列配置",
           hidden: true,
         },
       },

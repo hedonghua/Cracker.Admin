@@ -1,5 +1,5 @@
 import { ReTableColumn } from "@/components/re-table/types";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import {
   genTableColumnList,
   saveGenTableColumn,
@@ -9,6 +9,7 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import _ from "lodash";
 import { useCodeGenerator } from "./codeGenerator";
+import { useTabManager } from "@/hooks/useTabManager";
 
 export function useTable() {
   /*========================== 字段 ========================== */
@@ -232,6 +233,7 @@ export function useTable() {
     },
   ];
   const userAuth = useAuthorization();
+  const tabManager = useTabManager();
   const tableRef = ref();
   const loading = ref<boolean>(false);
   const genTableId = ref<string>();
@@ -278,13 +280,16 @@ export function useTable() {
         });
     });
   };
-  const goBack = () => {};
+  const goBack = () => {
+    tabManager.append("/develop/genTable");
+  };
 
   /*========================== Vue钩子 ========================== */
-  onMounted(() => {
+  onBeforeMount(() => {
     const route = useRoute();
     genTableId.value = route.params.id as string;
   });
+
   return {
     request,
     columns,

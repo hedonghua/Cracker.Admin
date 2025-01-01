@@ -284,7 +284,11 @@ export function useTable() {
     });
   };
   const openDetails = (row: any) => {
-    tabManager.append("/develop/genTableColumn/" + row.genTableId);
+    //动态参数，不能通过path找到title，需要手动传
+    tabManager.append(
+      "/develop/genTableColumn/" + row.genTableId,
+      "生成列配置"
+    );
   };
   const openPreview = (row: any) => {
     genTableId.value = row.genTableId;
