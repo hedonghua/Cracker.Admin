@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 部门表
     /// </summary>
+    [Table("org_dept")]
     [Comment("部门表")]
     public class OrgDept : FullAuditedAggregateRoot<Guid>
     {

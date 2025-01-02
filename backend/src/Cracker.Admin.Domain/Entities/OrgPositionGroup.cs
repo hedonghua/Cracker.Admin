@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Cracker.Admin.Entities
@@ -5,6 +7,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 职位分组
     /// </summary>
+    [Table("org_positiongroup")]
     [Comment("职位分组")]
     public class OrgPositionGroup : AuditedEntity<Guid>
     {

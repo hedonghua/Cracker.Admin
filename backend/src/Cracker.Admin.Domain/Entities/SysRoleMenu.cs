@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Entities;
 
@@ -6,6 +8,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 角色菜单表
     /// </summary>
+    [Table("sys_rolemenu")]
     public class SysRoleMenu : Entity
     {
         /// <summary>

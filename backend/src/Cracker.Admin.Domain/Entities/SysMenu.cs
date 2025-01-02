@@ -9,6 +9,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 菜单表
     /// </summary>
+    [Table("sys_menu")]
     [Comment("菜单表")]
     public class SysMenu : FullAuditedAggregateRoot<Guid>
     {

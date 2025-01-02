@@ -9,6 +9,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 用户表
     /// </summary>
+    [Table("sys_user")]
     public class SysUser : FullAuditedAggregateRoot<Guid>
     {
         /// <summary>

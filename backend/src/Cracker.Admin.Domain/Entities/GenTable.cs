@@ -12,6 +12,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 生成表
     /// </summary>
+    [Table("gen_table")]
     [Comment("生成表")]
     [Index(nameof(TableName), IsUnique = true)]
     public class GenTable : AuditedEntity<Guid>
