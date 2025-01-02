@@ -118,45 +118,15 @@ const genRoutes = (array: MenuItem[]): RouteRecordRaw[] => {
 };
 
 // 合并固定路由、动态路由
-// const mergeRoutes = async (): Promise<RouteRecordRaw[]> => {
-//   const allRoutes = [...routes];
-//   const userAuth = useAuthorization(true);
-//   if (!userAuth.isAuthenticated()) return allRoutes;
-//   try {
-//     const { data } = await getSidebarMenus();
-//     const asyncRoutes = genRoutes(data);
-//     const layoutRouteIndex = allRoutes.findIndex((x) => x.path === "/");
-//     if (layoutRouteIndex !== -1) {
-//       allRoutes[layoutRouteIndex].children = [
-//         ...allRoutes[layoutRouteIndex].children!,
-//         ...asyncRoutes,
-//       ];
-//     }
-//   } catch (error) {
-//     console.error("合并路由错误：", error);
-//   }
-//   useRouteCache().setCache(allRoutes);
-//   return allRoutes;
-// };
-
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes: routes,
-});
-
-const initRoutes = async () => {
+const mergeRoutes = async (): Promise<RouteRecordRaw[]> => {
   const allRoutes = [...routes];
   const userAuth = useAuthorization(true);
-  if (!userAuth.isAuthenticated()) return;
+  if (!userAuth.isAuthenticated()) return allRoutes;
   try {
     const { data } = await getSidebarMenus();
     const asyncRoutes = genRoutes(data);
-    const layoutRoute = routes.find((x) => x.path === "/");
-    const layoutRouteIndex = routes.findIndex((x) => x.path === "/");
-    if (layoutRoute) {
-      asyncRoutes.forEach((asyncRoute) => {
-        router.addRoute(layoutRoute.name!, asyncRoute);
-      });
+    const layoutRouteIndex = allRoutes.findIndex((x) => x.path === "/");
+    if (layoutRouteIndex !== -1) {
       allRoutes[layoutRouteIndex].children = [
         ...allRoutes[layoutRouteIndex].children!,
         ...asyncRoutes,
@@ -166,9 +136,39 @@ const initRoutes = async () => {
     console.error("合并路由错误：", error);
   }
   useRouteCache().setCache(allRoutes);
+  return allRoutes;
 };
 
-initRoutes();
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: await mergeRoutes(),
+});
+
+// const initRoutes = async () => {
+//   const allRoutes = [...routes];
+//   const userAuth = useAuthorization(true);
+//   if (!userAuth.isAuthenticated()) return;
+//   try {
+//     const { data } = await getSidebarMenus();
+//     const asyncRoutes = genRoutes(data);
+//     const layoutRoute = routes.find((x) => x.path === "/");
+//     const layoutRouteIndex = routes.findIndex((x) => x.path === "/");
+//     if (layoutRoute) {
+//       asyncRoutes.forEach((asyncRoute) => {
+//         router.addRoute(layoutRoute.name!, asyncRoute);
+//       });
+//       allRoutes[layoutRouteIndex].children = [
+//         ...allRoutes[layoutRouteIndex].children!,
+//         ...asyncRoutes,
+//       ];
+//     }
+//   } catch (error) {
+//     console.error("合并路由错误：", error);
+//   }
+//   useRouteCache().setCache(allRoutes);
+// };
+
+// initRoutes();
 
 //全局前置路由守卫
 router.beforeEach((to, _) => {

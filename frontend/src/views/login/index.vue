@@ -47,6 +47,7 @@ import { FormInstance, FormRules } from "element-plus";
 import { reactive, ref } from "vue";
 import { LoginForm, userLogin } from "@/api/login";
 import { useUserStore, UserAuthInfo } from "@/store/userStore"
+import { useRouter } from "vue-router";
 import LoginSvg from '@/assets/img/login.svg'
 import './index.styl'
 
@@ -61,12 +62,13 @@ const rules: FormRules<LoginForm> = {
   username: [{ required: true, trigger: "blur", message: "账号不能为空" }],
   password: [{ required: true, trigger: "blur", message: "密码不能为空" }],
 };
+const router = useRouter();
 const login = () => {
   formRef?.value?.validate((valid) => {
     if (valid) {
       userLogin(form).then((res) => {
         userStore.setUser(res.data as UserAuthInfo);
-        window.location.href = "/home";
+        router.replace("/home");
       });
     }
   });

@@ -27,7 +27,6 @@ export const useTabStore = defineStore("tabs", {
      * @param title
      */
     append(path: string, title?: string | null | undefined) {
-      if (!caches) return;
       const item = {
         id: uuidv4(),
         path: path,
