@@ -44,5 +44,8 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     base: './',
+    build:{
+      target:['edge90','chrome90','firefox90','safari15']
+    }
   };
 });
