@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using Cracker.Admin.Enums;
 
@@ -9,6 +10,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 生成表的配置列
     /// </summary>
+    [Table("gen_table_column")]
     [Comment("生成表的配置列")]
     public class GenTableColumn : AuditedEntity<Guid>
     {

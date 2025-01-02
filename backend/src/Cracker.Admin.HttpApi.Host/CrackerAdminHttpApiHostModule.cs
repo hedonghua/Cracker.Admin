@@ -181,8 +181,10 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         app.UseAbpRequestLocalization();
 
-        if (!env.IsDevelopment())
+        if (env.IsDevelopment())
         {
+            app.UseSwagger();
+            app.UseAbpSwaggerUI();
             //app.UseErrorPage();
         }
 
@@ -201,9 +203,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         app.UseAuthorization();
 
         app.UseMiddleware<ReHeaderMiddleware>();
-
-        app.UseSwagger();
-        app.UseAbpSwaggerUI();
 
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();

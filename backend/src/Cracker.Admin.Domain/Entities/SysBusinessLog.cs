@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Cracker.Admin.Entities
@@ -5,6 +7,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 业务日志
     /// </summary>
+    [Table("sys_businesslog")]
     [Comment("业务日志")]
     public class SysBusinessLog : CreationAuditedEntity<long>
     {

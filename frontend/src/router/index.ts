@@ -19,6 +19,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/",
+    name: "Layout",
     component: Layout,
     redirect: HOME_PATH,
     children: [
@@ -117,15 +118,45 @@ const genRoutes = (array: MenuItem[]): RouteRecordRaw[] => {
 };
 
 // 合并固定路由、动态路由
-const mergeRoutes = async (): Promise<RouteRecordRaw[]> => {
+// const mergeRoutes = async (): Promise<RouteRecordRaw[]> => {
+//   const allRoutes = [...routes];
+//   const userAuth = useAuthorization(true);
+//   if (!userAuth.isAuthenticated()) return allRoutes;
+//   try {
+//     const { data } = await getSidebarMenus();
+//     const asyncRoutes = genRoutes(data);
+//     const layoutRouteIndex = allRoutes.findIndex((x) => x.path === "/");
+//     if (layoutRouteIndex !== -1) {
+//       allRoutes[layoutRouteIndex].children = [
+//         ...allRoutes[layoutRouteIndex].children!,
+//         ...asyncRoutes,
+//       ];
+//     }
+//   } catch (error) {
+//     console.error("合并路由错误：", error);
+//   }
+//   useRouteCache().setCache(allRoutes);
+//   return allRoutes;
+// };
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: routes,
+});
+
+const initRoutes = async () => {
   const allRoutes = [...routes];
   const userAuth = useAuthorization(true);
-  if (!userAuth.isAuthenticated()) return allRoutes;
+  if (!userAuth.isAuthenticated()) return;
   try {
     const { data } = await getSidebarMenus();
     const asyncRoutes = genRoutes(data);
-    const layoutRouteIndex = allRoutes.findIndex((x) => x.path === "/");
-    if (layoutRouteIndex !== -1) {
+    const layoutRoute = routes.find((x) => x.path === "/");
+    const layoutRouteIndex = routes.findIndex((x) => x.path === "/");
+    if (layoutRoute) {
+      asyncRoutes.forEach((asyncRoute) => {
+        router.addRoute(layoutRoute.name!, asyncRoute);
+      });
       allRoutes[layoutRouteIndex].children = [
         ...allRoutes[layoutRouteIndex].children!,
         ...asyncRoutes,
@@ -135,13 +166,9 @@ const mergeRoutes = async (): Promise<RouteRecordRaw[]> => {
     console.error("合并路由错误：", error);
   }
   useRouteCache().setCache(allRoutes);
-  return allRoutes;
 };
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes: await mergeRoutes(),
-});
+initRoutes();
 
 //全局前置路由守卫
 router.beforeEach((to, _) => {

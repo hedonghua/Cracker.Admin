@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 字典表
     /// </summary>
+    [Table("sys_dict")]
     public class SysDict : FullAuditedEntity<Guid>
     {
         /// <summary>

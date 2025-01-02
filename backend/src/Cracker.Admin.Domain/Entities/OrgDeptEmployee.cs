@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Cracker.Admin.Entities
@@ -5,6 +7,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 员工关联部门
     /// </summary>
+    [Table("org_dept_employee")]
     [Comment("员工关联部门")]
     public class OrgDeptEmployee : FullAuditedAggregateRoot<Guid>
     {

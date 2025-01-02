@@ -7,6 +7,7 @@ namespace Cracker.Admin.Entities
     /// <summary>
     /// 角色表
     /// </summary>
+    [Table("sys_role")]
     [Comment("角色表")]
     public class SysRole : FullAuditedAggregateRoot<Guid>
     {

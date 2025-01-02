@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 系统配置
     /// </summary>
+    [Table("sys_config")]
     [Comment("系统配置")]
     [Index(nameof(Key), IsUnique = true)]
     public class SysConfig : AuditedEntity<Guid>
