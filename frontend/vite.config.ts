@@ -38,7 +38,7 @@ export default defineConfig(({ command, mode }) => {
     server: {
       proxy: {
         "/api": {
-          target: "http://localhost:44383",
+          target: "http://localhost:5000",
           changeOrigin: true
         }
       },
