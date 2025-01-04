@@ -11,7 +11,7 @@
  Target Server Version : 80039
  File Encoding         : 65001
 
- Date: 01/01/2025 23:33:47
+ Date: 04/01/2025 11:25:40
 */
 
 SET NAMES utf8mb4;
@@ -369,7 +369,7 @@ CREATE TABLE `sys_loginlog`  (
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 74 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_loginlog
@@ -441,8 +441,10 @@ INSERT INTO `sys_menu` VALUES ('3a13be4b-3b01-f611-e5da-8b3a3dc41cfc', '新增',
 INSERT INTO `sys_menu` VALUES ('3a13be4b-8355-c505-5dd3-15fbe89e2639', '查询', NULL, NULL, NULL, 2, 'admin_system_employee_list', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 2, 0, '{}', '990c7640f41843cfa8faee786190ec74', '2024-07-13 20:43:29.495014', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('3a13be4c-2e0e-af01-4432-a4892ff622ab', '编辑', NULL, NULL, NULL, 2, 'admin_system_employee_update', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 3, 0, '{}', '38bd3f28295645c4ab5590251a4b7eae', '2024-07-13 20:44:13.199159', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('3a13be4c-d335-53c6-15e1-b2a16d9f94e4', '删除', NULL, NULL, NULL, 2, 'admin_system_employee_delete', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 4, 0, '{}', '66d5b6682fda443c818c3e7b2c846432', '2024-07-13 20:44:55.479201', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a1723a7-da37-9340-e106-341f0e17fe6e', '开发工具', NULL, 'mingcute:code-fill', 'developer', 1, NULL, NULL, 3, 0, '{}', '34ecd14b0b0941039f3b19b5c5068d36', '2024-12-29 16:14:21.752625', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-29 16:16:21.087105', '3a172369-2963-bc18-82bc-b3d0da8c574f', 0, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1723a7-da37-9340-e106-341f0e17fe6e', '开发工具', NULL, 'mingcute:code-fill', 'developer', 1, NULL, NULL, 4, 0, '{}', 'b7f0503af8034e95986c9b8e469a4966', '2024-12-29 16:14:21.752625', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 11:06:58.787916', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('3a1723b7-5702-dc80-434f-f639ffcb66ef', '代码生成', NULL, NULL, '/develop/genTable', 1, NULL, '3a1723a7-da37-9340-e106-341f0e17fe6e', 1, 0, '{}', '02295c18cc1d4eaaba0ff3689146d697', '2024-12-29 16:31:16.739378', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-29 16:33:57.053851', '3a172369-2963-bc18-82bc-b3d0da8c574f', 0, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a174174-857e-2328-55e6-395fcffb3774', '系统监控', NULL, 'icon-park-outline:monitor-two', 'monitor', 1, NULL, NULL, 3, 0, '{}', 'd6b0dcce89d847ea9bd53c329a539bbd', '2025-01-04 11:06:54.207263', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a174175-1893-a38e-c4a2-837cd49e79f6', '在线用户', NULL, NULL, '/monitor/onlineUser', 1, NULL, '3a174174-857e-2328-55e6-395fcffb3774', 1, 0, '{}', '2a5665c2697d482eae9358956c33060f', '2025-01-04 11:07:31.859814', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('5c74b782-3231-11ef-afb3-0242ac110003', '编辑', NULL, NULL, NULL, 2, 'admin_system_menu_update', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 4, 0, '{}', '67972f6dc1fd490aa2f3fdad2bac6883', '2024-06-24 21:50:42.004144', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:51:03.142409', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('5c7548d7-3231-11ef-afb3-0242ac110003', '新增', NULL, NULL, NULL, 2, 'admin_system_menu_add', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 1, 0, '{}', 'df39e7ca822c488b9da1be5b28e6c408', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
 INSERT INTO `sys_menu` VALUES ('5c75c0d0-3231-11ef-afb3-0242ac110003', '查询', NULL, NULL, NULL, 2, 'admin_system_menu_list', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 2, 0, '{}', '6ce2bf9e4d9742259743f3dc953ba92f', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:44:48.686151', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);

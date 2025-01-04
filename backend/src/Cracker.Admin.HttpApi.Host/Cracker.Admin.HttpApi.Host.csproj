@@ -48,7 +48,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\Monitor\" />
 		<Folder Include="wwwroot\logs\" />
 	</ItemGroup>
 
