@@ -26,7 +26,8 @@
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     },
-    "noImplicitAny": false // 是否在表达式和声明上有隐含的any类型时报错
+    "noImplicitAny": false, // 是否在表达式和声明上有隐含的any类型时报错
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

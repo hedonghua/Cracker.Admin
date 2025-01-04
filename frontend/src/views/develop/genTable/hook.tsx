@@ -11,7 +11,7 @@ import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import { useTabManager } from "@/hooks/useTabManager";
-import * as _ from "lodash";
+import _ from "lodash";
 
 export function useTable() {
   /*========================== 字段 ========================== */
