@@ -23,9 +23,14 @@
                 <div class="re-card">
                     <h2 class="el-descriptions__title">更新日志</h2>
                     <el-collapse accordion class="mt-4">
-                        <el-collapse-item title="v1.0.0" name="v1.0.0">
+                        <el-collapse-item title="修改登录样式" name="登录样式">
                             <div>
-                                基本功能稳定
+                                登录表单居中，增加登录背景图
+                            </div>
+                        </el-collapse-item>
+                        <el-collapse-item title="基本功能" name="基本功能">
+                            <div>
+                                基本功能做完，需要持续优化、测试
                             </div>
                         </el-collapse-item>
                     </el-collapse>

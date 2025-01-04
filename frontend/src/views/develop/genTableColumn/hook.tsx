@@ -7,7 +7,7 @@ import {
 import { useRoute } from "vue-router";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
-import * as _ from "lodash";
+import _ from "lodash";
 import { useCodeGenerator } from "./codeGenerator";
 import { useTabManager } from "@/hooks/useTabManager";
 
