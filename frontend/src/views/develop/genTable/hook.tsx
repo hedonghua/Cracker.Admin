@@ -11,7 +11,7 @@ import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import { useTabManager } from "@/hooks/useTabManager";
-import _ from "lodash";
+import * as _ from "lodash";
 
 export function useTable() {
   /*========================== 字段 ========================== */
@@ -44,56 +44,44 @@ export function useTable() {
       fixed: "right",
       label: "操作",
       render: (row: any) => (
-        <>
-          {userAuth.hasPermission("admin_system_positiongroup_update") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openPreview(row)}
-            >
-              预览
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_positiongroup_update") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openDetails(row)}
-            >
-              详情
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_positiongroup_update") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openDialog("编辑职位", row)}
-            >
-              编辑
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_positiongroup_delete") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => remove(row)}
-            >
-              删除
-            </el-button>
-          ) : (
-            <></>
-          )}
-        </>
+        <div>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_positiongroup_update")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openPreview(row)}
+          >
+            预览
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_positiongroup_update")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openDetails(row)}
+          >
+            详情
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_positiongroup_update")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openDialog("编辑职位", row)}
+          >
+            编辑
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_positiongroup_delete")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => remove(row)}
+          >
+            删除
+          </el-button>
+        </div>
       ),
     },
   ];

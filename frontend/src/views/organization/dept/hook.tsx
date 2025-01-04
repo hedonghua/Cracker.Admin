@@ -39,7 +39,11 @@ export function useTable() {
       prop: "status",
       label: "状态",
       render: (row: any) => {
-        return row.status === 1 ? <re-tag type="success" text="正常" /> : <re-tag type="danger" text="停用"/>;
+        return row.status === 1 ? (
+          <re-tag type="success" text="正常" />
+        ) : (
+          <re-tag type="danger" text="停用" />
+        );
       },
     },
     {
@@ -54,32 +58,26 @@ export function useTable() {
       fixed: "right",
       label: "操作",
       render: (row: any) => (
-        <>
-          {userAuth.hasPermission("admin_system_dept_update") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openDialog("编辑部门", row)}
-            >
-              编辑
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_dept_delete") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => remove(row)}
-            >
-              删除
-            </el-button>
-          ) : (
-            <></>
-          )}
-        </>
+        <div>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_dept_update")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openDialog("编辑部门", row)}
+          >
+            编辑
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_dept_delete")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => remove(row)}
+          >
+            删除
+          </el-button>
+        </div>
       ),
     },
   ];
@@ -132,7 +130,7 @@ export function useTable() {
   };
   const request = async (params: any) => {
     const { data } = await getDeptList(params);
-    return Utils.getTree(data, null, "parentId", "id","sort");
+    return Utils.getTree(data, null, "parentId", "id", "sort");
   };
   const handleClose = (done: () => void) => {
     clearEditFormValues();
@@ -213,7 +211,7 @@ export function useTable() {
   };
   const getOptions = () => {
     getDeptOptions().then((res) => {
-      options.value = Utils.getTree(res.data, null, "extra", "value","sort");
+      options.value = Utils.getTree(res.data, null, "extra", "value", "sort");
     });
   };
 

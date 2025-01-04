@@ -25,16 +25,14 @@ export function useTable() {
       prop: "avatar",
       label: "头像",
       render: (row: any) => (
-        <>
-          <re-image
-            width="40px"
-            height="40px"
-            src={getAvatar(row.avatar)}
-            previewList={[getAvatar(row.avatar)]}
-            roundedFull={true}
-            fit="cover"
-          />
-        </>
+        <re-image
+          width="40px"
+          height="40px"
+          src={getAvatar(row.avatar)}
+          previewList={[getAvatar(row.avatar)]}
+          roundedFull={true}
+          fit="cover"
+        />
       ),
     },
     {
@@ -48,51 +46,43 @@ export function useTable() {
     {
       prop: "sex",
       label: "性别",
-      render: (row: any) => <>{row.sex === 1 ? "男" : "女"}</>,
+      render: (row: any) => <span>{row.sex === 1 ? "男" : "女"}</span>,
     },
     {
       prop: "isEnabled",
       label: "是否启用",
       render: (row: any) => (
-        <>
-          <el-switch
-            key={row.id}
-            v-model={row.isEnabled}
-            onChange={(val: boolean) => changeEnabledStatus(val, row)}
-          />
-        </>
+        <el-switch
+          key={row.id}
+          v-model={row.isEnabled}
+          onChange={(val: boolean) => changeEnabledStatus(val, row)}
+        />
       ),
     },
     {
       fixed: "right",
       label: "操作",
       render: (row: any) => (
-        <>
-          {userAuth.hasPermission("admin_system_user_assignrole") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openAssignRoleDialog(row)}
-            >
-              分配角色
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_user_delete") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => remove(row)}
-            >
-              删除
-            </el-button>
-          ) : (
-            <></>
-          )}
-        </>
+        <div>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_user_assignrole")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openAssignRoleDialog(row)}
+          >
+            分配角色
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_user_delete")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => remove(row)}
+          >
+            删除
+          </el-button>
+        </div>
       ),
     },
   ];

@@ -7,10 +7,6 @@ export function useTable() {
   /*========================== 字段 ========================== */
   const columns: ReTableColumn[] = [
     {
-      prop: "userId",
-      label: "ID",
-    },
-    {
       prop: "userName",
       label: "账号",
     },
@@ -34,22 +30,20 @@ export function useTable() {
       prop: "creationTime",
       isTime: true,
       width: 180,
-      label: "时间",
+      label: "登录时间",
     },
     {
       fixed: "right",
       label: "操作",
       render: (row: any) => (
-        <>
-          <el-button
-            size="small"
-            link
-            type="primary"
-            onclick={() => doLogout(row)}
-          >
-            注销
-          </el-button>
-        </>
+        <el-button
+          size="small"
+          link
+          type="primary"
+          onclick={() => doLogout(row)}
+        >
+          注销
+        </el-button>
       ),
     },
   ];

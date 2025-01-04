@@ -55,32 +55,26 @@ export function useTable() {
       fixed: "right",
       label: "操作",
       render: (row: any) => (
-        <>
-          {userAuth.hasPermission("admin_system_position_update") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openDialog("编辑职位", row)}
-            >
-              编辑
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_position_delete") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => remove(row)}
-            >
-              删除
-            </el-button>
-          ) : (
-            <></>
-          )}
-        </>
+        <div>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_position_update")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openDialog("编辑职位", row)}
+          >
+            编辑
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_position_delete")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => remove(row)}
+          >
+            删除
+          </el-button>
+        </div>
       ),
     },
   ];
@@ -176,7 +170,11 @@ export function useTable() {
         loading.value = true;
         const dto = cloneDeep(editForm);
         const groupIds = dto.groupId as any;
-        if (groupIds instanceof Array && groupIds.length && groupIds.length > 0) {
+        if (
+          groupIds instanceof Array &&
+          groupIds.length &&
+          groupIds.length > 0
+        ) {
           dto.groupId = groupIds[groupIds.length - 1];
         }
         if (dialogTitle.value?.includes("新增")) {
