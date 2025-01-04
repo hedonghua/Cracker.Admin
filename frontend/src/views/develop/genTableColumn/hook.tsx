@@ -7,7 +7,7 @@ import {
 import { useRoute } from "vue-router";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
-import _ from "lodash";
+import * as _ from "lodash";
 import { useCodeGenerator } from "./codeGenerator";
 import { useTabManager } from "@/hooks/useTabManager";
 
@@ -38,189 +38,167 @@ export function useTable() {
       prop: "csharpPropName",
       label: "C#属性名",
       render: (row: any) => (
-        <>
-          <el-input v-model={row.csharpPropName} placeholder="请输入C#属性名" />
-        </>
+        <el-input v-model={row.csharpPropName} placeholder="请输入C#属性名" />
       ),
     },
     {
       prop: "jsFieldName",
       label: "JS字段名",
       render: (row: any) => (
-        <>
-          <el-input v-model={row.jsFieldName} placeholder="请输入JS字段名" />
-        </>
+        <el-input v-model={row.jsFieldName} placeholder="请输入JS字段名" />
       ),
     },
     {
       prop: "csharpType",
       label: "C#类型",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.csharpType} placeholder="请选择C#类型">
-            {codeGenerator.csharpTypeOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.csharpType} placeholder="请选择C#类型">
+          {codeGenerator.csharpTypeOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "jsType",
       label: "JS类型",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.jsType} placeholder="请选择JS类型">
-            {codeGenerator.jsTypeOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.jsType} placeholder="请选择JS类型">
+          {codeGenerator.jsTypeOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "htmlType",
       label: "HTML类型",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.htmlType} placeholder="请选择HTML类型">
-            {codeGenerator.htmlTypeOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.htmlType} placeholder="请选择HTML类型">
+          {codeGenerator.htmlTypeOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "isNullable",
       label: "是否可空",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.isNullable} placeholder="请选择">
-            {codeGenerator.trueOrFalseOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.isNullable} placeholder="请选择">
+          {codeGenerator.trueOrFalseOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "isInsert",
       label: "是否参与新增",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.isInsert} placeholder="请选择">
-            {codeGenerator.trueOrFalseOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.isInsert} placeholder="请选择">
+          {codeGenerator.trueOrFalseOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "isUpdate",
       label: "是否参与修改",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.isUpdate} placeholder="请选择">
-            {codeGenerator.trueOrFalseOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.isUpdate} placeholder="请选择">
+          {codeGenerator.trueOrFalseOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "isSearch",
       label: "是否参与搜索",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.isSearch} placeholder="请选择">
-            {codeGenerator.trueOrFalseOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.isSearch} placeholder="请选择">
+          {codeGenerator.trueOrFalseOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "searchType",
       label: "搜索类型",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.searchType} placeholder="请选择">
-            {codeGenerator.searchTypeOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.searchType} placeholder="请选择">
+          {codeGenerator.searchTypeOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
     {
       prop: "isShow",
       label: "是否在表格中显示",
       render: (row: any) => (
-        <>
-          <el-select v-model={row.isShow} placeholder="请选择">
-            {codeGenerator.trueOrFalseOptions.map((item) => {
-              return (
-                <el-option
-                  key={item.value}
-                  label={item.label}
-                  value={item.value}
-                ></el-option>
-              );
-            })}
-          </el-select>
-        </>
+        <el-select v-model={row.isShow} placeholder="请选择">
+          {codeGenerator.trueOrFalseOptions.map((item) => {
+            return (
+              <el-option
+                key={item.value}
+                label={item.label}
+                value={item.value}
+              ></el-option>
+            );
+          })}
+        </el-select>
       ),
     },
   ];

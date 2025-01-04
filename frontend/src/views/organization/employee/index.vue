@@ -190,7 +190,7 @@
 import { useTable } from "./hook.tsx"
 import { onMounted } from "vue";
 import './index.styl'
-import dayjs from 'dayjs'
+import * as dayjs from 'dayjs'
 
 const {
     request,

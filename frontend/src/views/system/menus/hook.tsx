@@ -35,11 +35,7 @@ export function useTable() {
     },
     {
       label: "图标",
-      render: (row: any) => (
-        <>
-          <re-icon name={row.icon} />
-        </>
-      ),
+      render: (row: any) => <re-icon name={row.icon} />,
     },
     {
       label: "排序",
@@ -48,40 +44,32 @@ export function useTable() {
     {
       label: "隐藏",
       prop: "hidden",
-      render: (row: any) => (
-        <>{row.hidden ? <span>是</span> : <span>否</span>}</>
-      ),
+      render: (row: any) => (row.hidden ? <span>是</span> : <span>否</span>),
     },
     {
       fixed: "right",
       label: "操作",
       render: (row: any) => (
-        <>
-          {userAuth.hasPermission("admin_system_menu_update") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => openDialog("编辑菜单", row)}
-            >
-              编辑
-            </el-button>
-          ) : (
-            <></>
-          )}
-          {userAuth.hasPermission("admin_system_menu_delete") ? (
-            <el-button
-              size="small"
-              link
-              type="primary"
-              onclick={() => remove(row)}
-            >
-              删除
-            </el-button>
-          ) : (
-            <></>
-          )}
-        </>
+        <div>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_menu_update")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => openDialog("编辑菜单", row)}
+          >
+            编辑
+          </el-button>
+          <el-button
+            v-if={userAuth.hasPermission("admin_system_menu_delete")}
+            size="small"
+            link
+            type="primary"
+            onclick={() => remove(row)}
+          >
+            删除
+          </el-button>
+        </div>
       ),
     },
   ];
