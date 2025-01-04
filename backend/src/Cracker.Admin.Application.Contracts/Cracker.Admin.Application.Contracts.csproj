@@ -17,8 +17,4 @@
     <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="8.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Monitor\Dtos\" />
-  </ItemGroup>
-
 </Project>
