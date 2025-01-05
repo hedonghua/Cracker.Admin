@@ -10,6 +10,7 @@ export const useUserStore = defineStore("user", {
       info: null,
       roles: [],
       auths: [],
+      menus: [],
     };
   },
   persist: true,
@@ -38,11 +39,15 @@ export const useUserStore = defineStore("user", {
       this.roles = roles;
       this.auths = auths;
     },
+    setMenus(menus: any[]) {
+      this.menus = menus;
+    },
     clear() {
       this.user = null;
       this.info = null;
       this.roles = [];
       this.auths = [];
+      this.menus = [];
     },
   },
 });
@@ -52,6 +57,7 @@ export interface UserState {
   info: UserPersonalInfo | null;
   roles: string[];
   auths: string[];
+  menus: any[];
 }
 
 /**

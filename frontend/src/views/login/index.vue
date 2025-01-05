@@ -43,9 +43,11 @@ import { useUserStore, UserAuthInfo } from "@/store/userStore"
 import { useRouter } from "vue-router";
 import LoginBg from "@/assets/img/bg.jpg";
 import './index.styl'
+import { useRouteCache } from "@/router/hook";
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE;
 const userStore = useUserStore();
+const routeCache = useRouteCache();
 const formRef = ref<FormInstance>();
 const form = reactive<LoginForm>({
   username: "admin",
@@ -60,7 +62,10 @@ const login = () => {
   formRef?.value?.validate((valid) => {
     if (valid) {
       userLogin(form).then((res) => {
+        //设置身份信息
         userStore.setUser(res.data as UserAuthInfo);
+        //初始化路由
+        routeCache.loadRoutes();
         router.replace("/home");
       });
     }
