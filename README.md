@@ -48,21 +48,21 @@
 
 ###### **使用步骤**
 
-1. 数据库迁移
+1. 数据库
 
-`dotnet migration database update`
+新建cracker_admin数据库，执行根目录下`cracker_admin.sql`
 
 2. 前端依赖下载
 
-`yarn install`
+`pnpm install`
 
 ### 作者
 
 crackerwork@outlook.com
 
-QQ: hedonghua
+QQ: 1491184849
 
-MySite: https://crackerwork.cn
+MySite: http://crackerwork.cn
 
 
 ### 版权说明
