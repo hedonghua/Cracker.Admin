@@ -37,17 +37,17 @@
         </el-dropdown>
       </li>
       <!-- 尺寸 -->
-      <li>
+      <li style="padding: 0">
         <el-tooltip content="尺寸">
           <el-dropdown @command="sizeHandleCommand" trigger="click">
-            <div class="text-lg w-full h-full"
-              ><re-icon name="flowbite:text-size-outline"
+            <div class="text-lg w-full h-full size-wrapper"
+              ><re-icon name="tabler:text-size"
             /></div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="large">大</el-dropdown-item>
-                <el-dropdown-item command="medium">中</el-dropdown-item>
-                <el-dropdown-item command="small">小</el-dropdown-item>
+                <el-dropdown-item command="large" :disabled="themeStore.size === 'large'">大</el-dropdown-item>
+                <el-dropdown-item command="default" :disabled="themeStore.size === 'default'">中</el-dropdown-item>
+                <el-dropdown-item command="small" :disabled="themeStore.size === 'small'">小</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -104,10 +104,12 @@ import { useUserStore } from "@/store/userStore";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import UserBoyAvatar from "@/assets/img/boy.png";
 import { getSidebarMenus } from "@/api/system/menu";
+import { useThemeStore } from "@/store/themeStore";
 
 const ossDomain = import.meta.env.VITE_OSS_DOMAIN;
 const userStore = useUserStore();
 const tabManager = useTabManager();
+const themeStore = useThemeStore();
 const collapse = ref<boolean>(false);
 const emits = defineEmits(["changeSidebarStatus"]);
 const screenWidth = ref(
@@ -193,19 +195,6 @@ const toPage = (v: any) => {
 
 //尺寸选择
 const sizeHandleCommand = (cmd: string) => {
-  switch (cmd) {
-    case "signOut":
-      userAuth.signOut();
-      router.replace("/login");
-      break;
-    case "baseInfo":
-      const personRoute = router.getRoutes().find((x) => x.path === "/person");
-      if (personRoute) {
-        tabManager.append("/person");
-      }
-      break;
-    default:
-      break;
-  }
+  themeStore.setSize(cmd);
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-config-provider :locale="locale">
+    <el-config-provider :locale="locale" :size="themeStore.size">
       <el-container>
         <el-aside>
           <side-bar v-model="collapse" />
