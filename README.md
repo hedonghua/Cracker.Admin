@@ -11,9 +11,16 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
+### 在线预览
+
+预览地址： http://admin.crackerwork.cn/
+账号： admin
+密码： 123qwe*
+
 ### 项目截图
 
 ![home](./images/home.png "首页")
+![home](./images/login.png "登录")
 ![menu](./images/menu.png "菜单")
 ![employee](./images/employee.png "员工")
 ![person](./images/person.png "个人")
