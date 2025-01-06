@@ -189,7 +189,7 @@
 <script setup lang="ts">
 import { useTable } from "./hook.tsx"
 import { onMounted } from "vue";
-import './index.styl'
+import './index.scss'
 import * as dayjs from 'dayjs'
 
 const {

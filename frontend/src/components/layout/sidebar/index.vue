@@ -17,7 +17,7 @@
 import { computed, onMounted, ref, watch } from 'vue';
 import { RouteRecordRaw, useRouter } from "vue-router";
 import { useRouteCache } from '@/router/hook';
-import './index.styl'
+import './index.scss'
 import SidebarItem from './sidebar-item.vue'
 import VueLogo from "@/assets/vue.svg"
 import { useTabManager } from '@/hooks/useTabManager';

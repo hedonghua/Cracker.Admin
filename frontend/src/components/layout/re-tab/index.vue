@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import "./index.styl";
+import "./index.scss";
 import { useRoute } from "vue-router";
 import { computed, onMounted, watch, ref } from "vue";
 import { CloseTabType, TabModel } from "@/store/tabStore";

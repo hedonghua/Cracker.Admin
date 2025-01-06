@@ -42,7 +42,7 @@ import { LoginForm, userLogin } from "@/api/login";
 import { useUserStore, UserAuthInfo } from "@/store/userStore"
 import { useRouter } from "vue-router";
 import LoginBg from "@/assets/img/bg.jpg";
-import './index.styl'
+import './index.scss'
 import { useRouteCache } from "@/router/hook";
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE;

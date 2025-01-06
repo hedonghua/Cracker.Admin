@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import "./index.styl"
+import "./index.scss"
 import { Icon } from "@iconify/vue";
 import { CSSProperties, onBeforeMount, onMounted, reactive, ref } from "vue";
 import { FormInstance } from "element-plus/es/components/form";
