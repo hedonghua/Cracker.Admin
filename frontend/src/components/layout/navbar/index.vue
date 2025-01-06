@@ -195,6 +195,15 @@ const toPage = (v: any) => {
 
 //尺寸选择
 const sizeHandleCommand = (cmd: string) => {
-  themeStore.setSize(cmd);
+  switch (cmd) {
+    case "large":
+    case "default":
+    case "small":
+      themeStore.setSize(cmd);
+      break;
+    default:
+      console.error(`Invalid size command: ${cmd}`);
+      break;
+  }
 };
 </script>
