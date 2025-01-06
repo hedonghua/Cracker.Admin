@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import "./index.styl"
+import "./index.scss"
 
 const props = defineProps<{
     type?: string;

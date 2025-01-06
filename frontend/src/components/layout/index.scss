@@ -1,4 +1,4 @@
-重写.el-menu--collapse, .re-el-menu--collapse {
+.el-menu--collapse, .re-el-menu--collapse {
     width: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2) !important;
 }
 
@@ -23,8 +23,4 @@
     margin-top: 100px;
     height: calc(100vh - 100px);
     background-color: #fafafa;
-}
-
-.el-divider--vertical {
-    border-color: $borderColor !important;
 }

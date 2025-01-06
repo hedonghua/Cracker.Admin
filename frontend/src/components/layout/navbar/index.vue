@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import "./index.styl"
+import "./index.scss"
 import { useRouter } from "vue-router"
 import { computed, onMounted, ref, watch } from "vue";
 import { useTabManager } from "@/hooks/useTabManager";

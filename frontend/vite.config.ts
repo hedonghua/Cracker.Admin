@@ -34,18 +34,27 @@ export default defineConfig(({ command, mode }) => {
       postcss: {
         plugins: [tailwindcss, autoprefixer],
       },
+      // CSS 预处理器
+      preprocessorOptions: {
+        // 定义全局 SCSS 变量
+        scss: {
+          javascriptEnabled: true,
+          api: "modern-compiler",
+          // additionalData: `@import "@/styles/variables.scss";`,
+        },
+      },
     },
     server: {
       proxy: {
         "/api": {
           target: "http://localhost:5000",
-          changeOrigin: true
-        }
+          changeOrigin: true,
+        },
       },
     },
-    base: './',
-    build:{
-      target:['edge90','chrome90','firefox90','safari15']
-    }
+    base: "./",
+    build: {
+      target: ["edge90", "chrome90", "firefox90", "safari15"],
+    },
   };
 });

@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import "./index.styl";
+import "./index.scss";
 import SideBar from "./sidebar/index.vue";
 import NavBar from "./navbar/index.vue";
 import ReTab from "./re-tab/index.vue";
