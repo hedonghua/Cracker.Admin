@@ -1,5 +1,5 @@
 import { ReTableColumn } from "@/components/re-table/types";
-import { onMounted, reactive, ref } from "vue";
+import { reactive, ref } from "vue";
 import {
   getGenTableList,
   addGenTable,
@@ -125,13 +125,8 @@ export function useTable() {
       { required: true, trigger: "blur", message: "模块名不能为空" },
     ],
   };
-  const dataTableList = ref<Array<any>>([]);
   const loading = ref<boolean>(false);
   const dataTableRef = ref();
-  const dataTableQueryParams = reactive({
-    page: 1,
-    size: 10,
-  });
   const dataTableColumns: ReTableColumn[] = [
     {
       type: "selection",
@@ -166,6 +161,9 @@ export function useTable() {
   const request = (params: any) => {
     return getGenTableList(params);
   };
+  const databaseTableRequest = (params: any) => {
+    return getDatabaseTableList(params);
+  }
   const handleClose = (done: () => void) => {
     clearEditFormValues();
     done();
@@ -206,7 +204,7 @@ export function useTable() {
                 ElMessage.success("新增成功");
                 closeDialog();
                 tableRef?.value.refresh();
-                getOptions();
+                dataTableRef?.value.refresh();
               } else {
                 ElMessage.error(res.message ?? "新增失败");
               }
@@ -222,7 +220,7 @@ export function useTable() {
                 ElMessage.success("编辑成功");
                 closeDialog();
                 tableRef?.value.refresh();
-                getOptions();
+                dataTableRef?.value.refresh();
               } else {
                 ElMessage.error(res.message ?? "编辑失败");
               }
@@ -250,11 +248,6 @@ export function useTable() {
     editForm.comment = firstRow.comment;
     openDialog("新增生成表");
   };
-  const getOptions = () => {
-    getDatabaseTableList(dataTableQueryParams).then((res) => {
-      dataTableList.value = res.data.items;
-    });
-  };
   const deleteBatch = (ids: string[]) => {
     if (ids.length <= 0) {
       ElMessage.warning("请选择要删除的记录");
@@ -270,7 +263,7 @@ export function useTable() {
         if (res.code === 0) {
           ElMessage.success("删除成功");
           tableRef?.value.refresh();
-          getOptions();
+          dataTableRef?.value.refresh();
         } else {
           ElMessage.error(res.message ?? "删除失败");
         }
@@ -290,9 +283,6 @@ export function useTable() {
   };
 
   /*========================== Vue钩子 ========================== */
-  onMounted(() => {
-    getOptions();
-  });
   return {
     request,
     columns,
@@ -309,7 +299,6 @@ export function useTable() {
     dialogTitle,
     confirmEvent,
     loading,
-    dataTableList,
     dataTableRef,
     dataTableColumns,
     selectDialogVisible,
@@ -320,5 +309,6 @@ export function useTable() {
     deleteBatch,
     genTableId,
     previewDialogVisible,
+    databaseTableRequest
   };
 }

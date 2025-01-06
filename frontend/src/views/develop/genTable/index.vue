@@ -10,7 +10,7 @@
             </template>
         </re-table>
         <el-dialog v-model="selectDialogVisible" title="选择数据库表" width="60%" :before-close="selectHandleClose">
-            <re-table row-key="tableName" :data="dataTableList" :columns="dataTableColumns"
+            <re-table row-key="tableName" :request="databaseTableRequest" :columns="dataTableColumns"
                 @selection-change="selectionChange" ref="dataTableRef">
             </re-table>
             <template #footer>
@@ -86,7 +86,7 @@ const {
     confirmEvent,
     loading,
     editFormRef,
-    dataTableList,
+    databaseTableRequest,
     dataTableRef,
     dataTableColumns,
     selectDialogVisible,

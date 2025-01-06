@@ -126,7 +126,7 @@ const filterForm = reactive({
   size: 10
 });
 const extraParamKeys = ref<string[]>([]);
-const total = ref<number>(0);
+const total = ref<number>(props.data?.length ?? 0);
 const tableData = ref<Array<any>>(props.data ?? []);
 const selectedRows = ref<any[]>();
 const selectedRowKeys = ref<any[]>();
