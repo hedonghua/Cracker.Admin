@@ -100,10 +100,10 @@ namespace Cracker.Admin.Filters
         {
             var isEnabled = bool.Parse(_configuration["App:DemonstrationMode"]!);
             var httpMethod = context.Request.Method.ToLower();
-            var requestPath = context.Request.Path.Value;
-            var isLogin = !string.IsNullOrWhiteSpace(requestPath) && requestPath.Contains("account/login");
+            var requestPath = context.Request.Path.Value?.ToLower();
+            var isWhite = !string.IsNullOrWhiteSpace(requestPath) && (requestPath.Contains("account/login") || requestPath.Contains("account/signout"));
 
-            if (isEnabled && !IsIgnoreHttpMethod(httpMethod) && !isLogin) return new AppResult(-1, "演示模式，不允许操作");
+            if (isEnabled && !IsIgnoreHttpMethod(httpMethod) && !isWhite) return new AppResult(-1, "演示模式，不允许操作");
             return new AppResult();
         }
 

@@ -88,11 +88,13 @@ export function useAuthorization(local?: boolean) {
     }
 
     if (executeApi) {
-      signout().then((res) => {
-        if (res.code === AppResponseStatusCode.SUCCESS) {
+      signout()
+        .then((_) => {
           _signout();
-        }
-      });
+        })
+        .catch((_) => {
+          _signout();
+        });
     } else {
       _signout();
     }
