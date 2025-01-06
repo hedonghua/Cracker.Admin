@@ -77,17 +77,25 @@ export function useAuthorization(local?: boolean) {
   /**
    * 登出
    */
-  function signOut() {
-    signout().then((res) => {
-      if (res.code === AppResponseStatusCode.SUCCESS) {
-        useTabManager().close(CloseTabType.ALL);
-        useUserStore().clear();
-        const routeCache = useRouteCache();
-        routeCache.clear();
+  function signOut(executeApi: boolean = true) {
+    function _signout() {
+      useTabManager().close(CloseTabType.ALL);
+      useUserStore().clear();
+      const routeCache = useRouteCache();
+      routeCache.clear();
 
-        window.location.href = "/login";
-      }
-    });
+      window.location.href = "/login";
+    }
+
+    if (executeApi) {
+      signout().then((res) => {
+        if (res.code === AppResponseStatusCode.SUCCESS) {
+          _signout();
+        }
+      });
+    } else {
+      _signout();
+    }
   }
 
   return {

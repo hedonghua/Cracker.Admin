@@ -4,6 +4,7 @@ import { ElMessage } from "element-plus";
 import { refreshToken as getAccessToken } from "@/api/login";
 import { useUserStore } from "@/store/userStore";
 import Utils from "@/utils";
+import { useAuthorization } from "@/hooks/useAuthorization";
 
 /**
  * 无需token名单
@@ -81,7 +82,7 @@ service.interceptors.response.use(
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
     if (error?.response?.status) {
-      let msg;
+      let msg: string;
       switch (error.response.status) {
         case 401:
           msg = "身份信息已过期，请重新登录";
@@ -99,7 +100,20 @@ service.interceptors.response.use(
           msg = "未知错误，状态码：" + error.response.status;
           break;
       }
-      ElMessage.error(msg);
+      if (error.response.status === 401) {
+        ElMessage({
+          message: msg,
+          type: "error",
+          duration: 1500,
+          onClose: () => {
+            const useAuth = useAuthorization();
+            //传入false，避免无限401
+            useAuth.signOut(false);
+          },
+        });
+      } else {
+        ElMessage.error(msg);
+      }
     }
     return Promise.reject(error);
   }
