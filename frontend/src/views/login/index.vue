@@ -61,11 +61,11 @@ const router = useRouter();
 const login = () => {
   formRef?.value?.validate((valid) => {
     if (valid) {
-      userLogin(form).then((res) => {
+      userLogin(form).then(async (res) => {
         //设置身份信息
         userStore.setUser(res.data as UserAuthInfo);
         //初始化路由
-        routeCache.loadRoutes();
+        await routeCache.loadRoutes(true);
         router.replace("/home");
       });
     }

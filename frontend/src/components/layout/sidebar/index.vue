@@ -33,7 +33,7 @@ const menuSelected = (index: string) => {
   tabManager.append(index);
 };
 onMounted(() => {
-  const rawRoutes = routesCache.getCache();
+  const rawRoutes = routesCache.getTreeCache();
   menus.value = rawRoutes?.find(x => x.path === "/")?.children?.filter(x => !x.meta?.hidden && x.path !== HOME_PATH);
 })
 const computedActivePath = computed((): string => {

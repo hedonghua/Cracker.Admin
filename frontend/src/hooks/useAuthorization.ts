@@ -4,6 +4,7 @@ import { useTabManager } from "./useTabManager";
 import { CloseTabType } from "@/store/tabStore";
 import { signout } from "@/api/login";
 import { AppResponseStatusCode } from "@/consts";
+import { useRouteCache } from "@/router/hook";
 
 export function useAuthorization(local?: boolean) {
   const userStore = (local ? getLocal() : getUseUserStore()) as UserState;
@@ -81,6 +82,9 @@ export function useAuthorization(local?: boolean) {
       if (res.code === AppResponseStatusCode.SUCCESS) {
         useTabManager().close(CloseTabType.ALL);
         useUserStore().clear();
+        const routeCache = useRouteCache();
+        routeCache.clear();
+
         window.location.href = "/login";
       }
     });
