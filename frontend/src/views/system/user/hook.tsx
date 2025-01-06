@@ -31,7 +31,7 @@ export function useTable() {
           height="40px"
           src={getAvatar(row.avatar)}
           previewList={[getAvatar(row.avatar)]}
-          roundedFull={true}
+          rounded={true}
           fit="cover"
         />
       ),

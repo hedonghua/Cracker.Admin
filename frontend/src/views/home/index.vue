@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="re-card">
-            <el-descriptions title="项目信息" column="1">
+            <el-descriptions title="项目信息" :column="1">
                 <el-descriptions-item label="名称">{{ APP_TITLE }}</el-descriptions-item>
                 <el-descriptions-item
                     label="概述">后端基于abp框架，实现了rbac（基于角色权限管理），精确到按钮级别权限；前端使用Vite+Vue构建，使用了许多热门框架和技术，如：element-plus,axios,tailwindcss,pinia等
@@ -9,11 +9,11 @@
                 <el-descriptions-item label="背景">想写一款后台管理框架，这是我一直想做的事，用于开源和自己接单做项目</el-descriptions-item>
             </el-descriptions>
 
-            <el-descriptions title="仓库信息" column="1" class="mt-2">
+            <el-descriptions title="仓库信息" :column="1" class="mt-2">
                 <el-descriptions-item label="Github">https://github.com/hedonghua/Cracker.Admin</el-descriptions-item>
             </el-descriptions>
 
-            <el-descriptions title="联系作者" column="1" class="mt-2">
+            <el-descriptions title="联系作者" :column="1" class="mt-2">
                 <el-descriptions-item label="邮箱">crackerwork@outlook.com</el-descriptions-item>
             </el-descriptions>
         </div>
