@@ -23,6 +23,11 @@
                 <div class="re-card">
                     <h2 class="el-descriptions__title">更新日志</h2>
                     <el-collapse accordion class="mt-4">
+                        <el-collapse-item title="路由优化" name="路由优化">
+                            <div>
+                                固定路由拆分，动态路由优化，退出登录清空路由缓存
+                            </div>
+                        </el-collapse-item>
                         <el-collapse-item title="修改登录样式" name="登录样式">
                             <div>
                                 登录表单居中，增加登录背景图

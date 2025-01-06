@@ -79,24 +79,28 @@ export function useTable() {
           >
             详情
           </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_employee_update")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => openDialog("编辑员工信息", row)}
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_employee_delete")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => remove(row)}
-          >
-            删除
-          </el-button>
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_employee_update"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => openDialog("编辑员工信息", row)}
+            >
+              编辑
+            </el-button>
+          )}
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_employee_delete"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => remove(row)}
+            >
+              删除
+            </el-button>
+          )}
         </div>
       ),
     },

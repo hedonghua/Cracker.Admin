@@ -6,7 +6,7 @@
             </template>
         </re-table>
         <el-dialog v-model="dialogVisible" title="详情" width="700">
-            <el-descriptions column="1">
+            <el-descriptions :column="1">
                 <el-descriptions-item label="路径：">{{ currentRow.url }}</el-descriptions-item>
                 <el-descriptions-item label="系统：">{{ currentRow.os }}</el-descriptions-item>
                 <el-descriptions-item label="浏览器：">{{ currentRow.browser }}</el-descriptions-item>

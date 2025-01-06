@@ -12,6 +12,7 @@ import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import { useTabManager } from "@/hooks/useTabManager";
 import _ from "lodash";
+import utils from "@/utils";
 
 export function useTable() {
   /*========================== 字段 ========================== */
@@ -45,17 +46,18 @@ export function useTable() {
       label: "操作",
       render: (row: any) => (
         <div>
+          {utils.renderJsx(
+            userAuth.hasPermission("admin_system_positiongroup_update"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => openPreview(row)}
+            >
+              预览
+            </el-button>
+          )}
           <el-button
-            v-if={userAuth.hasPermission("admin_system_positiongroup_update")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => openPreview(row)}
-          >
-            预览
-          </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_positiongroup_update")}
             size="small"
             link
             type="primary"
@@ -63,24 +65,28 @@ export function useTable() {
           >
             详情
           </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_positiongroup_update")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => openDialog("编辑职位", row)}
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_positiongroup_delete")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => remove(row)}
-          >
-            删除
-          </el-button>
+          {utils.renderJsx(
+            userAuth.hasPermission("admin_system_positiongroup_update"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => openDialog("编辑职位", row)}
+            >
+              编辑
+            </el-button>
+          )}
+          {utils.renderJsx(
+            userAuth.hasPermission("admin_system_positiongroup_delete"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => remove(row)}
+            >
+              删除
+            </el-button>
+          )}
         </div>
       ),
     },
