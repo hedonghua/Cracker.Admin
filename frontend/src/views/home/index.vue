@@ -10,7 +10,9 @@
             </el-descriptions>
 
             <el-descriptions title="仓库信息" :column="1" class="mt-2">
-                <el-descriptions-item label="Github">https://github.com/hedonghua/Cracker.Admin</el-descriptions-item>
+                <el-descriptions-item label="Github">
+                    <a href="https://github.com/hedonghua/Cracker.Admin" class="text-blue-400" target="_blank">https://github.com/hedonghua/Cracker.Admin</a>
+                </el-descriptions-item>
             </el-descriptions>
 
             <el-descriptions title="联系作者" :column="1" class="mt-2">
