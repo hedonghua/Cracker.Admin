@@ -13,6 +13,7 @@ import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { AppResponseStatusCode } from "@/consts";
 import { AppOptionNode } from "#/data";
 import { useAuthorization } from "@/hooks/useAuthorization";
+import Utils from "@/utils";
 
 export function useTable() {
   /*========================== 字段 ========================== */
@@ -34,33 +35,39 @@ export function useTable() {
       label: "操作",
       render: (row: any) => (
         <div>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_role_assignmenu")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => openAssignMenuDialog("分配菜单", row)}
-          >
-            分配菜单
-          </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_role_update")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => openDialog("编辑角色", row)}
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_role_delete")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => remove(row)}
-          >
-            删除
-          </el-button>
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_role_assignmenu"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => openAssignMenuDialog("分配菜单", row)}
+            >
+              分配菜单
+            </el-button>
+          )}
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_role_update"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => openDialog("编辑角色", row)}
+            >
+              编辑
+            </el-button>
+          )}
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_role_delete"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => remove(row)}
+            >
+              删除
+            </el-button>
+          )}
         </div>
       ),
     },

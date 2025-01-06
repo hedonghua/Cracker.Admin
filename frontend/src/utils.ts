@@ -2,7 +2,8 @@
  * 自定义工具类
  */
 export default class Utils {
-  static IDNO_PATTERN = /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/;
+  static IDNO_PATTERN =
+    /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/;
   static PHONE_PATTERN = /^1[3456789]\d{9}$/;
 
   /**
@@ -45,7 +46,7 @@ export default class Utils {
         flagId,
         sortField
       );
-      if(sortField){
+      if (sortField) {
         item["children"] = item["children"].sort((x) => x[sortField]);
       }
     }
@@ -78,5 +79,12 @@ export default class Utils {
 
   static generateUniqueId() {
     return Math.random().toString(36).substr(2, 9);
+  }
+
+  static renderJsx(isDisplay: boolean, jsx: any, blankJsx: any = null) {
+    if (isDisplay) {
+      return jsx;
+    }
+    return blankJsx;
   }
 }

@@ -13,6 +13,7 @@ import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { AppOption } from "#/data";
 import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
+import Utils from "@/utils";
 
 export function useTable() {
   /*========================== 字段 ========================== */
@@ -64,24 +65,28 @@ export function useTable() {
       label: "操作",
       render: (row: any) => (
         <div>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_user_assignrole")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => openAssignRoleDialog(row)}
-          >
-            分配角色
-          </el-button>
-          <el-button
-            v-if={userAuth.hasPermission("admin_system_user_delete")}
-            size="small"
-            link
-            type="primary"
-            onclick={() => remove(row)}
-          >
-            删除
-          </el-button>
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_user_assignrole"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => openAssignRoleDialog(row)}
+            >
+              分配角色
+            </el-button>
+          )}
+          {Utils.renderJsx(
+            userAuth.hasPermission("admin_system_user_delete"),
+            <el-button
+              size="small"
+              link
+              type="primary"
+              onclick={() => remove(row)}
+            >
+              删除
+            </el-button>
+          )}
         </div>
       ),
     },
