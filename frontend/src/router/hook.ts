@@ -12,27 +12,27 @@ const useRouteCache = () => {
    * 设置路由缓存
    * @param routes
    */
-  const loadRoutes = async () => {
+  const loadRoutes = async (init: boolean = false) => {
     //带树形
     const treeRoutes = [...fixRoutes];
     //列表路由
     const listRoutes = [...fixRoutes];
 
-    const userAuth = useAuthorization(true);
-    if (!userAuth.isAuthenticated()) return;
+    if (!init) {
+      const userAuth = useAuthorization(true);
+      if (!userAuth.isAuthenticated()) return;
+    }
     try {
       const { data } = await getSidebarMenus();
       const asyncRoutes = genRoutes(data, listRoutes);
       const layoutRoute = fixRoutes.find((x) => x.path === "/");
       const layoutRouteIndex = fixRoutes.findIndex((x) => x.path === "/");
       if (layoutRoute) {
+        treeRoutes[layoutRouteIndex].children = [];
         asyncRoutes.forEach((asyncRoute) => {
           router.addRoute(layoutRoute.name!, asyncRoute);
+          treeRoutes[layoutRouteIndex].children!.push(asyncRoute);
         });
-        treeRoutes[layoutRouteIndex].children = [
-          ...treeRoutes[layoutRouteIndex].children!,
-          ...asyncRoutes,
-        ];
       }
     } catch (error) {
       console.error("加载路由错误：", error);
@@ -66,9 +66,11 @@ const useRouteCache = () => {
         children: [],
       };
       if (!item.children || item.children.length === 0) {
-        if (routeIndex !== -1) {
-          r.component = modulesRoutes[modulesRoutesKeys[routeIndex]];
+        //组件不存在
+        if (routeIndex === -1) {
+          continue;
         }
+        r.component = modulesRoutes[modulesRoutesKeys[routeIndex]];
         listRoutes?.push(r);
       } else {
         r.children = genRoutes(item.children, listRoutes);
@@ -82,17 +84,32 @@ const useRouteCache = () => {
    * 获取路由缓存
    * @returns
    */
-  const getCache = (): RouteRecordRaw[] | undefined => {
-    const local = localStorage.getItem("treeRoutes");
+  const getCache = (name: string): RouteRecordRaw[] | undefined => {
+    const local = localStorage.getItem(name);
     if (local) {
       return JSON.parse(local) as RouteRecordRaw[];
     }
     return undefined;
   };
 
+  const getTreeCache = () => {
+    return getCache("treeRoutes");
+  };
+
+  const getListCache = () => {
+    return getCache("listRoutes");
+  };
+
+  const clear = () => {
+    localStorage.removeItem("treeRoutes");
+    localStorage.removeItem("listRoutes");
+  };
+
   return {
     loadRoutes,
-    getCache,
+    getTreeCache,
+    getListCache,
+    clear,
   };
 };
 
