@@ -36,7 +36,9 @@ export function useTable() {
     },
     {
       label: "图标",
-      render: (row: any) => <re-icon name={row.icon} />,
+      render: (row: any) => {
+        Utils.renderJsx(row.icon, <re-icon name={row.icon} />);
+      },
     },
     {
       label: "排序",
