@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-wrapper">
-    <div class="system-title">
+    <div class="system-title" v-if="themeStore.pageSwitch.logo">
       <a class="flex justify-center items-center text-white w-full h-full" href="/">
         <img :src="VueLogo" class="mr-2" alt="logo" />
         <span v-if="!model" class="font-bold">{{ APP_TITLE }}</span>
@@ -22,6 +22,7 @@ import SidebarItem from './sidebar-item.vue'
 import VueLogo from "@/assets/vue.svg"
 import { useTabManager } from '@/hooks/useTabManager';
 import { HOME_PATH } from '@/consts'
+import { useThemeStore } from '@/store/themeStore';
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE;
 const model = defineModel()
@@ -29,6 +30,7 @@ const menus = ref<RouteRecordRaw[] | undefined>([])
 const routesCache = useRouteCache();
 const tabManager = useTabManager();
 const router = useRouter();
+const themeStore = useThemeStore();
 const menuSelected = (index: string) => {
   tabManager.append(index);
 };

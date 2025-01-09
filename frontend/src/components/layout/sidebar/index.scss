@@ -31,6 +31,6 @@
 
     .el-menu-item.is-active {
         // 增加el-menu-item选中背景色
-        background-color: #409eff;
+        background-color: var(--el-color-primary);
     }
 }
