@@ -87,4 +87,15 @@ export default class Utils {
     }
     return blankJsx;
   }
+
+  static isDark(color:"light" | "dark" | "auto"){
+    if(color === "dark"){
+      return true;
+    }else if(color === "auto"){
+      let now = new Date();
+      let hours = now.getHours();
+      return hours >= 18 || hours < 6;
+    }
+    return false;
+  }
 }

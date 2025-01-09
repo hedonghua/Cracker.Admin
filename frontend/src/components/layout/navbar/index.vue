@@ -31,7 +31,12 @@
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item command="baseInfo">基本资料</el-dropdown-item>
-              <el-dropdown-item command="signOut">退出系统</el-dropdown-item>
+              <el-dropdown-item command="themeSetting"
+                >主题设置</el-dropdown-item
+              >
+              <el-dropdown-item command="signOut" divided
+                >退出系统</el-dropdown-item
+              >
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -40,14 +45,26 @@
       <li style="padding: 0">
         <el-tooltip content="尺寸">
           <el-dropdown @command="sizeHandleCommand" trigger="click">
-            <div class="text-lg w-full h-full size-wrapper"
-              ><re-icon name="tabler:text-size"
-            /></div>
+            <div class="text-lg w-full h-full size-wrapper">
+              <re-icon name="tabler:text-size" />
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="large" :disabled="themeStore.size === 'large'">大</el-dropdown-item>
-                <el-dropdown-item command="default" :disabled="themeStore.size === 'default'">中</el-dropdown-item>
-                <el-dropdown-item command="small" :disabled="themeStore.size === 'small'">小</el-dropdown-item>
+                <el-dropdown-item
+                  command="large"
+                  :disabled="themeStore.size === 'large'"
+                  >大</el-dropdown-item
+                >
+                <el-dropdown-item
+                  command="default"
+                  :disabled="themeStore.size === 'default'"
+                  >中</el-dropdown-item
+                >
+                <el-dropdown-item
+                  command="small"
+                  :disabled="themeStore.size === 'small'"
+                  >小</el-dropdown-item
+                >
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -92,6 +109,9 @@
         </li>
       </ul>
     </el-dialog>
+
+    <!-- 主题设置 -->
+    <ThemeSettingDrawer v-model:drawer="drawer" />
   </div>
 </template>
 
@@ -105,6 +125,7 @@ import { useAuthorization } from "@/hooks/useAuthorization";
 import UserBoyAvatar from "@/assets/img/boy.png";
 import { getSidebarMenus } from "@/api/system/menu";
 import { useThemeStore } from "@/store/themeStore";
+import ThemeSettingDrawer from "./themeSettingDrawer.vue";
 
 const ossDomain = import.meta.env.VITE_OSS_DOMAIN;
 const userStore = useUserStore();
@@ -119,6 +140,7 @@ const screenWidth = ref(
 );
 const router = useRouter();
 const userAuth = useAuthorization();
+const drawer = ref<boolean>(false);
 // 切换全屏
 const toggleFullScreen = () => {
   if (!document.fullscreenElement) {
@@ -141,6 +163,9 @@ const handleCommand = (cmd: string) => {
       if (personRoute) {
         tabManager.append("/person");
       }
+      break;
+    case "themeSetting":
+      drawer.value = true;
       break;
     default:
       break;
