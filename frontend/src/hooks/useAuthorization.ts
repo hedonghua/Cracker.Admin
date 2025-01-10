@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import { useTabManager } from "./useTabManager";
 import { CloseTabType } from "@/store/tabStore";
 import { signout } from "@/api/login";
-import { AppResponseStatusCode } from "@/consts";
 import { useRouteCache } from "@/router/hook";
 
 export function useAuthorization(local?: boolean) {
