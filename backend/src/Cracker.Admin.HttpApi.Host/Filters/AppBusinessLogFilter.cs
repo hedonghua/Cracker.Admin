@@ -30,7 +30,7 @@ namespace Cracker.Admin.Filters
 
         public override void OnResultExecuted(ResultExecutedContext context)
         {
-            WriteLog(context.HttpContext, context.Result);
+            //WriteLog(context.HttpContext, context.Result);
         }
 
         /// <summary>
@@ -38,28 +38,28 @@ namespace Cracker.Admin.Filters
         /// </summary>
         /// <param name="context"></param>
         /// <param name="result"></param>
-        public static void WriteLog(HttpContext context, IActionResult result)
-        {
-            var items = context.Items;
-            if (!items.ContainsKey("node")) return;
-            var ts = TimeHelper.GetCurrentTimestamp();
-            var beforeTs = (long)items["timestamp"]!;
-            var service = AppManager.ServiceProvider.GetRequiredService<IBusinessLogService>();
-            var model = new BusinessLogDto
-            {
-                Action = (string?)items["action"],
-                MillSeconds = (int)(ts - beforeTs),
-                NodeName = (string?)items["node"]
-            };
-            if (result is ObjectResult objRes && objRes.Value is IAppResult res)
-            {
-                model.IsSuccess = res.IsOk();
-                model.OperationMsg = res.Message;
-            }
-            context.Items.Remove("action");
-            context.Items.Remove("timestamp");
-            context.Items.Remove("node");
-            service.AddBusinessLogAsync(model).Wait(100);
-        }
+        //public static void WriteLog(HttpContext context, IActionResult result)
+        //{
+        //    var items = context.Items;
+        //    if (!items.ContainsKey("node")) return;
+        //    var ts = TimeHelper.GetCurrentTimestamp();
+        //    var beforeTs = (long)items["timestamp"]!;
+        //    var service = AppManager.ServiceProvider.GetRequiredService<IBusinessLogService>();
+        //    var model = new BusinessLogDto
+        //    {
+        //        Action = (string?)items["action"],
+        //        MillSeconds = (int)(ts - beforeTs),
+        //        NodeName = (string?)items["node"]
+        //    };
+        //    if (result is ObjectResult objRes && objRes.Value is IAppResult res)
+        //    {
+        //        model.IsSuccess = res.IsOk();
+        //        model.OperationMsg = res.Message;
+        //    }
+        //    context.Items.Remove("action");
+        //    context.Items.Remove("timestamp");
+        //    context.Items.Remove("node");
+        //    service.AddBusinessLogAsync(model).Wait(100);
+        //}
     }
 }

@@ -52,7 +52,7 @@ namespace Cracker.Admin.Filters
             context.Result = new ObjectResult(result);
             context.ExceptionHandled = true;
 
-            AppBusinessLogFilter.WriteLog(context.HttpContext, context.Result);
+            //AppBusinessLogFilter.WriteLog(context.HttpContext, context.Result);
 
             if (context.Exception is AbpValidationException
                 || context.Exception is BusinessException) return;

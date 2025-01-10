@@ -18,7 +18,7 @@ public class CrackerAdminDomainModule : AbpModule
     {
         var conf = context.Services.GetConfiguration();
 
-        context.Services.AddTransient<IKeySettings, GlobalKeySettingsService>();
+        //context.Services.AddTransient<IKeySettings, GlobalKeySettingsService>();
         //context.Services.AddConnections();
 
         Configure<AbpMultiTenancyOptions>(options =>
