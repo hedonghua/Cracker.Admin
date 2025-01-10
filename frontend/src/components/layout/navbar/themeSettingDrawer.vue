@@ -1,12 +1,12 @@
 <template>
   <el-drawer
     v-model="drawer"
-    title="主题设置"
+    title="个性设置"
     @close="drawerClose"
     append-to-body
     size="300px"
   >
-    <p class="mb-4">颜色</p>
+    <!-- <p class="mb-4">颜色</p>
     <el-radio-group
       v-model="themeStore.color"
       @change="colorChange"
@@ -15,9 +15,9 @@
       <el-radio-button label="浅色" value="light" />
       <el-radio-button label="深色" value="dark" />
       <el-radio-button label="自动" value="auto" />
-    </el-radio-group>
+    </el-radio-group> -->
 
-    <p class="mt-6 mb-4">主题色</p>
+    <p class="mb-4">主题色</p>
     <div class="grid grid-cols-4 gap-4 text-center text-xs">
       <div v-for="(item, index) in themeColors" :key="index">
         <div
@@ -141,10 +141,10 @@ const toggleColorMode = () => {
   }
 };
 
-const colorChange = (color: any) => {
-  themeStore.setColor(color);
-  toggleColorMode();
-};
+// const colorChange = (color: any) => {
+//   themeStore.setColor(color);
+//   toggleColorMode();
+// };
 
 const updateElementThemeVar = (themeColor: string) => {
   // document.documentElement 是全局变量时
