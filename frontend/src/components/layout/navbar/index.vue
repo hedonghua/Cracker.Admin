@@ -32,7 +32,7 @@
             <el-dropdown-menu>
               <el-dropdown-item command="baseInfo">基本资料</el-dropdown-item>
               <el-dropdown-item command="themeSetting"
-                >主题设置</el-dropdown-item
+                >个性设置</el-dropdown-item
               >
               <el-dropdown-item command="signOut" divided
                 >退出系统</el-dropdown-item
