@@ -5,7 +5,8 @@ export type CustomRequestFunc = (
   para: any
 ) =>
   | Promise<ApplicationResult<PagedResult<any>>>
-  | Promise<ApplicationResult<any>>;
+  | Promise<ApplicationResult<any>>
+  | Promise<any[]>;
 
 export interface ReTableColumn {
   type?: "default" | "selection" | "index" | "expand";

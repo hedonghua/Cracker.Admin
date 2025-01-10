@@ -1,8 +1,8 @@
 import { App } from "vue";
-import ReImage from "./components/re-image/index.vue";
-import ReIcon from "./components/re-icon/index.vue";
-import ReTable from "@/components/re-table/index.vue";
-import ReTag from "@/components/re-tag/index.vue";
+import ReImage from "./re-image/index.vue";
+import ReIcon from "./re-icon/index.vue";
+import ReTable from "./re-table/index.vue";
+import ReTag from "./re-tag/index.vue";
 
 /**
  * 加载自定义组件

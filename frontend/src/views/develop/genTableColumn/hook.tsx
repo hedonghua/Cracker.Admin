@@ -6,7 +6,6 @@ import {
 } from "@/api/develop/genTableColumn";
 import { useRoute } from "vue-router";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { useAuthorization } from "@/hooks/useAuthorization";
 import _ from "lodash";
 import { useCodeGenerator } from "./codeGenerator";
 import { useTabManager } from "@/hooks/useTabManager";
@@ -210,7 +209,6 @@ export function useTable() {
       placeholder: "请输入列名",
     },
   ];
-  const userAuth = useAuthorization();
   const tabManager = useTabManager();
   const tableRef = ref();
   const loading = ref<boolean>(false);
