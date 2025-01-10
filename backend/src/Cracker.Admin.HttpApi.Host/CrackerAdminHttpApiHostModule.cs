@@ -29,7 +29,6 @@ using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
-using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 
 namespace Cracker.Admin;
@@ -52,8 +51,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
     {
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
-
-        AppManager.BeforeSet(configuration, hostingEnvironment.WebRootPath);
 
         ConfigureAuthentication(context, configuration);
         ConfigureCors(context, configuration);
@@ -213,10 +210,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
                  pattern: "{controller}/{action}/{param:regex(.*+)}"
              );
         });
-
-        AppManager.AfterSet(app.ApplicationServices, env.IsDevelopment());
-
-        GlobalKeySettingsService.Instance.InitializationAsync().Wait();
 
         app.ApplicationServices.UseScheduler(sch =>
         {

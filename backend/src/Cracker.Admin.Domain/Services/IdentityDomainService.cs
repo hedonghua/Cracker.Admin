@@ -1,7 +1,13 @@
 ﻿using Cracker.Admin.Core;
 using Cracker.Admin.Entities;
 using Cracker.Admin.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
@@ -17,10 +23,11 @@ namespace Cracker.Admin.Services
         private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysMenu> _menuRepository;
         private readonly ICacheProvider cacheProvider;
+        private readonly IConfiguration configuration;
 
         public IdentityDomainService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, ICacheProvider cacheProvider)
+            IRepository<SysMenu> menuRepository, ICacheProvider cacheProvider, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
@@ -28,6 +35,7 @@ namespace Cracker.Admin.Services
             _roleRepository = roleRepository;
             _menuRepository = menuRepository;
             this.cacheProvider = cacheProvider;
+            this.configuration = configuration;
         }
 
         public async Task<UserPermission> GetUserPermissionAsync(Guid userId)
@@ -98,6 +106,50 @@ namespace Cracker.Admin.Services
             if (permission == null || permission.Auths == null) return false;
 
             return permission.Auths.Contains(code);
+        }
+
+        public string GenerateToken(IEnumerable<Claim> claims, DateTime expireTime)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JWT")["IssuerSigningKey"]!));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var securityToken = new JwtSecurityToken(
+                issuer: configuration.GetSection("JWT")["ValidIssuer"],
+                audience: configuration.GetSection("JWT")["ValidAudience"],
+                claims: claims,
+                expires: expireTime,
+                signingCredentials: creds);
+
+            var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
+
+            return token;
+        }
+
+        /// <summary>
+        /// 从Token中获取用户身份
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public ClaimsPrincipal? GetPrincipalFromAccessToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JWT")["IssuerSigningKey"]!));
+                return handler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateLifetime = false
+                }, out SecurityToken validatedToken);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

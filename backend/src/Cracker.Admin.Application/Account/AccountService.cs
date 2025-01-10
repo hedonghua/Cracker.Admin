@@ -72,7 +72,7 @@ namespace Cracker.Admin.Account
             {
                 UserName = userName,
                 ExpiredTime = tokenExpired.ToString("yyyy-MM-dd HH:mm:ss"),
-                AccessToken = TokenHelper.GenerateToken(claims, tokenExpired),
+                AccessToken = identityDomainService.GenerateToken(claims, tokenExpired),
                 RefreshToken = refreshToken
             };
             await cacheProvider.SetAsync("AccessToken:" + userId, rs.AccessToken, TimeSpan.FromHours(expired));
