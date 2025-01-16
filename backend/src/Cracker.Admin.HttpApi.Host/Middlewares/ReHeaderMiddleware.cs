@@ -51,7 +51,7 @@ namespace Cracker.Admin.Middlewares
             {
                 return "未知";
             }
-            string[] strs = address.Split('!');
+            string[] strs = address.Split('|');
             if (strs.Length >= 4)
             {
                 return string.Concat(strs[0], strs[2], strs[3]);
