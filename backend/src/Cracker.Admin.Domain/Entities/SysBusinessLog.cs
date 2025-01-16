@@ -102,5 +102,11 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [Comment("耗时，单位毫秒")]
         public int MillSeconds { get; set; }
+
+        /// <summary>
+        /// 请求跟踪ID
+        /// </summary>
+        [Comment("请求跟踪ID")]
+        public string? RequestId { get; set; }
     }
 }

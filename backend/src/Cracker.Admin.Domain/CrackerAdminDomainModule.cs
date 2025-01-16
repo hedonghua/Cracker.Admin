@@ -2,6 +2,7 @@ using Cracker.Admin.Core;
 using Cracker.Admin.MultiTenancy;
 using Cracker.Admin.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
@@ -10,7 +11,8 @@ namespace Cracker.Admin;
 
 [DependsOn(
     typeof(CrackerAdminDomainSharedModule),
-    typeof(AbpDddDomainModule)
+    typeof(AbpDddDomainModule),
+    typeof(AbpBackgroundJobsModule)
 )]
 public class CrackerAdminDomainModule : AbpModule
 {

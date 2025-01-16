@@ -35,9 +35,10 @@ namespace Cracker.Admin.System.LogManagement
             entity.UserName = _currentUser.UserName;
             entity.Os = _reHeader.Os;
             entity.Browser = _reHeader.Browser;
-            var context = await _repository.GetDbContextAsync();
-            await context.AddAsync(entity);
-            return await context.SaveChangesAsync() > 0;
+            entity.MillSeconds = dto.MillSeconds;
+            entity.RequestId = dto.RequestId;
+
+            return (await _repository.InsertAsync(entity, true)).Id > 0;
         }
 
         public async Task<bool> DeleteBusinessLogsAsync(long[] ids)

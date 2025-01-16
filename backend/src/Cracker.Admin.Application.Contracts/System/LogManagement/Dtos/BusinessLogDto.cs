@@ -29,5 +29,10 @@ namespace Cracker.Admin.System.LogManagement.Dtos
         /// 耗时，单位毫秒
         /// </summary>
         public int MillSeconds { get; set; }
+
+        /// <summary>
+        /// 请求跟踪ID
+        /// </summary>
+        public string? RequestId { get; set; }
     }
 }
