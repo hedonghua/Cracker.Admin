@@ -1,50 +1,47 @@
+﻿using Cracker.Admin.Core;
+using Cracker.Admin.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Cracker.Admin.Models;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Cracker.Admin.Core;
 
-namespace Cracker.Admin.Filters
+namespace Cracker.Admin.Middlewares
 {
-    public partial class AppGlobalActionFilter : IAsyncActionFilter
+    public class ApiRateLimitMiddleware
     {
+        private readonly RequestDelegate next;
         private readonly IConfiguration _configuration;
-        private readonly ILogger<AppGlobalActionFilter> _logger;
+        private readonly ILogger<ApiRateLimitMiddleware> _logger;
         private readonly ICacheProvider cacheProvider;
 
-        public AppGlobalActionFilter(IConfiguration configuration, ILogger<AppGlobalActionFilter> logger,ICacheProvider cacheProvider)
+        public ApiRateLimitMiddleware(RequestDelegate next, IConfiguration configuration, ILogger<ApiRateLimitMiddleware> logger, ICacheProvider cacheProvider)
         {
             _configuration = configuration;
             _logger = logger;
             this.cacheProvider = cacheProvider;
+            this.next = next;
         }
 
-        [GeneratedRegex("[\"\'\\\\/]+")]
-        private static partial Regex MyRegex();
+        private static string GetKeyPath(string path) => "rate_limit||" + new Regex("[\"\'\\\\/]+").Replace(path, "_").Trim('_');
 
-        private static string GetKeyPath(string path) => "rate_limit||" + MyRegex().Replace(path, "_").Trim('_');
-
-        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public async Task InvokeAsync(HttpContext context)
         {
-            var rateLimitRs = await IsPassed(context.HttpContext);
+            var rateLimitRs = await IsPassed(context);
             if (!rateLimitRs.IsOk())
             {
-                context.Result = new ObjectResult(rateLimitRs);
+                await context.Response.WriteAsJsonAsync(rateLimitRs);
                 return;
             }
-            var demoRs = IsDemonstrationMode(context.HttpContext);
-            if(!demoRs.IsOk())
+            var demoRs = IsDemonstrationMode(context);
+            if (!demoRs.IsOk())
             {
-                context.Result = new ObjectResult(demoRs);
+                await context.Response.WriteAsJsonAsync(demoRs);
                 return;
             }
 
-            await next();
+            await next(context);
         }
 
         /// <summary>

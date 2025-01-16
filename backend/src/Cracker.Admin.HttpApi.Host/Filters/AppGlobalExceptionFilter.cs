@@ -1,11 +1,12 @@
-using System.Threading.Tasks;
-
 using Cracker.Admin.Models;
-
+using Cracker.Admin.System.LogManagement;
+using Cracker.Admin.System.LogManagement.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Validation;
@@ -15,10 +16,12 @@ namespace Cracker.Admin.Filters
     public class AppGlobalExceptionFilter : IAsyncExceptionFilter
     {
         private readonly ILogger<AppGlobalExceptionFilter> _logger;
+        private readonly IBusinessLogService businessLogService;
 
-        public AppGlobalExceptionFilter(ILogger<AppGlobalExceptionFilter> logger)
+        public AppGlobalExceptionFilter(ILogger<AppGlobalExceptionFilter> logger, IBusinessLogService businessLogService)
         {
             _logger = logger;
+            this.businessLogService = businessLogService;
         }
 
         public async Task OnExceptionAsync(ExceptionContext context)
@@ -39,12 +42,7 @@ namespace Cracker.Admin.Filters
                     result.Status = businessException.Code;
                 }
             }
-            else if (context.Exception is EntityNotFoundException)
-            {
-                result.Message = "数据不存在";
-            }
-
-            if (errMsg.Contains("There is no such an entity given id"))
+            else if (context.Exception is EntityNotFoundException || errMsg.Contains("There is no such an entity given id"))
             {
                 result.Message = "数据不存在";
             }
@@ -52,7 +50,19 @@ namespace Cracker.Admin.Filters
             context.Result = new ObjectResult(result);
             context.ExceptionHandled = true;
 
-            //AppBusinessLogFilter.WriteLog(context.HttpContext, context.Result);
+            var businessLogFilter = context.ActionDescriptor.EndpointMetadata.FirstOrDefault(x => x.GetType().Equals(typeof(AppBusinessLogFilter)));
+            if (businessLogFilter is AppBusinessLogFilter businessLogFilterAttr)
+            {
+                await businessLogService.AddBusinessLogAsync(new BusinessLogDto
+                {
+                    Action = context.ActionDescriptor.DisplayName,
+                    MillSeconds = 0,
+                    NodeName = businessLogFilterAttr.Node,
+                    RequestId = Activity.Current?.TraceId.ToString(),
+                    IsSuccess = false,
+                    OperationMsg = context.Exception.Message
+                });
+            }
 
             if (context.Exception is AbpValidationException
                 || context.Exception is BusinessException) return;
