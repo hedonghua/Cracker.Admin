@@ -1,40 +1,45 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cracker.Admin.System.Dtos
+namespace Cracker.Admin.Entities
 {
-    public class DictListDto
+    /// <summary>
+    /// 字典数据表
+    /// </summary>
+    [Table("sys_dict_data")]
+    public class SysDictData : FullAuditedEntity<Guid>
     {
-        /// <summary>
-        /// 字典ID
-        /// </summary>
-        public Guid Id { get; set; }
-
         /// <summary>
         /// 字典键
         /// </summary>
         [NotNull]
+        [Required]
+        [StringLength(64)]
         public string? Key { get; set; }
 
         /// <summary>
         /// 字典值
         /// </summary>
         [NotNull]
+        [Required]
+        [StringLength(256)]
         public string? Value { get; set; }
 
         /// <summary>
         /// 显示文本
         /// </summary>
+        [StringLength(128)]
         public string? Label { get; set; }
 
         /// <summary>
-        /// 组名
+        /// 字典类型
         /// </summary>
-        public string? GroupName { get; set; }
+        [StringLength(128)]
+        public string? DictType { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
+        [StringLength(512)]
         public string? Remark { get; set; }
 
         /// <summary>

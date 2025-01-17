@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Cracker.Admin.System.Dtos
 {
-    public class DictDto
+    public class DictDataDto
     {
         /// <summary>
         /// 字典ID

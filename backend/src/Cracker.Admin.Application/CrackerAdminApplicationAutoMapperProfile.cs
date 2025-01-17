@@ -17,8 +17,8 @@ public class CrackerAdminApplicationAutoMapperProfile : Profile
         CreateMap<SysRole, RoleListDto>();
         CreateMap<MenuDto, SysMenu>();
         CreateMap<SysMenu, MenuListDto>();
-        CreateMap<DictDto, SysDict>();
-        CreateMap<SysDict, DictListDto>();
+        CreateMap<DictDataDto, SysDictData>();
+        CreateMap<SysDictData, DictDataListDto>();
         CreateMap<SysLoginLog, LoginLogListDto>();
         CreateMap<SysBusinessLog, BusinessLogListDto>();
         CreateMap<OrgPositionGroup, PositionGroupListDto>();
