@@ -9,12 +9,12 @@ using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.System
 {
-    [Route("api/dict")]
-    public class DictController : AdminController
+    [Route("api/[controller]")]
+    public class DictDataController : AdminController
     {
-        private readonly IDictService _dictService;
+        private readonly IDictDataService _dictService;
 
-        public DictController(IDictService dictService)
+        public DictDataController(IDictDataService dictService)
         {
             _dictService = dictService;
         }
@@ -28,7 +28,7 @@ namespace Cracker.Admin.Controllers.System
         [AppResultFilter]
         [AppBusinessLogFilter("新增字典")]
         [HasPermission("admin_system_dict_add")]
-        public Task<bool> AddDictAsync(DictDto dto) => _dictService.AddDictAsync(dto);
+        public Task<bool> AddDictDataAsync(DictDataDto dto) => _dictService.AddDictDataAsync(dto);
 
         /// <summary>
         /// 字典分页列表
@@ -38,7 +38,7 @@ namespace Cracker.Admin.Controllers.System
         [HttpGet("list")]
         [AppResultFilter]
         [HasPermission("admin_system_dict_list")]
-        public Task<PagedResultDto<DictListDto>> GetDictListAsync([FromQuery] DictQueryDto dto) => _dictService.GetDictListAsync(dto);
+        public Task<PagedResultDto<DictDataListDto>> GetDictDataListAsync([FromQuery] DictDataQueryDto dto) => _dictService.GetDictDataListAsync(dto);
 
         /// <summary>
         /// 修改字典
@@ -49,7 +49,7 @@ namespace Cracker.Admin.Controllers.System
         [AppResultFilter]
         [AppBusinessLogFilter("修改字典")]
         [HasPermission("admin_system_dict_update")]
-        public Task<bool> UpdateDictAsync(DictDto dto) => _dictService.UpdateDictAsync(dto);
+        public Task<bool> UpdateDictDataAsync(DictDataDto dto) => _dictService.UpdateDictDataAsync(dto);
 
         /// <summary>
         /// 删除字典
@@ -60,16 +60,6 @@ namespace Cracker.Admin.Controllers.System
         [AppResultFilter]
         [AppBusinessLogFilter("删除字典")]
         [HasPermission("admin_system_dict_delete")]
-        public Task<bool> DeleteDictAsync([FromBody] Guid[] ids) => _dictService.DeleteDictAsync(ids);
-
-        /// <summary>
-        /// 刷新缓存
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("refresh")]
-        [AppResultFilter]
-        [AppBusinessLogFilter("刷新字典缓存")]
-        [HasPermission("admin_system_dict_refresh")]
-        public Task<bool> RefreshCacheAsync() => _dictService.RefreshCacheAsync();
+        public Task<bool> DeleteDictDataAsync([FromBody] Guid[] ids) => _dictService.DeleteDictDataAsync(ids);
     }
 }

@@ -2,7 +2,7 @@ using Cracker.Admin.Models;
 
 namespace Cracker.Admin.System.Dtos
 {
-    public class DictQueryDto : PageSearch
+    public class DictDataQueryDto : PageSearch
     {
         /// <summary>
         /// 字典键

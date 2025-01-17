@@ -11,25 +11,26 @@ namespace Cracker.Admin;
 public class CrackerAdminDbContext :
     AbpDbContext<CrackerAdminDbContext>
 {
-    public DbSet<SysUser> SysUser { get; }
-    public DbSet<SysRole> SysRole { get; }
-    public DbSet<SysMenu> SysMenu { get; }
-    public DbSet<SysUserRole> SysUserRole { get; }
-    public DbSet<SysRoleMenu> SysRoleMenu { get; }
-    public DbSet<SysDict> SysDict { get; }
-    public DbSet<SysBusinessLog> SysBusinessLog { get; }
-    public DbSet<SysLoginLog> SysLoginLog { get; }
+    public DbSet<SysUser> SysUser => Set<SysUser>();
+    public DbSet<SysRole> SysRole => Set<SysRole>();
+    public DbSet<SysMenu> SysMenu => Set<SysMenu>();
+    public DbSet<SysUserRole> SysUserRole => Set<SysUserRole>();
+    public DbSet<SysRoleMenu> SysRoleMenu => Set<SysRoleMenu>();
+    public DbSet<SysDictData> SysDictData => Set<SysDictData>();
+    public DbSet<SysDictType> SysDictType => Set<SysDictType>();
+    public DbSet<SysBusinessLog> SysBusinessLog => Set<SysBusinessLog>();
+    public DbSet<SysLoginLog> SysLoginLog => Set<SysLoginLog>();
 
+    public DbSet<OrgDept> OrgDept => Set<OrgDept>();
+    public DbSet<OrgDeptEmployee> OrgDeptEmployee => Set<OrgDeptEmployee>();
+    public DbSet<OrgPosition> OrgPosition => Set<OrgPosition>();
+    public DbSet<OrgPositionGroup> OrgPositionGroup => Set<OrgPositionGroup>();
+    public DbSet<OrgEmployee> OrgEmployee => Set<OrgEmployee>();
 
-    public DbSet<OrgDept> OrgDept { get; }
-    public DbSet<OrgDeptEmployee> OrgDeptEmployee { get; }
-    public DbSet<OrgPosition> OrgPosition { get; }
-    public DbSet<OrgPositionGroup> OrgPositionGroup { get; }
-    public DbSet<OrgEmployee> OrgEmployee { get; }
+    public DbSet<GenTable> GenTable => Set<GenTable>();
+    public DbSet<GenTableColumn> GenTableColumn => Set<GenTableColumn>();
 
-
-    public DbSet<GenTable> GenTable { get; }
-    public DbSet<GenTableColumn> GenTableColumn { get; }
+    public DbSet<SysConfig> SysConfig => Set<SysConfig>();
 
     public CrackerAdminDbContext(DbContextOptions<CrackerAdminDbContext> options)
         : base(options)
@@ -45,7 +46,8 @@ public class CrackerAdminDbContext :
         builder.Entity<SysMenu>().HasKey(x => x.Id);
         builder.Entity<SysUserRole>().HasKey(x => new { x.UserId, x.RoleId });
         builder.Entity<SysRoleMenu>().HasKey(x => new { x.RoleId, x.MenuId });
-        builder.Entity<SysDict>().HasKey(x => x.Id);
+        builder.Entity<SysDictData>().HasKey(x => x.Id);
+        builder.Entity<SysDictType>().HasKey(x => x.Id);
         builder.Entity<SysBusinessLog>().HasKey(x => x.Id);
         builder.Entity<SysLoginLog>().HasKey(x => x.Id);
 
@@ -57,5 +59,7 @@ public class CrackerAdminDbContext :
 
         builder.Entity<GenTable>().HasKey(x => x.Id);
         builder.Entity<GenTableColumn>().HasKey(x => x.Id);
+
+        builder.Entity<SysConfig>().HasKey(x => x.Id);
     }
 }
