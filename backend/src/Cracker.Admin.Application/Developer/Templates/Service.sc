@@ -1,12 +1,13 @@
-using Cracker.Admin.Application.Contracts.{{moduleName}};
-using Cracker.Admin.Application.Contracts.{{moduleName}}.Dtos;
-using Cracker.Admin.Domain.Entities.{{moduleName}};
-using Cracker.Admin.Domain.Shared.Extensions;
-using Cracker.Admin.Domain.Shared.Models;
-
+using Cracker.Admin.Entities;
+using Cracker.Admin.Extensions;
+using Cracker.Admin.Models;
+using Cracker.Admin.{{moduleName}};
+using Cracker.Admin.{{moduleName}}.Dtos;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Validation;
 
 namespace Cracker.Admin.Application.{{moduleName}};
 
