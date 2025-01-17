@@ -33,7 +33,7 @@ namespace Cracker.Admin.Helpers
         /// <returns></returns>
         public static string ToPascalCase(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input) || !input.Contains('_'))
                 return input;
 
             // 使用StringBuilder来构建结果字符串

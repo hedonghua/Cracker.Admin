@@ -1,13 +1,10 @@
+using Cracker.Admin.Core;
+using Cracker.Admin.Helpers;
+using Cracker.Admin.{{moduleName}};
+using Cracker.Admin.{{moduleName}}.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Cracker.Admin.Attributes;
-using Cracker.Admin.Filters;
-using Cracker.Admin.Models;
-using Cracker.Admin.System;
-using Cracker.Admin.System.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Volo.Abp.Application.Dtos;
+using {{moduleName}};
+using {{moduleName}}.Threading.Tasks;
 
 namespace Cracker.Admin.Controllers.{{moduleName}};
 
@@ -39,7 +36,7 @@ public class {{businessName}}Controller : AdminController
     /// <param name="dto"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IAppResult> Get{{businessName}}ListAsync([FromQuery] {{businessName}}QueryDto dto)
+    public async Task<IAppResult> Get{{businessName}}ListAsync([FromQuery] {{businessName}}SearchDto dto)
     {
         var data = await _{{businessNameOfFirstLower}}Service.Get{{businessName}}ListAsync(dto);
         return ResultHelper.Ok(data);
@@ -51,7 +48,7 @@ public class {{businessName}}Controller : AdminController
     /// <param name="dto"></param>
     /// <returns></returns>
     [HttpPut]
-    public Task<IAppResult> Update{{businessName}}Async([FromBody] {{businessName}}Dto dto)
+    public async Task<IAppResult> Update{{businessName}}Async([FromBody] {{businessName}}Dto dto)
     {
         await _{{businessNameOfFirstLower}}Service.Update{{businessName}}Async(dto);
         return ResultHelper.Ok();
@@ -63,7 +60,7 @@ public class {{businessName}}Controller : AdminController
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{id:Guid}")]
-    public Task<bool> Delete{{businessName}}Async(Guid id)
+    public async Task<bool> Delete{{businessName}}Async(Guid id)
     {
         await _{{businessNameOfFirstLower}}Service.Delete{{businessName}}Async(id);
         return ResultHelper.Ok(); 
