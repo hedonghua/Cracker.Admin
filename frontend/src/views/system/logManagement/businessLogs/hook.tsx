@@ -8,7 +8,7 @@ export function useTable() {
     {
       prop: "id",
       label: "ID",
-    },
+  },
     {
       prop: "nodeName",
       label: "节点",
@@ -25,13 +25,13 @@ export function useTable() {
       prop: "address",
       label: "地址",
     },
-    {
-      prop: "millSeconds",
-      label: "耗时",
-      formatter: (row: any) => {
-        return row.millSeconds + "ms";
-      },
-    },
+    // {
+    //   prop: "millSeconds",
+    //   label: "耗时",
+    //   formatter: (row: any) => {
+    //     return row.millSeconds + "ms";
+    //   },
+    // },
     {
       prop: "isSuccess",
       label: "结果",

@@ -30,7 +30,8 @@ namespace Cracker.Admin.Filters
                 Action = context.ActionDescriptor.DisplayName,
                 MillSeconds = 0,
                 NodeName = _node,
-                RequestId = Activity.Current?.TraceId.ToString()
+                RequestId = Activity.Current?.TraceId.ToString(),
+                IsSuccess = true,
             };
             if (context.Result is ObjectResult objRes && objRes.Value is IAppResult res)
             {

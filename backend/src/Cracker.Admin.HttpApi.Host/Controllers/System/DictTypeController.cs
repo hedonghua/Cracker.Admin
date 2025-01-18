@@ -1,10 +1,12 @@
-﻿using Cracker.Admin.Core;
+﻿using System;
+using System.Threading.Tasks;
+
+using Cracker.Admin.Core;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.System;
 using Cracker.Admin.System.Dtos;
+
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace Cracker.Admin.Controllers.System;
 
@@ -59,10 +61,22 @@ public class DictTypeController : AdminController
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpDelete("{id:Guid}")]
-    public async Task<IAppResult> DeleteDictTypeAsync(Guid id)
+    [HttpDelete("{dictType}")]
+    public async Task<IAppResult> DeleteDictTypeAsync(string dictType)
     {
-        await _dictTypeService.DeleteDictTypeAsync(id);
+        await _dictTypeService.DeleteDictTypeAsync(dictType);
         return ResultHelper.Ok();
+    }
+
+    /// <summary>
+    /// 字典选项
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IAppResult> GetDictTypeOptionsAsync(string name)
+    {
+        var data = await _dictTypeService.GetDictTypeOptionsAsync(name);
+        return ResultHelper.Ok(data);
     }
 }

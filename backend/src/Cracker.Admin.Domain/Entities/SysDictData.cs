@@ -1,12 +1,15 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 字典数据表
     /// </summary>
     [Table("sys_dict_data")]
-    public class SysDictData : FullAuditedEntity<Guid>
+    [Index(nameof(Key), IsUnique = true)]
+    public class SysDictData : AuditedEntity<Guid>
     {
         /// <summary>
         /// 字典键

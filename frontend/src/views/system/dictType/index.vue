@@ -1,32 +1,22 @@
 <template>
     <div>
         <re-table row-key="id" :request="request" :columns="columns" :enabled-filter="true" :filters="filters"
-            ref="tableRef" @selection-change="selectionChange">
+            ref="tableRef">
             <template #toolbar>
                 <el-button type="primary" v-permission="'admin_system_dict_add'" :loading="loading" icon="Plus"
                     @click="openDialog('新增字典')" plain>新增</el-button>
-                <el-button type="danger" v-permission="'admin_system_dict_delete'" icon="Delete"
-                    :disabled="manyButtonDisabled" plain @click="deleteBatch">批量删除</el-button>
-                <el-button type="warning" :loading="loading" v-permission="'admin_system_dict_refresh'" icon="Refresh"
-                    @click="forceRefreshDict()" plain>刷新缓存</el-button>
             </template>
         </re-table>
         <el-dialog v-model="dialogVisible" :title="dialogTitle" width="500" :before-close="handleClose">
-            <el-form :model="editForm" ref="editFormRef" label-width="60" :rules="rules">
-                <el-form-item prop="key" label="键">
-                    <el-input v-model="editForm.key" placeholder="请输入备注" clearable />
+            <el-form :model="editForm" ref="editFormRef" label-width="80" :rules="rules">
+                <el-form-item prop="isEnabled" label="是否启用">
+                    <el-switch v-model="editForm.isEnabled" />
                 </el-form-item>
-                <el-form-item prop="value" label="值">
-                    <el-input v-model="editForm.value" placeholder="请输入备注" clearable />
+                <el-form-item prop="name" label="字典名称">
+                    <el-input v-model="editForm.name" placeholder="请输入字典名称" clearable />
                 </el-form-item>
-                <el-form-item prop="groupName" label="组">
-                    <el-input v-model="editForm.groupName" placeholder="请输入分组名" clearable />
-                </el-form-item>
-                <el-form-item prop="label" label="文本">
-                    <el-input v-model="editForm.label" placeholder="请输入显示文本" clearable />
-                </el-form-item>
-                <el-form-item prop="sort" label="排序">
-                    <el-input-number v-model="editForm.sort" :min="0" :max="9999" />
+                <el-form-item prop="dictType" label="字典类型">
+                    <el-input v-model="editForm.dictType" placeholder="请输入字典类型" clearable />
                 </el-form-item>
                 <el-form-item prop="remark" label="备注">
                     <el-input v-model="editForm.remark" placeholder="请输入备注" clearable />
@@ -63,10 +53,6 @@ const {
     confirmEvent,
     loading,
     editFormRef,
-    forceRefreshDict,
-    deleteBatch,
-    selectionChange,
-    manyButtonDisabled
 } = useTable();
 
 onMounted(() => {

@@ -1,22 +1,30 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore;
+
 namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 字典类型表
     /// </summary>
     [Table("sys_dict_type")]
-    public class SysDictType : FullAuditedEntity<Guid>
+    [Index(nameof(DictType), IsUnique = true)]
+    public class SysDictType : AuditedEntity<Guid>
     {
         /// <summary>
         /// 字典名称
         /// </summary>
+        [NotNull]
+        [Required]
         [StringLength(128)]
         public string? Name { get; set; }
 
         /// <summary>
         /// 字典类型
         /// </summary>
+        [NotNull]
+        [Required]
         [StringLength(128)]
         public string? DictType { get; set; }
 

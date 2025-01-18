@@ -31,9 +31,10 @@ namespace Cracker.Admin.System.Dtos
         public string? Label { get; set; }
 
         /// <summary>
-        /// 组名
+        /// 字典类型
         /// </summary>
-        public string? GroupName { get; set; }
+        [Required]
+        public string? DictType { get; set; }
 
         /// <summary>
         /// 备注

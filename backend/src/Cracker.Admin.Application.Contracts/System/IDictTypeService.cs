@@ -1,7 +1,9 @@
-﻿using Cracker.Admin.Models;
-using Cracker.Admin.System.Dtos;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Cracker.Admin.Models;
+using Cracker.Admin.System.Dtos;
 
 namespace Cracker.Admin.System
 {
@@ -13,6 +15,8 @@ namespace Cracker.Admin.System
 
         Task UpdateDictTypeAsync(DictTypeDto dto);
 
-        Task DeleteDictTypeAsync(Guid dictTypeId);
+        Task DeleteDictTypeAsync(string dictType);
+
+        Task<List<AppOption>> GetDictTypeOptionsAsync(string name);
     }
 }

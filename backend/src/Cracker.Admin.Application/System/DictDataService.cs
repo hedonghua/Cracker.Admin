@@ -45,7 +45,7 @@ namespace Cracker.Admin.System
             var query = (await _dictRepository.GetQueryableAsync())
                 .WhereIf(!string.IsNullOrEmpty(dto.Key), x => x.Key.Contains(dto.Key!))
                 .WhereIf(!string.IsNullOrEmpty(dto.Label), x => x.Label != null && x.Label.Contains(dto.Label!))
-                .WhereIf(!string.IsNullOrEmpty(dto.GroupName), x => x.DictType != null && x.DictType.Contains(dto.GroupName!));
+                .WhereIf(!string.IsNullOrEmpty(dto.DictType), x => x.DictType != null && x.DictType.Contains(dto.DictType!));
             var count = query.Count();
             var rows = query.Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList();
             return new PagedResultDto<DictDataListDto>(count, ObjectMapper.Map<List<SysDictData>, List<DictDataListDto>>(rows));
@@ -63,7 +63,7 @@ namespace Cracker.Admin.System
             }
             entity.Key = dto.Key;
             entity.Value = dto.Value;
-            entity.DictType = dto.GroupName;
+            entity.DictType = dto.DictType;
             entity.Label = dto.Label;
             entity.Sort = dto.Sort;
             entity.Remark = dto.Remark;

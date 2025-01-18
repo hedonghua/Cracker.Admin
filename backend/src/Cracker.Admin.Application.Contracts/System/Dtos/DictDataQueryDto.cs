@@ -17,6 +17,6 @@ namespace Cracker.Admin.System.Dtos
         /// <summary>
         /// 组名
         /// </summary>
-        public string? GroupName { get; set; }
+        public string? DictType { get; set; }
     }
 }

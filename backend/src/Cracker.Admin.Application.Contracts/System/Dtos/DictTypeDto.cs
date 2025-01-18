@@ -8,9 +8,7 @@ public class DictTypeDto
 {
     public string? Name { get; set; }
 
-    [NotNull]
-    [Required]
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
 
     [NotNull]
     [Required]

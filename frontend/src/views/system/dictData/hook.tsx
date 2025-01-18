@@ -1,16 +1,16 @@
 import { ReTableColumn } from "@/components/re-table/types";
-import { reactive, ref } from "vue";
+import { onBeforeMount, reactive, ref } from "vue";
 import {
-  getDictList,
-  addDict,
-  updateDict,
-  deleteDict,
-  refreshDict,
-} from "@/api/system/dict";
+  getDictDataList,
+  addDictData,
+  updateDictData,
+  deleteDictData,
+} from "@/api/system/dictData";
 import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
-import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import utils from "@/utils";
+import _ from "lodash";
+import { useRoute } from "vue-router";
 
 export function useTable() {
   /*========================== 字段 ========================== */
@@ -20,8 +20,8 @@ export function useTable() {
       width: "50px",
     },
     {
-      prop: "groupName",
-      label: "组",
+      prop: "dictType",
+      label: "类型",
     },
     {
       prop: "key",
@@ -77,21 +77,15 @@ export function useTable() {
   const filters = [
     {
       type: "text",
-      label: "组名",
-      key: "groupName",
-      placeholder: "请输入分组名",
-    },
-    {
-      type: "text",
       label: "键",
       key: "key",
       placeholder: "请输入字典键",
     },
     {
       type: "text",
-      label: "值",
-      key: "value",
-      placeholder: "请输入字典值",
+      label: "显示文本",
+      key: "label",
+      placeholder: "请输入显示文本",
     },
   ];
   const userAuth = useAuthorization();
@@ -101,7 +95,7 @@ export function useTable() {
   const editFormRef = ref<FormInstance>();
   const editForm = reactive({
     id: null,
-    groupName: null,
+    dictType: "",
     key: null,
     value: null,
     sort: 0,
@@ -111,10 +105,14 @@ export function useTable() {
   const rules = {
     key: [{ required: true, trigger: "blur", message: "字典键不能为空" }],
     value: [{ required: true, trigger: "blur", message: "字典值不能为空" }],
+    dictType: [
+      { required: true, trigger: "blur", message: "字典类型不能为空" },
+    ],
   };
   const loading = ref<boolean>(false);
   const manyButtonDisabled = ref<boolean>(true);
   const selectRows = ref<Array<any>>([]);
+  const dictType = ref<string>();
 
   /*========================== 自定义函数 ========================== */
   const remove = (row: any) => {
@@ -123,7 +121,7 @@ export function useTable() {
       cancelButtonText: "取消",
       type: "warning",
     }).then(() => {
-      deleteDict([row.id]).then((res) => {
+      deleteDictData([row.id]).then((res) => {
         if (res.code === 0) {
           ElMessage.success("删除成功");
           tableRef?.value.refresh();
@@ -134,7 +132,7 @@ export function useTable() {
     });
   };
   const request = (params: any) => {
-    return getDictList(params);
+    return getDictDataList({ ...params, dictType: dictType.value });
   };
   const handleClose = (done: () => void) => {
     clearEditFormValues();
@@ -144,13 +142,7 @@ export function useTable() {
     dialogTitle.value = title;
     dialogVisible.value = true;
     if (row && title.includes("编辑")) {
-      editForm.id = row.id;
-      editForm.groupName = row.groupName;
-      editForm.key = row.key;
-      editForm.value = row.value;
-      editForm.label = row.label;
-      editForm.sort = row.sort;
-      editForm.remark = row.remark;
+      _.merge(editForm, row);
     }
   };
   const closeDialog = () => {
@@ -159,22 +151,14 @@ export function useTable() {
   };
   const clearEditFormValues = () => {
     editFormRef?.value?.resetFields();
-    Object.assign(editForm, {
-      id: null,
-      groupName: null,
-      key: null,
-      value: null,
-      sort: 0,
-      label: null,
-      remark: null,
-    });
+    _.mapValues(editForm, () => null);
   };
   const confirmEvent = () => {
     editFormRef.value?.validate((valid: any) => {
       if (valid) {
         loading.value = true;
         if (dialogTitle.value?.includes("新增")) {
-          addDict(editForm)
+          addDictData(editForm)
             .then((res) => {
               loading.value = false;
               if (res.code === 0) {
@@ -189,7 +173,7 @@ export function useTable() {
               loading.value = false;
             });
         } else {
-          updateDict(editForm)
+          updateDictData(editForm)
             .then((res) => {
               loading.value = false;
               if (res.code === 0) {
@@ -205,23 +189,6 @@ export function useTable() {
             });
         }
       }
-    });
-  };
-  const forceRefreshDict = () => {
-    ElMessageBox.confirm("此操作将刷新字典缓存，确定继续？", "敏感操作", {
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-      type: "warning",
-    }).then(() => {
-      loading.value = true;
-      refreshDict().then((res) => {
-        loading.value = false;
-        if (res.code === AppResponseStatusCode.SUCCESS) {
-          ElMessage.success("刷新成功");
-        } else {
-          ElMessage.error("刷新失败");
-        }
-      });
     });
   };
   const selectionChange = (rows: any[]) => {
@@ -241,7 +208,7 @@ export function useTable() {
       type: "warning",
     }).then(() => {
       const ids = selectRows.value.map((x) => x.id);
-      deleteDict(ids).then((res) => {
+      deleteDictData(ids).then((res) => {
         if (res.code === 0) {
           ElMessage.success("删除成功");
           tableRef?.value.refresh();
@@ -251,6 +218,13 @@ export function useTable() {
       });
     });
   };
+
+  onBeforeMount(() => {
+    const route = useRoute();
+    dictType.value = route.params.dictType as string;
+    editForm.dictType = dictType.value;
+  });
+
   return {
     request,
     columns,
@@ -266,7 +240,6 @@ export function useTable() {
     dialogTitle,
     confirmEvent,
     loading,
-    forceRefreshDict,
     deleteBatch,
     selectionChange,
     manyButtonDisabled,

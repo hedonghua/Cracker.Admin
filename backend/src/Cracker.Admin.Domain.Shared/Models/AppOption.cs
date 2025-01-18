@@ -16,5 +16,14 @@ namespace Cracker.Admin.Models
         /// 扩展
         /// </summary>
         public object? Extra { get; set; }
+
+        public AppOption()
+        { }
+
+        public AppOption(string? label, string? value)
+        {
+            Label = label;
+            Value = value;
+        }
     }
 }
