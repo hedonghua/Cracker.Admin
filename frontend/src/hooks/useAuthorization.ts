@@ -40,8 +40,14 @@ export function useAuthorization(local?: boolean) {
    * @returns 有一个不满足返回false
    */
   function hasPermission(...args: string[]): boolean {
+    let auths: string[] = userStore.auths;
+    if (!auths || auths.length === 0) {
+      if (localStorage.getItem("auths")) {
+        auths = JSON.parse(localStorage.getItem("auths") as string) as string[];
+      }
+    }
     for (let i = 0; i < args.length; i++) {
-      if (!userStore.auths.includes(args[i])) {
+      if (!auths.includes(args[i])) {
         return false;
       }
     }

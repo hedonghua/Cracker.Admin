@@ -64,6 +64,7 @@ const login = () => {
       userLogin(form).then(async (res) => {
         //设置身份信息
         userStore.setUser(res.data as UserAuthInfo);
+        localStorage.setItem("auths", JSON.stringify(res.data.auths));
         //初始化路由
         await routeCache.loadRoutes(true);
         router.replace("/home");
