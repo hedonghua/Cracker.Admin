@@ -10,7 +10,7 @@ namespace Cracker.Admin;
 
 public class Program
 {
-    public async static Task<int> Main(string[] args)
+    public static async Task<int> Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
 #if DEBUG
@@ -21,7 +21,7 @@ public class Program
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
-            .WriteTo.Async(c => c.File("Logs/logs.txt"))
+            .WriteTo.Async(c => c.File("Logs/logs.txt", rollingInterval: RollingInterval.Day))
             .WriteTo.Async(c => c.Console())
             .CreateLogger();
 

@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Coravel;
-
 using Cracker.Admin.Core;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Infrastructure;
@@ -21,12 +16,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
-using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
@@ -38,7 +35,6 @@ namespace Cracker.Admin;
     typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(CrackerAdminApplicationModule),
     typeof(CrackerAdminInfrastructureModule),
-    typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
 )]
 public class CrackerAdminHttpApiHostModule : AbpModule
@@ -201,7 +197,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         app.UseMiddleware<ReHeaderMiddleware>();
 
         app.UseAuditing();
-        app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
