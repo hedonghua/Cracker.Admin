@@ -1,6 +1,7 @@
 using Coravel;
 using Cracker.Admin.Core;
 using Cracker.Admin.Filters;
+using Cracker.Admin.Helpers;
 using Cracker.Admin.Infrastructure;
 using Cracker.Admin.Middlewares;
 using Cracker.Admin.MultiTenancy;
@@ -52,6 +53,8 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
         ConfigureFilters(context, configuration);
+        ConfigureApiBehavior(context, configuration);
+
         context.Services.AddScheduler();
 
         context.Services.AddTransient<IReHeader>(sp =>
@@ -158,6 +161,30 @@ public class CrackerAdminHttpApiHostModule : AbpModule
                     .AllowAnyMethod()
                     .AllowCredentials();
             });
+        });
+    }
+
+    private void ConfigureApiBehavior(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        Configure<ApiBehaviorOptions>(setupAction =>
+        {
+            setupAction.InvalidModelStateResponseFactory = context =>
+            {
+                // 自定义错误格式
+                var errors = new Dictionary<string, string[]>();
+                foreach (var key in context.ModelState.Keys)
+                {
+                    if (context.ModelState.TryGetValue(key, out var modelState))
+                    {
+                        errors[key] = modelState.Errors.Select(e => e.ErrorMessage).ToArray();
+                    }
+                }
+
+                return new ObjectResult(ResultHelper.Fail(errors.First().Value.First()))
+                {
+                    StatusCode = StatusCodes.Status400BadRequest
+                };
+            };
         });
     }
 
