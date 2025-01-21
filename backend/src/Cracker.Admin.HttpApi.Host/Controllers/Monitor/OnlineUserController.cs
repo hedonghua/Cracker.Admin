@@ -27,9 +27,9 @@ namespace Cracker.Admin.Controllers.Monitor
         }
 
         [HttpPost]
-        public async Task<IAppResult> LogoutAsync(string userId)
+        public async Task<IAppResult> LogoutAsync(string key)
         {
-            await onlineUserService.LogoutAsync(userId);
+            await onlineUserService.LogoutAsync(key);
             return ResultHelper.Ok();
         }
     }

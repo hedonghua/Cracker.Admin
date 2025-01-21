@@ -60,5 +60,12 @@ namespace Cracker.Admin.Entities
         /// </summary>
         [Comment("是否成功")]
         public bool IsSuccess { get; set; }
+
+        /// <summary>
+        /// 会话ID
+        /// </summary>
+        [Comment("会话ID")]
+        [StringLength(36)]
+        public string? SessionId { get; set; }
     }
 }

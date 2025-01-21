@@ -32,5 +32,10 @@ namespace Cracker.Admin.Monitor.Dtos
         public string? Browser { get; set; }
 
         public DateTime CreationTime { get; set; }
+
+        /// <summary>
+        /// 会话ID
+        /// </summary>
+        public string? SessionId { get; set; }
     }
 }

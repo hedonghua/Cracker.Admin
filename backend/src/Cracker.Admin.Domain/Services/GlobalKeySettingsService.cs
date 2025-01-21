@@ -10,13 +10,13 @@
 //    public class GlobalKeySettingsService : IKeySettings
 //    {
 //        private readonly IRepository<SysDict> _dictRepository;
-//        private readonly ICacheProvider cacheProvider;
+//        private readonly IDatabase redisDb;
 //        private static int _num = 0;
 
-//        public GlobalKeySettingsService(IRepository<SysDict> dictRepository, ICacheProvider cacheProvider)
+//        public GlobalKeySettingsService(IRepository<SysDict> dictRepository, IDatabase redisDb)
 //        {
 //            _dictRepository = dictRepository;
-//            this.cacheProvider = cacheProvider;
+//            this.redisDb = redisDb;
 //        }
 
 //        public static IKeySettings Instance => _lazyValue.Value;
@@ -32,25 +32,25 @@
 //            var all = await _dictRepository.GetListAsync(x => x.IsEnabled);
 //            foreach (var item in all)
 //            {
-//                await cacheProvider.HSetAsync(AdminConsts.DictCacheHashKey, item.Key, item.Value);
+//                await redisDb.HSetAsync(AdminConsts.DictCacheHashKey, item.Key, item.Value);
 //            }
 //            Interlocked.Increment(ref _num);
 //        }
 
 //        public async Task<string> GetAsync(string key)
 //        {
-//            return await cacheProvider.HGetAsync<string>(AdminConsts.DictCacheHashKey, key);
+//            return await redisDb.HGetAsync<string>(AdminConsts.DictCacheHashKey, key);
 //        }
 
 //        public async Task<bool> RemoveAsync(string key)
 //        {
-//            await cacheProvider.HDelAsync(AdminConsts.DictCacheHashKey, key);
+//            await redisDb.HDelAsync(AdminConsts.DictCacheHashKey, key);
 //            return true;
 //        }
 
 //        public async Task<bool> SetAsync(string key, string value, bool isDbSync = false)
 //        {
-//            await cacheProvider.HSetAsync(AdminConsts.DictCacheHashKey, key, value);
+//            await redisDb.HSetAsync(AdminConsts.DictCacheHashKey, key, value);
 //            if (isDbSync)
 //            {
 //                var entity = await _dictRepository.SingleOrDefaultAsync(x => x.Key.ToLower() == key.ToLower());

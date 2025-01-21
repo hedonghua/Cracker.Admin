@@ -62,7 +62,7 @@ export function useTable() {
     return getOnlineUserList(params);
   };
   const doLogout = (row: any) => {
-    logoutUser(row.userId).then((res) => {
+    logoutUser(row.userId + ":" + row.sessionId).then((res) => {
       if (res.code === 0) {
         ElMessage.success("注销成功");
         tableRef.value?.refresh();

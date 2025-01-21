@@ -9,6 +9,6 @@ namespace Cracker.Admin.Monitor
     {
         Task<PagedResultStruct<OnlineUserResultDto>> GetOnlineUserListAsync(OnlineUserSearchDto dto);
 
-        Task LogoutAsync(string userId);
+        Task LogoutAsync(string key);
     }
 }

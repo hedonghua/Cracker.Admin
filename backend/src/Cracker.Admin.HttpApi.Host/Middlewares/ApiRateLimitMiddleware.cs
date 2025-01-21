@@ -1,8 +1,9 @@
-﻿using Cracker.Admin.Core;
+﻿using Cracker.Admin.Extensions;
 using Cracker.Admin.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -14,13 +15,13 @@ namespace Cracker.Admin.Middlewares
         private readonly RequestDelegate next;
         private readonly IConfiguration _configuration;
         private readonly ILogger<ApiRateLimitMiddleware> _logger;
-        private readonly ICacheProvider cacheProvider;
+        private readonly IDatabase redisDb;
 
-        public ApiRateLimitMiddleware(RequestDelegate next, IConfiguration configuration, ILogger<ApiRateLimitMiddleware> logger, ICacheProvider cacheProvider)
+        public ApiRateLimitMiddleware(RequestDelegate next, IConfiguration configuration, ILogger<ApiRateLimitMiddleware> logger, IDatabase redisDb)
         {
             _configuration = configuration;
             _logger = logger;
-            this.cacheProvider = cacheProvider;
+            this.redisDb = redisDb;
             this.next = next;
         }
 
@@ -70,20 +71,19 @@ namespace Cracker.Admin.Middlewares
                     }
                 }
                 var key = GetKeyPath(requestPath);
-                if (await cacheProvider.ExistsAsync(key))
+                if (await redisDb.KeyExistsAsync(key))
                 {
-                    int realCount = await cacheProvider.GetAsync<int>(key);
+                    int realCount = int.Parse((await redisDb.StringGetAsync(key))!);
                     _logger.LogInformation("实际请求数：{realCount}", realCount);
                     if (realCount >= count)
                     {
                         return new AppResult(-1, "操作过快，请等一下");
                     }
-                    realCount += 1;
-                    await cacheProvider.IncrByAsync(key, 1);
+                    await redisDb.StringIncrementAsync(key, 1);
                 }
                 else
                 {
-                    await cacheProvider.SetAsync(key, 1, TimeSpan.FromSeconds(timeSeconds));
+                    await redisDb.StringSetAsync(key, 1, TimeSpan.FromSeconds(timeSeconds));
                 }
             }
             return new AppResult();

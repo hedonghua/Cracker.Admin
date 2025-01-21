@@ -15,4 +15,6 @@ public static class AdminConsts
     public const string AvatarFemale = "avatar/female.png";
 
     public const string AvatarMale = "avatar/male.png";
+
+    public const string SessionId = "SessionId";
 }

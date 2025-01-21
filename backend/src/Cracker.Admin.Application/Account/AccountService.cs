@@ -2,10 +2,12 @@ using Cracker.Admin.Account.Dtos;
 using Cracker.Admin.Core;
 using Cracker.Admin.Entities;
 using Cracker.Admin.Enums;
+using Cracker.Admin.Extensions;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.Services;
 using Microsoft.Extensions.Configuration;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +32,14 @@ namespace Cracker.Admin.Account
         private readonly IConfiguration _configuration;
         private readonly IReHeader _reHeader;
         private readonly IRepository<SysLoginLog> loginLogRepository;
-        private readonly ICacheProvider cacheProvider;
+        private readonly IDatabase redisDb;
         private readonly IdentityDomainService identityDomainService;
         private const int expired = 4;
 
         public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
             IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository
-            , ICacheProvider cacheProvider, IdentityDomainService identityDomainService)
+            , IDatabase redisDb, IdentityDomainService identityDomainService)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
@@ -48,7 +50,7 @@ namespace Cracker.Admin.Account
             _configuration = configuration;
             _reHeader = reHeader;
             this.loginLogRepository = loginLogRepository;
-            this.cacheProvider = cacheProvider;
+            this.redisDb = redisDb;
             this.identityDomainService = identityDomainService;
         }
 
@@ -58,14 +60,16 @@ namespace Cracker.Admin.Account
         /// <param name="uid"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private async Task<TokenResultDto> GenerateTokenAsync(Guid userId, string userName)
+        private async Task<(TokenResultDto tokenRes, string sessionId)> GenerateTokenAsync(Guid userId, string userName)
         {
             var time = DateTime.Now;
 
             var refreshToken = Guid.NewGuid().ToString("N").ToLower();
+            var sessionId = Guid.NewGuid().ToString("N").ToLower();
             var claims = new List<Claim> {
                 new(ClaimTypes.NameIdentifier, userId.ToString()),
-                new(ClaimTypes.Name, userName)
+                new(ClaimTypes.Name, userName),
+                new(AdminConsts.SessionId, sessionId)
             };
             var tokenExpired = time.AddHours(expired);
             var rs = new LoginResultDto
@@ -75,23 +79,32 @@ namespace Cracker.Admin.Account
                 AccessToken = identityDomainService.GenerateToken(claims, tokenExpired),
                 RefreshToken = refreshToken
             };
-            await cacheProvider.SetAsync("AccessToken:" + userId, rs.AccessToken, TimeSpan.FromHours(expired));
-            await cacheProvider.SetAsync("RefreshToken:" + userId, refreshToken, TimeSpan.FromHours(expired + 1));
 
-            return rs;
+            if (!bool.Parse(_configuration["App:AccountManyLogin"]!))
+            {
+                //移除其它记录token
+                await redisDb.KeyDeleteByPatternAsync("AccessToken:" + userId + ":*");
+                await redisDb.KeyDeleteByPatternAsync("RefreshToken:" + userId + ":*");
+            }
+
+            await redisDb.StringSetAsync($"AccessToken:{userId}:{sessionId}", rs.AccessToken, TimeSpan.FromHours(expired));
+            await redisDb.StringSetAsync($"RefreshToken:{userId}:{sessionId}", refreshToken, TimeSpan.FromHours(expired + 1));
+
+            return (rs, sessionId);
         }
 
         public async Task<TokenResultDto> GetAccessTokenAsync(string refreshToken)
         {
             if (!_currentUser.Id.HasValue) throw new AbpAuthorizationException();
 
-            var key = "RefreshToken:" + _currentUser.Id.Value;
-            if (!await cacheProvider.ExistsAsync(key)) throw new BusinessException(message: "刷新token已过期");
+            var sessionId = _currentUser.FindClaim(AdminConsts.SessionId)!.Value;
+            var key = $"RefreshToken:{_currentUser.Id.Value}:{sessionId}";
+            if (!await redisDb.KeyExistsAsync(key)) throw new BusinessException(message: "刷新token已过期");
 
-            var existRefreshToken = await cacheProvider.GetAsync<string>(key);
+            var existRefreshToken = await redisDb.StringGetAsync(key);
             if (!refreshToken.Equals(existRefreshToken)) throw new BusinessException(message: "刷新token不正确");
 
-            return await GenerateTokenAsync(_currentUser.Id.Value, _currentUser.UserName!);
+            return (await GenerateTokenAsync(_currentUser.Id.Value, _currentUser.UserName!)).tokenRes;
         }
 
         public async Task<UserInfoDto> GetUserInfoAsync()
@@ -132,7 +145,11 @@ namespace Cracker.Admin.Account
                 var isRight = user.Password == EncryptionHelper.GenEncodingPassword(dto.Password, user.PasswordSalt);
                 if (!isRight) throw new BusinessException(message: "密码错误");
 
-                var rs = ObjectMapper.Map<TokenResultDto, LoginResultDto>(await GenerateTokenAsync(user.Id, user.UserName));
+                var (tokenRes, sessionId) = await GenerateTokenAsync(user.Id, user.UserName);
+
+                loginLog.SessionId = sessionId;
+
+                var rs = ObjectMapper.Map<TokenResultDto, LoginResultDto>(tokenRes);
                 var permission = await identityDomainService.GetUserPermissionAsync(user.Id);
                 rs.UserName = dto.UserName;
                 rs.Auths = permission.Auths;
@@ -241,10 +258,11 @@ namespace Cracker.Admin.Account
         public async Task<bool> SignOutAsync()
         {
             var uid = _currentUser.Id!.Value;
+            var sessionId = _currentUser.FindClaim(AdminConsts.SessionId)!.Value;
             //移除访问token
-            await cacheProvider.DelAsync("AccessToken:" + uid);
+            await redisDb.KeyDeleteAsync($"AccessToken:{uid}:{sessionId}");
             //移除刷新token
-            await cacheProvider.DelAsync("RefreshToken:" + uid);
+            await redisDb.KeyDeleteAsync($"RefreshToken:{uid}:{sessionId}");
             return true;
         }
     }

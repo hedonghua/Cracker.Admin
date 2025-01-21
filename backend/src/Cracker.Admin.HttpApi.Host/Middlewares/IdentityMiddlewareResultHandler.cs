@@ -26,9 +26,10 @@ namespace Cracker.Admin.Middlewares
             {
                 //身份验证
                 var subjectId = context.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var sessionId = context.User.FindFirst(x => x.Type == AdminConsts.SessionId)?.Value;
 
                 var requestToken = context.Request.Headers["Authorization"].ToString().Replace(JwtBearerDefaults.AuthenticationScheme, "").Trim();
-                var isValid = await identityDomainService.CheckTokenAsync(subjectId!, requestToken);
+                var isValid = await identityDomainService.CheckTokenAsync(subjectId!, sessionId!, requestToken);
                 if (!isValid)
                 {
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;

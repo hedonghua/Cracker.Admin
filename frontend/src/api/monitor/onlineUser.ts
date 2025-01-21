@@ -28,8 +28,8 @@ export function getOnlineUserList(params: any) {
  * @param params
  * @returns
  */
-export function logoutUser(userId: string) {
+export function logoutUser(key: string) {
   return request.post<any, ApplicationResult<PagedResult<OnlineUserResult>>>(
-    "/api/OnlineUser/Logout?userId=" + userId
+    "/api/OnlineUser/Logout?key=" + key
   );
 }

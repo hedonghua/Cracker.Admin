@@ -1,8 +1,9 @@
-﻿using Cracker.Admin.Core;
-using Cracker.Admin.Entities;
+﻿using Cracker.Admin.Entities;
+using Cracker.Admin.Extensions;
 using Cracker.Admin.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -22,26 +23,26 @@ namespace Cracker.Admin.Services
         private readonly IRepository<SysRoleMenu> _roleMenuRepository;
         private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysMenu> _menuRepository;
-        private readonly ICacheProvider cacheProvider;
+        private readonly IDatabase redisDb;
         private readonly IConfiguration configuration;
 
         public IdentityDomainService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, ICacheProvider cacheProvider, IConfiguration configuration)
+            IRepository<SysMenu> menuRepository, IDatabase redisDb, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
             _roleMenuRepository = roleMenuRepository;
             _roleRepository = roleRepository;
             _menuRepository = menuRepository;
-            this.cacheProvider = cacheProvider;
+            this.redisDb = redisDb;
             this.configuration = configuration;
         }
 
         public async Task<UserPermission> GetUserPermissionAsync(Guid userId)
         {
             var key = "UserPermission:" + userId;
-            if (await cacheProvider.ExistsAsync(key)) return (await cacheProvider.GetAsync<UserPermission>(key))!;
+            if (await redisDb.KeyExistsAsync(key)) return (await redisDb.GetObjectAsync<UserPermission>(key))!;
 
             var roleIds = (await _userRoleRepository.GetQueryableAsync()).Where(x => x.UserId == userId).Select(x => x.RoleId).ToList();
             var roles = await _roleRepository.GetListAsync(x => roleIds.Contains(x.Id));
@@ -60,7 +61,7 @@ namespace Cracker.Admin.Services
                 RoleIds = [.. roleIds],
                 MenuIds = [.. menuIds]
             };
-            await cacheProvider.SetAsync(key, rs);
+            await redisDb.SetObjectAsync(key, rs);
             return rs;
         }
 
@@ -69,13 +70,13 @@ namespace Cracker.Admin.Services
             var userRoles = await _userRoleRepository.GetListAsync(x => x.RoleId == roleId);
             foreach (var item in userRoles)
             {
-                await cacheProvider.DelAsync("UserPermission:" + item.UserId);
+                await redisDb.KeyDeleteAsync("UserPermission:" + item.UserId);
             }
         }
 
         public async Task DelUserPermissionCacheByUserIdAsync(Guid userId)
         {
-            await cacheProvider.DelAsync("UserPermission:" + userId);
+            await redisDb.KeyDeleteAsync("UserPermission:" + userId);
         }
 
         public async Task DelAdminUserPermissionCacheAsync()
@@ -90,13 +91,13 @@ namespace Cracker.Admin.Services
             var roleIds = (await _roleMenuRepository.GetQueryableAsync()).Where(x => x.MenuId == menuId).Select(x => x.RoleId).ToList();
             foreach (var item in roleIds)
             {
-                await cacheProvider.DelAsync("UserPermission:" + item);
+                await redisDb.KeyDeleteAsync("UserPermission:" + item);
             }
         }
 
-        public async Task<bool> CheckTokenAsync(string userId, string token)
+        public async Task<bool> CheckTokenAsync(string userId, string sessionId, string token)
         {
-            var existToken = await cacheProvider.GetAsync<string>("AccessToken:" + userId);
+            var existToken = await redisDb.StringGetAsync($"AccessToken:{userId}:{sessionId}");
             return token == existToken;
         }
 

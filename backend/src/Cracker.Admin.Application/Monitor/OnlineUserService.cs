@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-
-using Cracker.Admin.Core;
-using Cracker.Admin.Entities;
+﻿using Cracker.Admin.Entities;
 using Cracker.Admin.Models;
 using Cracker.Admin.Monitor.Dtos;
-
+using StackExchange.Redis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
@@ -17,13 +14,13 @@ namespace Cracker.Admin.Monitor
     public class OnlineUserService : ApplicationService, IOnlineUserService
     {
         private readonly IRepository<SysLoginLog> loginLogRepository;
-        private readonly ICacheProvider cacheProvider;
+        private readonly IDatabase redisDb;
         private readonly IRepository<SysUser> userRepository;
 
-        public OnlineUserService(IRepository<SysLoginLog> loginLogRepository, ICacheProvider cacheProvider, IRepository<SysUser> userRepository)
+        public OnlineUserService(IRepository<SysLoginLog> loginLogRepository, IDatabase redisDb, IRepository<SysUser> userRepository)
         {
             this.loginLogRepository = loginLogRepository;
-            this.cacheProvider = cacheProvider;
+            this.redisDb = redisDb;
             this.userRepository = userRepository;
         }
 
@@ -33,9 +30,9 @@ namespace Cracker.Admin.Monitor
             var time = DateTime.Now.AddHours(-4).AddMinutes(-1);
 
             var loginLogs = (await loginLogRepository.GetQueryableAsync()).Where(x => x.CreationTime >= time)
-                .Where(x => x.IsSuccess)
+                .Where(x => x.IsSuccess && !string.IsNullOrEmpty(x.SessionId))
                 .WhereIf(!string.IsNullOrEmpty(dto.UserName), x => x.UserName.Contains(dto.UserName!))
-                .GroupBy(x => x.UserName).Select(g => g.OrderByDescending(x => x.CreationTime).First()).ToList();
+                .OrderByDescending(x => x.CreationTime).ToList();
             var userNames = loginLogs.Select(x => x.UserName).ToList();
             var users = (await userRepository.GetQueryableAsync()).Where(x => userNames.Contains(x.UserName)).Select(x => new { x.Id, x.UserName }).ToList();
 
@@ -45,7 +42,7 @@ namespace Cracker.Admin.Monitor
                 var user = users.FirstOrDefault(x => x.UserName == loginLog.UserName);
                 if (user == null) continue;
 
-                if (await cacheProvider.ExistsAsync("AccessToken:" + user.Id))
+                if (await redisDb.KeyExistsAsync($"AccessToken:{user.Id}:{loginLog.SessionId}"))
                 {
                     list.Add(new OnlineUserResultDto
                     {
@@ -55,7 +52,8 @@ namespace Cracker.Admin.Monitor
                         Address = loginLog.Address,
                         Os = loginLog.Os,
                         Browser = loginLog.Browser,
-                        CreationTime = loginLog.CreationTime
+                        CreationTime = loginLog.CreationTime,
+                        SessionId = loginLog.SessionId
                     });
                 }
             }
@@ -64,16 +62,16 @@ namespace Cracker.Admin.Monitor
             return new PagedResultStruct<OnlineUserResultDto>(dto)
             {
                 TotalCount = total,
-                Items = list.OrderByDescending(s=>s.CreationTime).Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList()
+                Items = list.OrderByDescending(s => s.CreationTime).Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList()
             };
         }
 
-        public async Task LogoutAsync(string userId)
+        public async Task LogoutAsync(string key)
         {
             //移除访问token
-            await cacheProvider.DelAsync("AccessToken:" + userId);
+            await redisDb.KeyDeleteAsync("AccessToken:" + key);
             //移除刷新token
-            await cacheProvider.DelAsync("RefreshToken:" + userId);
+            await redisDb.KeyDeleteAsync("RefreshToken:" + key);
         }
     }
 }
