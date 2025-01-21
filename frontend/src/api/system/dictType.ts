@@ -1,5 +1,5 @@
 import request from "@/request";
-import { ApplicationResult, PagedResult } from "#/data";
+import { ApplicationResult, AppOption, PagedResult } from "#/data";
 
 export interface DictTypeItem {
   id: string;
@@ -53,5 +53,21 @@ export function updateDictType(data: any) {
 export function deleteDictType(dictType: string) {
   return request.delete<any, ApplicationResult<any>>(
     "/api/dictType/DeleteDictType/" + dictType
+  );
+}
+
+/**
+ * 获取字典选项
+ * @param dictType 
+ * @returns 
+ */
+export function getDictDataOptions(dictType: string) {
+  return request.get<any, ApplicationResult<AppOption[]>>(
+    "/api/dictType/GetDictDataOptions",
+    {
+      params: {
+        type: dictType,
+      },
+    }
   );
 }

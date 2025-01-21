@@ -39,6 +39,12 @@ namespace Cracker.Admin.Entities
         public string? Value { get; set; }
 
         /// <summary>
+        /// 组别
+        /// </summary>
+        [StringLength(64)]
+        public string? GroupKey {  get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         [Comment("备注")]

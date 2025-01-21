@@ -3,6 +3,7 @@ import ReImage from "./re-image/index.vue";
 import ReIcon from "./re-icon/index.vue";
 import ReTable from "./re-table/index.vue";
 import ReTag from "./re-tag/index.vue";
+import ReDict from "./re-dict/index.vue";
 
 /**
  * 加载自定义组件
@@ -13,6 +14,7 @@ function loadComponents(app: App<Element>) {
   app.component("re-icon", ReIcon);
   app.component("re-table", ReTable);
   app.component("re-tag", ReTag);
+  app.component("re-dict", ReDict);
 }
 
 export default loadComponents;

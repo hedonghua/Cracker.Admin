@@ -17,6 +17,6 @@ namespace Cracker.Admin.System
 
         Task DeleteDictTypeAsync(string dictType);
 
-        Task<List<AppOption>> GetDictTypeOptionsAsync(string name);
+        Task<List<AppOption>> GetDictDataOptionsAsync(string type);
     }
 }

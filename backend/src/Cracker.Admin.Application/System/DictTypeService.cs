@@ -73,11 +73,11 @@ public class DictTypeService : ApplicationService, IDictTypeService
         await dictTypeRepository.UpdateAsync(entity);
     }
 
-    public async Task<List<AppOption>> GetDictTypeOptionsAsync(string name)
+    public async Task<List<AppOption>> GetDictDataOptionsAsync(string type)
     {
-        return (await dictTypeRepository.GetQueryableAsync())
-            .WhereIf(!string.IsNullOrEmpty(name), x => x.Name.Contains(name))
-            .OrderBy(x => x.Name)
-            .Select(x => new AppOption(x.Name, x.DictType)).ToList();
+        return (await dictDataRepository.GetQueryableAsync())
+            .Where(x => x.DictType == type)
+            .OrderBy(x => x.Sort)
+            .Select(x => new AppOption(x.Label, x.Value)).ToList();
     }
 }

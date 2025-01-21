@@ -74,9 +74,9 @@ public class DictTypeController : AdminController
     /// <param name="name"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IAppResult> GetDictTypeOptionsAsync(string name)
+    public async Task<IAppResult> GetDictDataOptionsAsync(string type)
     {
-        var data = await _dictTypeService.GetDictTypeOptionsAsync(name);
+        var data = await _dictTypeService.GetDictDataOptionsAsync(type);
         return ResultHelper.Ok(data);
     }
 }
