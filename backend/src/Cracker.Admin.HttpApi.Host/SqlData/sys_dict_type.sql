@@ -1,0 +1,1 @@
+INSERT INTO `sys_dict_type` (`Id`, `Name`, `DictType`, `Remark`, `IsEnabled`, `CreationTime`, `CreatorId`, `LastModificationTime`, `LastModifierId`) VALUES ('3a1798fc-49b5-9b4a-b364-5687cc6b408a', '性别', 'sex', '', 1, '2025-01-21 11:02:09.635369', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);

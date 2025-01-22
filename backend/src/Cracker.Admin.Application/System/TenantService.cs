@@ -1,7 +1,9 @@
 ﻿using Cracker.Admin.Entities;
+using Cracker.Admin.Models;
 using Cracker.Admin.System.Dtos;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain.Repositories;
 
 namespace Cracker.Admin.System
@@ -9,10 +11,12 @@ namespace Cracker.Admin.System
     public class TenantService : ApplicationService, ITenantService
     {
         private readonly IRepository<SysTenant> tenantRepository;
+        private readonly IBackgroundJobManager backgroundJobManager;
 
-        public TenantService(IRepository<SysTenant> tenantRepository)
+        public TenantService(IRepository<SysTenant> tenantRepository, IBackgroundJobManager backgroundJobManager)
         {
             this.tenantRepository = tenantRepository;
+            this.backgroundJobManager = backgroundJobManager;
         }
 
         public async Task AddTenantAsync(TenantDto dto)
@@ -20,8 +24,7 @@ namespace Cracker.Admin.System
             var entity = ObjectMapper.Map<TenantDto, SysTenant>(dto);
             await tenantRepository.InsertAsync(entity);
 
-            //自动迁移数据库结构和数据
-
+            await backgroundJobManager.EnqueueAsync(new CreationDbParameter { ConnectionString = dto.ConnectionString });
         }
     }
 }

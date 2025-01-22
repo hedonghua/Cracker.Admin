@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cracker.Admin.Entities
 {
     /// <summary>
     /// 租户表
     /// </summary>
+    [Table("sys_tenant")]
     [Comment("租户表")]
     public class SysTenant : AuditedEntity<Guid>
     {

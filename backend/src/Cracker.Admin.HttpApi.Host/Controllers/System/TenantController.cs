@@ -21,7 +21,7 @@ namespace Cracker.Admin.Controllers.System
         public async Task<IAppResult> AddTenantAsync([FromBody] TenantDto dto)
         {
             await tenantService.AddTenantAsync(dto);
-            return ResultHelper.Ok(dto);
+            return ResultHelper.Ok();
         }
     }
 }
