@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using Cracker.Admin.Attributes;
 using Cracker.Admin.Core;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.System;
@@ -26,6 +26,7 @@ public class DictTypeController : AdminController
     /// <param name="dto"></param>
     /// <returns></returns>
     [HttpPost]
+    [HasPermission("admin_system_dicttype_add")]
     public async Task<IAppResult> AddDictTypeAsync([FromBody] DictTypeDto dto)
     {
         await _dictTypeService.AddDictTypeAsync(dto);
@@ -38,6 +39,7 @@ public class DictTypeController : AdminController
     /// <param name="dto"></param>
     /// <returns></returns>
     [HttpGet]
+    [HasPermission("admin_system_dicttype_list")]
     public async Task<IAppResult> GetDictTypeListAsync([FromQuery] DictTypeSearchDto dto)
     {
         var data = await _dictTypeService.GetDictTypeListAsync(dto);
@@ -50,6 +52,7 @@ public class DictTypeController : AdminController
     /// <param name="dto"></param>
     /// <returns></returns>
     [HttpPut]
+    [HasPermission("admin_system_dicttype_update")]
     public async Task<IAppResult> UpdateDictTypeAsync([FromBody] DictTypeDto dto)
     {
         await _dictTypeService.UpdateDictTypeAsync(dto);
@@ -62,6 +65,7 @@ public class DictTypeController : AdminController
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{dictType}")]
+    [HasPermission("admin_system_dicttype_delete")]
     public async Task<IAppResult> DeleteDictTypeAsync(string dictType)
     {
         await _dictTypeService.DeleteDictTypeAsync(dictType);

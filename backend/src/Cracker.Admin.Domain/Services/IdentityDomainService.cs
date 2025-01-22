@@ -111,12 +111,12 @@ namespace Cracker.Admin.Services
 
         public string GenerateToken(IEnumerable<Claim> claims, DateTime expireTime)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JWT")["IssuerSigningKey"]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt")["IssuerSigningKey"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var securityToken = new JwtSecurityToken(
-                issuer: configuration.GetSection("JWT")["ValidIssuer"],
-                audience: configuration.GetSection("JWT")["ValidAudience"],
+                issuer: configuration.GetSection("Jwt")["ValidIssuer"],
+                audience: configuration.GetSection("Jwt")["ValidAudience"],
                 claims: claims,
                 expires: expireTime,
                 signingCredentials: creds);
@@ -137,7 +137,7 @@ namespace Cracker.Admin.Services
 
             try
             {
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JWT")["IssuerSigningKey"]!));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt")["IssuerSigningKey"]!));
                 return handler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateAudience = false,

@@ -104,11 +104,11 @@ public class CrackerAdminHttpApiHostModule : AbpModule
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromSeconds(Convert.ToInt32(configuration.GetSection("JWT")["ClockSkew"])),
+                    ClockSkew = TimeSpan.FromSeconds(Convert.ToInt32(configuration.GetSection("Jwt")["ClockSkew"])),
                     ValidateIssuerSigningKey = true,
-                    ValidAudience = configuration.GetSection("JWT")["ValidAudience"],
-                    ValidIssuer = configuration.GetSection("JWT")["ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("JWT")["IssuerSigningKey"]!))
+                    ValidAudience = configuration.GetSection("Jwt")["ValidAudience"],
+                    ValidIssuer = configuration.GetSection("Jwt")["ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt")["IssuerSigningKey"]!))
                 };
             });
         context.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, IdentityMiddlewareResultHandler>();

@@ -47,7 +47,7 @@ namespace Cracker.Admin.System
                 .WhereIf(!string.IsNullOrEmpty(dto.Label), x => x.Label != null && x.Label.Contains(dto.Label!))
                 .WhereIf(!string.IsNullOrEmpty(dto.DictType), x => x.DictType != null && x.DictType.Contains(dto.DictType!));
             var count = query.Count();
-            var rows = query.Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList();
+            var rows = query.OrderBy(x => x.Sort).ThenByDescending(x => x.CreationTime).Skip((dto.Page - 1) * dto.Size).Take(dto.Size).ToList();
             return new PagedResultDto<DictDataListDto>(count, ObjectMapper.Map<List<SysDictData>, List<DictDataListDto>>(rows));
         }
 
