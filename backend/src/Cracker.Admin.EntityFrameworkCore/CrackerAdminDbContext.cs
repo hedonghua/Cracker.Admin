@@ -32,6 +32,8 @@ public class CrackerAdminDbContext :
 
     public DbSet<SysConfig> SysConfig => Set<SysConfig>();
 
+    public DbSet<SysTenant> SysTenant => Set<SysTenant>();
+
     public CrackerAdminDbContext(DbContextOptions<CrackerAdminDbContext> options)
         : base(options)
     {
@@ -61,5 +63,6 @@ public class CrackerAdminDbContext :
         builder.Entity<GenTableColumn>().HasKey(x => x.Id);
 
         builder.Entity<SysConfig>().HasKey(x => x.Id);
+        builder.Entity<SysTenant>().HasKey(x => x.Id);
     }
 }

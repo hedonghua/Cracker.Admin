@@ -34,5 +34,6 @@ public class CrackerAdminApplicationAutoMapperProfile : Profile
         CreateMap<DatabaseTable, DatabaseTableResultDto>();
         CreateMap<GenTableDto, GenTable>();
         CreateMap<GenTableColumn, GenTableColumnResultDto>();
+        CreateMap<TenantDto, SysTenant>();
     }
 }
