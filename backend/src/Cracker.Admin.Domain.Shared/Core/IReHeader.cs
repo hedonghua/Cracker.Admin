@@ -36,20 +36,14 @@ namespace Cracker.Admin.Core
         /// 操作方法
         /// </summary>
         string? HttpMethod { get; }
-
-        /// <summary>
-        /// 当前httpContext
-        /// </summary>
-        HttpContext HttpContext { get; }
     }
 
     public class ReHeader : IReHeader
     {
         public string? Ip { get; private set; }
 
-        public ReHeader(HttpContext context, string? ip, string? address, string? os, string? url, string? httpMethod, string? browser)
+        public ReHeader(string? ip, string? address, string? os, string? url, string? httpMethod, string? browser)
         {
-            HttpContext = context;
             Ip = ip;
             Address = address;
             Os = os;
@@ -75,7 +69,5 @@ namespace Cracker.Admin.Core
         public string? Browser { get; private set; }
 
         public string? HttpMethod { get; private set; }
-
-        public HttpContext HttpContext { get; private set; }
     }
 }

@@ -39,7 +39,7 @@ namespace Cracker.Admin.Middlewares
             //拿到地址示例：中国|0|重庆|重庆市|移动
             var address = ResolveAddress(new Searcher(CachePolicy.Content, "ip2region.xdb").Search(ip!));
 
-            var reHeader = new ReHeader(context, ip, address, parser.OS.Family, path, method, parser.UA.Family);
+            var reHeader = new ReHeader(ip, address, parser.OS.Family, path, method, parser.UA.Family);
             context.Features.Set(reHeader);
             await _next(context);
         }
