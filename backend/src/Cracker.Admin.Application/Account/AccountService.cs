@@ -25,9 +25,6 @@ namespace Cracker.Admin.Account
     {
         private readonly IRepository<SysUser> _userRepository;
         private readonly ICurrentUser _currentUser;
-        private readonly IRepository<SysUserRole> _userRoleRepository;
-        private readonly IRepository<SysRoleMenu> _roleMenuRepository;
-        private readonly IRepository<SysRole> _roleRepository;
         private readonly IRepository<SysMenu> _menuRepository;
         private readonly IConfiguration _configuration;
         private readonly IReHeader _reHeader;
@@ -36,16 +33,11 @@ namespace Cracker.Admin.Account
         private readonly IdentityDomainService identityDomainService;
         private const int expired = 4;
 
-        public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
-            IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository
-            , IDatabase redisDb, IdentityDomainService identityDomainService)
+        public AccountService(IRepository<SysUser> userRepository, ICurrentUser currentUser, IRepository<SysMenu> menuRepository
+            , IConfiguration configuration, IReHeader reHeader, IRepository<SysLoginLog> loginLogRepository, IDatabase redisDb, IdentityDomainService identityDomainService)
         {
             _userRepository = userRepository;
             _currentUser = currentUser;
-            _userRoleRepository = userRoleRepository;
-            _roleMenuRepository = roleMenuRepository;
-            _roleRepository = roleRepository;
             _menuRepository = menuRepository;
             _configuration = configuration;
             _reHeader = reHeader;
@@ -65,7 +57,7 @@ namespace Cracker.Admin.Account
             var time = DateTime.Now;
 
             var refreshToken = Guid.NewGuid().ToString("N").ToLower();
-            var sessionId = Guid.NewGuid().ToString("N").ToLower();
+            var sessionId = SnowflakeHelper.Instance.NextId().ToString();
             var claims = new List<Claim> {
                 new(ClaimTypes.NameIdentifier, userId.ToString()),
                 new(ClaimTypes.Name, userName),
