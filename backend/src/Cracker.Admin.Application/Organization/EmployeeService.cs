@@ -94,7 +94,7 @@ namespace Cracker.Admin.Organization
                         };
             if (!string.IsNullOrEmpty(dto.Keyword))
             {
-                query = query.Where(x => x.Code.Contains(dto.Keyword) || x.Name.Contains(dto.Keyword) || x.Phone.Contains(dto.Keyword));
+                query = query.Where(x => x.Code!.Contains(dto.Keyword) || x.Name!.Contains(dto.Keyword) || x.Phone!.Contains(dto.Keyword));
             }
             if (dto.DeptId.HasValue)
             {

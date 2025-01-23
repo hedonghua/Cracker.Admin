@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Services;
+using Volo.Abp.MultiTenancy;
 
 namespace Cracker.Admin.Services
 {
@@ -11,10 +12,12 @@ namespace Cracker.Admin.Services
     public class OssService : DomainService
     {
         private readonly IConfiguration configuration;
+        private readonly ICurrentTenant currentTenant;
 
-        public OssService(IConfiguration configuration)
+        public OssService(IConfiguration configuration, ICurrentTenant currentTenant)
         {
             this.configuration = configuration;
+            this.currentTenant = currentTenant;
         }
 
         public async Task<string> UploadAsync(byte[] bytes, string fileName, bool rename = true, bool cover = false)
@@ -66,16 +69,25 @@ namespace Cracker.Admin.Services
 
         public string GetOssRootPath()
         {
-            var path = configuration["Oss:Bucket"];
-            if (Directory.Exists(path)) return path;
-            try
+            if (bool.Parse(configuration["App:MultiTenancy"]!))
             {
-                Directory.CreateDirectory(path!);
-                return path!;
+                return Path.Combine(_rooPath(), currentTenant.Name!);
             }
-            catch (Exception)
+            return _rooPath();
+
+            string _rooPath()
             {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "oss");
+                var path = configuration["Oss:Bucket"];
+                if (Directory.Exists(path)) return path;
+                try
+                {
+                    Directory.CreateDirectory(path!);
+                    return path!;
+                }
+                catch (Exception)
+                {
+                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "oss");
+                }
             }
         }
     }

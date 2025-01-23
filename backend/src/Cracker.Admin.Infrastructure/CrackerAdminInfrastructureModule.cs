@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Cracker.Admin.Extensions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using StackExchange.Redis;
 using Volo.Abp.Modularity;
+using Volo.Abp.MultiTenancy;
 
 namespace Cracker.Admin.Infrastructure
 {
@@ -15,9 +18,19 @@ namespace Cracker.Admin.Infrastructure
 
             var configuration = context.Services.GetConfiguration();
 
-            context.Services.AddSingleton(sp =>
+            context.Services.AddTransient(sp =>
             {
-                return ConnectionMultiplexer.Connect(configuration["Redis:Connection"]!).GetDatabase();
+                var tenant = sp.GetRequiredService<ICurrentTenant>();
+                if (tenant != null)
+                {
+                    var connection = tenant.GetRedisConnection();
+                    if (!string.IsNullOrEmpty(connection))
+                    {
+                        throw new HostAbortedException("租户配置错误，Redis连接字符串为空");
+                    }
+                    return ConnectionMultiplexer.Connect(connection).GetDatabase();
+                }
+                return ConnectionMultiplexer.Connect(configuration["Redis:Connection"]!).GetDatabase(0);
             });
         }
     }

@@ -4,7 +4,6 @@ using Cracker.Admin.Filters;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Infrastructure;
 using Cracker.Admin.Middlewares;
-using Cracker.Admin.MultiTenancy;
 using Cracker.Admin.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -193,6 +192,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
     {
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
+        var configuration = context.GetConfiguration();
 
         if (env.IsDevelopment())
         {
@@ -205,7 +205,6 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         {
             app.UseSwagger();
             app.UseAbpSwaggerUI();
-            //app.UseErrorPage();
         }
 
         app.UseCorrelationId();
@@ -214,7 +213,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         app.UseCors();
         app.UseAuthentication();
 
-        if (MultiTenancyConsts.IsEnabled)
+        if (bool.Parse(configuration["App:MultiTenancy"]!))
         {
             app.UseMultiTenancy();
         }

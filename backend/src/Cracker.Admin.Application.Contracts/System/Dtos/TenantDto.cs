@@ -19,6 +19,13 @@ namespace Cracker.Admin.System.Dtos
         public string? ConnectionString { get; set; }
 
         /// <summary>
+        /// Redis连接
+        /// </summary>
+        [Required]
+        [StringLength(512)]
+        public string? RedisConnection { get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         [StringLength(512)]

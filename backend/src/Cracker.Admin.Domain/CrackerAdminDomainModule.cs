@@ -1,6 +1,3 @@
-using Cracker.Admin.Core;
-using Cracker.Admin.MultiTenancy;
-using Cracker.Admin.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain;
@@ -18,14 +15,14 @@ public class CrackerAdminDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        var conf = context.Services.GetConfiguration();
+        var configuration = context.Services.GetConfiguration();
 
         //context.Services.AddTransient<IKeySettings, GlobalKeySettingsService>();
         //context.Services.AddConnections();
 
         Configure<AbpMultiTenancyOptions>(options =>
         {
-            options.IsEnabled = MultiTenancyConsts.IsEnabled;
+            options.IsEnabled = bool.Parse(configuration["App:MultiTenancy"]!);
         });
     }
 }
