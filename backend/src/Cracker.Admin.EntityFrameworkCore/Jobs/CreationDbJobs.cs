@@ -1,6 +1,8 @@
 ﻿using Cracker.Admin.Models;
+using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Volo.Abp.BackgroundJobs;
@@ -29,9 +31,16 @@ namespace Cracker.Admin.Jobs
             var filePaths = Directory.GetFiles(rootDir);
             foreach (var filePath in filePaths)
             {
-                var sql = await File.ReadAllTextAsync(filePath);
-                await context.Database.ExecuteSqlRawAsync(sql);
-                logger.LogInformation("{filePath}执行成功", filePath);
+                try
+                {
+                    var sql = await File.ReadAllTextAsync(filePath);
+                    await context.Database.GetDbConnection().ExecuteAsync(sql);
+                    logger.LogInformation("{filePath}执行成功", filePath);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "{filePath}执行失败", filePath);
+                }
             }
         }
     }

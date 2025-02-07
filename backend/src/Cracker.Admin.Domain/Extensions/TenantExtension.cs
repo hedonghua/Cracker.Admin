@@ -1,17 +1,22 @@
-﻿using Volo.Abp.MultiTenancy;
+﻿using System.Collections.Concurrent;
+using Volo.Abp.MultiTenancy;
 
 namespace Cracker.Admin.Extensions
 {
     public static class TenantExtension
     {
-        public static string GetConnectionString(this ICurrentTenant tenant)
+        public static readonly ConcurrentDictionary<string, TenantConfiguration> Tenants = new ConcurrentDictionary<string, TenantConfiguration>();
+
+        public static string? GetConnectionString(string? name)
         {
-            return "";
+            Tenants.TryGetValue(name ?? "Default", out var configuration);
+            return configuration?.ConnectionStrings?["MySql"];
         }
 
-        public static string GetRedisConnection(this ICurrentTenant tenant)
+        public static string? GetRedisConnection(string? name)
         {
-            return "";
+            Tenants.TryGetValue(name ?? "Default", out var configuration);
+            return configuration?.ConnectionStrings?["Redis"];
         }
     }
 }

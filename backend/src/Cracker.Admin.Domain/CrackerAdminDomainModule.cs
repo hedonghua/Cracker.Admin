@@ -17,9 +17,6 @@ public class CrackerAdminDomainModule : AbpModule
     {
         var configuration = context.Services.GetConfiguration();
 
-        //context.Services.AddTransient<IKeySettings, GlobalKeySettingsService>();
-        //context.Services.AddConnections();
-
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = bool.Parse(configuration["App:MultiTenancy"]!);

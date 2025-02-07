@@ -1,5 +1,4 @@
 ﻿using Cracker.Admin.Entities;
-using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.System.Dtos;
 using System.Threading.Tasks;
@@ -11,10 +10,10 @@ namespace Cracker.Admin.System
 {
     public class TenantService : ApplicationService, ITenantService
     {
-        private readonly IRepository<SysTenant, string> tenantRepository;
+        private readonly IRepository<SysTenant> tenantRepository;
         private readonly IBackgroundJobManager backgroundJobManager;
 
-        public TenantService(IRepository<SysTenant, string> tenantRepository, IBackgroundJobManager backgroundJobManager)
+        public TenantService(IRepository<SysTenant> tenantRepository, IBackgroundJobManager backgroundJobManager)
         {
             this.tenantRepository = tenantRepository;
             this.backgroundJobManager = backgroundJobManager;
@@ -22,7 +21,7 @@ namespace Cracker.Admin.System
 
         public async Task AddTenantAsync(TenantDto dto)
         {
-            var entity = new SysTenant(await this.GetIdAsync())
+            var entity = new SysTenant()
             {
                 Name = dto.Name,
                 ConnectionString = dto.ConnectionString,
@@ -32,16 +31,6 @@ namespace Cracker.Admin.System
             await tenantRepository.InsertAsync(entity);
 
             await backgroundJobManager.EnqueueAsync(new CreationDbParameter { ConnectionString = dto.ConnectionString });
-        }
-
-        public async Task<string> GetIdAsync()
-        {
-            var code = StringHelper.RandomStr(6, true);
-            if (await tenantRepository.AnyAsync(x => x.Id == code))
-            {
-                return await this.GetIdAsync();
-            }
-            return code;
         }
     }
 }

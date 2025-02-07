@@ -1,5 +1,4 @@
 using Cracker.Admin.Entities;
-
 using Microsoft.EntityFrameworkCore;
 
 using Volo.Abp.Data;

@@ -18,6 +18,8 @@ public class CrackerAdminEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        context.Services.AddTransient<IDbContextProvider<CrackerAdminDbContext>, MultiTenantDbContextProvider<CrackerAdminDbContext>>();
+
         context.Services.AddAbpDbContext<CrackerAdminDbContext>(options =>
         {
             options.AddDefaultRepositories(includeAllEntities: true);

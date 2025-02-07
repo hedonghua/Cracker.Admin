@@ -8,16 +8,12 @@ namespace Cracker.Admin.Entities
     /// </summary>
     [Table("sys_tenant")]
     [Comment("租户表")]
-    public class SysTenant : AuditedEntity<string>
+    public class SysTenant : AuditedEntity<Guid>
     {
-        public SysTenant(string id) 
-        {
-            Id = id;
-        }
-
         /// <summary>
         /// 租户名称
         /// </summary>
+        [NotNull]
         [Required]
         [StringLength(128)]
         [Comment("租户名称")]
@@ -26,6 +22,7 @@ namespace Cracker.Admin.Entities
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
+        [NotNull]
         [Required]
         [StringLength(512)]
         [Comment("连接字符串")]
@@ -34,6 +31,7 @@ namespace Cracker.Admin.Entities
         /// <summary>
         /// Redis连接
         /// </summary>
+        [NotNull]
         [Required]
         [StringLength(512)]
         [Comment("Redis连接")]

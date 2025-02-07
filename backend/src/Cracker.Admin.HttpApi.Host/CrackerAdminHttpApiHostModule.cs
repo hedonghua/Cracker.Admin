@@ -1,5 +1,6 @@
 using Coravel;
 using Cracker.Admin.Core;
+using Cracker.Admin.Extensions;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Infrastructure;
@@ -21,18 +22,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Volo.Abp;
-using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
 
 namespace Cracker.Admin;
 
 [DependsOn(
     typeof(AbpAutofacModule),
-    typeof(AbpAspNetCoreMultiTenancyModule),
     typeof(CrackerAdminApplicationModule),
     typeof(CrackerAdminInfrastructureModule),
     typeof(AbpSwashbuckleModule)
@@ -59,6 +59,12 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         context.Services.AddTransient<IReHeader>(sp =>
         {
             return sp.GetRequiredService<IHttpContextAccessor>().HttpContext?.Features.Get<ReHeader>() ?? ReHeader.Default();
+        });
+        context.Services.AddTransient<MultiTenancyMiddleware>();
+        context.Services.AddTransient<ICurrentTenantAccessor>(sp =>
+        {
+            var httpContext = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
+            return httpContext?.Features.Get<TenantAccessorImpl>() ?? new TenantAccessorImpl();
         });
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
@@ -215,7 +221,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         if (bool.Parse(configuration["App:MultiTenancy"]!))
         {
-            app.UseMultiTenancy();
+            app.UseMiddleware<MultiTenancyMiddleware>();
         }
         app.UseUnitOfWork();
         app.UseDynamicClaims();

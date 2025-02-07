@@ -21,10 +21,10 @@ namespace Cracker.Admin.Infrastructure
             context.Services.AddTransient(sp =>
             {
                 var tenant = sp.GetRequiredService<ICurrentTenant>();
-                if (tenant != null)
+                if (tenant != null && !string.IsNullOrEmpty(tenant.Name))
                 {
-                    var connection = tenant.GetRedisConnection();
-                    if (!string.IsNullOrEmpty(connection))
+                    var connection = TenantExtension.GetRedisConnection(tenant.Name);
+                    if (string.IsNullOrEmpty(connection))
                     {
                         throw new HostAbortedException("租户配置错误，Redis连接字符串为空");
                     }
