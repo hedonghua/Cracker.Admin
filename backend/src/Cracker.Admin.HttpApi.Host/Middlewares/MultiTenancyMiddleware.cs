@@ -27,7 +27,7 @@ namespace Cracker.Admin.Middlewares
                 var tenant = await tenantRepository.FirstOrDefaultAsync(x => x.Id == Guid.Parse(tenantId!));
                 if (tenant != null)
                 {
-                    TenantExtension.Tenants.TryAdd(tenant.Name!, new TenantConfiguration
+                    TenantExtension.Tenants.TryAdd(tenant.Id!, new TenantConfiguration
                     {
                         Id = tenant.Id,
                         Name = tenant.Name,

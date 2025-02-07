@@ -1,5 +1,7 @@
 ﻿using Cracker.Admin.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,20 +14,24 @@ namespace Cracker.Admin
     {
         private readonly ICurrentTenant currentTenant;
         private readonly IServiceProvider serviceProvider;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public MultiTenantDbContextProvider(ICurrentTenant currentTenant, IServiceProvider serviceProvider)
+        public MultiTenantDbContextProvider(ICurrentTenant currentTenant, IServiceProvider serviceProvider, IHttpContextAccessor httpContextAccessor)
         {
             this.currentTenant = currentTenant;
             this.serviceProvider = serviceProvider;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public TDbContext GetDbContext()
         {
             var context = (TDbContext)serviceProvider.GetService(typeof(TDbContext))!;
 
-            if (!string.IsNullOrEmpty(currentTenant.Name))
+            var tenantId = new StringValues();
+            var hasTenantId = httpContextAccessor.HttpContext?.Request.Headers.TryGetValue("X-Tenant", out var tenantIdRaw) ?? false;
+            if (hasTenantId && !string.IsNullOrEmpty(tenantId))
             {
-                var connectionString = TenantExtension.GetConnectionString(currentTenant.Name);
+                var connectionString = TenantExtension.GetConnectionString(Guid.Parse(tenantId!));
                 if (!string.IsNullOrEmpty(connectionString))
                 {
                     context.Database.SetConnectionString(connectionString);
@@ -39,9 +45,11 @@ namespace Cracker.Admin
         {
             var context = (TDbContext)serviceProvider.GetService(typeof(TDbContext))!;
 
-            if (!string.IsNullOrEmpty(currentTenant.Name))
+            var tenantId = new StringValues();
+            var hasTenantId = httpContextAccessor.HttpContext?.Request.Headers.TryGetValue("X-Tenant", out tenantId) ?? false;
+            if (hasTenantId && !string.IsNullOrEmpty(tenantId))
             {
-                var connectionString = TenantExtension.GetConnectionString(currentTenant.Name);
+                var connectionString = TenantExtension.GetConnectionString(Guid.Parse(tenantId!));
                 if (!string.IsNullOrEmpty(connectionString))
                 {
                     context.Database.SetConnectionString(connectionString);

@@ -5,17 +5,17 @@ namespace Cracker.Admin.Extensions
 {
     public static class TenantExtension
     {
-        public static readonly ConcurrentDictionary<string, TenantConfiguration> Tenants = new ConcurrentDictionary<string, TenantConfiguration>();
+        public static readonly ConcurrentDictionary<Guid, TenantConfiguration> Tenants = new ConcurrentDictionary<Guid, TenantConfiguration>();
 
-        public static string? GetConnectionString(string? name)
+        public static string? GetConnectionString(Guid? id)
         {
-            Tenants.TryGetValue(name ?? "Default", out var configuration);
+            Tenants.TryGetValue(id.GetValueOrDefault(), out var configuration);
             return configuration?.ConnectionStrings?["MySql"];
         }
 
-        public static string? GetRedisConnection(string? name)
+        public static string? GetRedisConnection(Guid? id)
         {
-            Tenants.TryGetValue(name ?? "Default", out var configuration);
+            Tenants.TryGetValue(id.GetValueOrDefault(), out var configuration);
             return configuration?.ConnectionStrings?["Redis"];
         }
     }
