@@ -17,7 +17,7 @@ namespace Cracker.Admin.EventHandler
 
         public async Task HandleEventAsync(LoginLogQueryDto eventData)
         {
-            logger.LogInformation("接收到登录日志查询参数：{eventData}", eventData);
+            logger.LogInformation("接收到登录日志查询参数：{@eventData}", eventData);
         }
     }
 }

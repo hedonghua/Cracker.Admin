@@ -69,6 +69,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
         context.Services.AddHostedService<StaticFileHostService>();
+        context.Services.AddHostedService<MqttServerHostService>();
         SnowflakeHelper.Init(short.Parse(configuration["Snowflake:WorkerId"]!), short.Parse(configuration["Snowflake:DataCenterId"]!));
     }
 
@@ -160,7 +161,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
                     .WithOrigins(configuration["App:CorsOrigins"]?
                         .Split(",", StringSplitOptions.RemoveEmptyEntries)
                         .Select(o => o.RemovePostFix("/"))
-                        .ToArray() ?? Array.Empty<string>())
+                        .ToArray() ?? [])
                     .WithAbpExposedHeaders()
                     .SetIsOriginAllowedToAllowWildcardSubdomains()
                     .AllowAnyHeader()
