@@ -3,6 +3,7 @@ using Cracker.Admin.Core;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Infrastructure;
+using Cracker.Admin.Jobs;
 using Cracker.Admin.Middlewares;
 using Cracker.Admin.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -239,7 +240,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         app.ApplicationServices.UseScheduler(sch =>
         {
-            //sch.Schedule<Bu>().EverySeconds(5);
+            sch.Schedule<TestJob>().EverySeconds(5);
         });
     }
 }
