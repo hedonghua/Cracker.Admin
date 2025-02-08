@@ -19,7 +19,8 @@ public class CrackerAdminDomainModule : AbpModule
 
         Configure<AbpMultiTenancyOptions>(options =>
         {
-            options.IsEnabled = bool.Parse(configuration["App:MultiTenancy"]!);
+            options.IsEnabled = MultiTenancyConsts.IsEnabled;
+            options.DatabaseStyle = MultiTenancyDatabaseStyle.PerTenant;
         });
     }
 }

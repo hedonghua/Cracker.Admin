@@ -1,6 +1,5 @@
 using Coravel;
 using Cracker.Admin.Core;
-using Cracker.Admin.Extensions;
 using Cracker.Admin.Filters;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Infrastructure;
@@ -219,7 +218,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         app.UseCors();
         app.UseAuthentication();
 
-        if (bool.Parse(configuration["App:MultiTenancy"]!))
+        if (MultiTenancyConsts.IsEnabled)
         {
             app.UseMiddleware<MultiTenancyMiddleware>();
         }

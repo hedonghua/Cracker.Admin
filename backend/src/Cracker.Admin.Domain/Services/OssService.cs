@@ -69,7 +69,7 @@ namespace Cracker.Admin.Services
 
         public string GetOssRootPath()
         {
-            if (bool.Parse(configuration["App:MultiTenancy"]!) && !string.IsNullOrEmpty(currentTenant.Name))
+            if (MultiTenancyConsts.IsEnabled && !string.IsNullOrEmpty(currentTenant.Name))
             {
                 return Path.Combine(_rooPath(), currentTenant.Name);
             }
