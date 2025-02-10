@@ -143,5 +143,12 @@ namespace Cracker.Admin.Entities
         [Comment("是否在表格中显示")]
         [DefaultValue(true)]
         public bool IsShow { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        [DefaultValue(0)]
+        [Comment("排序")]
+        public int Sort { get; set; }
     }
 }

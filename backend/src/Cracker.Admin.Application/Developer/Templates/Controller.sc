@@ -60,7 +60,7 @@ public class {{businessName}}Controller : AdminController
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{id:Guid}")]
-    public async Task<bool> Delete{{businessName}}Async(Guid id)
+    public async Task<IAppResult> Delete{{businessName}}Async(Guid id)
     {
         await _{{businessNameOfFirstLower}}Service.Delete{{businessName}}Async(id);
         return ResultHelper.Ok(); 

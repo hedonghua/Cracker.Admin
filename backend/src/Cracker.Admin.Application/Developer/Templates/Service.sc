@@ -29,7 +29,7 @@ public class {{businessName}}Service : ApplicationService, I{{businessName}}Serv
 
     public async Task Delete{{businessName}}Async(Guid {{businessNameOfFirstLower}}Id)
     {
-        await {{businessNameOfFirstLower}}Repository.DeleteAsync(x => x.Id == {{businessName}}Id);
+        await {{businessNameOfFirstLower}}Repository.DeleteAsync(x => x.Id == {{businessNameOfFirstLower}}Id);
     }
 
     public async Task<PagedResultStruct<{{businessName}}ResultDto>> Get{{businessName}}ListAsync({{businessName}}SearchDto dto)
@@ -41,15 +41,15 @@ public class {{businessName}}Service : ApplicationService, I{{businessName}}Serv
             });
         return new PagedResultStruct<{{businessName}}ResultDto>(dto)
         {
-            Total = query.Count(),
-            Rows = query.StartPage(dto).ToList()
+            TotalCount = query.Count(),
+            Items = query.StartPage(dto).ToList()
         };
     }
 
     public async Task Update{{businessName}}Async({{businessName}}Dto dto)
     {
-        var entity = await {{businessNameOfFirstLower}}Repository.GetAsync(x => x.Id == dto.{{businessName}}Id);
+        var entity = await {{businessNameOfFirstLower}}Repository.GetAsync(x => x.Id == dto.Id);
         {{updateFields}}
-        await {{businessNameOfFirstLower}}Repository.UpdateAsync({{businessName}});
+        await {{businessNameOfFirstLower}}Repository.UpdateAsync(entity);
     }
 }

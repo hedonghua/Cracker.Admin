@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cracker.Admin.System.Dtos
 {
     public class TenantDto
     {
+        [NotNull]
+        [Required]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// 租户名称
         /// </summary>

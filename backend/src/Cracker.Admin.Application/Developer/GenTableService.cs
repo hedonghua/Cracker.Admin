@@ -88,7 +88,7 @@ namespace Cracker.Admin.Developer
         public async Task<PreviewCodeResultDto> PreviewCodeAsync(Guid genTableId)
         {
             var genTable = await genTableRepository.GetAsync(x => x.Id == genTableId);
-            var columns = await genTableColumnRepository.GetListAsync(x => x.GenTableId == genTable.Id);
+            var columns = (await genTableColumnRepository.GetListAsync(x => x.GenTableId == genTable.Id)).OrderBy(x => x.Sort).ToList();
 
             var result = new PreviewCodeResultDto();
 

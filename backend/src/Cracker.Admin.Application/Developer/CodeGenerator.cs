@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Cracker.Admin.Entities;
+using Cracker.Admin.Enums;
+using Cracker.Admin.Helpers;
+using Cracker.Admin.Repositories;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,12 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-using Cracker.Admin.Entities;
-using Cracker.Admin.Enums;
-using Cracker.Admin.Helpers;
-using Cracker.Admin.Repositories;
-
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Domain.Repositories;
@@ -40,6 +38,7 @@ namespace Cracker.Admin.Developer
             if (columns.Count <= 0) return;
 
             var list = new List<GenTableColumn>();
+            int sort = 1;
             foreach (var column in columns)
             {
                 var isAuditProp = this.IsAuditProp(column.ColumnName);
@@ -58,12 +57,14 @@ namespace Cracker.Admin.Developer
                     IsShow = !isAuditProp,
                     IsSearch = this.IsDefaultSearch(column.ColumnName),
                     SearchType = SearchType.Contains,
-                    CsharpPropName = StringHelper.ToPascalCase(column.ColumnName)
+                    CsharpPropName = StringHelper.ToPascalCase(column.ColumnName),
+                    Sort = sort
                 };
                 item.JsFieldName = item.CsharpPropName[..1].ToLower() + item.CsharpPropName[1..];
                 item.CsharpType = this.GetCsharpType(column.ColumnType, item.IsNullable, column.MaxLength ?? 0);
                 item.JsType = this.GetJsType(column.ColumnType, item.IsNullable);
                 list.Add(item);
+                sort++;
             }
 
             await genTableColumnRepository.DeleteDirectAsync(x => x.GenTableId == genTable.Id);
@@ -164,7 +165,7 @@ namespace Cracker.Admin.Developer
                 addFieldsStringbuilder.AppendLine($"        entity.{item.CsharpPropName} = dto.{item.CsharpPropName};");
             }
             //修改字段
-            var updateFields = columns.Where(x => x.IsUpdate).ToList();
+            var updateFields = columns.Where(x => x.IsUpdate && x.ColumnName.ToLower() != "id").ToList();
             var updateFieldsStringbuilder = new StringBuilder();
             int e = 0;
             foreach (var item in updateFields)
@@ -299,13 +300,13 @@ namespace Cracker.Admin.Developer
         private async Task<string> ReadTemplateFileAsync(string name)
         {
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Developer", "Templates", name + ".sc");
-            return await File.ReadAllTextAsync(filePath,Encoding.UTF8);
+            return await File.ReadAllTextAsync(filePath, Encoding.UTF8);
         }
 
         private string GetCsharpType(string columnType, bool isNullable, long maxLen)
         {
             var type = FindType();
-            return isNullable ? type + "?" : type;
+            return isNullable || type == "string" ? type + "?" : type;
 
             string FindType()
             {
