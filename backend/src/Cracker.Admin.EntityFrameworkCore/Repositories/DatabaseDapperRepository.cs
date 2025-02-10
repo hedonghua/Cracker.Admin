@@ -51,7 +51,8 @@ namespace Cracker.Admin.Repositories
                 FROM
 	                INFORMATION_SCHEMA.TABLES A
                 WHERE
-	                A.TABLE_SCHEMA = @database";
+	                A.TABLE_SCHEMA = @database 
+                    AND LOWER(A.TABLE_NAME) !='__efmigrationshistory' ";
 
             var dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@database", connection.Database);

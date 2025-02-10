@@ -25,6 +25,7 @@ using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
 using Volo.Abp.Autofac;
+using Volo.Abp.Json;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Swashbuckle;
@@ -53,6 +54,11 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         ConfigureSwaggerServices(context, configuration);
         ConfigureFilters(context, configuration);
         ConfigureApiBehavior(context, configuration);
+
+        Configure<AbpJsonOptions>(options =>
+        {
+            options.OutputDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        });
 
         context.Services.AddScheduler();
 
