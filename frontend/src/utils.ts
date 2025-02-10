@@ -81,11 +81,11 @@ export default class Utils {
     return Math.random().toString(36).substr(2, 9);
   }
 
-  static renderJsx(isDisplay: boolean, jsx: any, blankJsx: any = null) {
+  static renderJsx(isDisplay: boolean, jsx: any, otherJsx: any = null) {
     if (isDisplay) {
       return jsx;
     }
-    return blankJsx;
+    return otherJsx;
   }
 
   static isDark(color:"light" | "dark" | "auto"){

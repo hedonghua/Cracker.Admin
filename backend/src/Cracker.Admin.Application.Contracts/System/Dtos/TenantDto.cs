@@ -6,13 +6,12 @@ namespace Cracker.Admin.System.Dtos
 {
     public class TenantDto
     {
-        [NotNull]
-        [Required]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         /// <summary>
         /// 租户名称
         /// </summary>
+        [NotNull]
         [Required]
         [StringLength(128)]
         public string? Name { get; set; }

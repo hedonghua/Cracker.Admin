@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Validation;
 
 namespace Cracker.Admin.System
 {
@@ -24,6 +25,11 @@ namespace Cracker.Admin.System
 
         public async Task AddTenantAsync(TenantDto dto)
         {
+            if (await tenantRepository.AnyAsync(x => x.Name.ToLower() == dto.Name.ToLower()))
+            {
+                throw new AbpValidationException($"租户[{dto.Name}]已存在");
+            }
+
             var entity = new SysTenant()
             {
                 Name = dto.Name,
@@ -44,6 +50,7 @@ namespace Cracker.Admin.System
         public async Task<PagedResultStruct<TenantResultDto>> GetTenantListAsync(TenantSearchDto dto)
         {
             var query = (await tenantRepository.GetQueryableAsync())
+                .WhereIf(!string.IsNullOrEmpty(dto.Name), x => x.Name.Contains(dto.Name!))
                 .Select(x => new TenantResultDto
                 {
                     Id = x.Id,
@@ -62,6 +69,13 @@ namespace Cracker.Admin.System
         public async Task UpdateTenantAsync(TenantDto dto)
         {
             var entity = await tenantRepository.GetAsync(x => x.Id == dto.Id);
+
+            var nameLower = dto.Name.ToLower();
+            if (await tenantRepository.AnyAsync(x => x.Name.ToLower() == nameLower) && !nameLower.Equals(entity.Name, StringComparison.CurrentCultureIgnoreCase))
+            {
+                throw new AbpValidationException($"租户[{dto.Name}]已存在");
+            }
+
             entity.Name = dto.Name;
             entity.ConnectionString = dto.ConnectionString;
             entity.RedisConnection = dto.RedisConnection;

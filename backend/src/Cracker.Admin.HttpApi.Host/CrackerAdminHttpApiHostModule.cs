@@ -247,7 +247,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         app.ApplicationServices.UseScheduler(sch =>
         {
-            sch.Schedule<TestJob>().EverySeconds(5);
+            sch.Schedule<TestJob>().EveryMinute().RunOnceAtStart();
         });
     }
 }

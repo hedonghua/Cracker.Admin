@@ -1,4 +1,5 @@
-﻿using Cracker.Admin.Core;
+﻿using Cracker.Admin.Attributes;
+using Cracker.Admin.Core;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.System;
 using Cracker.Admin.System.Dtos;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cracker.Admin.Controllers.System
 {
+    [MustMainPower]
     [Route("api/[controller]/[action]")]
     public class TenantController : AdminController
     {

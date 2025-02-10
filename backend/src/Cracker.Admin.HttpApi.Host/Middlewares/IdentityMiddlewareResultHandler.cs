@@ -38,15 +38,23 @@ namespace Cracker.Admin.Middlewares
                 }
 
                 //检查权限
-                var auth = context.GetEndpoint()?.Metadata.GetMetadata<HasPermissionAttribute>();
-                if (auth != null)
+                var endpoint = context.GetEndpoint();
+                var auth = endpoint?.Metadata.GetMetadata<HasPermissionAttribute>();
+                var mustMain = endpoint?.Metadata.GetMetadata<MustMainPowerAttribute>();
+                var hasPower = true;
+                if (mustMain != null)
                 {
-                    var isPass = await identityDomainService.CheckPermissionAsync(subjectId!, auth.Code);
-                    if (!isPass)
-                    {
-                        await context.Response.WriteAsJsonAsync(new AppResult(AdminResponseCode.Forbidden, "权限不足，请联系管理员"));
-                        return;
-                    }
+                    hasPower = await identityDomainService.UserIsFromMainDbAsync(subjectId!);
+                }
+                if (hasPower && auth != null)
+                {
+                    hasPower = await identityDomainService.CheckPermissionAsync(subjectId!, auth.Code);
+                }
+
+                if (!hasPower)
+                {
+                    await context.Response.WriteAsJsonAsync(new AppResult(AdminResponseCode.Forbidden, "权限不足，请联系管理员"));
+                    return;
                 }
             }
 

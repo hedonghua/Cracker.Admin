@@ -1,7 +1,7 @@
 namespace Cracker.Admin.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public class HasPermissionAttribute : Attribute
+    public sealed class HasPermissionAttribute : Attribute
     {
         /// <summary>
         /// 权限编码

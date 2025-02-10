@@ -2,8 +2,6 @@ using Cracker.Admin.Entities;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Services;
 using Cracker.Admin.System.Dtos;
-using Microsoft.Extensions.Configuration;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +18,13 @@ namespace Cracker.Admin.System
     {
         private readonly IRepository<SysUser> _userRepository;
         private readonly IRepository<SysUserRole> _userRoleRepository;
-        private readonly IConfiguration _configuration;
-        private readonly IDatabase redisDb;
         private readonly IdentityDomainService identityDomainService;
 
         public UserService(IRepository<SysUser> userRepository, IRepository<SysUserRole> userRoleRepository
-            , IConfiguration configuration, IDatabase redisDb, IdentityDomainService identityDomainService)
+            , IdentityDomainService identityDomainService)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
-            _configuration = configuration;
-            this.redisDb = redisDb;
             this.identityDomainService = identityDomainService;
         }
 

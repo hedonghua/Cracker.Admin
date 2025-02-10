@@ -259,8 +259,9 @@ namespace Cracker.Admin.Developer
                     stringBuilder.AppendLine($"\t/// {column.Comment}");
                     stringBuilder.AppendLine("\t/// </summary>");
                 }
-                if (!column.IsNullable)
+                if (!column.IsNullable && type == 1)
                 {
+                    //只有新增/修改传参加必填特性
                     stringBuilder.AppendLine("\t[NotNull]");
                     stringBuilder.AppendLine("\t[Required]");
                 }

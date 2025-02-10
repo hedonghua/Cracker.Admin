@@ -1,6 +1,8 @@
-﻿using Cracker.Admin.Entities;
+﻿using Cracker.Admin.Core;
+using Cracker.Admin.Entities;
 using Cracker.Admin.Extensions;
 using Cracker.Admin.Models;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
@@ -25,10 +27,11 @@ namespace Cracker.Admin.Services
         private readonly IRepository<SysMenu> _menuRepository;
         private readonly IDatabase redisDb;
         private readonly IConfiguration configuration;
+        private readonly IDapperFactory dapperFactory;
 
         public IdentityDomainService(IRepository<SysUser> userRepository, ICurrentUser currentUser,
             IRepository<SysUserRole> userRoleRepository, IRepository<SysRoleMenu> roleMenuRepository, IRepository<SysRole> roleRepository,
-            IRepository<SysMenu> menuRepository, IDatabase redisDb, IConfiguration configuration)
+            IRepository<SysMenu> menuRepository, IDatabase redisDb, IConfiguration configuration, IDapperFactory dapperFactory)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
@@ -37,6 +40,7 @@ namespace Cracker.Admin.Services
             _menuRepository = menuRepository;
             this.redisDb = redisDb;
             this.configuration = configuration;
+            this.dapperFactory = dapperFactory;
         }
 
         public async Task<UserPermission> GetUserPermissionAsync(Guid userId)
@@ -151,6 +155,18 @@ namespace Cracker.Admin.Services
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 用户是否来源主库
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> UserIsFromMainDbAsync(string id)
+        {
+            var defaultConnectionString = configuration.GetConnectionString("Default");
+            var connection = dapperFactory.CreateInstance(defaultConnectionString!);
+            return await connection.ExecuteScalarAsync<int>("select count(*) from sys_user where id = @id", new { id = id }) > 0;
         }
     }
 }
