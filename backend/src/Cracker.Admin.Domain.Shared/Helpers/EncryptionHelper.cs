@@ -8,6 +8,8 @@ namespace Cracker.Admin.Helpers
     /// </summary>
     public class EncryptionHelper
     {
+        private const int KeySize = 2048;
+
         /// <summary>
         /// 获取根据盐码加密的密码
         /// </summary>
@@ -99,6 +101,43 @@ namespace Cracker.Admin.Helpers
                 decode = result;
             }
             return decode;
+        }
+
+        public static (string publicKey, string privateKey) GenerateRSAKeys()
+        {
+            using (var rsa = RSA.Create(KeySize))
+            {
+                var publicKey = Convert.ToBase64String(rsa.ExportRSAPublicKey());
+                var privateKey = Convert.ToBase64String(rsa.ExportRSAPrivateKey());
+                return (publicKey, privateKey);
+            }
+        }
+
+        public static string RSAEncrypt(string dataToEncrypt, string publicKey)
+        {
+            byte[] dataBytes = Encoding.UTF8.GetBytes(dataToEncrypt);
+            byte[] encryptedData;
+
+            using (var rsa = RSA.Create())
+            {
+                rsa.ImportRSAPublicKey(Convert.FromBase64String(publicKey), out _);
+                encryptedData = rsa.Encrypt(dataBytes, RSAEncryptionPadding.OaepSHA256);
+            }
+
+            return Convert.ToBase64String(encryptedData);
+        }
+
+        public static string RSADecrypt(string dataToDecrypt, string privateKey)
+        {
+            byte[] decryptedData;
+
+            using (var rsa = RSA.Create())
+            {
+                rsa.ImportRSAPrivateKey(Convert.FromBase64String(privateKey), out _);
+                decryptedData = rsa.Decrypt(Convert.FromBase64String(dataToDecrypt), RSAEncryptionPadding.OaepSHA256);
+            }
+
+            return Encoding.UTF8.GetString(decryptedData);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Cracker.Admin.Entities;
 using Cracker.Admin.Extensions;
+using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
 using Cracker.Admin.System.Dtos;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
@@ -33,8 +35,8 @@ namespace Cracker.Admin.System
             var entity = new SysTenant()
             {
                 Name = dto.Name,
-                ConnectionString = dto.ConnectionString,
-                RedisConnection = dto.RedisConnection,
+                ConnectionString = RSAEncrypt(dto.ConnectionString!),
+                RedisConnection = RSAEncrypt(dto.RedisConnection!),
                 Remark = dto.Remark,
             };
             await tenantRepository.InsertAsync(entity);
@@ -77,11 +79,18 @@ namespace Cracker.Admin.System
             }
 
             entity.Name = dto.Name;
-            entity.ConnectionString = dto.ConnectionString;
-            entity.RedisConnection = dto.RedisConnection;
+            entity.ConnectionString = RSAEncrypt(dto.ConnectionString!);
+            entity.RedisConnection = RSAEncrypt(dto.RedisConnection!);
             entity.Remark = dto.Remark;
 
             await tenantRepository.UpdateAsync(entity);
+        }
+
+        private string RSAEncrypt(string str)
+        {
+            var dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RSAKeys");
+            var publicKeysPath = Path.Combine(dir, "PublicKeys.txt");
+            return EncryptionHelper.RSAEncrypt(str, File.ReadAllText(publicKeysPath));
         }
     }
 }

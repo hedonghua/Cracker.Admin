@@ -74,7 +74,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         });
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
-        context.Services.AddHostedService<StaticFileHostService>();
+        context.Services.AddHostedService<PreparationHostService>();
         context.Services.AddHostedService<MqttServerHostService>();
         SnowflakeHelper.Init(short.Parse(configuration["Snowflake:WorkerId"]!), short.Parse(configuration["Snowflake:DataCenterId"]!));
     }
