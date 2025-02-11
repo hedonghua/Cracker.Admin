@@ -62,5 +62,12 @@ namespace Cracker.Admin.Controllers.System
             await tenantService.DeleteTenantAsync(id);
             return ResultHelper.Ok();
         }
+
+        [HttpGet]
+        public async Task<IAppResult> GetDecryptInfoAsync(Guid tenantId, string type)
+        {
+            var data = await tenantService.GetDecryptInfoAsync(tenantId, type);
+            return ResultHelper.Ok<string>(data);
+        }
     }
 }

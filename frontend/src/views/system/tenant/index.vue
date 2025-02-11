@@ -13,10 +13,10 @@
                     <el-input v-model="editForm.name" placeholder="请输入租户名称" clearable />
                 </el-form-item>
                 <el-form-item prop="connectionString" label="连接字符串">
-                    <el-input v-model="editForm.connectionString" placeholder="请输入连接字符串" clearable />
+                    <el-input type="password" show-password v-model="editForm.connectionString" placeholder="请输入连接字符串" clearable />
                 </el-form-item>
                 <el-form-item prop="redisConnection" label="redis连接">
-                    <el-input v-model="editForm.redisConnection" placeholder="请输入redis连接" clearable />
+                    <el-input type="password" show-password v-model="editForm.redisConnection" placeholder="请输入redis连接" clearable />
                 </el-form-item>
                 <el-form-item prop="remark" label="备注">
                     <el-input v-model="editForm.remark" placeholder="请输入备注" clearable />

@@ -5,8 +5,9 @@ import {
   addTenant,
   updateTenant,
   deleteTenant,
+  getDecryptInfo,
 } from "@/api/system/tenant";
-import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
+import { Action, ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import utils from "@/utils";
 import _ from "lodash";
@@ -28,19 +29,17 @@ export function useTable() {
       render: (row: any) => {
         return (
           <div className="flex">
-            <span className="mr-1">
-              {row.connectionStringDisplay ?? "********"}
-            </span>
             <span
-              className="hover:cursor-pointer"
+              className="hover:cursor-pointer mr-1"
               onclick={() => toggleShowConnectionString(row)}
             >
               {utils.renderJsx(
                 Boolean(row.connectionStringDisplay),
-                <re-icon name="mdi:eye-off" />,
-                <re-icon name="mdi:eye" />
+                <re-icon key="1" name="Hide" />,
+                <re-icon key="2" name="View" />
               )}
             </span>
+            <span>********</span>
           </div>
         );
       },
@@ -51,19 +50,17 @@ export function useTable() {
       render: (row: any) => {
         return (
           <div className="flex">
-            <span className="mr-1">
-              {row.redisConnectionDisplay ?? "********"}
-            </span>
             <span
-              className="hover:cursor-pointer"
+              className="hover:cursor-pointer mr-1"
               onclick={() => toggleShowRedisConnection(row)}
             >
               {utils.renderJsx(
                 Boolean(row.redisConnectionDisplay),
-                <re-icon name="mdi:eye-off" />,
-                <re-icon name="mdi:eye" />
+                <re-icon key="1" name="Hide" />,
+                <re-icon key="2" name="View" />
               )}
             </span>
+            <span>********</span>
           </div>
         );
       },
@@ -118,9 +115,9 @@ export function useTable() {
   const editFormRef = ref<FormInstance>();
   const editForm = reactive({
     id: null,
-    name: null,
-    connectionString: null,
-    redisConnection: null,
+    name: "",
+    connectionString: "",
+    redisConnection: "",
     remark: null,
   });
   const rules = {
@@ -163,6 +160,11 @@ export function useTable() {
     dialogVisible.value = true;
     if (row && title.includes("编辑")) {
       _.merge(editForm, row);
+      doGetDecryptInfo(row.id, "all", (data: string) => {
+        const arr = data.split("||");
+        editForm.connectionString = arr[0];
+        editForm.redisConnection = arr[1];
+      });
     }
   };
   const closeDialog = () => {
@@ -172,6 +174,7 @@ export function useTable() {
   const clearEditFormValues = () => {
     editFormRef?.value?.resetFields();
     _.mapValues(editForm, () => null);
+    editForm.name = "";
   };
   const confirmEvent = () => {
     editFormRef.value?.validate((valid: any) => {
@@ -212,11 +215,32 @@ export function useTable() {
     });
   };
 
+  const doGetDecryptInfo = (id: string, type: string, callback: Function) => {
+    getDecryptInfo({
+      tenantId: id,
+      type: type,
+    }).then((res) => {
+      callback(res.data);
+    });
+  };
+
   const toggleShowConnectionString = (row: any) => {
     if (row.connectionStringDisplay) {
       delete row.connectionStringDisplay;
     } else {
-      row.connectionStringDisplay = "123";
+      doGetDecryptInfo(row.id, "conn", (data: string) => {
+        row.connectionStringDisplay = data;
+        ElMessageBox.alert(
+          `<div style="width:400px;" class="break-words">${row.connectionStringDisplay}</div>`,
+          "连接字符串",
+          {
+            dangerouslyUseHTMLString: true,
+            callback: (_: Action) => {
+              delete row.connectionStringDisplay;
+            },
+          }
+        );
+      });
     }
   };
 
@@ -224,7 +248,19 @@ export function useTable() {
     if (row.redisConnectionDisplay) {
       delete row.redisConnectionDisplay;
     } else {
-      row.redisConnectionDisplay = "123";
+      doGetDecryptInfo(row.id, "redis", (data: string) => {
+        row.redisConnectionDisplay = data;
+        ElMessageBox.alert(
+          `<div style="width:400px;" class="break-words">${row.redisConnectionDisplay}</div>`,
+          "redis连接",
+          {
+            dangerouslyUseHTMLString: true,
+            callback: (_: Action) => {
+              delete row.redisConnectionDisplay;
+            },
+          }
+        );
+      });
     }
   };
 

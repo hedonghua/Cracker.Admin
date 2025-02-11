@@ -15,7 +15,10 @@ export interface TenantItem {
  * @returns
  */
 export function addTenant(data: any) {
-  return request.post<any, ApplicationResult<any>>("/api/tenant/addTenant", data);
+  return request.post<any, ApplicationResult<any>>(
+    "/api/tenant/addTenant",
+    data
+  );
 }
 
 /**
@@ -36,7 +39,10 @@ export function getTenantList(params: any) {
  * @returns
  */
 export function updateTenant(data: any) {
-  return request.put<any, ApplicationResult<any>>("/api/tenant/UpdateTenant", data);
+  return request.put<any, ApplicationResult<any>>(
+    "/api/tenant/UpdateTenant",
+    data
+  );
 }
 
 /**
@@ -45,5 +51,15 @@ export function updateTenant(data: any) {
  * @returns
  */
 export function deleteTenant(id: string) {
-  return request.delete<any, ApplicationResult<any>>("/api/tenant/DeleteTenant/" + id);
+  return request.delete<any, ApplicationResult<any>>(
+    "/api/tenant/DeleteTenant/" + id
+  );
+}
+
+/** 获取解密信息 */
+export function getDecryptInfo(params) {
+  return request.get<any, ApplicationResult<string>>(
+    "/api/tenant/getDecryptInfo",
+    { params: params }
+  );
 }

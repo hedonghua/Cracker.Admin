@@ -14,5 +14,7 @@ namespace Cracker.Admin.System
         Task UpdateTenantAsync(TenantDto dto);
 
         Task DeleteTenantAsync(Guid tenantId);
+
+        Task<string> GetDecryptInfoAsync(Guid tenantId, string type);
     }
 }

@@ -2,6 +2,7 @@
 using Cracker.Admin.Extensions;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Models;
+using Cracker.Admin.Services;
 using Cracker.Admin.System.Dtos;
 using System;
 using System.IO;
@@ -18,11 +19,13 @@ namespace Cracker.Admin.System
     {
         private readonly IRepository<SysTenant> tenantRepository;
         private readonly IBackgroundJobManager backgroundJobManager;
+        private readonly TenantDomainService tenantDomainService;
 
-        public TenantService(IRepository<SysTenant> tenantRepository, IBackgroundJobManager backgroundJobManager)
+        public TenantService(IRepository<SysTenant> tenantRepository, IBackgroundJobManager backgroundJobManager, TenantDomainService tenantDomainService)
         {
             this.tenantRepository = tenantRepository;
             this.backgroundJobManager = backgroundJobManager;
+            this.tenantDomainService = tenantDomainService;
         }
 
         public async Task AddTenantAsync(TenantDto dto)
@@ -49,6 +52,17 @@ namespace Cracker.Admin.System
             await tenantRepository.DeleteAsync(x => x.Id == tenantId);
         }
 
+        public async Task<string> GetDecryptInfoAsync(Guid tenantId, string type)
+        {
+            var tenant = (await tenantDomainService.GetTenantConfigurationsAsync()).Where(x => x.Id == tenantId).FirstOrDefault();
+            if (tenant == null) return string.Empty;
+
+            if (type == "conn") return tenant.ConnectionStrings!["MySql"]!;
+            else if (type == "redis") return tenant.ConnectionStrings!["Redis"]!;
+            else if (type == "all") return tenant.ConnectionStrings!["MySql"] + "||" + tenant.ConnectionStrings!["Redis"]!;
+            return string.Empty;
+        }
+
         public async Task<PagedResultStruct<TenantResultDto>> GetTenantListAsync(TenantSearchDto dto)
         {
             var query = (await tenantRepository.GetQueryableAsync())
@@ -57,8 +71,6 @@ namespace Cracker.Admin.System
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    ConnectionString = x.ConnectionString,
-                    RedisConnection = x.RedisConnection,
                     Remark = x.Remark
                 });
             return new PagedResultStruct<TenantResultDto>(dto)
