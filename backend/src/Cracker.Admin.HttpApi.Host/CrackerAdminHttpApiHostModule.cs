@@ -104,6 +104,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
             });
 
             options.Filters.Add<AppGlobalExceptionFilter>();
+            options.Filters.Add<XssProtectionFilterAttribute>();
         });
     }
 
