@@ -2,7 +2,7 @@
 
 # Cracker.Admin
 
-前端使用re-admin，后端使用abp框架。rbac（基于角色权限访问控制）通用权限管理，精确到按钮级别的权限控制。
+前端使用re-admin（自己写的前端框架，不依赖任何admin框架），后端基于abp框架，实现了rbac（基于角色权限访问控制）通用权限管理，精确到按钮级别的权限控制。
 
 <!-- PROJECT SHIELDS -->
 
@@ -33,25 +33,31 @@
 
 ### 使用技术
 
-* Abp
-* .NETCore
+* NETCore
+* .Abp
+* MySQL
+* Redis
+* EntityFrameworkCore
 * Dapper
-* MediatR
 * JWT
 * Coravel
-* Mapster
+* AutoMapper
 * Serilog
-* Nito.AsyncEx
 * IP2Region.Net
-* MySQL
-* EntityFrameworkCore
+* MQTT
 * Vue
+* Vite
+* TypeScript
+* MockJs
+* VueRouter
 * Pinia
 * Lodash
-* DayJs
 * Axios
+* DayJs
 * ElementUI Plus
-* TailwindCss
+* Sass
+* Iconify
+* TailwindCSS
 
 ###### **使用步骤**
 
