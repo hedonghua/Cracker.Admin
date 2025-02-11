@@ -1,4 +1,4 @@
-import request from "@/request";
+import request from "@/utils/request";
 import { AppOption, ApplicationResult, PagedResult } from "#/data";
 
 export interface RoleItem {

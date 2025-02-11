@@ -9,7 +9,7 @@ import {
 } from "@/api/system/tenant";
 import { Action, ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
-import utils from "@/utils";
+import utils from "@/utils/tool";
 import _ from "lodash";
 
 export function useTable() {

@@ -1,5 +1,5 @@
 import { ApplicationResult, PagedResult } from "#/data";
-import request from "@/request";
+import request from "@/utils/request";
 
 export interface BusinessLogDto {
   id: string;

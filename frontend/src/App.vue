@@ -9,7 +9,7 @@ import { useThemeStore } from "@/store/themeStore";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import en from "element-plus/es/locale/lang/en";
 import { computed, onBeforeMount } from "vue";
-import Utils from "./utils";
+import Utils from "./utils/tool";
 
 const themeStore = useThemeStore();
 const locale = computed(() => (themeStore.language === "zh-cn" ? zhCn : en));

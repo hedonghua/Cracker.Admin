@@ -1,4 +1,4 @@
-import request from "@/request";
+import request from "@/utils/request";
 import { ApplicationResult } from "#/data";
 
 export interface LoginForm {

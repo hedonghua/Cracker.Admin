@@ -7,7 +7,7 @@
                     @click="openDialog('新增字典')" plain>新增</el-button>
             </template>
         </re-table>
-        <el-dialog v-model="dialogVisible" :title="dialogTitle" width="500" :before-close="handleClose">
+        <el-dialog v-model="dialogVisible" :title="dialogTitle" width="40%" :before-close="handleClose">
             <el-form :model="editForm" ref="editFormRef" label-width="110" :rules="rules">
                 <el-form-item prop="name" label="租户名称">
                     <el-input v-model="editForm.name" placeholder="请输入租户名称" clearable />

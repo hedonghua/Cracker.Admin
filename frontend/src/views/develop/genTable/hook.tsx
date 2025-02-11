@@ -12,7 +12,7 @@ import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
 import { useTabManager } from "@/hooks/useTabManager";
 import _ from "lodash";
-import utils from "@/utils";
+import utils from "@/utils/tool";
 
 export function useTable() {
   /*========================== 字段 ========================== */

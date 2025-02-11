@@ -69,7 +69,7 @@
 
 <script setup lang="ts">
 import { useThemeStore, defaultTheme } from "@/store/themeStore";
-import Utils from "@/utils";
+import Utils from "@/utils/tool";
 import { ref, watch } from "vue";
 
 const props = defineProps({

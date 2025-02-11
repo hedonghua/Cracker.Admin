@@ -8,7 +8,7 @@ import {
 } from "@/api/system/dictData";
 import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
-import utils from "@/utils";
+import utils from "@/utils/tool";
 import _ from "lodash";
 import { useRoute } from "vue-router";
 

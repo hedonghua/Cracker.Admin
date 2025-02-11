@@ -1,4 +1,4 @@
-import request from "@/request";
+import request from "@/utils/request";
 import { ApplicationResult, AppOption, PagedResult } from "#/data";
 
 export interface DictTypeItem {

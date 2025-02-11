@@ -4,6 +4,10 @@ using System.Text.RegularExpressions;
 
 namespace Cracker.Admin.Filters
 {
+    /// <summary>
+    /// XSS脚本过滤（只支持string，单个对象）
+    /// TODO: 待完善
+    /// </summary>
     public class XssProtectionFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -11,7 +15,7 @@ namespace Cracker.Admin.Filters
             var ps = context.ActionDescriptor.Parameters;
             foreach (var item in ps)
             {
-                if (context.ActionArguments[item.Name] != null)
+                if (context.ActionArguments.TryGetValue(item.Name, out _))
                 {
                     if (item.ParameterType.Equals(typeof(string)))
                     {
@@ -39,7 +43,7 @@ namespace Cracker.Admin.Filters
                 {
                     if (item.GetValue(obj) != null)
                     {
-                        //当参数是str
+                        //当参数是string
                         if (item.PropertyType.Equals(typeof(string)))
                         {
                             var value = item.GetValue(obj)?.ToString();

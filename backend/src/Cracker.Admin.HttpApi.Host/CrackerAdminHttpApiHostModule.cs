@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.RateLimiting;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
@@ -72,6 +74,16 @@ public class CrackerAdminHttpApiHostModule : AbpModule
             var httpContext = sp.GetRequiredService<IHttpContextAccessor>().HttpContext;
             return httpContext?.Features.Get<TenantAccessorImpl>() ?? new TenantAccessorImpl();
         });
+        context.Services.AddRateLimiter(_ => _
+            .AddTokenBucketLimiter(policyName: "token", options =>
+            {
+                options.TokenLimit = 100;
+                options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                options.QueueLimit = 2;
+                options.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
+                options.TokensPerPeriod = 20;
+                options.AutoReplenishment = true;
+            }));
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
         context.Services.AddHostedService<PreparationHostService>();
@@ -104,7 +116,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
             });
 
             options.Filters.Add<AppGlobalExceptionFilter>();
-            options.Filters.Add<XssProtectionFilterAttribute>();
+            //options.Filters.Add<XssProtectionFilterAttribute>();
         });
     }
 
@@ -231,9 +243,12 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         {
             app.UseMiddleware<MultiTenancyMiddleware>();
         }
+        //TODO: 生成环境可以去掉
+        app.UseMiddleware<DemonstrationModeMiddleware>();
         app.UseUnitOfWork();
         app.UseDynamicClaims();
         app.UseAuthorization();
+        app.UseRateLimiter();
 
         app.UseMiddleware<ReHeaderMiddleware>();
 
@@ -244,6 +259,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
                  name: "default",
                  pattern: "{controller}/{action}/{param:regex(.*+)}"
              );
+            endpoints.MapControllers().RequireRateLimiting("token");
         });
 
         app.ApplicationServices.UseScheduler(sch =>

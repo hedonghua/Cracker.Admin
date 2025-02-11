@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { ElMessage } from "element-plus";
 import { refreshToken as getAccessToken } from "@/api/login";
 import { useUserStore } from "@/store/userStore";
-import Utils from "@/utils";
+import Utils from "@/utils/tool";
 import { useAuthorization } from "@/hooks/useAuthorization";
 
 /**

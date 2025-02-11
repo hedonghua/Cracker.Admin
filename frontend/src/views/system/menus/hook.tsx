@@ -9,7 +9,7 @@ import {
 } from "@/api/system/menu";
 import { ElMessage, ElMessageBox, FormInstance } from "element-plus";
 import { useAuthorization } from "@/hooks/useAuthorization";
-import Utils from "@/utils";
+import Utils from "@/utils/tool";
 
 export function useTable() {
   /*========================== 字段 ========================== */

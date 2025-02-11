@@ -61,7 +61,7 @@ import { CSSProperties, onBeforeMount, onMounted, reactive, ref } from "vue";
 import { FormInstance } from "element-plus/es/components/form";
 import { ReTableColumn, FilterStruct, CustomRequestFunc } from './types'
 import { PagedResult } from "#/data";
-import utils from "@/utils"
+import utils from "@/utils/tool"
 import dayjs from "dayjs";
 
 const headerCellStyle: CSSProperties = { background: '#fafafa', color: '#334155' };

@@ -11,7 +11,7 @@ import { getPositionOptions } from "@/api/organization/position";
 import { ElMessage, ElMessageBox, ElTree, FormInstance } from "element-plus";
 import { AppResponseStatusCode } from "@/consts";
 import { useAuthorization } from "@/hooks/useAuthorization";
-import Utils from "@/utils";
+import Utils from "@/utils/tool";
 import { assign, cloneDeep } from "lodash";
 
 export function useTable() {

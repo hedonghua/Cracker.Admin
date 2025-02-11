@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import Utils from "@/utils";
+import Utils from "@/utils/tool.ts";
 import { useTable } from "./hook.tsx"
 
 const {
