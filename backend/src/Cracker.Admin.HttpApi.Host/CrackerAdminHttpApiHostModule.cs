@@ -284,20 +284,8 @@ public class CrackerAdminHttpApiHostModule : AbpModule
             app.UseMqttServer(
                 server =>
                 {
-                    server.ValidatingConnectionAsync += e =>
-                     {
-                         if (e.UserName != configuration["Mqtt:UserName"])
-                         {
-                             e.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
-                         }
-
-                         if (e.Password != configuration["Mqtt:Password"])
-                         {
-                             e.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
-                         }
-
-                         return Task.CompletedTask;
-                     };
+                    var mqttService = app.ApplicationServices.GetRequiredService<MqttService>();
+                    server.ValidatingConnectionAsync += mqttService.ValidatingConnectionAsync;
                 });
         });
 

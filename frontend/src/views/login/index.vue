@@ -1,6 +1,13 @@
 <template>
-  <div class="login-container"
-    :style="{ backgroundImage: `url(${LoginBg})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }">
+  <div
+    class="login-container"
+    :style="{
+      backgroundImage: `url(${LoginBg})`,
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+    }"
+  >
     <div class="flex flex-col items-center justify-center h-full">
       <div class="login-form-container">
         <p class="login-title">{{ APP_TITLE }}后台登录</p>
@@ -15,21 +22,31 @@
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" show-password v-model="form.password" placeholder="请输入登录密码">
-              <template #prepend><el-icon>
-                  <Lock />
-                </el-icon></template>
+            <el-input
+              type="password"
+              show-password
+              v-model="form.password"
+              placeholder="请输入登录密码"
+            >
+              <template #prepend
+                ><el-icon>
+                  <Lock /> </el-icon
+              ></template>
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="w-full mt-2" @click="login">登录</el-button>
+            <el-button type="primary" class="w-full mt-2" @click="login"
+              >登录</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
     </div>
 
     <!-- 底部声明 -->
-    <p class="text-slate-300 text-sm absolute left-1/2 transform -translate-x-1/2 bottom-5">
+    <p
+      class="text-slate-300 text-sm absolute left-1/2 transform -translate-x-1/2 bottom-5"
+    >
       发现问题，请联系作者：crackerwork@outlook.com
     </p>
   </div>
@@ -39,11 +56,12 @@
 import { FormInstance, FormRules } from "element-plus";
 import { reactive, ref } from "vue";
 import { LoginForm, userLogin } from "@/api/login";
-import { useUserStore, UserAuthInfo } from "@/store/userStore"
+import { useUserStore, UserAuthInfo } from "@/store/userStore";
 import { useRouter } from "vue-router";
 import LoginBg from "@/assets/img/bg.jpg";
-import './index.scss'
+import "./index.scss";
 import { useRouteCache } from "@/router/hook";
+import Utils from "@/utils/tool";
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE;
 const userStore = useUserStore();
@@ -67,6 +85,7 @@ const login = () => {
         localStorage.setItem("auths", JSON.stringify(res.data.auths));
         //初始化路由
         await routeCache.loadRoutes(true);
+        Utils.getBrowserCode();
         router.replace("/home");
       });
     }

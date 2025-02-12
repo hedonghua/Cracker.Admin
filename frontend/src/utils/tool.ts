@@ -1,3 +1,5 @@
+import fingerprintJS from "fingerprintjs2";
+
 /**
  * 自定义工具类
  */
@@ -88,14 +90,26 @@ export default class Utils {
     return otherJsx;
   }
 
-  static isDark(color:"light" | "dark" | "auto"){
-    if(color === "dark"){
+  static isDark(color: "light" | "dark" | "auto") {
+    if (color === "dark") {
       return true;
-    }else if(color === "auto"){
+    } else if (color === "auto") {
       let now = new Date();
       let hours = now.getHours();
       return hours >= 18 || hours < 6;
     }
     return false;
+  }
+
+  static getBrowserCode() {
+    let fingerprint = localStorage.getItem("fingerprint");
+    if (!fingerprint) {
+      fingerprintJS.get(function (components) {
+        const values = components.map((component) => component.value); // x64hash128方法生成指纹
+        fingerprint = fingerprintJS.x64hash128(values.join(""), 31);
+        localStorage.setItem("fingerprint", fingerprint!);
+      });
+    }
+    return fingerprint;
   }
 }

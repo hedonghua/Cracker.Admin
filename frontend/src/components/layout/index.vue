@@ -25,8 +25,10 @@ import ReTab from "./re-tab/index.vue";
 import { onMounted, ref } from "vue";
 import { getUserInfo, UserInfoData } from "@/api/login";
 import { useUserStore } from "@/store/userStore";
+import { useMqtt } from "@/hooks/useMqtt";
 
 const userStore = useUserStore();
+const mqtt = useMqtt();
 const collapse = ref<boolean>(false);
 const changeSidebarStatus = (_collapse: boolean) => {
   collapse.value = _collapse;
@@ -40,6 +42,7 @@ onMounted(() => {
       sex: userInfo.sex,
       nickName: userInfo.nickName,
     });
+    mqtt.connect();
   });
 });
 </script>

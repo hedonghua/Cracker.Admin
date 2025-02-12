@@ -10,7 +10,6 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import loadDirectives from "./directives";
 import loadComponents from "./components/globalComponents";
 import router from "@/router/index";
-import "./utils/mqtt";
 
 const app = createApp(App);
 //pinia

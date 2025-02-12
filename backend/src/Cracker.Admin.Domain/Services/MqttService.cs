@@ -1,7 +1,10 @@
-﻿using MQTTnet;
+﻿using Microsoft.Extensions.Configuration;
+using MQTTnet;
+using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using StackExchange.Redis;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 
@@ -10,10 +13,25 @@ namespace Cracker.Admin.Services
     public class MqttService : ISingletonDependency
     {
         private readonly MqttServer mqttServer;
+        private readonly IConfiguration configuration;
+        private readonly IDatabase redisDb;
 
-        public MqttService(MqttServer mqttServer)
+        public MqttService(MqttServer mqttServer, IConfiguration configuration, IDatabase redisDb)
         {
             this.mqttServer = mqttServer;
+            this.configuration = configuration;
+            this.redisDb = redisDb;
+        }
+
+        public async Task ValidatingConnectionAsync(ValidatingConnectionEventArgs e)
+        {
+            var isValidToken = await redisDb.KeyExistsAsync($"MqttToken:{e.UserName}");
+            var isValidAccount = e.UserName == configuration["Mqtt:UserName"] && e.Password == configuration["Mqtt:Password"];
+            if (!(isValidToken || isValidAccount))
+            {
+                e.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
+                return;
+            }
         }
 
         /// <summary>
