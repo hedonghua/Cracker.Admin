@@ -1,10 +1,7 @@
-using System.Threading.Tasks;
-
-using IP2Region.Net.XDB;
-
-using Microsoft.AspNetCore.Http;
-
 using Cracker.Admin.Core;
+using IP2Region.Net.XDB;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Cracker.Admin.Middlewares
 {
@@ -19,6 +16,12 @@ namespace Cracker.Admin.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            if (context.WebSockets.IsWebSocketRequest || context.WebSockets.WebSocketRequestedProtocols.Count > 0)
+            {
+                await _next(context);
+                return;
+            }
+
             var path = context.Request.Path;
             var method = context.Request.Method;
             var header = context.Request.Headers;

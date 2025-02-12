@@ -13,16 +13,20 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MQTTnet.AspNetCore;
+using MQTTnet.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.RateLimiting;
+using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.ExceptionHandling;
@@ -61,6 +65,11 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         {
             options.OutputDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
         });
+        Configure<KestrelServerOptions>(options =>
+        {
+            options.ListenAnyIP(port: int.Parse(configuration["Mqtt:Port"]!), l => l.UseMqtt());
+            options.ListenAnyIP(port: int.Parse(Environment.GetEnvironmentVariable("ASPNETCORE_PORT")!));
+        });
 
         context.Services.AddScheduler();
 
@@ -87,7 +96,16 @@ public class CrackerAdminHttpApiHostModule : AbpModule
 
         context.Services.AddHostedService<DatabaseMigrationHostService>();
         context.Services.AddHostedService<PreparationHostService>();
-        context.Services.AddHostedService<MqttServerHostService>();
+
+        context.Services.AddHostedMqttServer(
+            optionsBuilder =>
+            {
+                optionsBuilder.WithDefaultEndpoint();
+            });
+
+        context.Services.AddMqttConnectionHandler();
+        context.Services.AddConnections();
+
         SnowflakeHelper.Init(short.Parse(configuration["Snowflake:WorkerId"]!), short.Parse(configuration["Snowflake:DataCenterId"]!));
     }
 
@@ -260,6 +278,27 @@ public class CrackerAdminHttpApiHostModule : AbpModule
                  pattern: "{controller}/{action}/{param:regex(.*+)}"
              );
             endpoints.MapControllers().RequireRateLimiting("token");
+            endpoints.MapConnectionHandler<MqttConnectionHandler>(
+                "/mqtt", httpConnectionDispatcherOptions => httpConnectionDispatcherOptions.WebSockets.SubProtocolSelector =
+                    protocolList => protocolList.FirstOrDefault() ?? string.Empty);
+            app.UseMqttServer(
+                server =>
+                {
+                    server.ValidatingConnectionAsync += e =>
+                     {
+                         if (e.UserName != configuration["Mqtt:UserName"])
+                         {
+                             e.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
+                         }
+
+                         if (e.Password != configuration["Mqtt:Password"])
+                         {
+                             e.ReasonCode = MqttConnectReasonCode.BadUserNameOrPassword;
+                         }
+
+                         return Task.CompletedTask;
+                     };
+                });
         });
 
         app.ApplicationServices.UseScheduler(sch =>

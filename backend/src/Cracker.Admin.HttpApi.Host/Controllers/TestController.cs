@@ -12,9 +12,9 @@ namespace Cracker.Admin.Controllers
     [Route("api/[controller]/[action]")]
     public class TestController : AbpControllerBase
     {
-        private readonly MqttSingletonService mqttSingletonService;
+        private readonly MqttService mqttSingletonService;
 
-        public TestController(MqttSingletonService mqttSingletonService)
+        public TestController(MqttService mqttSingletonService)
         {
             this.mqttSingletonService = mqttSingletonService;
         }

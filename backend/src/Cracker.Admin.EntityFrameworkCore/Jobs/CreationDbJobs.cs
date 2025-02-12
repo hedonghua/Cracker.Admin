@@ -1,4 +1,5 @@
 ﻿using Cracker.Admin.Models;
+using Cracker.Admin.Services;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -13,10 +14,12 @@ namespace Cracker.Admin.Jobs
     public class CreationDbJobs : AsyncBackgroundJob<CreationDbParameter>, ITransientDependency
     {
         private readonly ILogger<CreationDbJobs> logger;
+        private readonly MqttService mqttService;
 
-        public CreationDbJobs(ILogger<CreationDbJobs> logger)
+        public CreationDbJobs(ILogger<CreationDbJobs> logger, MqttService mqttService)
         {
             this.logger = logger;
+            this.mqttService = mqttService;
         }
 
         public override async Task ExecuteAsync(CreationDbParameter args)
@@ -42,6 +45,12 @@ namespace Cracker.Admin.Jobs
                     logger.LogError(ex, "{filePath}执行失败", filePath);
                 }
             }
+
+            await mqttService.PushAsync("notification", new NotificationBody
+            {
+                Type = "success",
+                Message = $"租户[{args.Name}]数据库创建成功"
+            });
         }
     }
 }

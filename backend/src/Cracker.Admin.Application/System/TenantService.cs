@@ -44,7 +44,7 @@ namespace Cracker.Admin.System
             };
             await tenantRepository.InsertAsync(entity);
 
-            await backgroundJobManager.EnqueueAsync(new CreationDbParameter { ConnectionString = dto.ConnectionString });
+            await backgroundJobManager.EnqueueAsync(new CreationDbParameter { Name = dto.Name, ConnectionString = dto.ConnectionString });
         }
 
         public async Task DeleteTenantAsync(Guid tenantId)

@@ -20,6 +20,7 @@
 	<PackageReference Include="StackExchange.Redis" Version="2.8.24" />
 	<PackageReference Include="MQTTnet" Version="5.0.1.1416" />
 	<PackageReference Include="MQTTnet.Server" Version="5.0.1.1416" />
+	<PackageReference Include="MQTTnet.AspNetCore" Version="5.0.1.1416" />
   </ItemGroup>
 
 </Project>
