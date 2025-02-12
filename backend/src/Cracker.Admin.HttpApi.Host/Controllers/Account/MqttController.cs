@@ -36,7 +36,7 @@ namespace Cracker.Admin.Controllers.Account
             var token = Guid.NewGuid().ToString();
             var expired = TimeHelper.GetCurrentTimestamp() + 3600;
             await redisDb.StringSetAsync($"MqttToken:{token}", expired, TimeSpan.FromHours(1), true);
-            await redisDb.StringSetAsync(codeKey, expired, TimeSpan.FromHours(1));
+            await redisDb.StringSetAsync(codeKey, token, TimeSpan.FromHours(1));
             return ResultHelper.Ok(new { expired = expired, token });
         }
     }

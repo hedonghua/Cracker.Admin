@@ -261,7 +261,7 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         {
             app.UseMiddleware<MultiTenancyMiddleware>();
         }
-        //TODO: 生成环境可以去掉
+        //TODO: 生产环境可以去掉
         app.UseMiddleware<DemonstrationModeMiddleware>();
         app.UseUnitOfWork();
         app.UseDynamicClaims();
