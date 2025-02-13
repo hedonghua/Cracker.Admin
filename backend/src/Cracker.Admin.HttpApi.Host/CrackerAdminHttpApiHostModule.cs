@@ -4,6 +4,7 @@ using Cracker.Admin.Filters;
 using Cracker.Admin.Helpers;
 using Cracker.Admin.Infrastructure;
 using Cracker.Admin.Jobs;
+using Cracker.Admin.JsonConverters;
 using Cracker.Admin.Middlewares;
 using Cracker.Admin.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -64,6 +65,11 @@ public class CrackerAdminHttpApiHostModule : AbpModule
         Configure<AbpJsonOptions>(options =>
         {
             options.OutputDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        });
+        Configure<JsonOptions>(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(new StringNullableJsonConverter());
+            options.JsonSerializerOptions.Converters.Add(new StringJsonConverter());
         });
         Configure<KestrelServerOptions>(options =>
         {

@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Cracker.Admin.Helpers
 {
@@ -56,6 +57,28 @@ namespace Cracker.Admin.Helpers
             }
 
             return pascalCase.ToString();
+        }
+
+        public static string? XssFilte(string? input)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+
+            // 使用正则表达式移除潜在的XSS攻击代码
+            // 注意：以下正则表达式只是一个简单的例子，可能不会覆盖所有XSS攻击向量
+            // 在生产环境中，建议使用更完善的库，如AntiXSS Library或HtmlSanitizer
+            var scriptRegex = new Regex(@"<script.*?>.*?</script.*?>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var inputRegex = new Regex(@"<input.*?/>", RegexOptions.IgnoreCase);
+            var styleRegex = new Regex(@"<style.*?>.*?</style.*?>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var iframeRegex = new Regex(@"<iframe.*?>.*?</iframe.*?>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            var srcRegex = new Regex(@"src[\s]*=[\s]*['""]?javascript:", RegexOptions.IgnoreCase);
+
+            input = scriptRegex.Replace(input, string.Empty);
+            input = inputRegex.Replace(input, string.Empty);
+            input = styleRegex.Replace(input, string.Empty);
+            input = iframeRegex.Replace(input, string.Empty);
+            input = srcRegex.Replace(input, "src=\"\"");
+
+            return input;
         }
     }
 }
