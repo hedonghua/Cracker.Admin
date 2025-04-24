@@ -26,35 +26,35 @@ namespace Cracker.Admin.Controllers.Developer
         }
 
         [HttpGet]
-        public async Task<IAppResult> GetDatabaseTableListAsync([FromQuery] DatabaseableSearchDto dto)
+        public async Task<IAppResponse> GetDatabaseTableListAsync([FromQuery] DatabaseableSearchDto dto)
         {
             var data = await genTableService.GetDatabaseTableListAsync(dto);
             return ResultHelper.Ok(data);
         }
 
         [HttpGet]
-        public async Task<IAppResult> GetGenTableListAsync([FromQuery] GenTableSearchDto dto)
+        public async Task<IAppResponse> GetGenTableListAsync([FromQuery] GenTableSearchDto dto)
         {
             var data = await genTableService.GetGenTableListAsync(dto);
             return ResultHelper.Ok(data);
         }
 
         [HttpPost]
-        public async Task<IAppResult> AddGenTableAsync([FromBody] GenTableDto dto)
+        public async Task<IAppResponse> AddGenTableAsync([FromBody] GenTableDto dto)
         {
             await genTableService.AddGenTableAsync(dto);
             return ResultHelper.Ok();
         }
 
         [HttpPut]
-        public async Task<IAppResult> UpdateGenTableAsync([FromBody] GenTableDto dto)
+        public async Task<IAppResponse> UpdateGenTableAsync([FromBody] GenTableDto dto)
         {
             await genTableService.UpdateGenTableAsync(dto);
             return ResultHelper.Ok();
         }
 
         [HttpDelete]
-        public async Task<IAppResult> DeleteGenTableAsync([FromBody] List<Guid> genTableIds)
+        public async Task<IAppResponse> DeleteGenTableAsync([FromBody] List<Guid> genTableIds)
         {
             await genTableService.DeleteGenTableAsync(genTableIds);
             return ResultHelper.Ok();
@@ -66,7 +66,7 @@ namespace Cracker.Admin.Controllers.Developer
         /// <param name="genTableId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IAppResult> PreviewCodeAsync(Guid genTableId)
+        public async Task<IAppResponse> PreviewCodeAsync(Guid genTableId)
         {
             var data = await genTableService.PreviewCodeAsync(genTableId);
             return ResultHelper.Ok(data);

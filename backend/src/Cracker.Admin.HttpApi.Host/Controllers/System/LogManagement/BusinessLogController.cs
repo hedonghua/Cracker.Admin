@@ -1,12 +1,9 @@
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
-
 using Cracker.Admin.Attributes;
-using Cracker.Admin.Filters;
+using Cracker.Admin.Models;
 using Cracker.Admin.System.LogManagement;
 using Cracker.Admin.System.LogManagement.Dtos;
-
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 
 namespace Cracker.Admin.Controllers.System.LogManagement
@@ -27,9 +24,12 @@ namespace Cracker.Admin.Controllers.System.LogManagement
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpDelete("delete")]
-        [AppResultFilter]
         [HasPermission("admin_system_businesslog_delete")]
-        public Task<bool> DeleteBusinessLogsAsync([FromBody] long[] ids) => _businessLogService.DeleteBusinessLogsAsync(ids);
+        public async Task<AppResponse> DeleteBusinessLogsAsync([FromBody] long[] ids)
+        {
+            await _businessLogService.DeleteBusinessLogsAsync(ids);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 业务日志分页列表
@@ -37,8 +37,11 @@ namespace Cracker.Admin.Controllers.System.LogManagement
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_businesslog_list")]
-        public Task<PagedResultDto<BusinessLogListDto>> GetBusinessLogListAsync([FromQuery] BusinessLogQueryDto dto) => _businessLogService.GetBusinessLogListAsync(dto);
+        public async Task<AppResponse<PagedResultDto<BusinessLogListDto>>> GetBusinessLogListAsync([FromQuery] BusinessLogQueryDto dto)
+        {
+            var data = await _businessLogService.GetBusinessLogListAsync(dto);
+            return AppResponse.Data(data);
+        }
     }
 }

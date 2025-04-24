@@ -33,7 +33,7 @@ namespace Cracker.Admin.Filters
                 RequestId = Activity.Current?.TraceId.ToString(),
                 IsSuccess = true,
             };
-            if (context.Result is ObjectResult objRes && objRes.Value is IAppResult res)
+            if (context.Result is ObjectResult objRes && objRes.Value is IAppResponse res)
             {
                 model.IsSuccess = res.IsOk();
                 model.OperationMsg = res.Message;

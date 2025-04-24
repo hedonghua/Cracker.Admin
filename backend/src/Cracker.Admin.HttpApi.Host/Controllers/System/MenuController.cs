@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
-
 using Cracker.Admin.Attributes;
-using Cracker.Admin.Filters;
 using Cracker.Admin.Models;
 using Cracker.Admin.System;
 using Cracker.Admin.System.Dtos;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cracker.Admin.Controllers.System
 {
@@ -28,9 +25,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [HasPermission("admin_system_menu_add")]
-        public Task<bool> AddMenuAsync([FromBody] MenuDto dto) => _menuService.AddMenuAsync(dto);
+        public async Task<AppResponse> AddMenuAsync([FromBody] MenuDto dto)
+        {
+            await _menuService.AddMenuAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 菜单树形列表
@@ -38,9 +38,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_menu_delete")]
-        public Task<List<MenuListDto>> GetMenuListAsync([FromQuery] MenuQueryDto dto) => _menuService.GetMenuListAsync(dto);
+        public async Task<AppResponse<List<MenuListDto>>> GetMenuListAsync([FromQuery] MenuQueryDto dto)
+        {
+            var data = await _menuService.GetMenuListAsync(dto);
+            return AppResponse.Data(data);
+        }
 
         /// <summary>
         /// 修改菜单
@@ -48,9 +51,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("update")]
-        [AppResultFilter]
         [HasPermission("admin_system_menu_update")]
-        public Task<bool> UpdateMenuAsync([FromBody] MenuDto dto) => _menuService.UpdateMenuAsync(dto);
+        public async Task<AppResponse> UpdateMenuAsync([FromBody] MenuDto dto)
+        {
+            await _menuService.UpdateMenuAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除菜单
@@ -58,16 +64,22 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete")]
-        [AppResultFilter]
         [HasPermission("admin_system_menu_delete")]
-        public Task<bool> DeleteMenusAsync([FromBody] Guid[] ids) => _menuService.DeleteMenusAsync(ids);
+        public async Task<AppResponse> DeleteMenusAsync([FromBody] Guid[] ids)
+        {
+            await _menuService.DeleteMenusAsync(ids);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 获取菜单组成的选项树
         /// </summary>
         /// <returns></returns>
         [HttpGet("menu-options")]
-        [AppResultFilter]
-        public Task<List<AppOptionTree>> GetMenuOptionsAsync() => _menuService.GetMenuOptionsAsync();
+        public async Task<AppResponse<List<AppOptionTree>>> GetMenuOptionsAsync()
+        {
+            var data = await _menuService.GetMenuOptionsAsync();
+            return AppResponse.Data(data);
+        }
     }
 }

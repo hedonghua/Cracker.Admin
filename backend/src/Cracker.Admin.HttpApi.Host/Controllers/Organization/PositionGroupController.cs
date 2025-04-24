@@ -28,9 +28,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [HasPermission("admin_system_positiongroup_add")]
-        public Task<bool> AddPositionGroupAsync([FromBody] PositionGroupDto dto) => _positionGroupService.AddPositionGroupAsync(dto);
+        public async Task<AppResponse> AddPositionGroupAsync([FromBody] PositionGroupDto dto)
+        {
+            await _positionGroupService.AddPositionGroupAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 职位分组分页列表
@@ -38,9 +41,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_positiongroup_list")]
-        public Task<List<PositionGroupListDto>> GetPositionGroupListAsync([FromQuery] PositionGroupQueryDto dto) => _positionGroupService.GetPositionGroupListAsync(dto);
+        public async Task<AppResponse<List<PositionGroupListDto>>> GetPositionGroupListAsync([FromQuery] PositionGroupQueryDto dto)
+        {
+            var data = await _positionGroupService.GetPositionGroupListAsync(dto);
+            return AppResponse.Data(data);
+        }
 
         /// <summary>
         /// 修改职位分组
@@ -48,9 +54,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("update")]
-        [AppResultFilter]
         [HasPermission("admin_system_positiongroup_update")]
-        public Task<bool> UpdatePositionGroupAsync([FromBody] PositionGroupDto dto) => _positionGroupService.UpdatePositionGroupAsync(dto);
+        public async Task<AppResponse> UpdatePositionGroupAsync([FromBody] PositionGroupDto dto)
+        {
+            await _positionGroupService.UpdatePositionGroupAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除职位分组
@@ -58,16 +67,22 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete/{id:guid}")]
-        [AppResultFilter]
         [HasPermission("admin_system_positiongroup_delete")]
-        public Task<bool> DeletePositionGroupAsync(Guid id) => _positionGroupService.DeletePositionGroupAsync(id);
+        public async Task<AppResponse> DeletePositionGroupAsync(Guid id)
+        {
+            await _positionGroupService.DeletePositionGroupAsync(id);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 获取职位分组
         /// </summary>
         /// <returns></returns>
         [HttpGet("options")]
-        [AppResultFilter]
-        public Task<List<AppOption>> GetPositionGroupOptionsAsync() => _positionGroupService.GetPositionGroupOptionsAsync();
+        public async Task<AppResponse<List<AppOption>>> GetPositionGroupOptionsAsync()
+        {
+            var data = await _positionGroupService.GetPositionGroupOptionsAsync();
+            return AppResponse.Data(data);
+        }
     }
 }

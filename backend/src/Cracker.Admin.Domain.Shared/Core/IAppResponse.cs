@@ -1,6 +1,6 @@
 namespace Cracker.Admin.Core
 {
-    public interface IAppResult
+    public interface IAppResponse
     {
         int Code { get; set; }
         string? Message { get; set; }
@@ -9,7 +9,7 @@ namespace Cracker.Admin.Core
         bool IsOk();
     }
 
-    public interface IAppResult<T> : IAppResult
+    public interface IAppResponse<T> : IAppResponse
     {
         T? Data { get; set; }
     }

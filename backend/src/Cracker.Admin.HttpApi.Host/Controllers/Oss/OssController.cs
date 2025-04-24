@@ -1,14 +1,11 @@
+using Cracker.Admin.Helpers;
+using Cracker.Admin.Models;
+using Cracker.Admin.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-
-using Cracker.Admin.Filters;
-using Cracker.Admin.Helpers;
-using Cracker.Admin.Services;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Cracker.Admin.Controllers.Oss
@@ -24,8 +21,7 @@ namespace Cracker.Admin.Controllers.Oss
         }
 
         [HttpPost]
-        [AppResultFilter]
-        public async Task<string> UploadAsync(IFormFile file)
+        public async Task<AppResponse> UploadAsync(IFormFile file)
         {
             var stream = file.OpenReadStream();
             var bytes = new byte[stream.Length];
@@ -39,7 +35,8 @@ namespace Cracker.Admin.Controllers.Oss
             {
                 fileName = dir + "/" + fileName;
             }
-            return await _ossService.UploadAsync(bytes, fileName);
+            var url = await _ossService.UploadAsync(bytes, fileName);
+            return AppResponse.Ok(url);
         }
 
         [HttpGet("{*fileName}")]

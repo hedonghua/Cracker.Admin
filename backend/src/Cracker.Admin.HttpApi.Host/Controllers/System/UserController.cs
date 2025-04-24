@@ -1,5 +1,6 @@
 using Cracker.Admin.Attributes;
 using Cracker.Admin.Filters;
+using Cracker.Admin.Models;
 using Cracker.Admin.System;
 using Cracker.Admin.System.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +26,13 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [AppBusinessLogFilter("新增用户")]
         [HasPermission("admin_system_user_add")]
-        public Task<bool> AddUserAsync([FromBody] UserDto dto) => _userService.AddUserAsync(dto);
+        public async Task<AppResponse> AddUserAsync([FromBody] UserDto dto)
+        {
+            await _userService.AddUserAsync(dto);
+            return A.Ok();
+        }
 
         /// <summary>
         /// 用户分页列表
@@ -36,10 +40,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_user_list")]
-        public Task<PagedResultDto<UserListDto>> GetUserListAsync([FromQuery] UserQueryDto dto)
-            => _userService.GetUserListAsync(dto);
+        public async Task<AppResponse<PagedResultDto<UserListDto>>> GetUserListAsync([FromQuery] UserQueryDto dto)
+        {
+            var data = await _userService.GetUserListAsync(dto);
+            return A.Data(data);
+        }
 
         /// <summary>
         /// 删除用户
@@ -47,10 +53,13 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete/{id:Guid}")]
-        [AppResultFilter]
         [AppBusinessLogFilter("删除用户")]
         [HasPermission("admin_system_user_delete")]
-        public Task<bool> DeleteUserAsync(Guid id) => _userService.DeleteUserAsync(id);
+        public async Task<AppResponse> DeleteUserAsync(Guid id)
+        {
+            await _userService.DeleteUserAsync(id);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 分配角色
@@ -58,10 +67,13 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("assign-role")]
-        [AppResultFilter]
         [AppBusinessLogFilter("分配角色")]
         [HasPermission("admin_system_user_assignrole")]
-        public Task<bool> AssignRoleAsync([FromBody] AssignRoleDto dto) => _userService.AssignRoleAsync(dto);
+        public async Task<AppResponse> AssignRoleAsync([FromBody] AssignRoleDto dto)
+        {
+            await _userService.AssignRoleAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 切换用户启用状态
@@ -69,10 +81,13 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPut("change-enabled/{id:Guid}")]
-        [AppResultFilter]
         [AppBusinessLogFilter("切换用户状态")]
         [HasPermission("admin_system_user_changeenabled")]
-        public Task<bool> SwitchUserEnabledStatusAsync(Guid id) => _userService.SwitchUserEnabledStatusAsync(id);
+        public async Task<AppResponse> SwitchUserEnabledStatusAsync(Guid id)
+        {
+            await _userService.SwitchUserEnabledStatusAsync(id);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 获取指定用户角色
@@ -80,7 +95,10 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="uid"></param>
         /// <returns></returns>
         [HttpGet("roles/{uid:Guid}")]
-        [AppResultFilter]
-        public Task<Guid[]> GetUserRoleIdsAsync(Guid uid) => _userService.GetUserRoleIdsAsync(uid);
+        public async Task<AppResponse<Guid[]>> GetUserRoleIdsAsync(Guid uid)
+        {
+            var data = await _userService.GetUserRoleIdsAsync(uid);
+            return A.Data(data);
+        }
     }
 }

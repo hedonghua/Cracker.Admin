@@ -27,9 +27,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [HasPermission("admin_system_dept_add")]
-        public Task<bool> AddDeptAsync([FromBody] DeptDto dto) => _deptService.AddDeptAsync(dto);
+        public async Task<AppResponse> AddDeptAsync([FromBody] DeptDto dto)
+        {
+            await _deptService.AddDeptAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 部门树形列表
@@ -37,9 +40,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_dept_list")]
-        public Task<List<DeptListDto>> GetDeptListAsync([FromQuery] DeptQueryDto dto) => _deptService.GetDeptListAsync(dto);
+        public async Task<AppResponse<List<DeptListDto>>> GetDeptListAsync([FromQuery] DeptQueryDto dto)
+        {
+            var data = await _deptService.GetDeptListAsync(dto);
+            return AppResponse.Data(data);
+        }
 
         /// <summary>
         /// 修改部门
@@ -47,9 +53,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("update")]
-        [AppResultFilter]
         [HasPermission("admin_system_dept_update")]
-        public Task<bool> UpdateDeptAsync([FromBody] DeptDto dto) => _deptService.UpdateDeptAsync(dto);
+        public async Task<AppResponse> UpdateDeptAsync([FromBody] DeptDto dto)
+        {
+            await _deptService.UpdateDeptAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除部门
@@ -57,16 +66,22 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete/{id:guid}")]
-        [AppResultFilter]
         [HasPermission("admin_system_dept_delete")]
-        public Task<bool> DeleteDeptAsync(Guid id) => _deptService.DeleteDeptAsync(id);
+        public async Task<AppResponse> DeleteDeptAsync(Guid id)
+        {
+            await _deptService.DeleteDeptAsync(id);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 获取部门组成的选项树
         /// </summary>
         /// <returns></returns>
         [HttpGet("options")]
-        [AppResultFilter]
-        public Task<List<AppOption>> GetDeptOptionsAsync() => _deptService.GetDeptOptionsAsync();
+        public async Task<AppResponse<List<AppOption>>> GetDeptOptionsAsync()
+        {
+            var data = await _deptService.GetDeptOptionsAsync();
+            return AppResponse.Data(data);
+        }
     }
 }

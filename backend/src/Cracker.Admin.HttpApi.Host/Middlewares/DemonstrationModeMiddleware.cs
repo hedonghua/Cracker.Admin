@@ -32,15 +32,15 @@ namespace Cracker.Admin.Middlewares
         /// 是否演示模式
         /// </summary>
         /// <returns></returns>
-        private AppResult IsDemonstrationMode(HttpContext context)
+        private AppResponse IsDemonstrationMode(HttpContext context)
         {
             var isEnabled = bool.Parse(_configuration["App:DemonstrationMode"]!);
             var httpMethod = context.Request.Method.ToLower();
             var requestPath = context.Request.Path.Value?.ToLower();
             var isWhite = !string.IsNullOrWhiteSpace(requestPath) && (requestPath.Contains("account/login") || requestPath.Contains("account/signout"));
 
-            if (isEnabled && !IsIgnoreHttpMethod(httpMethod) && !isWhite) return new AppResult(-1, "演示模式，不允许操作");
-            return new AppResult();
+            if (isEnabled && !IsIgnoreHttpMethod(httpMethod) && !isWhite) return new AppResponse(-1, "演示模式，不允许操作");
+            return new AppResponse();
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Cracker.Admin.Middlewares
                 if (!isValid)
                 {
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    await context.Response.WriteAsJsonAsync(new AppResult(AdminResponseCode.NoAuth, "身份信息已过期，请重新登录"));
+                    await context.Response.WriteAsJsonAsync(new AppResponse(AdminResponseCode.NoAuth, "身份信息已过期，请重新登录"));
                     return;
                 }
 
@@ -53,7 +53,7 @@ namespace Cracker.Admin.Middlewares
 
                 if (!hasPower)
                 {
-                    await context.Response.WriteAsJsonAsync(new AppResult(AdminResponseCode.Forbidden, "权限不足，请联系管理员"));
+                    await context.Response.WriteAsJsonAsync(new AppResponse(AdminResponseCode.Forbidden, "权限不足，请联系管理员"));
                     return;
                 }
             }

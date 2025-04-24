@@ -20,14 +20,14 @@ namespace Cracker.Admin.Controllers.Monitor
         }
 
         [HttpGet]
-        public async Task<IAppResult> GetOnlineUserListAsync([FromQuery] OnlineUserSearchDto dto)
+        public async Task<IAppResponse> GetOnlineUserListAsync([FromQuery] OnlineUserSearchDto dto)
         {
             var data = await onlineUserService.GetOnlineUserListAsync(dto);
             return ResultHelper.Ok(data);
         }
 
         [HttpPost]
-        public async Task<IAppResult> LogoutAsync(string key)
+        public async Task<IAppResponse> LogoutAsync(string key)
         {
             await onlineUserService.LogoutAsync(key);
             return ResultHelper.Ok();

@@ -5,19 +5,19 @@ namespace Cracker.Admin.Helpers
 {
     public class ResultHelper
     {
-        public static IAppResult Ok(string? message = default)
+        public static IAppResponse Ok(string? message = default)
         {
-            return new AppResult() { Code = AdminResponseCode.Success, Message = message };
+            return new AppResponse() { Code = AdminResponseCode.Success, Message = message };
         }
 
-        public static IAppResult<T> Ok<T>(T? data)
+        public static IAppResponse<T> Ok<T>(T? data)
         {
-            return new AppResult<T>() { Code = AdminResponseCode.Success, Data = data };
+            return new AppResponse<T>() { Code = AdminResponseCode.Success, Data = data };
         }
 
-        public static IAppResult Fail(string? message = default)
+        public static IAppResponse Fail(string? message = default)
         {
-            return new AppResult() { Code = AdminResponseCode.Fail, Message = message };
+            return new AppResponse() { Code = AdminResponseCode.Fail, Message = message };
         }
     }
 }

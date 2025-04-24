@@ -4,7 +4,7 @@ using Cracker.Admin.Core;
 
 namespace Cracker.Admin.Models
 {
-    public class AppResult : IAppResult
+    public class AppResponse : IAppResponse
     {
         [JsonPropertyOrder(0)]
         public int Code { get; set; }
@@ -15,16 +15,16 @@ namespace Cracker.Admin.Models
         [JsonPropertyOrder(2)]
         public string? Status { get; set; }
 
-        public AppResult()
+        public AppResponse()
         { }
 
-        public AppResult(int code, string? msg)
+        public AppResponse(int code, string? msg)
         {
             Code = code;
             Message = msg;
         }
 
-        public AppResult(bool flag)
+        public AppResponse(bool flag)
         {
             Code = flag ? AdminResponseCode.Success : AdminResponseCode.Fail;
         }
@@ -33,19 +33,42 @@ namespace Cracker.Admin.Models
         {
             return Code == AdminResponseCode.Success;
         }
+
+        public static AppResponse Ok(string? msg = default)
+        {
+            return new AppResponse
+            {
+                Code = AdminResponseCode.Success,
+                Message = msg
+            };
+        }
+
+        public static AppResponse Fail(string? msg = default)
+        {
+            return new AppResponse
+            {
+                Code = AdminResponseCode.Fail,
+                Message = msg
+            };
+        }
+
+        public static AppResponse<T> Data<T>(T? data)
+        {
+            return new AppResponse<T>(data);
+        }
     }
 
-    public class AppResult<T> : AppResult, IAppResult<T>
+    public class AppResponse<T> : AppResponse, IAppResponse<T>
     {
         [JsonPropertyOrder(3)]
         public T? Data { get; set; }
 
-        public AppResult()
+        public AppResponse()
         {
             Code = AdminResponseCode.Success;
         }
 
-        public AppResult(T? data)
+        public AppResponse(T? data)
         {
             Code = AdminResponseCode.Success;
             Data = data;

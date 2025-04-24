@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace Cracker.Admin.Controllers.Organization
 {
     [Route("api/employee")]
-    [AppResultFilter]
     public class EmployeeController : AdminController
     {
         private readonly IEmployeeService _employeeService;
@@ -26,7 +25,11 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [HasPermission("admin_system_employee_add")] public Task<bool> AddEmployeeAsync([FromBody] EmployeeDto dto) => _employeeService.AddEmployeeAsync(dto);
+        [HasPermission("admin_system_employee_add")] public async Task<AppResponse> AddEmployeeAsync([FromBody] EmployeeDto dto)
+        {
+            await _employeeService.AddEmployeeAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 员工列表
@@ -35,7 +38,11 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpGet("list")]
         [HasPermission("admin_system_employee_list")]
-        public Task<PagedResultStruct<EmployeeListDto>> GetEmployeeListAsync([FromQuery] EmployeeQueryDto dto) => _employeeService.GetEmployeeListAsync(dto);
+        public async Task<AppResponse<PagedResultStruct<EmployeeListDto>>> GetEmployeeListAsync([FromQuery] EmployeeQueryDto dto)
+        {
+            var data = await _employeeService.GetEmployeeListAsync(dto);
+            return AppResponse.Data(data);
+        }
 
         /// <summary>
         /// 修改员工
@@ -44,7 +51,11 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpPut("update")]
         [HasPermission("admin_system_employee_update")]
-        public Task<bool> UpdateEmployeeAsync([FromBody] EmployeeDto dto) => _employeeService.UpdateEmployeeAsync(dto);
+        public async Task<AppResponse> UpdateEmployeeAsync([FromBody] EmployeeDto dto)
+        {
+            await _employeeService.UpdateEmployeeAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除员工
@@ -53,6 +64,10 @@ namespace Cracker.Admin.Controllers.Organization
         /// <returns></returns>
         [HttpDelete("delete/{id:guid}")]
         [HasPermission("admin_system_employee_delete")]
-        public Task<bool> DeleteEmployeeAsync(Guid id) => _employeeService.DeleteEmployeeAsync(id);
+        public async Task<AppResponse> DeleteEmployeeAsync(Guid id)
+        {
+            await _employeeService.DeleteEmployeeAsync(id);
+            return AppResponse.Ok();
+        }
     }
 }

@@ -27,9 +27,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [HasPermission("admin_system_role_add")]
-        public Task<bool> AddRoleAsync([FromBody] RoleDto dto) => _roleService.AddRoleAsync(dto);
+        public async Task<AppResponse> AddRoleAsync([FromBody] RoleDto dto)
+        {
+            await _roleService.AddRoleAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 角色分页列表
@@ -37,11 +40,11 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_role_list")]
-        public Task<PagedResultDto<RoleListDto>> GetRoleListAsync([FromQuery] RoleQueryDto dto)
+        public async Task<AppResponse<PagedResultDto<RoleListDto>>> GetRoleListAsync([FromQuery] RoleQueryDto dto)
         {
-            return _roleService.GetRoleListAsync(dto);
+            var data = await _roleService.GetRoleListAsync(dto);
+            return AppResponse.Data(data);
         }
 
         /// <summary>
@@ -50,9 +53,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("update")]
-        [AppResultFilter]
         [HasPermission("admin_system_role_update")]
-        public Task<bool> UpdateRoleAsync([FromBody] RoleDto dto) => _roleService.UpdateRoleAsync(dto);
+        public async Task<AppResponse> UpdateRoleAsync([FromBody] RoleDto dto)
+        {
+            await _roleService.UpdateRoleAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除角色
@@ -60,9 +66,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete/{id:Guid}")]
-        [AppResultFilter]
         [HasPermission("admin_system_role_delete")]
-        public Task<bool> DeleteRoleAsync(Guid id) => _roleService.DeleteRoleAsync(id);
+        public async Task<AppResponse> DeleteRoleAsync(Guid id)
+        {
+            await _roleService.DeleteRoleAsync(id);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 分配菜单
@@ -70,17 +79,23 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("assign-menu")]
-        [AppResultFilter]
         [HasPermission("admin_system_role_assignmenu")]
-        public Task<bool> AssignMenuAsync([FromBody] AssignMenuDto dto) => _roleService.AssignMenuAsync(dto);
+        public async Task<AppResponse> AssignMenuAsync([FromBody] AssignMenuDto dto)
+        {
+            await _roleService.AssignMenuAsync(dto);
+            return A.Ok();
+        }
 
         /// <summary>
         /// 获取角色
         /// </summary>
         /// <returns></returns>
         [HttpGet("options")]
-        [AppResultFilter]
-        public Task<List<AppOption>> GetRoleOptionsAsync() => _roleService.GetRoleOptionsAsync();
+        public async Task<AppResponse<List<AppOption>>> GetRoleOptionsAsync()
+        {
+            var data = await _roleService.GetRoleOptionsAsync();
+            return A.Data(data);
+        }
 
         /// <summary>
         /// 获取指定角色菜单
@@ -88,7 +103,10 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("menus/{id:Guid}")]
-        [AppResultFilter]
-        public Task<Guid[]> GetRoleMenuIdsAsync(Guid id) => _roleService.GetRoleMenuIdsAsync(id);
+        public async Task<AppResponse<Guid[]>> GetRoleMenuIdsAsync(Guid id)
+        {
+            var data = await _roleService.GetRoleMenuIdsAsync(id);
+            return A.Data(data);
+        }
     }
 }

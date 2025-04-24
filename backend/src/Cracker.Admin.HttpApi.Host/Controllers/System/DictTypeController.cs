@@ -27,7 +27,7 @@ public class DictTypeController : AdminController
     /// <returns></returns>
     [HttpPost]
     [HasPermission("admin_system_dicttype_add")]
-    public async Task<IAppResult> AddDictTypeAsync([FromBody] DictTypeDto dto)
+    public async Task<IAppResponse> AddDictTypeAsync([FromBody] DictTypeDto dto)
     {
         await _dictTypeService.AddDictTypeAsync(dto);
         return ResultHelper.Ok();
@@ -40,7 +40,7 @@ public class DictTypeController : AdminController
     /// <returns></returns>
     [HttpGet]
     [HasPermission("admin_system_dicttype_list")]
-    public async Task<IAppResult> GetDictTypeListAsync([FromQuery] DictTypeSearchDto dto)
+    public async Task<IAppResponse> GetDictTypeListAsync([FromQuery] DictTypeSearchDto dto)
     {
         var data = await _dictTypeService.GetDictTypeListAsync(dto);
         return ResultHelper.Ok(data);
@@ -53,7 +53,7 @@ public class DictTypeController : AdminController
     /// <returns></returns>
     [HttpPut]
     [HasPermission("admin_system_dicttype_update")]
-    public async Task<IAppResult> UpdateDictTypeAsync([FromBody] DictTypeDto dto)
+    public async Task<IAppResponse> UpdateDictTypeAsync([FromBody] DictTypeDto dto)
     {
         await _dictTypeService.UpdateDictTypeAsync(dto);
         return ResultHelper.Ok();
@@ -66,7 +66,7 @@ public class DictTypeController : AdminController
     /// <returns></returns>
     [HttpDelete("{dictType}")]
     [HasPermission("admin_system_dicttype_delete")]
-    public async Task<IAppResult> DeleteDictTypeAsync(string dictType)
+    public async Task<IAppResponse> DeleteDictTypeAsync(string dictType)
     {
         await _dictTypeService.DeleteDictTypeAsync(dictType);
         return ResultHelper.Ok();
@@ -78,7 +78,7 @@ public class DictTypeController : AdminController
     /// <param name="name"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IAppResult> GetDictDataOptionsAsync(string type)
+    public async Task<IAppResponse> GetDictDataOptionsAsync(string type)
     {
         var data = await _dictTypeService.GetDictDataOptionsAsync(type);
         return ResultHelper.Ok(data);

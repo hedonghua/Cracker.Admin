@@ -29,7 +29,7 @@ namespace Cracker.Admin.Filters
             if (context.ExceptionHandled) return;
 
             var errMsg = context.Exception.Message;
-            var result = new AppResult(AdminResponseCode.Fail, errMsg);
+            var result = new AppResponse(AdminResponseCode.Fail, errMsg);
 
             if (context.Exception is BusinessException businessException)
             {

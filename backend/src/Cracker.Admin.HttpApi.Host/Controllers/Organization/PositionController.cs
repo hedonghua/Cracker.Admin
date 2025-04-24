@@ -30,9 +30,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [HasPermission("admin_system_position_add")]
-        public Task<bool> AddPositionAsync([FromBody] PositionDto dto) => _positionService.AddPositionAsync(dto);
+        public async Task<AppResponse> AddPositionAsync([FromBody] PositionDto dto)
+        {
+            await _positionService.AddPositionAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 职位分页列表
@@ -40,9 +43,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_position_list")]
-        public Task<PagedResultDto<PositionListDto>> GetPositionListAsync([FromQuery] PositionQueryDto dto) => _positionService.GetPositionListAsync(dto);
+        public async Task<AppResponse<PagedResultDto<PositionListDto>>> GetPositionListAsync([FromQuery] PositionQueryDto dto)
+        {
+            var data = await _positionService.GetPositionListAsync(dto);
+            return AppResponse.Data(data);
+        }
 
         /// <summary>
         /// 修改职位
@@ -50,9 +56,12 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("update")]
-        [AppResultFilter]
         [HasPermission("admin_system_position_update")]
-        public Task<bool> UpdatePositionAsync([FromBody] PositionDto dto) => _positionService.UpdatePositionAsync(dto);
+        public async Task<AppResponse> UpdatePositionAsync([FromBody] PositionDto dto)
+        {
+            await _positionService.UpdatePositionAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除职位
@@ -60,16 +69,22 @@ namespace Cracker.Admin.Controllers.Organization
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete/{id:guid}")]
-        [AppResultFilter]
         [HasPermission("admin_system_position_delete")]
-        public Task<bool> DeletePositionAsync(Guid id) => _positionService.DeletePositionAsync(id);
+        public async Task<AppResponse> DeletePositionAsync(Guid id)
+        {
+            await _positionService.DeletePositionAsync(id);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 职位分组+职位树
         /// </summary>
         /// <returns></returns>
         [HttpGet("options")]
-        [AppResultFilter]
-        public Task<List<AppOptionTree>> GetPositionTreeOptionAsync() => _positionService.GetPositionTreeOptionAsync();
+        public async Task<AppResponse<List<AppOptionTree>>> GetPositionTreeOptionAsync()
+        {
+            var data = await _positionService.GetPositionTreeOptionAsync();
+            return AppResponse.Data(data);
+        }
     }
 }

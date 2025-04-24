@@ -1,0 +1,1 @@
+﻿global using A = Cracker.Admin.Models.AppResponse;

@@ -21,7 +21,7 @@ namespace Cracker.Admin.Controllers.System
         }
 
         [HttpPost]
-        public async Task<IAppResult> AddTenantAsync([FromBody] TenantDto dto)
+        public async Task<IAppResponse> AddTenantAsync([FromBody] TenantDto dto)
         {
             await tenantService.AddTenantAsync(dto);
             return ResultHelper.Ok();
@@ -33,7 +33,7 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IAppResult> GetTenantListAsync([FromQuery] TenantSearchDto dto)
+        public async Task<IAppResponse> GetTenantListAsync([FromQuery] TenantSearchDto dto)
         {
             var data = await tenantService.GetTenantListAsync(dto);
             return ResultHelper.Ok(data);
@@ -45,7 +45,7 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IAppResult> UpdateTenantAsync([FromBody] TenantDto dto)
+        public async Task<IAppResponse> UpdateTenantAsync([FromBody] TenantDto dto)
         {
             await tenantService.UpdateTenantAsync(dto);
             return ResultHelper.Ok();
@@ -57,14 +57,14 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id:Guid}")]
-        public async Task<IAppResult> DeleteTenantAsync(Guid id)
+        public async Task<IAppResponse> DeleteTenantAsync(Guid id)
         {
             await tenantService.DeleteTenantAsync(id);
             return ResultHelper.Ok();
         }
 
         [HttpGet]
-        public async Task<IAppResult> GetDecryptInfoAsync(Guid tenantId, string type)
+        public async Task<IAppResponse> GetDecryptInfoAsync(Guid tenantId, string type)
         {
             var data = await tenantService.GetDecryptInfoAsync(tenantId, type);
             return ResultHelper.Ok<string>(data);

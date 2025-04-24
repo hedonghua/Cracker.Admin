@@ -29,7 +29,7 @@ namespace Cracker.Admin.Controllers.Developer
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IAppResult> GetGenTableColumnListAsync([FromQuery] GenTableColumnSearchDto dto)
+        public async Task<IAppResponse> GetGenTableColumnListAsync([FromQuery] GenTableColumnSearchDto dto)
         {
             var data = await genColumnService.GetGenTableColumnListAsync(dto);
             return ResultHelper.Ok(data);
@@ -41,7 +41,7 @@ namespace Cracker.Admin.Controllers.Developer
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IAppResult> SaveGenTableColumnAsync([FromBody] GenTableColumnDto dto)
+        public async Task<IAppResponse> SaveGenTableColumnAsync([FromBody] GenTableColumnDto dto)
         {
             await genColumnService.SaveGenTableColumnAsync(dto);
             return ResultHelper.Ok();

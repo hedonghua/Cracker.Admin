@@ -6,6 +6,7 @@ using Cracker.Admin.System.Dtos;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using Cracker.Admin.Models;
 
 namespace Cracker.Admin.Controllers.System
 {
@@ -25,10 +26,13 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPost("add")]
-        [AppResultFilter]
         [AppBusinessLogFilter("新增字典")]
         [HasPermission("admin_system_dict_add")]
-        public Task<bool> AddDictDataAsync(DictDataDto dto) => _dictService.AddDictDataAsync(dto);
+        public async Task<AppResponse> AddDictDataAsync(DictDataDto dto)
+        {
+            await _dictService.AddDictDataAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 字典分页列表
@@ -36,9 +40,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("list")]
-        [AppResultFilter]
         [HasPermission("admin_system_dict_list")]
-        public Task<PagedResultDto<DictDataListDto>> GetDictDataListAsync([FromQuery] DictDataQueryDto dto) => _dictService.GetDictDataListAsync(dto);
+        public async Task<AppResponse<PagedResultDto<DictDataListDto>>> GetDictDataListAsync([FromQuery] DictDataQueryDto dto)
+        {
+            var data = await _dictService.GetDictDataListAsync(dto);
+            return AppResponse.Data(data);
+        }
 
         /// <summary>
         /// 修改字典
@@ -46,10 +53,13 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpPut("update")]
-        [AppResultFilter]
         [AppBusinessLogFilter("修改字典")]
         [HasPermission("admin_system_dict_update")]
-        public Task<bool> UpdateDictDataAsync(DictDataDto dto) => _dictService.UpdateDictDataAsync(dto);
+        public async Task<AppResponse> UpdateDictDataAsync(DictDataDto dto)
+        {
+            await _dictService.UpdateDictDataAsync(dto);
+            return AppResponse.Ok();
+        }
 
         /// <summary>
         /// 删除字典
@@ -57,9 +67,12 @@ namespace Cracker.Admin.Controllers.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("delete")]
-        [AppResultFilter]
         [AppBusinessLogFilter("删除字典")]
         [HasPermission("admin_system_dict_delete")]
-        public Task<bool> DeleteDictDataAsync([FromBody] Guid[] ids) => _dictService.DeleteDictDataAsync(ids);
+        public async Task<AppResponse> DeleteDictDataAsync([FromBody] Guid[] ids)
+        {
+            await _dictService.DeleteDictDataAsync(ids);
+            return AppResponse.Ok();
+        }
     }
 }

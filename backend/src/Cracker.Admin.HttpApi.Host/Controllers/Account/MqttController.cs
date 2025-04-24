@@ -18,7 +18,7 @@ namespace Cracker.Admin.Controllers.Account
         }
 
         [HttpPost]
-        public async Task<IAppResult> GetMqttTokenAsync(string code)
+        public async Task<IAppResponse> GetMqttTokenAsync(string code)
         {
             if (string.IsNullOrWhiteSpace(code)) throw new ArgumentNullException(nameof(code));
 
