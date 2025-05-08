@@ -1,0 +1,180 @@
+2025-04-30 10:15:05.009 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2025-04-30 10:15:06.883 +08:00 [INF] Loaded ABP modules:
+2025-04-30 10:15:06.884 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2025-04-30 10:15:06.884 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2025-04-30 10:15:06.884 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]             - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2025-04-30 10:15:06.884 +08:00 [INF]             - Volo.Abp.Localization.AbpLocalizationModule
+2025-04-30 10:15:06.884 +08:00 [INF]               - Volo.Abp.Settings.AbpSettingsModule
+2025-04-30 10:15:06.884 +08:00 [INF]                 - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]                 - Volo.Abp.Security.AbpSecurityModule
+2025-04-30 10:15:06.884 +08:00 [INF]                 - Volo.Abp.Data.AbpDataModule
+2025-04-30 10:15:06.884 +08:00 [INF]                   - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2025-04-30 10:15:06.884 +08:00 [INF]                     - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]                   - Volo.Abp.Uow.AbpUnitOfWorkModule
+2025-04-30 10:15:06.884 +08:00 [INF]                   - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]               - Volo.Abp.Threading.AbpThreadingModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.Json.AbpJsonModule
+2025-04-30 10:15:06.884 +08:00 [INF]             - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2025-04-30 10:15:06.884 +08:00 [INF]               - Volo.Abp.Json.AbpJsonAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]               - Volo.Abp.Timing.AbpTimingModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.Auditing.AbpAuditingContractsModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.BackgroundJobs.AbpBackgroundJobsModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.BackgroundJobs.AbpBackgroundJobsAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Http.AbpHttpAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2025-04-30 10:15:06.884 +08:00 [INF]   - Cracker.Admin.Infrastructure.CrackerAdminInfrastructureModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.Dapper.AbpDapperModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2025-04-30 10:15:06.884 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2025-04-30 10:15:06.884 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.Http.AbpHttpModule
+2025-04-30 10:15:06.884 +08:00 [INF]           - Volo.Abp.Minify.AbpMinifyModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2025-04-30 10:15:06.884 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2025-04-30 10:15:06.884 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2025-04-30 10:15:06.913 +08:00 [DBG] Started background worker: Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2025-04-30 10:15:07.219 +08:00 [INF] User profile is available. Using 'C:\Users\123456\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-04-30 10:15:07.461 +08:00 [INF] Initialized all ABP modules.
+2025-04-30 10:15:08.953 +08:00 [WRN] Overriding address(es) 'http://localhost:5000'. Binding to endpoints defined via IConfiguration and/or UseKestrel() instead.
+2025-04-30 10:15:08.969 +08:00 [INF] Now listening on: http://[::]:1883
+2025-04-30 10:15:08.969 +08:00 [INF] Now listening on: http://[::]:5000
+2025-04-30 10:15:09.070 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-04-30 10:15:09.070 +08:00 [INF] Hosting environment: Development
+2025-04-30 10:15:09.071 +08:00 [INF] Content root path: E:\projects\Pro.Admin\aspnetcore\src\Cracker.Admin.HttpApi.Host
+2025-04-30 10:15:09.136 +08:00 [INF] 【测试】定时任务
+2025-04-30 10:15:09.584 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2025-04-30 10:15:10.137 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2025-04-30 10:15:10.259 +08:00 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Cracker.Admin.Controllers.HomeController (Cracker.Admin.HttpApi.Host).
+2025-04-30 10:15:10.279 +08:00 [INF] Executing RedirectResult, redirecting to /swagger.
+2025-04-30 10:15:10.283 +08:00 [INF] Executed action Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host) in 21.1723ms
+2025-04-30 10:15:10.283 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2025-04-30 10:15:10.300 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 302 0 null 719.9766ms
+2025-04-30 10:15:10.302 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html - null null
+2025-04-30 10:15:10.347 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/index.html - 200 null text/html;charset=utf-8 45.1001ms
+2025-04-30 10:15:10.350 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/aspnetcore-browser-refresh.js - null null
+2025-04-30 10:15:10.352 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 1.9797ms
+2025-04-30 10:15:10.359 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_vs/browserLink - null null
+2025-04-30 10:15:10.401 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_vs/browserLink - 200 null text/javascript; charset=UTF-8 42.0148ms
+2025-04-30 10:15:10.444 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - null null
+2025-04-30 10:15:10.499 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 54.6839ms
+2025-04-30 10:32:35.896 +08:00 [INF] Starting Cracker.Admin.HttpApi.Host.
+2025-04-30 10:32:37.746 +08:00 [INF] Loaded ABP modules:
+2025-04-30 10:32:37.747 +08:00 [INF] - Cracker.Admin.CrackerAdminHttpApiHostModule
+2025-04-30 10:32:37.747 +08:00 [INF]   - Volo.Abp.Autofac.AbpAutofacModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Volo.Abp.Castle.AbpCastleCoreModule
+2025-04-30 10:32:37.747 +08:00 [INF]   - Cracker.Admin.CrackerAdminApplicationModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Cracker.Admin.CrackerAdminDomainModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Cracker.Admin.CrackerAdminDomainSharedModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.Domain.AbpDddDomainSharedModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.MultiTenancy.AbpMultiTenancyAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]             - Volo.Abp.VirtualFileSystem.AbpVirtualFileSystemModule
+2025-04-30 10:32:37.747 +08:00 [INF]             - Volo.Abp.Localization.AbpLocalizationModule
+2025-04-30 10:32:37.747 +08:00 [INF]               - Volo.Abp.Settings.AbpSettingsModule
+2025-04-30 10:32:37.747 +08:00 [INF]                 - Volo.Abp.Localization.AbpLocalizationAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]                 - Volo.Abp.Security.AbpSecurityModule
+2025-04-30 10:32:37.747 +08:00 [INF]                 - Volo.Abp.Data.AbpDataModule
+2025-04-30 10:32:37.747 +08:00 [INF]                   - Volo.Abp.ObjectExtending.AbpObjectExtendingModule
+2025-04-30 10:32:37.747 +08:00 [INF]                     - Volo.Abp.Validation.AbpValidationAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]                   - Volo.Abp.Uow.AbpUnitOfWorkModule
+2025-04-30 10:32:37.747 +08:00 [INF]                   - Volo.Abp.EventBus.Abstractions.AbpEventBusAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]               - Volo.Abp.Threading.AbpThreadingModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Domain.AbpDddDomainModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.Auditing.AbpAuditingModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.Json.AbpJsonModule
+2025-04-30 10:32:37.747 +08:00 [INF]             - Volo.Abp.Json.SystemTextJson.AbpJsonSystemTextJsonModule
+2025-04-30 10:32:37.747 +08:00 [INF]               - Volo.Abp.Json.AbpJsonAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]               - Volo.Abp.Timing.AbpTimingModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.MultiTenancy.AbpMultiTenancyModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.Auditing.AbpAuditingContractsModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.EventBus.AbpEventBusModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.Guids.AbpGuidsModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.BackgroundWorkers.AbpBackgroundWorkersModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.DistributedLocking.AbpDistributedLockingAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.ObjectMapping.AbpObjectMappingModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.ExceptionHandling.AbpExceptionHandlingModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.Specifications.AbpSpecificationsModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.Caching.AbpCachingModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.Serialization.AbpSerializationModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.BackgroundJobs.AbpBackgroundJobsModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.BackgroundJobs.AbpBackgroundJobsAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Volo.Abp.AutoMapper.AbpAutoMapperModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Volo.Abp.Application.AbpDddApplicationModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Application.AbpDddApplicationContractsModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Validation.AbpValidationModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Authorization.AbpAuthorizationModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.Authorization.AbpAuthorizationAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Http.AbpHttpAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Features.AbpFeaturesModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.GlobalFeatures.AbpGlobalFeaturesModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Cracker.Admin.CrackerAdminApplicationContractsModule
+2025-04-30 10:32:37.747 +08:00 [INF]   - Cracker.Admin.Infrastructure.CrackerAdminInfrastructureModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Cracker.Admin.CrackerAdminEntityFrameworkCoreModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.Dapper.AbpDapperModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.EntityFrameworkCore.AbpEntityFrameworkCoreModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.EntityFrameworkCore.MySQL.AbpEntityFrameworkCoreMySQLModule
+2025-04-30 10:32:37.747 +08:00 [INF]   - Volo.Abp.Swashbuckle.AbpSwashbuckleModule
+2025-04-30 10:32:37.747 +08:00 [INF]     - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.AspNetCore.AbpAspNetCoreModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.Http.AbpHttpModule
+2025-04-30 10:32:37.747 +08:00 [INF]           - Volo.Abp.Minify.AbpMinifyModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.AspNetCore.AbpAspNetCoreAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.ApiVersioning.AbpApiVersioningAbstractionsModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.AspNetCore.Mvc.AbpAspNetCoreMvcContractsModule
+2025-04-30 10:32:37.747 +08:00 [INF]       - Volo.Abp.UI.Navigation.AbpUiNavigationModule
+2025-04-30 10:32:37.747 +08:00 [INF]         - Volo.Abp.UI.AbpUiModule
+2025-04-30 10:32:37.776 +08:00 [DBG] Started background worker: Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2025-04-30 10:32:38.030 +08:00 [INF] User profile is available. Using 'C:\Users\123456\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-04-30 10:32:38.298 +08:00 [INF] Initialized all ABP modules.
+2025-04-30 10:32:39.670 +08:00 [WRN] Overriding address(es) 'http://localhost:5000'. Binding to endpoints defined via IConfiguration and/or UseKestrel() instead.
+2025-04-30 10:32:39.685 +08:00 [INF] Now listening on: http://[::]:1883
+2025-04-30 10:32:39.686 +08:00 [INF] Now listening on: http://[::]:5000
+2025-04-30 10:32:39.819 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-04-30 10:32:39.819 +08:00 [INF] Hosting environment: Development
+2025-04-30 10:32:39.819 +08:00 [INF] Content root path: E:\projects\Pro.Admin\aspnetcore\src\Cracker.Admin.HttpApi.Host
+2025-04-30 10:32:39.885 +08:00 [INF] 【测试】定时任务
+2025-04-30 10:32:40.238 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2025-04-30 10:32:40.805 +08:00 [INF] Executing endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2025-04-30 10:32:40.940 +08:00 [INF] Route matched with {action = "Index", controller = "Home", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Index() on controller Cracker.Admin.Controllers.HomeController (Cracker.Admin.HttpApi.Host).
+2025-04-30 10:32:40.966 +08:00 [INF] Executing RedirectResult, redirecting to /swagger.
+2025-04-30 10:32:40.973 +08:00 [INF] Executed action Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host) in 27.1555ms
+2025-04-30 10:32:40.973 +08:00 [INF] Executed endpoint 'Cracker.Admin.Controllers.HomeController.Index (Cracker.Admin.HttpApi.Host)'
+2025-04-30 10:32:40.990 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 302 0 null 758.4952ms
+2025-04-30 10:32:40.993 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html - null null
+2025-04-30 10:32:41.044 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/index.html - 200 null text/html;charset=utf-8 51.4695ms
+2025-04-30 10:32:41.048 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/aspnetcore-browser-refresh.js - null null
+2025-04-30 10:32:41.050 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/aspnetcore-browser-refresh.js - 200 13788 application/javascript; charset=utf-8 2.4032ms
+2025-04-30 10:32:41.058 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_vs/browserLink - null null
+2025-04-30 10:32:41.086 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_vs/browserLink - 200 null text/javascript; charset=UTF-8 28.554ms
+2025-04-30 10:32:41.140 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - null null
+2025-04-30 10:32:41.206 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 66.5116ms
