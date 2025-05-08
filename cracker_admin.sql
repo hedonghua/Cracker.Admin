@@ -11,7 +11,7 @@
  Target Server Version : 80039
  File Encoding         : 65001
 
- Date: 18/01/2025 19:08:43
+ Date: 29/04/2025 21:04:19
 */
 
 SET NAMES utf8mb4;
@@ -25,122 +25,12 @@ CREATE TABLE `__efmigrationshistory`  (
   `MigrationId` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ProductVersion` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`MigrationId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of __efmigrationshistory
 -- ----------------------------
-INSERT INTO `__efmigrationshistory` VALUES ('20241229070339_InitCreated', '8.0.4');
-INSERT INTO `__efmigrationshistory` VALUES ('20250118025715_InitCreated', '8.0.4');
-
--- ----------------------------
--- Table structure for gen_table
--- ----------------------------
-DROP TABLE IF EXISTS `gen_table`;
-CREATE TABLE `gen_table`  (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `TableName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表名',
-  `Comment` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '表描述',
-  `BusinessName` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '业务名',
-  `EntityName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '实体名',
-  `ModuleName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模块名',
-  `Types` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '实现接口/继承抽象类',
-  `CreationTime` datetime(6) NOT NULL,
-  `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `LastModificationTime` datetime(6) NULL DEFAULT NULL,
-  `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`) USING BTREE,
-  UNIQUE INDEX `IX_GenTable_TableName`(`TableName` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '生成表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of gen_table
--- ----------------------------
-INSERT INTO `gen_table` VALUES ('3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', '员工表', 'Dept', 'orgdept', 'Developer', NULL, '2024-12-29 20:03:58.345843', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table` VALUES ('3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', '员工表', 'Employee', 'orgemployee', 'Developer', NULL, '2024-12-29 20:04:47.482314', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-
--- ----------------------------
--- Table structure for gen_table_column
--- ----------------------------
-DROP TABLE IF EXISTS `gen_table_column`;
-CREATE TABLE `gen_table_column`  (
-  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `GenTableId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `TableName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '表名',
-  `ColumnName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '列名',
-  `CsharpPropName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'C#属性名',
-  `JsFieldName` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'JS字段名',
-  `ColumnType` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '数据库列类型',
-  `CsharpType` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'C#类型',
-  `JsType` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'JS类型',
-  `HtmlType` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT 'HTML类型',
-  `Comment` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '列描述',
-  `MaxLength` bigint NULL DEFAULT NULL COMMENT '最大长度',
-  `IsNullable` tinyint(1) NOT NULL COMMENT '是否可空',
-  `IsInsert` tinyint(1) NOT NULL COMMENT '是否参与新增',
-  `IsUpdate` tinyint(1) NOT NULL COMMENT '是否参与修改',
-  `IsSearch` tinyint(1) NOT NULL COMMENT '是否参与搜索',
-  `SearchType` int NOT NULL COMMENT '搜索类型',
-  `IsShow` tinyint(1) NOT NULL COMMENT '是否在表格中显示',
-  `CreationTime` datetime(6) NOT NULL,
-  `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `LastModificationTime` datetime(6) NULL DEFAULT NULL,
-  `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`) USING BTREE,
-  INDEX `IX_GenTableColumn_GenTableId`(`GenTableId` ASC) USING BTREE,
-  CONSTRAINT `FK_GenTableColumn_GenTable_GenTableId` FOREIGN KEY (`GenTableId`) REFERENCES `gen_table` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '生成表的配置列' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of gen_table_column
--- ----------------------------
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114c-0777-3ecb-c2af317d8107', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Id', 'Id', 'id', 'char', 'long', 'string', 'text', '', 36, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.448393', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.925673', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114c-49e5-d9c7-43c675172de6', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Code', 'Code', 'code', 'varchar', 'string', 'string', 'text', '部门编号', 32, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.449087', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.925829', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114c-6a44-fdc7-ee7d45854703', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Name', 'Name', 'name', 'varchar', 'string', 'string', 'text', '部门名称', 64, 0, 1, 1, 1, 2, 1, '2024-12-29 20:03:58.450806', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926105', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-1cb0-5e07-4f708dd0c0e3', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Status', 'Status', 'status', 'int', 'int', 'number', 'text', '状态：1正常2停用', NULL, 0, 1, 1, 1, 2, 1, '2024-12-29 20:03:58.451278', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926142', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-204a-264a-5960dbf4f5bd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'CuratorId', 'Curatorid', 'curatorid', 'char', 'Guid?', 'string?', 'text', '负责人', 36, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451343', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926162', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-2b0a-546b-ce3a477fd1ea', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'DeletionTime', 'Deletiontime', 'deletiontime', 'datetime', 'DateTime?', 'Date?', 'datetime', '', NULL, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452271', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926183', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-37c7-50a6-b17f34b25004', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'LastModifierId', 'Lastmodifierid', 'lastmodifierid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452098', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926197', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-433f-e2ff-a963bf505bfd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'IsDeleted', 'Isdeleted', 'isdeleted', 'tinyint', 'sbyte', 'number', 'text', '', NULL, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452155', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926210', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-4ec8-012b-b1d50eb48b35', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Layer', 'Layer', 'layer', 'int', 'int', 'number', 'text', '层级', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451723', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926223', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-51a3-eec5-ddf99f8d0d31', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ExtraProperties', 'Extraproperties', 'extraproperties', 'longtext', 'string', 'string', 'text', '', 4294967295, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.451798', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:47:45.926239', '3a172369-2963-bc18-82bc-b3d0da8c574f');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-5314-ca0c-422808c45072', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Description', 'Description', 'description', 'varchar', 'string?', 'string?', 'text', '描述', 512, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451204', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-5e56-1406-ee3b11b18f00', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Sort', 'Sort', 'sort', 'int', 'int', 'number', 'text', '排序', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451130', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-b12f-4b78-c8e66feded38', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ParentIds', 'Parentids', 'parentids', 'varchar', 'string?', 'string?', 'text', '层级父ID', 1024, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451652', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-b6e2-a2d9-4ec2823baf37', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'DeleterId', 'Deleterid', 'deleterid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452213', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-bebb-1643-acccb41194cc', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Phone', 'Phone', 'phone', 'varchar', 'string?', 'string?', 'text', '电话', 64, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451517', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-d1ea-455a-5e4baa299cbd', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ConcurrencyStamp', 'Concurrencystamp', 'concurrencystamp', 'varchar', 'string', 'string', 'text', '', 40, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.451859', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-dfbb-e068-dfdf84b45955', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'CreatorId', 'Creatorid', 'creatorid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.451979', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-e1ff-d31a-e6af23c91deb', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'Email', 'Email', 'email', 'varchar', 'string?', 'string?', 'text', '邮箱', 64, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451445', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-f18a-3378-cffe5876aaae', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'LastModificationTime', 'Lastmodificationtime', 'lastmodificationtime', 'datetime', 'DateTime?', 'Date?', 'datetime', '', NULL, 1, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.452037', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-f6de-83e4-7c59cf55e788', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'CreationTime', 'Creationtime', 'creationtime', 'datetime', 'DateTime', 'Date', 'datetime', '', NULL, 0, 0, 0, 0, 2, 0, '2024-12-29 20:03:58.451922', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-114d-fafe-a7ea-d06e13af0054', '3a17247a-10f7-f4ed-21d6-dc5b5492c2e3', 'orgdept', 'ParentId', 'Parentid', 'parentid', 'char', 'Guid?', 'string?', 'text', '父ID', 36, 1, 1, 1, 0, 2, 1, '2024-12-29 20:03:58.451581', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d109-7d86-a0e9-71fe552b8a88', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Id', 'Id', 'id', 'char', 'Guid', 'string', 'text', '', 36, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498453', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.157984', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-0053-bd6c-c79c7687a3ea', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'ConcurrencyStamp', 'Concurrencystamp', 'concurrencystamp', 'varchar', 'string', 'string', 'text', '', 40, 0, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499415', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158150', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-0059-e608-80028e423577', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'LastModifierId', 'Lastmodifierid', 'lastmodifierid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499583', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158443', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-0d0a-2222-91f0fda6ff2a', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'ExtraProperties', 'Extraproperties', 'extraproperties', 'longtext', 'string', 'string', 'text', '', 4294967295, 0, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499374', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158492', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-0d6c-745f-06b0c05f8a76', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Address', 'Address', 'address', 'varchar', 'string?', 'string?', 'text', '现住址', 512, 1, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499010', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158536', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-10b0-c5df-c8e422aa951f', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'OutTime', 'Outtime', 'outtime', 'datetime', 'DateTime?', 'Date?', 'datetime', '离职时间', NULL, 1, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499155', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158574', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-1cff-c596-f63c0aefb679', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'IsDeleted', 'Isdeleted', 'isdeleted', 'tinyint', 'sbyte', 'number', 'text', '', NULL, 0, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499626', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158614', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-330e-ab07-3d3970e7ce21', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'DeptId', 'Deptid', 'deptid', 'char', 'Guid', 'string', 'text', '部门ID', 36, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499289', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158660', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-5382-7c0f-d75159cc0a26', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'UserId', 'Userid', 'userid', 'char', 'Guid?', 'string?', 'text', '关联用户ID', 36, 1, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499247', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158703', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-6854-1879-93c1c3d8f5f9', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Code', 'Code', 'code', 'varchar', 'string', 'string', 'text', '工号', 64, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498548', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 17:08:51.158762', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-7d1a-1923-3be8ada56c53', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'IdNo', 'Idno', 'idno', 'varchar', 'string', 'string', 'text', '身份证', 32, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498771', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-7e1a-9ec4-aa6d6be27187', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'PositionId', 'Positionid', 'positionid', 'char', 'Guid', 'string', 'text', '职位ID', 36, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499331', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-8a07-47dc-ba0547ec5e80', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'BirthDay', 'Birthday', 'birthday', 'datetime', 'DateTime', 'Date', 'datetime', '生日', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498967', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-8cbb-88dc-fa7b5742ebdb', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Name', 'Name', 'name', 'varchar', 'string', 'string', 'text', '姓名', 64, 0, 1, 1, 1, 2, 1, '2024-12-29 20:04:47.498615', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-8cd6-3819-4c0058b4476c', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'DeletionTime', 'Deletiontime', 'deletiontime', 'datetime', 'DateTime?', 'Date?', 'datetime', '', NULL, 1, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499714', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-8e2e-cdc5-443e22f102f1', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Phone', 'Phone', 'phone', 'varchar', 'string', 'string', 'text', '手机号码', 16, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498719', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-9141-24e0-61afb64ccf26', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'BackIdNoUrl', 'Backidnourl', 'backidnourl', 'varchar', 'string?', 'string?', 'text', '身份证背面', 512, 1, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498917', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-a766-0732-d50bfa3a852a', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'DeleterId', 'Deleterid', 'deleterid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499671', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-a98e-1e66-6397246cb31c', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'CreatorId', 'Creatorid', 'creatorid', 'char', 'Guid?', 'string?', 'text', '', 36, 1, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499499', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-b59d-4382-82a9408def87', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Email', 'Email', 'email', 'varchar', 'string?', 'string?', 'text', '邮箱', 64, 1, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499051', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-cc4e-05ef-238937d4b12c', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'InTime', 'Intime', 'intime', 'datetime', 'DateTime', 'Date', 'datetime', '入职时间', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499096', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-d38f-a1ff-3ab0dc0d1d9f', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'Sex', 'Sex', 'sex', 'int', 'int', 'number', 'text', '性别', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498670', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-d457-ccc5-534f9ac5c750', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'LastModificationTime', 'Lastmodificationtime', 'lastmodificationtime', 'datetime', 'DateTime?', 'Date?', 'datetime', '', NULL, 1, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499541', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-d806-e193-f3351a9fe880', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'FrontIdNoUrl', 'Frontidnourl', 'frontidnourl', 'varchar', 'string?', 'string?', 'text', '身份证正面', 512, 1, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.498859', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-ebd5-017e-1e50135aaf0c', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'IsOut', 'Isout', 'isout', 'tinyint', 'sbyte', 'number', 'text', '是否离职', NULL, 0, 1, 1, 0, 2, 1, '2024-12-29 20:04:47.499198', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
-INSERT INTO `gen_table_column` VALUES ('3a17247a-d10a-f4a8-1266-d873f9fba526', '3a17247a-d0f9-559b-6cf4-ff5644780a4c', 'orgemployee', 'CreationTime', 'Creationtime', 'creationtime', 'datetime', 'DateTime', 'Date', 'datetime', '', NULL, 0, 0, 0, 0, 2, 0, '2024-12-29 20:04:47.499456', '3a172369-2963-bc18-82bc-b3d0da8c574f', NULL, NULL);
+INSERT INTO `__efmigrationshistory` VALUES ('20250427015233_InitCreated', '8.0.4');
 
 -- ----------------------------
 -- Table structure for org_dept
@@ -169,12 +59,11 @@ CREATE TABLE `org_dept`  (
   `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of org_dept
 -- ----------------------------
-INSERT INTO `org_dept` VALUES ('3a17341b-5cc1-6b10-fdd4-3d1ffcd20c8b', '638713616672542112', 'xx科技有限公司', 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 0, '{}', '9cce08f15fcd4e45885b4f9ceb106d25', '2025-01-01 20:54:27.314598', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for org_dept_employee
@@ -196,12 +85,11 @@ CREATE TABLE `org_dept_employee`  (
   `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工关联部门' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工关联部门' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of org_dept_employee
 -- ----------------------------
-INSERT INTO `org_dept_employee` VALUES ('3a173423-82ed-f600-3251-2ea9173b0f08', '3a173423-82ce-dd67-ad54-1fefb79aa4de', '3a17341b-5cc1-6b10-fdd4-3d1ffcd20c8b', '3a173422-6ddc-ccf6-dd08-be092d50d8cc', 1, '{}', 'ae9446beb22844abad58736e3e5065a0', '2025-01-01 21:03:21.341062', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for org_employee
@@ -221,7 +109,7 @@ CREATE TABLE `org_employee`  (
   `Email` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
   `InTime` datetime(6) NOT NULL COMMENT '入职时间',
   `OutTime` datetime(6) NULL DEFAULT NULL COMMENT '离职时间',
-  `IsOut` tinyint(1) NOT NULL COMMENT '是否离职',
+  `Status` tinyint(1) NOT NULL COMMENT '是否离职',
   `UserId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL COMMENT '关联用户ID',
   `DeptId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT '部门ID',
   `PositionId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT '职位ID',
@@ -235,12 +123,11 @@ CREATE TABLE `org_employee`  (
   `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of org_employee
 -- ----------------------------
-INSERT INTO `org_employee` VALUES ('3a173423-82ce-dd67-ad54-1fefb79aa4de', '70175', 'cracker', 1, '18911111111', '320106194710063556', NULL, NULL, '1947-10-06 00:00:00.000000', NULL, NULL, '2023-01-10 00:00:00.000000', NULL, 0, NULL, '3a17341b-5cc1-6b10-fdd4-3d1ffcd20c8b', '3a173422-6ddc-ccf6-dd08-be092d50d8cc', '{}', '0c7ae5e35f074fa79c0306db5628c44d', '2025-01-01 21:03:21.324060', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for org_position
@@ -264,12 +151,13 @@ CREATE TABLE `org_position`  (
   `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '职位表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '职位表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of org_position
 -- ----------------------------
-INSERT INTO `org_position` VALUES ('3a173422-6ddc-ccf6-dd08-be092d50d8cc', '638713621303956440', '技术总监', 1, 1, NULL, '3a173422-424c-7026-3c9b-09434fdc0369', '{}', 'e8252f10b39b465bb42a94efa387e6b6', '2025-01-01 21:02:10.435845', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
+INSERT INTO `org_position` VALUES ('3a19875e-17c5-c32a-8d55-b6692b6a1912', '638813484840313992', '初级前端开发', 1, 1, NULL, '3a198742-cbff-3e27-ecbd-03a422683f6f', '{}', '0e72bec0d90e492492e99798361af9b7', '2025-04-27 11:01:24.072635', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 11:58:08.364273', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
+INSERT INTO `org_position` VALUES ('3a198766-ec01-e906-9431-edf399a6a218', '638813490626574068', '中级前端开发', 2, 1, NULL, NULL, '{}', 'c6df7a387a354542b750be98c77822d5', '2025-04-27 11:11:02.670104', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for org_positiongroup
@@ -285,13 +173,23 @@ CREATE TABLE `org_positiongroup`  (
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `LastModificationTime` datetime(6) NULL DEFAULT NULL,
   `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
+  `Sort` int NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '职位分组' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '职位分组' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of org_positiongroup
 -- ----------------------------
-INSERT INTO `org_positiongroup` VALUES ('3a173422-424c-7026-3c9b-09434fdc0369', '部门负责人', NULL, NULL, NULL, '2025-01-01 21:01:59.272501', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `org_positiongroup` VALUES ('3a198730-43cd-526b-9be9-7e6b19f956f5', '互联网AI', NULL, NULL, NULL, '2025-04-27 10:11:20.677333', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 10:36:17.748678', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 2);
+INSERT INTO `org_positiongroup` VALUES ('3a198730-cb81-f6a3-33a9-55e36e5f599e', '后端开发', NULL, '3a198730-43cd-526b-9be9-7e6b19f956f5', '3a198730-43cd-526b-9be9-7e6b19f956f5', '2025-04-27 10:11:55.407338', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 10:29:51.553458', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198741-d91f-9324-26a8-aeac08833a4a', '.NET', NULL, '3a198730-cb81-f6a3-33a9-55e36e5f599e', '3a198730-43cd-526b-9be9-7e6b19f956f5,3a198730-cb81-f6a3-33a9-55e36e5f599e', '2025-04-27 10:30:33.004661', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198742-070d-e79f-1f2d-c4e5ac96ebf2', 'Java', NULL, '3a198730-cb81-f6a3-33a9-55e36e5f599e', '3a198730-43cd-526b-9be9-7e6b19f956f5,3a198730-cb81-f6a3-33a9-55e36e5f599e', '2025-04-27 10:30:44.749706', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198742-836f-135d-6d69-8e2b3803bf7b', '全栈工程师', NULL, '3a198730-cb81-f6a3-33a9-55e36e5f599e', '3a198730-43cd-526b-9be9-7e6b19f956f5,3a198730-cb81-f6a3-33a9-55e36e5f599e', '2025-04-27 10:31:16.592032', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198742-cbff-3e27-ecbd-03a422683f6f', '前端/移动开发', NULL, '3a198730-43cd-526b-9be9-7e6b19f956f5', '3a198730-43cd-526b-9be9-7e6b19f956f5', '2025-04-27 10:31:35.167651', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198742-fd07-872f-c5d5-39e4e8360389', 'Android', NULL, '3a198742-cbff-3e27-ecbd-03a422683f6f', '3a198730-43cd-526b-9be9-7e6b19f956f5,3a198742-cbff-3e27-ecbd-03a422683f6f', '2025-04-27 10:31:47.719705', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198743-1f2a-d737-a1d8-6d72c6c96f11', '产品', NULL, NULL, NULL, '2025-04-27 10:31:56.469128', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 10:36:14.182083', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 1);
+INSERT INTO `org_positiongroup` VALUES ('3a198743-3f18-c493-a628-70aec59fdeb5', '产品经理', NULL, '3a198743-1f2a-d737-a1d8-6d72c6c96f11', '3a198743-1f2a-d737-a1d8-6d72c6c96f11', '2025-04-27 10:32:04.632649', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
+INSERT INTO `org_positiongroup` VALUES ('3a198743-94e5-f444-8044-f1d68b956e7b', '用户研究', NULL, '3a198743-1f2a-d737-a1d8-6d72c6c96f11', '3a198743-1f2a-d737-a1d8-6d72c6c96f11', '2025-04-27 10:32:26.597891', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for sys_businesslog
@@ -311,11 +209,11 @@ CREATE TABLE `sys_businesslog`  (
   `IsSuccess` tinyint(1) NOT NULL COMMENT '是否成功',
   `OperationMsg` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作信息',
   `MillSeconds` int NOT NULL COMMENT '耗时，单位毫秒',
+  `RequestId` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '请求跟踪ID',
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `RequestId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '请求跟踪ID',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '业务日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '业务日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_businesslog
@@ -330,6 +228,7 @@ CREATE TABLE `sys_config`  (
   `Name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '配置名称',
   `Key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '配置键名',
   `Value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '配置键值',
+  `GroupKey` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `Remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
@@ -337,7 +236,7 @@ CREATE TABLE `sys_config`  (
   `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   UNIQUE INDEX `IX_sys_config_Key`(`Key` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统配置' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统配置' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_config
@@ -352,7 +251,7 @@ CREATE TABLE `sys_dict_data`  (
   `Key` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Value` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Label` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DictType` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `DictType` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `Sort` int NOT NULL,
   `IsEnabled` tinyint(1) NOT NULL,
@@ -360,16 +259,26 @@ CREATE TABLE `sys_dict_data`  (
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `LastModificationTime` datetime(6) NULL DEFAULT NULL,
   `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `IsDeleted` tinyint(1) NOT NULL DEFAULT 0,
-  `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
-  UNIQUE INDEX `IX_sys_dict_data_Key`(`Key` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  UNIQUE INDEX `IX_sys_dict_data_Key`(`Key` ASC) USING BTREE,
+  INDEX `IX_sys_dict_data_DictType`(`DictType` ASC) USING BTREE,
+  CONSTRAINT `FK_sys_dict_data_sys_dict_type_DictType` FOREIGN KEY (`DictType`) REFERENCES `sys_dict_type` (`DictType`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_data
 -- ----------------------------
+INSERT INTO `sys_dict_data` VALUES ('3a198725-0204-b13f-471d-cc65b728e6b8', '1', '1', 'L1', 'PositionLevel', NULL, 1, 1, '2025-04-27 09:59:02.935551', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 09:59:25.117401', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
+INSERT INTO `sys_dict_data` VALUES ('3a198725-34f8-c4e9-e0c4-c4fa8bdc6dee', '2', '2', 'L2', 'PositionLevel', NULL, 2, 1, '2025-04-27 09:59:15.961386', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 09:59:28.794558', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
+INSERT INTO `sys_dict_data` VALUES ('3a198727-b85f-adf1-41ac-cd4acf174dca', '3', '3', 'L3', 'PositionLevel', NULL, 3, 1, '2025-04-27 10:02:00.672236', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a198727-e500-f543-9313-5c10a9942365', '4', '4', 'L4', 'PositionLevel', NULL, 4, 1, '2025-04-27 10:02:12.097157', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a198728-43b7-9ce7-7ecd-ce19567739c9', '5', '5', 'L5', 'PositionLevel', NULL, 5, 1, '2025-04-27 10:02:36.343760', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a198728-62f6-bc4f-80b8-ad479fed40fc', '6', '6', 'L6', 'PositionLevel', NULL, 6, 1, '2025-04-27 10:02:44.343000', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a198728-8a5c-5e42-1ab7-45699bb76645', '7', '7', 'L7', 'PositionLevel', NULL, 7, 1, '2025-04-27 10:02:54.428784', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a198728-a914-cc7a-89f6-2aa4af035728', '8', '8', 'L8', 'PositionLevel', NULL, 8, 1, '2025-04-27 10:03:02.293143', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a198728-c5f9-54cf-9563-33ac0faf39c4', '9', '9', 'L9', 'PositionLevel', NULL, 9, 1, '2025-04-27 10:03:09.689281', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('3a19883e-6066-0997-6c67-aad9901d4ba2', 'boy', '1', '男', 'Sex', NULL, 1, 1, '2025-04-27 15:06:22.729186', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 15:06:45.960769', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
+INSERT INTO `sys_dict_data` VALUES ('3a19883e-a8aa-f431-f3ca-b31f2d489df1', 'girl', '2', '女', 'Sex', NULL, 2, 1, '2025-04-27 15:06:41.195444', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 15:06:49.561167', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -377,24 +286,24 @@ CREATE TABLE `sys_dict_data`  (
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type`  (
   `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
-  `Name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DictType` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `DictType` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `IsEnabled` tinyint(1) NOT NULL,
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `LastModificationTime` datetime(6) NULL DEFAULT NULL,
   `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `IsDeleted` tinyint(1) NOT NULL DEFAULT 0,
-  `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
+  UNIQUE INDEX `AK_sys_dict_type_DictType`(`DictType` ASC) USING BTREE,
   UNIQUE INDEX `IX_sys_dict_type_DictType`(`DictType` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_type
 -- ----------------------------
+INSERT INTO `sys_dict_type` VALUES ('3a198723-edb0-21c4-c987-a4008204aea3', '职级', 'PositionLevel', '', 1, '2025-04-27 09:57:52.280499', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-27 11:38:06.630709', '3a172a37-55d5-ee9b-dc92-e07386eadc7c');
+INSERT INTO `sys_dict_type` VALUES ('3a19883b-390e-ff06-2c89-7bcd90b06c7c', '性别', 'Sex', NULL, 1, '2025-04-27 15:02:56.048677', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_loginlog
@@ -409,10 +318,11 @@ CREATE TABLE `sys_loginlog`  (
   `Browser` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '浏览器',
   `OperationMsg` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '浏览器操作信息',
   `IsSuccess` tinyint(1) NOT NULL COMMENT '是否成功',
+  `SessionId` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '会话ID',
   `CreationTime` datetime(6) NOT NULL,
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 117 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '登录日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_loginlog
@@ -439,67 +349,68 @@ CREATE TABLE `sys_menu`  (
   `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `LastModificationTime` datetime(6) NULL DEFAULT NULL,
   `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `IsDeleted` tinyint(1) NOT NULL DEFAULT 0,
-  `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
-  `DeletionTime` datetime(6) NULL DEFAULT NULL,
+  `Component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', '系统管理', NULL, 'ant-design:setting-filled', '/system', 1, NULL, NULL, 2, 0, '{}', '0bfb8102d95c4abfafb1ecf150626aac', '2024-06-15 15:49:13.507249', '3a132908-ca06-34de-164e-21c96505a036', '2024-07-08 22:48:53.115413', '3a13a4f2-568e-41fe-55e7-210cc37b6d8a', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a132d16-df35-09cb-9f50-0a83e8290575', '用户管理', NULL, '', '/system/user', 1, '', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 1, 0, '{}', '24d8c968541b4b0db505dfdf6e49988b', '2024-06-15 16:01:03.300935', '3a132908-ca06-34de-164e-21c96505a036', '2024-07-08 22:56:35.333303', '3a13a4f2-568e-41fe-55e7-210cc37b6d8a', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a132d1f-2026-432a-885f-bf6b10bec15c', '角色管理', NULL, NULL, '/system/roles', 1, NULL, '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 2, 0, '{}', '824ab5eb475348d39d2217e824c826b0', '2024-06-15 16:10:04.215040', '3a132908-ca06-34de-164e-21c96505a036', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a132d1f-e2dd-7447-ac4b-2250201a9bad', '菜单管理', NULL, NULL, '/system/menus', 1, NULL, '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 3, 0, '{}', 'be3c510a07494b09a27b2c4b2d07c0cd', '2024-06-15 16:10:54.046247', '3a132908-ca06-34de-164e-21c96505a036', '2024-06-15 17:34:09.717457', '3a132908-ca06-34de-164e-21c96505a036', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a1356be-ac7a-f1a9-e45e-397a7e841149', '系统字典', NULL, NULL, '/system/dictType', 1, NULL, '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 4, 0, '{}', 'fe80b3e9932e444b9e7db226d2510f23', '2024-06-23 18:08:46.203010', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-01-18 18:41:36.790022', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135caa-6050-b8fa-ba75-6aaf548a7683', '新增', NULL, NULL, NULL, 2, 'admin_system_user_add', '3a132d16-df35-09cb-9f50-0a83e8290575', 1, 0, '{}', 'df39e7ca822c488b9da1be5b28e6c408', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135caa-b115-4de4-3be5-4b3cc477d8f4', '查询', NULL, NULL, NULL, 2, 'admin_system_user_list', '3a132d16-df35-09cb-9f50-0a83e8290575', 2, 0, '{}', '6ce2bf9e4d9742259743f3dc953ba92f', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:44:48.686151', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135cab-3200-f6de-41f9-948404a81884', '删除', NULL, NULL, NULL, 2, 'admin_system_user_delete', '3a132d16-df35-09cb-9f50-0a83e8290575', 3, 0, '{}', '2f4a0fc588ca44d58c446bbf5e21fcf4', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:45:36.981105', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135cab-7acb-41cf-30c4-720eea400b2c', '分配角色', NULL, NULL, NULL, 2, 'admin_system_user_assignrole', '3a132d16-df35-09cb-9f50-0a83e8290575', 4, 0, '{}', 'cfc407a5c15f4186bcaf76c94479bace', '2024-06-24 21:45:31.597928', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135cab-fcbb-1f19-8416-25c218db4279', '启用/禁用', NULL, NULL, NULL, 2, 'admin_system_user_changeenabled', '3a132d16-df35-09cb-9f50-0a83e8290575', 1, 0, '{}', 'a4a5bdbcc4d8405798476a17ec123c53', '2024-06-24 21:46:04.859652', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135cb0-3753-ae33-82fd-603c3622f661', '编辑', NULL, NULL, NULL, 2, 'admin_system_role_update', '3a132d1f-2026-432a-885f-bf6b10bec15c', 4, 0, '{}', '67972f6dc1fd490aa2f3fdad2bac6883', '2024-06-24 21:50:42.004144', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:51:03.142409', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a135cc6-eea2-5551-e3a2-245ff43fcf01', '刷新缓存', NULL, NULL, NULL, 2, 'admin_system_dict_refresh', '3a1356be-ac7a-f1a9-e45e-397a7e841149', 5, 0, '{}', 'aff5b83d52e440da8a2a636560eaac82', '2024-06-24 22:15:30.725052', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a138b11-d573-3e37-298a-c67a014e430b', '日志管理', NULL, NULL, '/logManagement', 1, NULL, '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 5, 0, '{}', '361b2b7c73804b2f845979b4b9780bdd', '2024-07-03 21:59:51.413081', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-07-03 22:00:02.918234', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a138b12-93b5-e723-1539-adaeb17a2ae1', '登录日志', NULL, NULL, '/logManagement/loginLogs', 1, 'admin_system_loginlog_list', '3a138b11-d573-3e37-298a-c67a014e430b', 1, 0, '{}', '6127c487e28f48eb846badcb8d45a370', '2024-07-03 22:00:40.118092', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-07-24 19:59:42.559353', '3a13f1b0-682b-e853-f288-73a653778a85', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a138b13-fccd-7b4a-0bb5-435a9d9c4172', '业务日志', NULL, NULL, '/logManagement/businessLogs', 1, 'admin_system_businesslog_list', '3a138b11-d573-3e37-298a-c67a014e430b', 2, 0, '{}', '3e60c8ee4742449a81eb2042635d1596', '2024-07-03 22:02:12.559269', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-07-24 19:59:52.333522', '3a13f1b0-682b-e853-f288-73a653778a85', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13a4fe-6f74-733b-a628-6125c0325481', '组织架构', NULL, 'ri:user-fill', '/organization', 1, NULL, NULL, 1, 0, '{}', '93e9172908db4ada8fc847d6e2ecad2c', '2024-07-08 22:48:47.742259', '3a13a4f2-568e-41fe-55e7-210cc37b6d8a', '2024-07-08 22:54:10.348666', '3a13a4f2-568e-41fe-55e7-210cc37b6d8a', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bcf2-3701-be8e-4ec8-ad5f77536101', '职位分组', NULL, NULL, '/organization/positionGroup', 1, NULL, '3a13a4fe-6f74-733b-a628-6125c0325481', 1, 0, '{}', '2da10e75eec746a8be0485fd27961cdb', '2024-07-13 14:26:20.046127', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2024-07-13 14:26:29.336149', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bcfc-f11b-7dce-a264-0f34b21085f1', '新增', NULL, NULL, NULL, 2, 'admin_system_positiongroup_add', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 1, 0, '{}', '9a826b054fb34f9ab7fa17c6faf98027', '2024-07-13 14:38:03.055512', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bcfd-52bb-db4a-d508-eea8536c8bdc', '查询', NULL, NULL, NULL, 2, 'admin_system_positiongroup_list', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 2, 0, '{}', '89c73d12d4094672932cec8c676f9dfb', '2024-07-13 14:38:28.028042', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bcfd-90b2-02ef-4440-8062594e3d79', '编辑', NULL, NULL, NULL, 2, 'admin_system_positiongroup_update', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 1, 0, '{}', '624f6ff8e265403db40c9f3ece0ab41a', '2024-07-13 14:38:43.893385', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bcfd-c549-8f84-1941-1d6baccfd6b4', '删除', '', NULL, NULL, 2, 'admin_system_positiongroup_delete', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 1, 0, '{}', '978521f1290347b991792b181b2a8d6a', '2024-07-13 14:38:57.354973', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2024-07-13 14:39:02.834469', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', '职位管理', NULL, NULL, '/organization/position', 1, NULL, '3a13a4fe-6f74-733b-a628-6125c0325481', 2, 0, '{}', 'c0e89e402eb747f4bc920eea1221c810', '2024-07-13 17:52:45.803191', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bdb0-d210-fbaf-ce01-6d658b1b7ec9', '新增', NULL, NULL, NULL, 2, 'admin_system_position_add', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 1, 0, '{}', '57f606dc1d164ee585fef364d6fd735f', '2024-07-13 17:54:31.568625', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bdb1-26a1-79e7-6920-b40e50de0bbe', '查询', '', NULL, NULL, 2, 'admin_system_position_list', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 2, 0, '{}', '52bc36543df24f6dac1714131f5219d5', '2024-07-13 17:54:53.219392', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2024-07-13 17:55:17.296224', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bdb1-742f-1ff2-87d1-b07a807c791f', '编辑', NULL, NULL, NULL, 2, 'admin_system_position_update', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 3, 0, '{}', '1e9dd90dcc14442d8fdb70e6e73c644b', '2024-07-13 17:55:13.072355', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13bdb2-213b-d9fa-d067-287801312ea1', '删除', NULL, NULL, NULL, 2, 'admin_system_position_delete', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 4, 0, '{}', '90b12c1a10f84bf4aee0e6e0784d063a', '2024-07-13 17:55:57.372951', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be18-7fe2-2163-01ba-4a86ca6a7c40', '部门管理', NULL, NULL, '/organization/dept', 1, NULL, '3a13a4fe-6f74-733b-a628-6125c0325481', 3, 0, '{}', '538e75fe37fd4cc39ae6ae5df7e18990', '2024-07-13 19:47:46.294491', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be19-204c-f634-f95f-ef8b7dcd9117', '新增', '', NULL, NULL, 2, 'admin_system_dept_add', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 1, 0, '{}', 'fd9e76e3f569464db3ce31cb234c05f3', '2024-07-13 19:48:27.341268', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be19-6b83-eaa2-0194-a9f17b786109', '查询', NULL, NULL, NULL, 2, 'admin_system_dept_list', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 2, 0, '{}', '9090f8ff34df441190f26b250e3d54ae', '2024-07-13 19:48:46.596368', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be19-a679-8375-aa20-5ab28ad85890', '编辑', NULL, NULL, NULL, 2, 'admin_system_dept_update', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 3, 0, '{}', 'a2794573859e4943874670b579b342f2', '2024-07-13 19:49:01.689374', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be19-d4fe-0a05-3dd1-25310c7bd52a', '删除', '', NULL, NULL, 2, 'admin_system_dept_delete', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 1, 0, '{}', '1d5ef8e9b846479cbc55bf73d20f5fa3', '2024-07-13 19:49:13.598822', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be49-5f19-8ebd-5dda-1cf390060a09', '员工列表', NULL, NULL, '/organization/employee', 1, NULL, '3a13a4fe-6f74-733b-a628-6125c0325481', 4, 0, '{}', 'cecdbe7cd75749248782f450379b2c13', '2024-07-13 20:41:09.171061', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be4b-3b01-f611-e5da-8b3a3dc41cfc', '新增', NULL, NULL, NULL, 2, 'admin_system_employee_add', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 1, 0, '{}', 'a676ba69e17248ed9153710e3e5a8f55', '2024-07-13 20:43:10.978954', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2024-07-13 20:44:33.952170', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be4b-8355-c505-5dd3-15fbe89e2639', '查询', NULL, NULL, NULL, 2, 'admin_system_employee_list', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 2, 0, '{}', '990c7640f41843cfa8faee786190ec74', '2024-07-13 20:43:29.495014', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be4c-2e0e-af01-4432-a4892ff622ab', '编辑', NULL, NULL, NULL, 2, 'admin_system_employee_update', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 3, 0, '{}', '38bd3f28295645c4ab5590251a4b7eae', '2024-07-13 20:44:13.199159', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a13be4c-d335-53c6-15e1-b2a16d9f94e4', '删除', NULL, NULL, NULL, 2, 'admin_system_employee_delete', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 4, 0, '{}', '66d5b6682fda443c818c3e7b2c846432', '2024-07-13 20:44:55.479201', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a1723a7-da37-9340-e106-341f0e17fe6e', '开发工具', NULL, 'mingcute:code-fill', 'developer', 1, NULL, NULL, 4, 0, '{}', 'b7f0503af8034e95986c9b8e469a4966', '2024-12-29 16:14:21.752625', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2025-01-04 11:06:58.787916', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a1723b7-5702-dc80-434f-f639ffcb66ef', '代码生成', NULL, NULL, '/develop/genTable', 1, NULL, '3a1723a7-da37-9340-e106-341f0e17fe6e', 1, 0, '{}', '02295c18cc1d4eaaba0ff3689146d697', '2024-12-29 16:31:16.739378', '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-29 16:33:57.053851', '3a172369-2963-bc18-82bc-b3d0da8c574f', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a174174-857e-2328-55e6-395fcffb3774', '系统监控', NULL, 'icon-park-outline:monitor-two', 'monitor', 1, NULL, NULL, 3, 0, '{}', 'd6b0dcce89d847ea9bd53c329a539bbd', '2025-01-04 11:06:54.207263', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('3a174175-1893-a38e-c4a2-837cd49e79f6', '在线用户', NULL, NULL, '/monitor/onlineUser', 1, NULL, '3a174174-857e-2328-55e6-395fcffb3774', 1, 0, '{}', '2a5665c2697d482eae9358956c33060f', '2025-01-04 11:07:31.859814', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('5c74b782-3231-11ef-afb3-0242ac110003', '编辑', NULL, NULL, NULL, 2, 'admin_system_menu_update', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 4, 0, '{}', '67972f6dc1fd490aa2f3fdad2bac6883', '2024-06-24 21:50:42.004144', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:51:03.142409', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('5c7548d7-3231-11ef-afb3-0242ac110003', '新增', NULL, NULL, NULL, 2, 'admin_system_menu_add', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 1, 0, '{}', 'df39e7ca822c488b9da1be5b28e6c408', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('5c75c0d0-3231-11ef-afb3-0242ac110003', '查询', NULL, NULL, NULL, 2, 'admin_system_menu_list', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 2, 0, '{}', '6ce2bf9e4d9742259743f3dc953ba92f', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:44:48.686151', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('5c767046-3231-11ef-afb3-0242ac110003', '删除', NULL, NULL, NULL, 2, 'admin_system_menu_delete', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 3, 0, '{}', '2f4a0fc588ca44d58c446bbf5e21fcf4', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:45:36.981105', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('7e1b4c13-3231-11ef-afb3-0242ac110003', '编辑', NULL, NULL, NULL, 2, 'admin_system_dict_update', '3a1356be-ac7a-f1a9-e45e-397a7e841149', 4, 0, '{}', '67972f6dc1fd490aa2f3fdad2bac6883', '2024-06-24 21:50:42.004144', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:51:03.142409', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('7e1cbcbf-3231-11ef-afb3-0242ac110003', '新增', NULL, NULL, NULL, 2, 'admin_system_dict_add', '3a1356be-ac7a-f1a9-e45e-397a7e841149', 1, 0, '{}', 'df39e7ca822c488b9da1be5b28e6c408', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('7e1d3cd0-3231-11ef-afb3-0242ac110003', '查询', NULL, NULL, NULL, 2, 'admin_system_dict_list', '3a1356be-ac7a-f1a9-e45e-397a7e841149', 2, 0, '{}', '6ce2bf9e4d9742259743f3dc953ba92f', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:44:48.686151', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('7e1db553-3231-11ef-afb3-0242ac110003', '删除', NULL, NULL, NULL, 2, 'admin_system_dict_delete', '3a1356be-ac7a-f1a9-e45e-397a7e841149', 3, 0, '{}', '2f4a0fc588ca44d58c446bbf5e21fcf4', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:45:36.981105', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('87cd2f63-3230-11ef-afb3-0242ac110003', '新增', NULL, NULL, NULL, 2, 'admin_system_role_add', '3a132d1f-2026-432a-885f-bf6b10bec15c', 1, 0, '{}', 'df39e7ca822c488b9da1be5b28e6c408', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', NULL, NULL, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('9a844856-3230-11ef-afb3-0242ac110003', '查询', NULL, NULL, NULL, 2, 'admin_system_role_list', '3a132d1f-2026-432a-885f-bf6b10bec15c', 2, 0, '{}', '6ce2bf9e4d9742259743f3dc953ba92f', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:44:48.686151', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('9a84d205-3230-11ef-afb3-0242ac110003', '删除', NULL, NULL, NULL, 2, 'admin_system_role_delete', '3a132d1f-2026-432a-885f-bf6b10bec15c', 3, 0, '{}', '2f4a0fc588ca44d58c446bbf5e21fcf4', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:45:36.981105', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES ('9a8546e3-3230-11ef-afb3-0242ac110003', '分配菜单', NULL, NULL, NULL, 2, 'admin_system_role_assignmenu', '3a132d1f-2026-432a-885f-bf6b10bec15c', 5, 0, '{}', '3a37914cba334a039eaabcef9d88260a', '2024-06-24 21:45:31.597928', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2024-06-24 21:51:05.971863', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', 0, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', '系统管理', NULL, 'antd:SettingOutlined', '/system', 1, 'System', NULL, 2, 0, '{}', '9794086f941941f7be26cc8ae202b24c', '2024-06-15 15:49:13.507249', '3a132908-ca06-34de-164e-21c96505a036', '2025-04-28 17:01:06.659173', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a132d16-df35-09cb-9f50-0a83e8290575', '用户管理', NULL, '', '/system/user', 1, 'Sys:User', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 1, 0, '{}', '38cae97c400e4423a0e0f09d06b0f856', '2024-06-15 16:01:03.300935', '3a132908-ca06-34de-164e-21c96505a036', '2025-04-29 20:36:44.432771', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/User');
+INSERT INTO `sys_menu` VALUES ('3a132d1f-2026-432a-885f-bf6b10bec15c', '角色管理', NULL, NULL, '/system/role', 1, 'Sys:Role', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 2, 0, '{}', '9f5abe94c55b4f1b89e72fa6352691d2', '2024-06-15 16:10:04.215040', '3a132908-ca06-34de-164e-21c96505a036', '2025-04-29 20:36:50.353568', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/Role');
+INSERT INTO `sys_menu` VALUES ('3a132d1f-e2dd-7447-ac4b-2250201a9bad', '菜单管理', NULL, NULL, '/system/menu', 1, 'Sys:Menu', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 3, 0, '{}', '4395e566c69c4460b3deafe2813707d9', '2024-06-15 16:10:54.046247', '3a132908-ca06-34de-164e-21c96505a036', '2025-04-29 20:36:55.993564', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/Menu');
+INSERT INTO `sys_menu` VALUES ('3a135caa-6050-b8fa-ba75-6aaf548a7683', '新增', NULL, NULL, NULL, 2, 'Sys.User.Add', '3a132d16-df35-09cb-9f50-0a83e8290575', 1, 0, '{}', 'a0b5b53309dc48b3bb9c52944f0f7b39', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:51:07.324256', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a135caa-b115-4de4-3be5-4b3cc477d8f4', '查询', NULL, NULL, NULL, 2, 'Sys.User.List', '3a132d16-df35-09cb-9f50-0a83e8290575', 2, 0, '{}', '31d71a1d5cb64ea7917ab70e0b5fdfa4', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:51:17.770903', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a135cab-3200-f6de-41f9-948404a81884', '删除', NULL, NULL, NULL, 2, 'Sys.User.Delete', '3a132d16-df35-09cb-9f50-0a83e8290575', 3, 0, '{}', '39ed8009e53d46ccbba51b4af63eeefe', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:52:03.506303', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a135cab-7acb-41cf-30c4-720eea400b2c', '分配角色', NULL, NULL, NULL, 2, 'Sys.User.AssignRole', '3a132d16-df35-09cb-9f50-0a83e8290575', 4, 0, '{}', '6966861b046341759a952fdb9234d3a0', '2024-06-24 21:45:31.597928', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:52:13.678473', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a135cab-fcbb-1f19-8416-25c218db4279', '启用/禁用', NULL, NULL, NULL, 2, 'Sys.User.SwitchEnabledStatus', '3a132d16-df35-09cb-9f50-0a83e8290575', 5, 0, '{}', '389974c17e114f28a571f79ef3696aaa', '2024-06-24 21:46:04.859652', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:51:41.139399', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a135cb0-3753-ae33-82fd-603c3622f661', '编辑', NULL, NULL, NULL, 2, 'Sys.Role.Update', '3a132d1f-2026-432a-885f-bf6b10bec15c', 3, 0, '{}', 'ffd9777ffbfc4e01b9dc54ded78b0c53', '2024-06-24 21:50:42.004144', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:53:16.859118', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a138b11-d573-3e37-298a-c67a014e430b', '日志管理', NULL, NULL, '/system/log', 1, 'Sys:Log', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 6, 0, '{}', 'f21d561c09cc464e8bca12a692772a4d', '2024-07-03 21:59:51.413081', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:37:18.078221', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a138b12-93b5-e723-1539-adaeb17a2ae1', '登录日志', NULL, NULL, '/system/log/login', 1, 'Sys:Log:Login', '3a138b11-d573-3e37-298a-c67a014e430b', 1, 0, '{}', 'f3ece4b4f9fe4ec3b069b04672f8368c', '2024-07-03 22:00:40.118092', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:37:35.345770', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/Log/LoginLog');
+INSERT INTO `sys_menu` VALUES ('3a138b13-fccd-7b4a-0bb5-435a9d9c4172', '业务日志', NULL, NULL, '/system/log/business', 1, 'Sys:Log:Business', '3a138b11-d573-3e37-298a-c67a014e430b', 2, 0, '{}', 'c7e05ffb2b7a4571ac20f785be896cf5', '2024-07-03 22:02:12.559269', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:37:42.404550', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/Log/BusinessLog');
+INSERT INTO `sys_menu` VALUES ('3a13a4fe-6f74-733b-a628-6125c0325481', '组织架构', NULL, 'antd:TeamOutlined', '/org', 1, 'Org', NULL, 1, 0, '{}', 'e23212cc082f44d9883bddb89cb8522e', '2024-07-08 22:48:47.742259', '3a13a4f2-568e-41fe-55e7-210cc37b6d8a', '2025-04-28 17:00:59.620913', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bcf2-3701-be8e-4ec8-ad5f77536101', '职位分组', NULL, NULL, '/org/position-group', 1, 'Org:PositionGroup', '3a13a4fe-6f74-733b-a628-6125c0325481', 1, 0, '{}', 'c931e2376246445e99ee07e978b8f60d', '2024-07-13 14:26:20.046127', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:36:13.199232', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './Org/PositionGroup');
+INSERT INTO `sys_menu` VALUES ('3a13bcfc-f11b-7dce-a264-0f34b21085f1', '新增', NULL, NULL, NULL, 2, 'Org.PositionGroup.Add', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 1, 0, '{}', '248ba847b0244d46aa9c575939485195', '2024-07-13 14:38:03.055512', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:45:39.341082', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bcfd-52bb-db4a-d508-eea8536c8bdc', '查询', NULL, NULL, NULL, 2, 'Org.PositionGroup.List', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 2, 0, '{}', '389c6208807648789c8af475bcf93336', '2024-07-13 14:38:28.028042', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:45:50.604507', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bcfd-90b2-02ef-4440-8062594e3d79', '编辑', NULL, NULL, NULL, 2, 'Org.PositionGroup.Update', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 3, 0, '{}', 'd1405aaba9cc4f889d23b52369cb0e77', '2024-07-13 14:38:43.893385', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:46:23.289169', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bcfd-c549-8f84-1941-1d6baccfd6b4', '删除', '', NULL, NULL, 2, 'Org.PositionGroup.Delete', '3a13bcf2-3701-be8e-4ec8-ad5f77536101', 4, 0, '{}', '1e47c444c102435facaa6a0caa4ed317', '2024-07-13 14:38:57.354973', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:46:41.331844', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', '职位管理', NULL, NULL, '/org/position', 1, 'Org:Position', '3a13a4fe-6f74-733b-a628-6125c0325481', 2, 0, '{}', '1ee1548ca01e4ef4b3ce681a632353ac', '2024-07-13 17:52:45.803191', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:36:20.582159', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './Org/Position');
+INSERT INTO `sys_menu` VALUES ('3a13bdb0-d210-fbaf-ce01-6d658b1b7ec9', '新增', NULL, NULL, NULL, 2, 'Org.Position.Add', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 1, 0, '{}', 'bf7d1e73fc3246aca097e4dbe03051fb', '2024-07-13 17:54:31.568625', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:46:59.032454', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bdb1-26a1-79e7-6920-b40e50de0bbe', '查询', '', NULL, NULL, 2, 'Org.Position.List', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 2, 0, '{}', '6b1bf89db81e4323ab4d80d949e6292e', '2024-07-13 17:54:53.219392', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:47:09.010474', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bdb1-742f-1ff2-87d1-b07a807c791f', '编辑', NULL, NULL, NULL, 2, 'Org.Position.Update', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 3, 0, '{}', '5de3b7d0e0404512852633ce747bf47c', '2024-07-13 17:55:13.072355', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:47:21.211547', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13bdb2-213b-d9fa-d067-287801312ea1', '删除', NULL, NULL, NULL, 2, 'Org.Position.Delete', '3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', 4, 0, '{}', '7729f55fffda458a92949d164419168a', '2024-07-13 17:55:57.372951', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:47:31.856772', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be18-7fe2-2163-01ba-4a86ca6a7c40', '部门管理', NULL, NULL, '/org/dept', 1, 'Org:Department', '3a13a4fe-6f74-733b-a628-6125c0325481', 3, 0, '{}', '9eebf993836645a8a1ce41403037a8d8', '2024-07-13 19:47:46.294491', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:36:27.150538', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './Org/Department');
+INSERT INTO `sys_menu` VALUES ('3a13be19-204c-f634-f95f-ef8b7dcd9117', '新增', '', NULL, NULL, 2, 'Org.Dept.Add', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 1, 0, '{}', '6d009e7401204af695b5c88447281362', '2024-07-13 19:48:27.341268', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:48:59.893869', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be19-6b83-eaa2-0194-a9f17b786109', '查询', NULL, NULL, NULL, 2, 'Org.Dept.List', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 2, 0, '{}', '3be3331527094f5db07b09325fe4dff0', '2024-07-13 19:48:46.596368', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:49:23.612289', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be19-a679-8375-aa20-5ab28ad85890', '编辑', NULL, NULL, NULL, 2, 'Org.Dept.Update', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 3, 0, '{}', '1f2d92eb3e3c4149a89781c1fc56d280', '2024-07-13 19:49:01.689374', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:49:33.553887', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be19-d4fe-0a05-3dd1-25310c7bd52a', '删除', '', NULL, NULL, 2, 'Org.Dept.Delete', '3a13be18-7fe2-2163-01ba-4a86ca6a7c40', 4, 0, '{}', '892c10c9223c4bc4aa92a1b998bf961b', '2024-07-13 19:49:13.598822', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:49:51.518226', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be49-5f19-8ebd-5dda-1cf390060a09', '员工列表', NULL, NULL, '/org/employee', 1, 'Org:Employee', '3a13a4fe-6f74-733b-a628-6125c0325481', 4, 0, '{}', '61de35900d1941ab83e173903b48185e', '2024-07-13 20:41:09.171061', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:36:32.587813', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './Org/Employee');
+INSERT INTO `sys_menu` VALUES ('3a13be4b-3b01-f611-e5da-8b3a3dc41cfc', '新增', NULL, NULL, NULL, 2, 'Org.Employee.Add', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 1, 0, '{}', '6654d0519e374bb686ae53f5c9f89bb1', '2024-07-13 20:43:10.978954', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:47:54.367167', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be4b-8355-c505-5dd3-15fbe89e2639', '查询', NULL, NULL, NULL, 2, 'Org.Employee.List', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 2, 0, '{}', '16c475a8816941c7969963a4dd44b9d5', '2024-07-13 20:43:29.495014', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:48:06.234935', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be4c-2e0e-af01-4432-a4892ff622ab', '编辑', NULL, NULL, NULL, 2, 'Org.Employee.Update', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 3, 0, '{}', 'b6130cee13374966aeacc7fa81e630a4', '2024-07-13 20:44:13.199159', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:48:17.084888', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a13be4c-d335-53c6-15e1-b2a16d9f94e4', '删除', NULL, NULL, NULL, 2, 'Org.Employee.Delete', '3a13be49-5f19-8ebd-5dda-1cf390060a09', 4, 0, '{}', 'c5e13e092d4445b999a21ad455e9638c', '2024-07-13 20:44:55.479201', '3a13bc48-e3c9-4c0b-0cc4-b6fc4e606741', '2025-04-29 20:48:28.036373', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a174174-857e-2328-55e6-395fcffb3774', '系统监控', NULL, 'antd:FundOutlined', '/monitor', 1, 'Monitor', NULL, 3, 0, '{}', '6417b79624f247bb988c9a03c5f6b1a9', '2025-01-04 11:06:54.207263', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-28 17:01:14.281866', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a174175-1893-a38e-c4a2-837cd49e79f6', '在线用户', NULL, NULL, '/monitor/online-user', 1, 'Monitor:OnlineUser', '3a174174-857e-2328-55e6-395fcffb3774', 1, 0, '{}', 'c7eaa7d2d9ec4dfc9c0d3c2532653c1c', '2025-01-04 11:07:31.859814', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-29 20:37:53.890983', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './Monitor/OnlineUser');
+INSERT INTO `sys_menu` VALUES ('3a198c3b-bf80-dce3-f433-f9f221339227', '数据字典', NULL, NULL, '/system/dict', 1, 'Sys:Dict', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 4, 0, '{}', 'd02724bf21bf493687e8b59f71f0dd33', '2025-04-28 09:41:59.312747', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-29 20:37:01.689127', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/Dict/DictType');
+INSERT INTO `sys_menu` VALUES ('3a198d86-8791-5c15-2dac-dada4eeda0fd', '字典项', NULL, NULL, '/system/dict-item/:dictType', 1, 'Sys:DictData', '3a132d0c-0a70-b4c5-1ffd-1088c23ae02a', 5, 1, '{}', '72ece5f2492344d78c835ded620d2d9f', '2025-04-28 15:43:17.394293', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-29 20:37:12.475837', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', './System/Dict/DictData');
+INSERT INTO `sys_menu` VALUES ('3a1993c1-445d-b8d0-32e8-d0dfeff83a05', '注销', NULL, NULL, NULL, 2, 'Monitor.Logout', '3a174175-1893-a38e-c4a2-837cd49e79f6', 1, 0, '{}', '08926cd1a43840318719093cfe85b98c', '2025-04-29 20:45:10.110740', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993cc-dce1-53b9-c08b-9b77b244263a', '新增', NULL, NULL, NULL, 2, 'Sys.DictType.Add', '3a198c3b-bf80-dce3-f433-f9f221339227', 1, 0, '{}', '4cff9bc7e6b245de8f2bda4d462848e5', '2025-04-29 20:57:50.052293', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-29 20:58:03.675259', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993ce-9de3-0234-d9b4-3c7012f7e361', '查询', NULL, NULL, NULL, 2, 'Sys.DictType.List', '3a198c3b-bf80-dce3-f433-f9f221339227', 2, 0, '{}', '1c8950c615534e58a31faf9b3e47d1ee', '2025-04-29 20:59:45.015479', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993cf-45ce-6733-402a-63161432073c', '编辑', NULL, NULL, NULL, 2, 'Sys.DictType.Update', '3a198c3b-bf80-dce3-f433-f9f221339227', 3, 0, '{}', 'a5ad9e6261e2419fa844419e65f4ba9b', '2025-04-29 21:00:27.983718', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993d0-7b90-8d33-94c7-f9138a5711c0', '删除', NULL, NULL, '', 2, 'Sys.DictType.Delete', '3a198c3b-bf80-dce3-f433-f9f221339227', 4, 0, '{}', 'e65323fba3044bf4a90abad1788e10ed', '2025-04-29 21:01:47.281134', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993d0-db1b-1ff9-1ce2-85ca968e7e64', '新增', NULL, NULL, NULL, 2, 'Sys.DictData.Add', '3a198d86-8791-5c15-2dac-dada4eeda0fd', 1, 0, '{}', '29f767b493844e6fac8e8de889844a66', '2025-04-29 21:02:11.740137', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993d1-2120-d4d2-e8e9-51b29d3c5cd8', '查询', NULL, NULL, NULL, 2, 'Sys.DictData.List', '3a198d86-8791-5c15-2dac-dada4eeda0fd', 2, 0, '{}', 'b1955ccab2b14c229035dff5f3307c45', '2025-04-29 21:02:29.664810', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-29 21:02:39.750796', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993d2-1130-66f0-ca47-f3d73f9fb857', '编辑', NULL, NULL, NULL, 2, 'Sys.DictData.Update', '3a198d86-8791-5c15-2dac-dada4eeda0fd', 3, 0, '{}', '58f41cc48545497cb199c85bcd5865b6', '2025-04-29 21:03:31.121607', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('3a1993d2-62aa-5257-9d47-0d2b1548f5f1', '删除', NULL, NULL, NULL, 2, 'Sys.DictData.Delete', '3a198d86-8791-5c15-2dac-dada4eeda0fd', 1, 0, '{}', 'f108060513d9498689aab8f33fabc762', '2025-04-29 21:03:51.978444', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES ('5c74b782-3231-11ef-afb3-0242ac110003', '编辑', NULL, NULL, NULL, 2, 'Sys.Menu.Update', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 3, 0, '{}', '313054bc35ac431b8eadd009c8c61da2', '2024-06-24 21:50:42.004144', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:55:24.956527', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('5c7548d7-3231-11ef-afb3-0242ac110003', '新增', NULL, NULL, NULL, 2, 'Sys.Menu.Add', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 1, 0, '{}', '141da654183445569777157a86c66f87', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:54:56.609943', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('5c75c0d0-3231-11ef-afb3-0242ac110003', '查询', NULL, NULL, NULL, 2, 'Sys.Menu.List', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 2, 0, '{}', '936661f6595449a5842cee9023b750a1', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:55:11.073904', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('5c767046-3231-11ef-afb3-0242ac110003', '删除', NULL, NULL, NULL, 2, 'Sys.Menu.Delete', '3a132d1f-e2dd-7447-ac4b-2250201a9bad', 4, 0, '{}', 'a3ac6d5af0db49cc91e1b3583d7c1bb2', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:55:35.173080', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('87cd2f63-3230-11ef-afb3-0242ac110003', '新增', NULL, NULL, NULL, 2, 'Sys.Role.Add', '3a132d1f-2026-432a-885f-bf6b10bec15c', 1, 0, '{}', 'ef11ebd27eed4b55bf5991ecb8bd3b90', '2024-06-24 21:44:19.284329', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:52:43.815643', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('9a844856-3230-11ef-afb3-0242ac110003', '查询', NULL, NULL, NULL, 2, 'Sys.Role.List', '3a132d1f-2026-432a-885f-bf6b10bec15c', 2, 0, '{}', 'f3ce283cd40546fbbd67f62582301c11', '2024-06-24 21:44:39.957889', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:52:56.276398', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('9a84d205-3230-11ef-afb3-0242ac110003', '删除', NULL, NULL, NULL, 2, 'Sys.Role.Delete', '3a132d1f-2026-432a-885f-bf6b10bec15c', 4, 0, '{}', 'af013d985288474daeb518dfa508ebfc', '2024-06-24 21:45:12.961588', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:53:34.572696', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
+INSERT INTO `sys_menu` VALUES ('9a8546e3-3230-11ef-afb3-0242ac110003', '分配菜单', NULL, NULL, NULL, 2, 'Sys.Role.AssignMenu', '3a132d1f-2026-432a-885f-bf6b10bec15c', 5, 0, '{}', 'fdce7f69ec6c4d84b0da999479220992', '2024-06-24 21:45:31.597928', '3a1356b8-6f63-a393-1f8d-4ab9dc4914f4', '2025-04-29 20:53:58.447933', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -519,12 +430,14 @@ CREATE TABLE `sys_role`  (
   `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES ('3a172369-28a4-e37e-b78a-8c3eaec17359', '系统管理员', '系统默认创建，拥有最高权限', '{}', '5862c3d6e35f4ac3afe9dee4914acd47', '2024-12-29 15:05:53.128472', NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `sys_role` VALUES ('3a197cba-ed3a-6ee1-9473-09a7a7e25daa', '121212', '121212', '{}', 'eed03c6bee3147ba8182de328082a699', '2025-04-25 09:26:58.618609', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-25 09:27:03.286007', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 1, '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-25 09:27:03.282872');
+INSERT INTO `sys_role` VALUES ('3a197d12-8029-fce1-561f-031c40698e18', '部门主管', NULL, '{}', '943598dd18744ebe927d5d75182279ae', '2025-04-25 11:02:37.866353', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-28 10:49:02.032214', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_rolemenu
@@ -534,14 +447,41 @@ CREATE TABLE `sys_rolemenu`  (
   `MenuId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT '菜单ID',
   `RoleId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`RoleId`, `MenuId`) USING BTREE,
-  INDEX `IX_SysRoleMenu_MenuId`(`MenuId` ASC) USING BTREE,
   INDEX `IX_sys_rolemenu_MenuId`(`MenuId` ASC) USING BTREE,
-  CONSTRAINT `FK_SysRoleMenu_SysMenu_MenuId` FOREIGN KEY (`MenuId`) REFERENCES `sys_menu` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `FK_SysRoleMenu_SysRole_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `sys_role` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `FK_sys_rolemenu_sys_menu_MenuId` FOREIGN KEY (`MenuId`) REFERENCES `sys_menu` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `FK_sys_rolemenu_sys_role_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `sys_role` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_rolemenu
+-- ----------------------------
+INSERT INTO `sys_rolemenu` VALUES ('3a13a4fe-6f74-733b-a628-6125c0325481', '3a197d12-8029-fce1-561f-031c40698e18');
+INSERT INTO `sys_rolemenu` VALUES ('3a13bcf2-3701-be8e-4ec8-ad5f77536101', '3a197d12-8029-fce1-561f-031c40698e18');
+INSERT INTO `sys_rolemenu` VALUES ('3a13bcfc-f11b-7dce-a264-0f34b21085f1', '3a197d12-8029-fce1-561f-031c40698e18');
+INSERT INTO `sys_rolemenu` VALUES ('3a13bcfd-52bb-db4a-d508-eea8536c8bdc', '3a197d12-8029-fce1-561f-031c40698e18');
+INSERT INTO `sys_rolemenu` VALUES ('3a13bdaf-34ea-bf3c-c7eb-1d1cfd91d361', '3a197d12-8029-fce1-561f-031c40698e18');
+INSERT INTO `sys_rolemenu` VALUES ('3a13bdb0-d210-fbaf-ce01-6d658b1b7ec9', '3a197d12-8029-fce1-561f-031c40698e18');
+INSERT INTO `sys_rolemenu` VALUES ('3a13bdb1-26a1-79e7-6920-b40e50de0bbe', '3a197d12-8029-fce1-561f-031c40698e18');
+
+-- ----------------------------
+-- Table structure for sys_tenant
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_tenant`;
+CREATE TABLE `sys_tenant`  (
+  `Id` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL,
+  `Name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '租户名称',
+  `ConnectionString` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '连接字符串',
+  `RedisConnection` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Redis连接',
+  `Remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
+  `CreationTime` datetime(6) NOT NULL,
+  `CreatorId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
+  `LastModificationTime` datetime(6) NULL DEFAULT NULL,
+  `LastModifierId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '租户表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of sys_tenant
 -- ----------------------------
 
 -- ----------------------------
@@ -567,13 +507,13 @@ CREATE TABLE `sys_user`  (
   `DeleterId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NULL DEFAULT NULL,
   `DeletionTime` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('3a172369-2963-bc18-82bc-b3d0da8c574f', 'admin', '71e024f12c38ff5198e3ee4f60e2f1f9', 'iqbglILuEZHo/sSWGijq/w==', 'avatar/female.png', 'admin', 0, 1, '{}', '66da00fc0f74480f918d104b2bd4d049', '2024-12-29 15:05:53.280210', NULL, '2024-12-30 22:48:29.757325', '3a172369-2963-bc18-82bc-b3d0da8c574f', 1, '3a172369-2963-bc18-82bc-b3d0da8c574f', '2024-12-30 22:48:29.755398');
-INSERT INTO `sys_user` VALUES ('3a172a37-55d5-ee9b-dc92-e07386eadc7c', 'admin', '1ca143469f2fc8cd6f9a14fcd06afe4b', '37+r+a1tqkgurohuVkxTJg==', 'avatar/female.png', 'admin', 0, 1, '{}', 'c4930835d0ae4b4595b70ef27ef30256', '2024-12-30 22:48:48.457636', NULL, '2025-01-04 17:28:00.780241', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
+INSERT INTO `sys_user` VALUES ('3a172a37-55d5-ee9b-dc92-e07386eadc7c', 'admin', '07adb07c44884292e13ffeb4dea8668f', 'ehdOJOf/roWvyWn/GddGwQ==', 'http://localhost:5000/file/default/a74bb0c10e2048c5a4c63cac59aba808.jpg', 'admin', 2, 1, '{}', 'ad77eedb27c64a59ba633a8a200db4ae', '2024-12-30 22:48:48.457636', NULL, '2025-04-28 10:46:53.382563', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
+INSERT INTO `sys_user` VALUES ('3a198c7a-47c3-7d79-13b8-282b3dd60b05', 'cracker', 'c45e5d9b0971c47b92144a15afc8c951', '1vLpyt4/YkX+2zCvImTaTg==', 'http://localhost:5000/file/avatar/male.png', 'cracker', 1, 1, '{}', '8a31646f98044c58ac50c4a187fbf33b', '2025-04-28 10:50:17.412826', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', '2025-04-29 20:41:29.281355', '3a172a37-55d5-ee9b-dc92-e07386eadc7c', 0, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_userrole
@@ -583,16 +523,15 @@ CREATE TABLE `sys_userrole`  (
   `UserId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT '用户ID',
   `RoleId` char(36) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`UserId`, `RoleId`) USING BTREE,
-  INDEX `IX_SysUserRole_RoleId`(`RoleId` ASC) USING BTREE,
   INDEX `IX_sys_userrole_RoleId`(`RoleId` ASC) USING BTREE,
-  CONSTRAINT `FK_SysUserRole_SysRole_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `sys_role` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `FK_SysUserRole_SysUser_UserId` FOREIGN KEY (`UserId`) REFERENCES `sys_user` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色关联表' ROW_FORMAT = Dynamic;
+  CONSTRAINT `FK_sys_userrole_sys_role_RoleId` FOREIGN KEY (`RoleId`) REFERENCES `sys_role` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `FK_sys_userrole_sys_user_UserId` FOREIGN KEY (`UserId`) REFERENCES `sys_user` (`Id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_userrole
 -- ----------------------------
-INSERT INTO `sys_userrole` VALUES ('3a172369-2963-bc18-82bc-b3d0da8c574f', '3a172369-28a4-e37e-b78a-8c3eaec17359');
 INSERT INTO `sys_userrole` VALUES ('3a172a37-55d5-ee9b-dc92-e07386eadc7c', '3a172369-28a4-e37e-b78a-8c3eaec17359');
+INSERT INTO `sys_userrole` VALUES ('3a198c7a-47c3-7d79-13b8-282b3dd60b05', '3a197d12-8029-fce1-561f-031c40698e18');
 
 SET FOREIGN_KEY_CHECKS = 1;
